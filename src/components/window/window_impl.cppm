@@ -12,11 +12,14 @@ module;
 #include <iostream>
 export module window:impl;
 import :interface;
+import logger;
 namespace bik::window {
     Window::Window() {
+        logger::getLogger()->info("Window::Window()");
     }
 
     Window::~Window() {
+        logger::getLogger()->info("Window::~Window()");
     }
 
     void Window::hw() {

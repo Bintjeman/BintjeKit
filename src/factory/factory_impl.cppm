@@ -21,9 +21,11 @@ namespace bik::factory {
     }
 
     Factory::~Factory() {
+        logger::getLogger()->info("Factory::~Factory()");
     }
 
     std::shared_ptr<window::Window> Factory::create_window() {
+        logger::getLogger()->info("Factory::create_window()");
         return std::make_shared<window::Window>();
     }
 }
