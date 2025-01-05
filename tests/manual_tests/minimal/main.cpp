@@ -20,5 +20,7 @@ int main() {
     core.hw();
     bik::core::Core core_2(std::make_unique<min::Child>());
     core_2.hw();
+    bik::core::Core core_3;
+    core_3.hw();
     return 0;
 }

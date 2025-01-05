@@ -16,14 +16,20 @@ export import factory;
 namespace bik::core {
     export class Core {
     public:
-        Core(std::unique_ptr<factory::Factory> factory);
+        explicit Core(std::unique_ptr<factory::Factory> factory);
 
         ~Core();
-
-        void hw();
 
     private:
         std::unique_ptr<factory::Factory> factory_;
         std::shared_ptr<window::Window> window_;
+
+        // Debug et test
+    public:
+        [[deprecated("Seulement pour des tests")]]
+        Core();
+
+        [[deprecated("Seulement pour des tests")]]
+        void hw();
     };
 }

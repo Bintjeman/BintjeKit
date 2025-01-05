@@ -15,6 +15,10 @@ import :interface;
 import window;
 import factory;
 namespace bik::core {
+    Core::Core() {
+        factory_ = std::make_unique<factory::Factory>();
+    }
+
     Core::Core(std::unique_ptr<factory::Factory> factory) {
         factory_ = std::move(factory);
         window_ = factory_->create_window();
