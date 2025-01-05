@@ -10,11 +10,14 @@
  */
 module;
 #include <memory>
+// #include <spdlog/spdlog.h>
 export module factory:impl;
 import :interface;
 import window;
+import logger;
 namespace bik::factory {
     Factory::Factory() {
+        logger::getLogger()->info("Factory::Factory()");
     }
 
     Factory::~Factory() {

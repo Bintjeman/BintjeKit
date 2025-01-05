@@ -12,3 +12,6 @@ module;
 export module logger;
 export import :interface;
 import :impl;
+namespace bik {
+    export using logger = utils::logger::Logger;
+}
