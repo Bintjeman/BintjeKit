@@ -13,8 +13,13 @@ namespace bik::window {
     export class Window {
     public:
         Window();
+
         virtual ~Window();
+
+        // Debug et test
+        [[deprecated("Seulement pour des tests")]]
         virtual void hw();
+
     private:
     };
 }
