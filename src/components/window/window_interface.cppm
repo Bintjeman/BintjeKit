@@ -17,12 +17,12 @@ namespace bik::window {
         Window();
         ~Window() override;
 
-        void configure();
-        void initialize();
-        void open();
-        void finalize();
+        virtual void configure();
+        virtual void initialize();
+        virtual void open();
+        virtual void finalize();
 
-    private:
+    protected:
         std::string start_title_{};
         sf::Vector2u start_size_{200, 200};
         sf::Vector2i start_pos_{100, 100};
