@@ -17,14 +17,13 @@ export module settings_manager:impl;
 import :interface;
 namespace bik::config {
 
-    // --- Implémentation de la classe Node ---
+    // --- Implémentation de Node ---
     Node::Node(std::shared_ptr<Json> json, const std::string& root)
         : json_(std::move(json)), root_(root) {}
 
     template <typename T>
     T Node::get(const std::string& key, const T& defaultValue) const {
-        auto fullKey = root_ + key;
-        Json::json_pointer p(fullKey);
+        Json::json_pointer p(root_ + key);
         if (!json_->contains(p)) {
             return defaultValue;
         }
@@ -33,8 +32,7 @@ namespace bik::config {
 
     template <typename T>
     T Node::get_or_set(const std::string& key, const T& defaultValue) {
-        auto fullKey = root_ + key;
-        Json::json_pointer p(fullKey);
+        Json::json_pointer p(root_ + key);
         if (!json_->contains(p)) {
             (*json_)[p] = defaultValue;
         }
@@ -43,13 +41,27 @@ namespace bik::config {
 
     template <typename T>
     void Node::set(const std::string& key, const T& value) {
-        auto fullKey = root_ + key;
-        Json::json_pointer p(fullKey);
+        Json::json_pointer p(root_ + key);
         (*json_)[p] = value;
     }
 
-    // --- Implémentation de la classe Settings ---
-    Settings::Settings() : Node(std::make_shared<Json>(), "/") {}
+    std::string Node::build_full_key(const std::string& key) const {
+        if (root_.empty() || root_ == "/") {
+            return key; // Racine directe : pas besoin de préfixer
+        }
+        if (key.empty()) {
+            return root_; // Si la clé elle-même est vide
+        }
+        // Ajouter proprement la racine et la clé
+        return root_ + (key[0] == '/' ? key : "/" + key);
+    }
+
+    Node Node::create_child(const std::string& key) {
+        return Node(json_, build_full_key(key));
+    }
+
+    // --- Implémentation de Settings ---
+    Settings::Settings() : Node(std::make_shared<Json>()) {}
 
     void Settings::load(const std::string& filepath) {
         std::ifstream file(filepath);
@@ -64,12 +76,10 @@ namespace bik::config {
         if (!file.is_open()) {
             throw std::runtime_error("Impossible d'écrire dans le fichier JSON : " + filepath);
         }
-        file << json_->dump(4); // Beautifié avec 4 espaces
+        file << json_->dump(4); // Beautification
     }
-    Node Settings::create_child(const std::string& key) {
-        return Node(json_, root_ + key + "/");
-    }
-    // --- Implémentation de la classe Child ---
+
+    // --- Implémentation de Child ---
     Child::Child(std::shared_ptr<Json> json, const std::string& root)
         : Node(std::move(json), root) {}
 
