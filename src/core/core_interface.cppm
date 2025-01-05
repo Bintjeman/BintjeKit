@@ -12,13 +12,18 @@ module;
 #include <memory>
 export module core:interface;
 import window;
+export import factory;
 namespace bik::core {
     export class Core {
     public:
-        Core();
+        Core(std::unique_ptr<factory::Factory> factory);
+
+        ~Core();
+
         void hw();
 
     private:
+        std::unique_ptr<factory::Factory> factory_;
         std::shared_ptr<window::Window> window_;
     };
 }

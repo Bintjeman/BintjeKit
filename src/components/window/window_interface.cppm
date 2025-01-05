@@ -12,8 +12,9 @@ export module window:interface;
 namespace bik::window {
     export class Window {
     public:
-        void hw();
-        private:
+        Window();
+        virtual ~Window();
+        virtual void hw();
+    private:
     };
-
 }
