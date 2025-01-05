@@ -9,6 +9,7 @@
  *
  */
 #include <memory>
+#include "tools/logger/logger_define.hpp"
 import core;
 import factory;
 import factory_child;
@@ -17,6 +18,8 @@ int main() {
     bik::utils::logger::Logger::init();
     auto& logger = bik::utils::logger::Logger::getLogger();
     logger->info("TEst");
+    LOGGER->info("Test define");
+    LOGGER->flush();
     std::unique_ptr<bik::factory::Factory> factory = std::make_unique<bik::factory::Factory>();
     bik::core::Core core(std::move(factory));
     core.hw();

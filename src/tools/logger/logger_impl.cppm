@@ -18,7 +18,7 @@ namespace bik::utils::logger {
     std::shared_ptr<spdlog::logger> Logger::logger_ = nullptr;
 
     void Logger::init(const std::string &filePath, spdlog::level::level_enum logLevel) {
-        logger_ = spdlog::basic_logger_mt("logger", filePath);
+        logger_ = spdlog::basic_logger_mt("logger", filePath, true);
         logger_->set_level(logLevel);
     }
 
