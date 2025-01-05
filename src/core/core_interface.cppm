@@ -20,7 +20,13 @@ namespace bik::core {
 
         ~Core();
 
+        void configure();
+        void initialize();
+        void run();
+        void finalize();
+
     private:
+        void create_components();
         std::unique_ptr<factory::Factory> factory_;
         std::shared_ptr<window::Window> window_;
 

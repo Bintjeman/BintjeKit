@@ -16,15 +16,35 @@ import window;
 import factory;
 namespace bik::core {
     Core::Core() {
+
+
         factory_ = std::make_unique<factory::Factory>();
+        initialize();
     }
 
     Core::Core(std::unique_ptr<factory::Factory> factory) {
         factory_ = std::move(factory);
-        window_ = factory_->create_window();
+        initialize();
     }
 
     Core::~Core() {
+    }
+
+    void Core::configure() {
+    }
+
+    void Core::initialize() {
+        create_components();
+    }
+
+    void Core::run() {
+    }
+
+    void Core::finalize() {
+    }
+
+    void Core::create_components() {
+        window_ = factory_->create_window();
     }
 
     void Core::hw() {
