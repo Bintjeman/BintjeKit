@@ -79,8 +79,4 @@ namespace bik::config {
         file << json_->dump(4); // Beautification
     }
 
-    // --- Implémentation de Child ---
-    Child::Child(std::shared_ptr<Json> json, const std::string& root)
-        : Node(std::move(json), root) {}
-
 } // namespace bik::config

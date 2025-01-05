@@ -54,9 +54,4 @@ namespace bik::config {
 
     };
 
-    // Classe Child : Une sous-branche JSON
-    export class Child : public Node {
-    public:
-        Child(std::shared_ptr<Json> json, const std::string& root);
-    };
 }
