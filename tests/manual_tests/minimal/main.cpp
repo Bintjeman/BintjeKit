@@ -12,7 +12,7 @@
 import core;
 int main() {
     std::cout << "Hello, World!" << std::endl;
-    bik::Core core;
+    bik::core::Core core;
     core.hw();
     return 0;
 }

@@ -8,11 +8,17 @@
  * @details 
  *
  */
+module;
+#include <memory>
 export module core:interface;
-namespace bik {
+import window;
+namespace bik::core {
     export class Core {
     public:
+        Core();
         void hw();
-    };
 
+    private:
+        std::shared_ptr<window::Window> window_;
+    };
 }
