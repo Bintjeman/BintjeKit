@@ -17,7 +17,6 @@ namespace bik::core {
     export class Core {
     public:
         explicit Core(std::unique_ptr<factory::Factory> factory);
-
         ~Core();
 
         void configure();
@@ -27,6 +26,7 @@ namespace bik::core {
 
     private:
         void create_components();
+
         std::unique_ptr<factory::Factory> factory_;
         std::shared_ptr<window::Window> window_;
 

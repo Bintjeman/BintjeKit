@@ -8,14 +8,26 @@
  * @details 
  *
  */
+module;
+#include <SFML/Graphics/RenderWindow.hpp>
 export module window:interface;
 namespace bik::window {
-    export class Window {
+    export class Window : public sf::RenderWindow {
     public:
         Window();
+        ~Window() override;
 
-        virtual ~Window();
+        void configure();
+        void initialize();
+        void open();
+        void finalize();
 
+    private:
+        std::string start_title_{};
+        sf::Vector2u start_size_{200, 200};
+        sf::Vector2i start_pos_{100, 100};
+
+    public:
         // Debug et test
         [[deprecated("Seulement pour des tests")]]
         virtual void hw();

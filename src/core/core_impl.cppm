@@ -10,6 +10,8 @@
  */
 module;
 #include <iostream>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/VideoMode.hpp>
 export module core:impl;
 import :interface;
 import window;
@@ -39,10 +41,20 @@ namespace bik::core {
     void Core::initialize() {
         logger::getLogger()->info("Core::initialize()");
         create_components();
+        window_->configure();
+        window_->initialize();
     }
 
     void Core::run() {
         logger::getLogger()->info("Core::run()");
+        window_->open();
+        while (window_->isOpen()) {
+            while (const std::optional event = window_->pollEvent()) {
+                // "close requested" event: we close the window
+                if (event->is<sf::Event::Closed>())
+                    window_->close();
+            }
+        }
     }
 
     void Core::finalize() {

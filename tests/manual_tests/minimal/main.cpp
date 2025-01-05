@@ -16,7 +16,7 @@ import factory_child;
 import logger;
 int main() {
     bik::utils::logger::Logger::init();
-    auto& logger = bik::utils::logger::Logger::getLogger();
+    auto &logger = bik::utils::logger::Logger::getLogger();
     logger->info("TEst");
     LOGGER->info("Test define");
     LOGGER->flush();
@@ -27,5 +27,18 @@ int main() {
     core_2.hw();
     bik::core::Core core_3;
     core_3.hw();
+
+    // core.configure();
+    core.initialize();
+    core.run();
+
+    core_2.configure();
+    // core_2.initialize();
+    core_2.run();
+
+    core_3.configure();
+    core_3.initialize();
+    core_3.run();
+
     return 0;
 }
