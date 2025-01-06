@@ -9,7 +9,7 @@
  *
  */
 module;
-// #include <memory>
+#include <iostream>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 export module logger:impl;
@@ -20,11 +20,14 @@ namespace bik::utils::logger {
     void Logger::init(const std::string &filePath, spdlog::level::level_enum logLevel) {
         logger_ = spdlog::basic_logger_mt("logger", filePath, true);
         logger_->set_level(logLevel);
+        logger_->info("Logger initialisé");
     }
 
     std::shared_ptr<spdlog::logger> &Logger::getLogger() {
         if (!logger_) {
-            throw std::runtime_error("Logger non initialisé. Appeler Logger::init() avant d'utiliser getLogger().");
+            init();
+            std::cerr << "Logger initialisé par default" << std::endl;
+            logger_->error("Logger initialisé par default");
         }
         return logger_;
     }

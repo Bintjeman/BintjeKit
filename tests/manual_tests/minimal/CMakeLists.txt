@@ -11,12 +11,8 @@ find_package(spdlog CONFIG REQUIRED)
 
 set(SOURCES
         main.cpp
-        factory_child.cpp
-        window_child.cpp
 )
 set(MODULES
-        factory_child.cppm
-        window_child.cppm
 )
 target_sources(minimal_test
         PRIVATE
