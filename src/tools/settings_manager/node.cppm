@@ -17,6 +17,9 @@ class Node {
 public:
     Node(const std::shared_ptr<nlohmann::json> &json = nullptr,
                   const nlohmann::json::json_pointer &root="/"_json_pointer);
+    Node(const Node &other) = delete;
+
+    ~Node();
 
     template<typename T>
     T get(const nlohmann::json::json_pointer &key, const T &defaultValue) const;
@@ -34,4 +37,7 @@ public:
 protected:
     std::shared_ptr<nlohmann::json> json_;
     nlohmann::json::json_pointer root_;
+
+private:
+    static int node_counter;
 };

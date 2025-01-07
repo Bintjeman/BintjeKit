@@ -17,7 +17,10 @@ module;
 export module settings:node_impl;
 import :node;
 
+int Node::node_counter = 0;
+
 Node::Node(const std::shared_ptr<nlohmann::json> &json, const nlohmann::json::json_pointer &root) {
+    node_counter++;
     root_ = root;
     if (json == nullptr) {
         json_ = std::make_shared<nlohmann::json>();
@@ -25,17 +28,23 @@ Node::Node(const std::shared_ptr<nlohmann::json> &json, const nlohmann::json::js
     } else {
         json_ = json;
     }
-    LOGGER->info("Node::Node(const std::shared_ptr<Json>& json, const nlohmann::json::json_pointer &root)");
-    LOGGER->info("json shared counter: {}", json_.use_count());
-    LOGGER->info("root: {}", root_.to_string());
-    LOGGER->info("json: {}", json_->dump(4));
+    LOGGER->trace("Node::Node(const std::shared_ptr<Json>& json, const nlohmann::json::json_pointer &root)");
+    LOGGER->trace("json shared counter: {}", json_.use_count());
+    LOGGER->trace("node counter: {}", node_counter);
+    LOGGER->trace("root: \"{}\"", root_.to_string());
+    LOGGER->trace("json: \"{}\"", json_->dump(4));
+}
+
+Node::~Node() {
+    LOGGER->trace("Node::~Node()");
+    node_counter--;
 }
 
 template<typename T>
 T Node::get(const nlohmann::json::json_pointer &key, const T &defaultValue) const {
     auto ptr = root_ / key;
-    LOGGER->info("Node::get(const nlohmann::json::json_pointer &key, const T &defaultValue) const");
-    LOGGER->info("key {} / root {} = ptr: {}", key.to_string(), root_.to_string(), ptr.to_string());
+    LOGGER->trace("Node::get(const nlohmann::json::json_pointer &key, const T &defaultValue) const");
+    LOGGER->trace("key \"{}\" / root \"{}\" = ptr: \"{}\"", key.to_string(), root_.to_string(), ptr.to_string());
     if (!json_->contains(ptr)) {
         return defaultValue;
     } else {
@@ -45,6 +54,13 @@ T Node::get(const nlohmann::json::json_pointer &key, const T &defaultValue) cons
 
 template<typename T>
 T Node::get_or_set(const nlohmann::json::json_pointer &key, const T &defaultValue) {
+    auto ptr = root_ / key;
+    if (!json_->contains(ptr)) {
+        set(key, defaultValue);
+        return defaultValue;
+    } else {
+        return json_->at(ptr).get<T>();
+    }
 }
 
 template<typename T>
