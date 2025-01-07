@@ -16,7 +16,12 @@ namespace bik::config {
     export class Settings : public Node {
     public:
         Settings();
-        void load(const std::filesystem::path &filepath);
+        enum class LoadMode {
+            ERROR,
+            CREATE,
+            NOTHING
+        };
+        void load(const std::filesystem::path &filepath, LoadMode mode = LoadMode::ERROR);
         void save(const std::filesystem::path &filepath) const;
 
     private:

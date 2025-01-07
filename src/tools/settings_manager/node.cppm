@@ -16,7 +16,7 @@ export module settings:node;
 class Node {
 public:
     Node(const std::shared_ptr<nlohmann::json> &json = nullptr,
-                  const nlohmann::json::json_pointer &root="/"_json_pointer);
+                  const nlohmann::json::json_pointer &root=""_json_pointer);
     Node(const Node &other) = delete;
 
     ~Node();
@@ -26,10 +26,8 @@ public:
 
     template<typename T>
     T get_or_set(const nlohmann::json::json_pointer &key, const T &defaultValue);
-
     template<typename T>
     void set(const nlohmann::json::json_pointer &key, const T &value);
-
     Node create_child(const nlohmann::json::json_pointer &key);
 
     [[nodiscard]] const nlohmann::json &raw() const { return *json_; }
@@ -39,5 +37,8 @@ protected:
     nlohmann::json::json_pointer root_;
 
 private:
+    template<typename T>
+    void set_inner(const nlohmann::json::json_pointer &key, const T &value);
+
     static int node_counter;
 };

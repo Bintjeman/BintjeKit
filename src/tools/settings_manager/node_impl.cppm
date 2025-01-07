@@ -55,8 +55,10 @@ T Node::get(const nlohmann::json::json_pointer &key, const T &defaultValue) cons
 template<typename T>
 T Node::get_or_set(const nlohmann::json::json_pointer &key, const T &defaultValue) {
     auto ptr = root_ / key;
+    LOGGER->trace("Node::get_or_set(const nlohmann::json::json_pointer &key, const T &defaultValue)");
+    LOGGER->trace("key \"{}\" / root \"{}\" = ptr: \"{}\"", key.to_string(), root_.to_string(), ptr.to_string());
     if (!json_->contains(ptr)) {
-        set(key, defaultValue);
+        set_inner(key, defaultValue);
         return defaultValue;
     } else {
         return json_->at(ptr).get<T>();
@@ -65,10 +67,10 @@ T Node::get_or_set(const nlohmann::json::json_pointer &key, const T &defaultValu
 
 template<typename T>
 void Node::set(const nlohmann::json::json_pointer &key, const T &value) {
-    auto ptr = root_ / key;
-    if (!json_->contains(ptr)) {
-    }
-    (*json_)[ptr] = value;
+    LOGGER->trace("Node::set(const nlohmann::json::json_pointer &key, const T &value)");
+    LOGGER->trace("key \"{}\" / root \"{}\"", key.to_string(), root_.to_string());
+    LOGGER->trace("value: \"{}\"", value);
+    set_inner(root_ / key, value);
 }
 
 Node Node::create_child(const nlohmann::json::json_pointer &key) {
@@ -79,4 +81,15 @@ Node Node::create_child(const nlohmann::json::json_pointer &key) {
         (*json_)[child_root] = nlohmann::json::object();
     }
     return Node(json_, child_root);
+}
+
+template<typename T>
+void Node::set_inner(const nlohmann::json::json_pointer &key, const T &value) {
+    LOGGER->trace("Node::set_inner(const nlohmann::json::json_pointer &key, const T &value)");
+    LOGGER->trace("key \"{}\" / root \"{}\"", key.to_string(), root_.to_string());
+    LOGGER->trace("value: \"{}\"", value);
+    if (!json_->contains(key)) {
+
+    }
+    (*json_)[key] = value;
 }
