@@ -12,10 +12,14 @@ module;
 #include <SFML/Graphics/RenderWindow.hpp>
 export module bik.window:interface;
 import bik.settings;
+import bik.ui;
 namespace bik::window {
+    // namespace ui {
+    //     class BaseUI;
+    // }
     export class BaseWindow : public sf::RenderWindow {
     public:
-        BaseWindow();
+        explicit BaseWindow(ui::BaseUI& ui);
         ~BaseWindow() override;
 
         virtual void configure(const config::Child& settings);
@@ -33,6 +37,8 @@ namespace bik::window {
         sf::Vector2i start_pos_{100, 100};
 
         config::Child settings_;
+
+        ui::BaseUI& ui_;
 
     private:
         void update_inner();

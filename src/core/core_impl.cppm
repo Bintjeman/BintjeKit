@@ -16,6 +16,7 @@ module;
 export module bik.core:impl;
 import :interface;
 import bik.window;
+import bik.ui;
 import bik.factory;
 import bik.logger;
 import bik.settings;
@@ -70,7 +71,10 @@ namespace bik::core {
 
     void Core::create_components() {
         LOGGER->info("Core::create_components()");
-        window_ = factory_->create_window();
+        factory_->creation();
+        window_ = factory_->get_window();
+        ui_ = factory_->get_ui();
+        factory_->clear();
     }
 
     void Core::configure_inner() {

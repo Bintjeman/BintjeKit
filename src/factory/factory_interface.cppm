@@ -11,13 +11,23 @@
 module;
 #include <memory>
 export module bik.factory:interface;
-export import bik.window;
+import bik.window;
+import bik.ui;
 namespace bik::factory {
     export class BaseFactory {
-        public:
+    public:
         BaseFactory();
         virtual ~BaseFactory();
-        virtual std::shared_ptr<window::BaseWindow> create_window();
-    };
+        virtual void creation();
+        virtual void clear();
 
+        std::shared_ptr<window::BaseWindow> get_window() const;
+        std::shared_ptr<ui::BaseUI> get_ui() const;
+
+    protected:
+        virtual void build_window();
+        virtual void build_ui();
+        std::shared_ptr<window::BaseWindow> window_ = nullptr;
+        std::shared_ptr<ui::BaseUI> ui_ = nullptr;
+    };
 }

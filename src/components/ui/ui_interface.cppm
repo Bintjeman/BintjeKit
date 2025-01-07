@@ -8,4 +8,10 @@
  * @details 
  *
  */
-export module ui:interface;
+export module bik.ui:interface;
+namespace bik::ui {
+    export class BaseUI {
+    public:
+        void event_handler();
+    };
+}

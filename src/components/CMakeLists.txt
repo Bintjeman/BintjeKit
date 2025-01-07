@@ -5,3 +5,4 @@
 ################################################################################
 message(STATUS "CMake script loaded depuis : ${CMAKE_CURRENT_LIST_FILE}")
 add_subdirectory(window)
+add_subdirectory(ui)

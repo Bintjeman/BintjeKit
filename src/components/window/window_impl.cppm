@@ -14,10 +14,11 @@ module;
 #include "tools/logger/logger_define.hpp"
 export module bik.window:impl;
 import :interface;
+import bik.ui;
 import bik.logger;
 import bik.settings;
 namespace bik::window {
-    BaseWindow::BaseWindow() {
+    BaseWindow::BaseWindow(ui::BaseUI &ui): ui_(ui) {
         LOGGER->info("Window::Window()");
     }
 

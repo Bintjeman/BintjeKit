@@ -10,13 +10,17 @@
  */
 module;
 #include <memory>
-import bik.window;
 export module factory;
 import bik.factory;
+import bik.window;
+import bik.ui;
 export import  window;
 export class Factory : public bik::factory::BaseFactory {
 public:
-    std::shared_ptr<bik::window::BaseWindow> create_window() override {
-        return std::make_shared<Window>();
-    }
+        void build_window() override {
+                window_ = std::make_shared<Window>(*ui_);
+        }
+        void  build_ui() override {
+                ui_ = std::make_shared<bik::ui::BaseUI>();
+        }
 };

@@ -8,5 +8,6 @@
  * @details 
  *
  */
-export module UI;
+export module bik.ui;
 export import :interface;
+import :impl;

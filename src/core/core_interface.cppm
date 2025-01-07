@@ -13,7 +13,8 @@ module;
 export module bik.core:interface;
 import bik.settings;
 import bik.window;
-export import bik.factory;
+import bik.ui;
+import bik.factory;
 namespace bik::core {
     export class Core {
     public:
@@ -34,6 +35,7 @@ namespace bik::core {
         config::Settings settings_;
         std::unique_ptr<factory::BaseFactory> factory_;
         std::shared_ptr<window::BaseWindow> window_ = nullptr;
+        std::shared_ptr<ui::BaseUI> ui_ = nullptr;
 
     };
 }
