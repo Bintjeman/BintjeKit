@@ -10,14 +10,14 @@
  */
 module;
 #include <memory>
-export module factory:interface;
-export import window;
+export module bik.factory:interface;
+export import bik.window;
 namespace bik::factory {
-    export class Factory {
+    export class BaseFactory {
         public:
-        Factory();
-        virtual ~Factory();
-        virtual std::shared_ptr<window::Window> create_window();
+        BaseFactory();
+        virtual ~BaseFactory();
+        virtual std::shared_ptr<window::BaseWindow> create_window();
     };
 
 }

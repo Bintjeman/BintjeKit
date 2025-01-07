@@ -11,8 +11,7 @@
 module;
 #include <memory>
 #include <nlohmann/json.hpp>
-// #include <nlohmann/detail/json_pointer.hpp>
-export module settings:node;
+export module bik.settings:node;
 class Node {
 public:
     explicit Node(const std::shared_ptr<nlohmann::json> &json = nullptr,

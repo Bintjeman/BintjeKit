@@ -8,6 +8,6 @@
  * @details
  *
  */
-export module core;
+export module bik.core;
 export import :interface;
 import :impl;

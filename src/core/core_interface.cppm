@@ -10,15 +10,15 @@
  */
 module;
 #include <memory>
-export module core:interface;
-import settings;
-import window;
-export import factory;
+export module bik.core:interface;
+import bik.settings;
+import bik.window;
+export import bik.factory;
 namespace bik::core {
     export class Core {
     public:
         Core();
-        explicit Core(std::unique_ptr<factory::Factory> factory);
+        explicit Core(std::unique_ptr<factory::BaseFactory> factory);
         ~Core();
 
         void configure(config::Child settings);
@@ -32,8 +32,8 @@ namespace bik::core {
         void configure_inner();
 
         config::Settings settings_;
-        std::unique_ptr<factory::Factory> factory_;
-        std::shared_ptr<window::Window> window_ = nullptr;
+        std::unique_ptr<factory::BaseFactory> factory_;
+        std::shared_ptr<window::BaseWindow> window_ = nullptr;
 
     };
 }

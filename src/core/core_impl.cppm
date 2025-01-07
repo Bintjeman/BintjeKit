@@ -13,20 +13,20 @@ module;
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <nlohmann/json.hpp>
 #include "tools/logger/logger_define.hpp"
-export module core:impl;
+export module bik.core:impl;
 import :interface;
-import window;
-import factory;
-import logger;
-import settings;
+import bik.window;
+import bik.factory;
+import bik.logger;
+import bik.settings;
 namespace bik::core {
     [[deprecated("Use the constructor with a unique_ptr<factory::Factory> instead")]]
     Core::Core() {
         LOGGER->info("Core::Core()");
-        factory_ = std::make_unique<factory::Factory>();
+        factory_ = std::make_unique<factory::BaseFactory>();
     }
 
-    Core::Core(std::unique_ptr<factory::Factory> factory) {
+    Core::Core(std::unique_ptr<factory::BaseFactory> factory) {
         LOGGER->info("Core::Core(std::unique_ptr<factory::Factory> factory)");
         factory_ = std::move(factory);
     }

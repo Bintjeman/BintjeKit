@@ -9,7 +9,7 @@
  *
  */
 module;
-export module logger;
+export module bik.logger;
 export import :interface;
 export import :extension;
 import :impl;

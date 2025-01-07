@@ -8,7 +8,7 @@
  * @details 
  *
  */
-export module settings;
+export module bik.settings;
 export import :interface;
 export import :node;
 export import :nlohmann_extension;

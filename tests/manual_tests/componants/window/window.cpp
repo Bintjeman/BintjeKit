@@ -8,5 +8,5 @@
  * @details 
  *
  */
-export module window:impl;
+module window;
 

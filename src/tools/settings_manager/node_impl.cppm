@@ -14,7 +14,7 @@ module;
 #include <nlohmann/detail/json_pointer.hpp>
 #include <spdlog/spdlog.h>
 #include "tools/logger/logger_define.hpp"
-export module settings:node_impl;
+export module bik.settings:node_impl;
 import :node;
 import :nlohmann_extension;
 int Node::node_counter = 0;

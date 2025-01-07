@@ -8,6 +8,6 @@
  * @details 
  *
  */
-export module window;
+export module bik.window;
 export import :interface;
 import :impl;

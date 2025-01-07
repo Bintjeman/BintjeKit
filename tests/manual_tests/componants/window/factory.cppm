@@ -8,6 +8,15 @@
  * @details 
  *
  */
-
+module;
+#include <memory>
+import bik.window;
 export module factory;
-export class Factory;
+import bik.factory;
+export import  window;
+export class Factory : public bik::factory::BaseFactory {
+public:
+    std::shared_ptr<bik::window::BaseWindow> create_window() override {
+        return std::make_shared<Window>();
+    }
+};

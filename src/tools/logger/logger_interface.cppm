@@ -11,7 +11,7 @@
 module;
 // #include <memory>
 #include <spdlog/spdlog.h>
-export module logger:interface;
+export module bik.logger:interface;
 namespace bik::utils::logger {
     export class Logger {
     public:

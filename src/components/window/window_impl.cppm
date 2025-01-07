@@ -12,26 +12,26 @@ module;
 #include <SFML/Window/VideoMode.hpp>
 #include <nlohmann/json.hpp>
 #include "tools/logger/logger_define.hpp"
-export module window:impl;
+export module bik.window:impl;
 import :interface;
-import logger;
-import settings;
+import bik.logger;
+import bik.settings;
 namespace bik::window {
-    Window::Window() {
+    BaseWindow::BaseWindow() {
         LOGGER->info("Window::Window()");
     }
 
-    Window::~Window() {
+    BaseWindow::~BaseWindow() {
         LOGGER->info("Window::~Window()");
     }
 
-    void Window::configure(const config::Child& settings) {
+    void BaseWindow::configure(const config::Child& settings) {
         LOGGER->info("Window::configure()");
         settings_ = settings;
         settings_.set("/Title"_json_pointer, "titre");
     }
 
-    void Window::initialize() {
+    void BaseWindow::initialize() {
         LOGGER->info("Window::initialize()");
         settings_.set("/Title2"_json_pointer, "titre2");
         start_title_ = settings_.get_or_set("/Title"_json_pointer,std::string("BaseWindow") );
@@ -39,7 +39,7 @@ namespace bik::window {
         start_size_= settings_.get_or_set("/Size"_json_pointer,sf::Vector2u(200,200));
     }
 
-    void Window::open() {
+    void BaseWindow::open() {
         LOGGER->info("Window::open()");
         const auto style = sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize;
         const auto mode = sf::VideoMode{start_size_, 32};
@@ -47,7 +47,7 @@ namespace bik::window {
         setPosition(start_pos_);
     }
 
-    void Window::finalize() {
+    void BaseWindow::finalize() {
         LOGGER->info("Window::finalize()");
         auto position = getPosition();
         auto size = getSize();

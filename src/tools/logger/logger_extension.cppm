@@ -13,7 +13,7 @@ module;
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <spdlog/fmt/fmt.h>
-export module logger:extension;
+export module bik.logger:extension;
 namespace fmt {
     export template<typename T> struct fmt::formatter<sf::Vector2<T> > {
         template<typename ParseContext> constexpr auto parse(ParseContext& ctx) const {

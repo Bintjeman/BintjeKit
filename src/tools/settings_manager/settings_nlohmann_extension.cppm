@@ -14,7 +14,7 @@ module;
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <nlohmann/json.hpp>
-export module settings:nlohmann_extension;
+export module bik.settings:nlohmann_extension;
 export namespace nlohmann {
     template<typename T> struct adl_serializer<sf::Vector2<T> > {
         static void to_json(json& j, const sf::Vector2<T>& v) { j = json{v.x, v.y}; }

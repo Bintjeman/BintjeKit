@@ -11,6 +11,6 @@
 #pragma once
 #ifndef LOGGER_DEFINE_HPP
 #define LOGGER_DEFINE_HPP
-import logger;
+import bik.logger;
 #define LOGGER bik::utils::logger::Logger::getLogger()
 #endif //LOGGER_DEFINE_HPP

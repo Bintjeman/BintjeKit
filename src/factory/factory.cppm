@@ -8,6 +8,6 @@
  * @details 
  *
  */
-export module factory;
+export module bik.factory;
 export import :interface;
 import :impl;

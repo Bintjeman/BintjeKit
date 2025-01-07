@@ -10,7 +10,7 @@
  */
 module;
 #include <filesystem>
-export module settings:interface;
+export module bik.settings:interface;
 import :node;
 namespace bik::config {
     export class Settings : public Node {
@@ -21,7 +21,7 @@ namespace bik::config {
             CREATE,
             NOTHING
         };
-        void load(const std::filesystem::path &filepath, LoadMode mode = LoadMode::ERROR);
+        void load(const std::filesystem::path &filepath, LoadMode mode = LoadMode::CREATE);
         void save(const std::filesystem::path &filepath) const;
 
     private:

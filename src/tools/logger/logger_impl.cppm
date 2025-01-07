@@ -12,7 +12,7 @@ module;
 #include <iostream>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
-export module logger:impl;
+export module bik.logger:impl;
 import :interface;
 namespace bik::utils::logger {
     std::shared_ptr<spdlog::logger> Logger::logger_ = nullptr;

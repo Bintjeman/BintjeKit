@@ -8,6 +8,7 @@
  * @details 
  *
  */
-
 export module window;
-export class Window;
+import bik.window;
+export class Window : public bik::window::BaseWindow{
+};

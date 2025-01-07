@@ -16,9 +16,9 @@ module;
 #include <spdlog/spdlog.h>
 
 #include "tools/logger/logger_define.hpp"
-export module settings:impl;
+export module bik.settings:impl;
 import :interface;
-import logger;
+import bik.logger;
 namespace bik::config {
     Settings::Settings() {
         LOGGER->info("Settings::Settings()");

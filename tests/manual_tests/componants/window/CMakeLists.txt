@@ -15,6 +15,7 @@ set(SOURCES
 )
 set(MODULES
         window.cppm
+        factory.cppm
 )
 target_sources(window_component_test
         PRIVATE
@@ -22,3 +23,4 @@ target_sources(window_component_test
         PUBLIC
         FILE_SET factory_modules TYPE CXX_MODULES FILES ${MODULES}
 )
+target_link_libraries(window_component_test PRIVATE bintjeKit)

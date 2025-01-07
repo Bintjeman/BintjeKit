@@ -10,13 +10,13 @@
  */
 module;
 #include <SFML/Graphics/RenderWindow.hpp>
-export module window:interface;
-import settings;
+export module bik.window:interface;
+import bik.settings;
 namespace bik::window {
-    export class Window : public sf::RenderWindow {
+    export class BaseWindow : public sf::RenderWindow {
     public:
-        Window();
-        ~Window() override;
+        BaseWindow();
+        ~BaseWindow() override;
 
         virtual void configure(const config::Child& settings);
         virtual void initialize();

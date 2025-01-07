@@ -10,22 +10,21 @@
  */
 module;
 #include <memory>
-// #include <spdlog/spdlog.h>
-export module factory:impl;
+export module bik.factory:impl;
 import :interface;
-import window;
-import logger;
+import bik.window;
+import bik.logger;
 namespace bik::factory {
-    Factory::Factory() {
+    BaseFactory::BaseFactory() {
         logger::getLogger()->info("Factory::Factory()");
     }
 
-    Factory::~Factory() {
+    BaseFactory::~BaseFactory() {
         logger::getLogger()->info("Factory::~Factory()");
     }
 
-    std::shared_ptr<window::Window> Factory::create_window() {
+    std::shared_ptr<window::BaseWindow> BaseFactory::create_window() {
         logger::getLogger()->info("Factory::create_window()");
-        return std::make_shared<window::Window>();
+        return std::make_shared<window::BaseWindow>();
     }
 }
