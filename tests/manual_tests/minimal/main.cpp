@@ -13,7 +13,7 @@ import core;
 import factory;
 import logger;
 int main() {
-    bik::logger::init("logger.log");
+    bik::logger::init("logger.log", spdlog::level::trace);
     auto& logger = bik::logger::getLogger();
     logger->info("Hello world !");
     bik::core::Core core;
