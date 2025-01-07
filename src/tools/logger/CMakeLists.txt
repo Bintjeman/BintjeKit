@@ -8,6 +8,7 @@ set(MODULES
         logger.cppm
         logger_interface.cppm
         logger_impl.cppm
+        logger_extension.cppm
 )
 target_sources(bintjeKit
         PUBLIC

@@ -19,6 +19,7 @@ namespace bik::utils::logger {
 
     void Logger::init(const std::string &filePath, spdlog::level::level_enum logLevel) {
         logger_ = spdlog::basic_logger_mt("logger", filePath, true);
+        logger_->set_pattern("[%T.%e] [%n] [%l] %v");
         logger_->set_level(logLevel);
         logger_->info("Logger initialisé");
     }

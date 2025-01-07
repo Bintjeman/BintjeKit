@@ -24,13 +24,11 @@ namespace bik::core {
     Core::Core() {
         LOGGER->info("Core::Core()");
         factory_ = std::make_unique<factory::Factory>();
-        create_components();
     }
 
     Core::Core(std::unique_ptr<factory::Factory> factory) {
         LOGGER->info("Core::Core(std::unique_ptr<factory::Factory> factory)");
         factory_ = std::move(factory);
-        create_components();
     }
 
     Core::~Core() {
@@ -38,6 +36,8 @@ namespace bik::core {
     }
 
     void Core::configure() {
+        LOGGER->info("Core::configure()");
+        create_components();
         settings_.load("settings.json");
         auto window_settings = settings_.create_child("/Window"_json_pointer);
         window_->configure(window_settings);
@@ -46,7 +46,6 @@ namespace bik::core {
 
     void Core::initialize() {
         LOGGER->info("Core::initialize()");
-        create_components();
         window_->initialize();
     }
 
@@ -64,6 +63,7 @@ namespace bik::core {
 
     void Core::finalize() {
         LOGGER->info("Core::finalize()");
+        window_->finalize();
         settings_.save("settings.json");
     }
 

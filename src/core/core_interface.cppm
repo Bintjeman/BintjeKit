@@ -33,7 +33,7 @@ namespace bik::core {
 
         config::Settings settings_;
         std::unique_ptr<factory::Factory> factory_;
-        std::shared_ptr<window::Window> window_;
+        std::shared_ptr<window::Window> window_ = nullptr;
 
     };
 }

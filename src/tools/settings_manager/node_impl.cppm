@@ -16,7 +16,7 @@ module;
 #include "tools/logger/logger_define.hpp"
 export module settings:node_impl;
 import :node;
-
+import :nlohmann_extension;
 int Node::node_counter = 0;
 
 Node::Node(const std::shared_ptr<nlohmann::json> &json, const nlohmann::json::json_pointer &root) {
@@ -74,6 +74,7 @@ void Node::set(const nlohmann::json::json_pointer &key, const T &value) {
 }
 
 Node Node::create_child(const nlohmann::json::json_pointer &key) {
+    LOGGER->info("Node::create_child(const nlohmann::json::json_pointer &key)");
     auto child_root = root_ / key;
     // Vérifier si le JSON contient le pointeur correspondant
     if (!json_->contains(child_root)) {
@@ -89,7 +90,7 @@ void Node::set_inner(const nlohmann::json::json_pointer &key, const T &value) {
     LOGGER->trace("key \"{}\" / root \"{}\"", key.to_string(), root_.to_string());
     LOGGER->trace("value: \"{}\"", value);
     if (!json_->contains(key)) {
-
     }
     (*json_)[key] = value;
+    LOGGER->trace("Json:\"{}\"\n```{}```;", root_.to_string(), json_->dump(4));
 }
