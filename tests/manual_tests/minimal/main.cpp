@@ -9,11 +9,11 @@
  *
  */
 #include <spdlog/spdlog.h>
-import core;
-import factory;
-import logger;
+import bik.core;
+import bik.factory;
+import bik.logger;
 int main() {
-    bik::logger::init("logger.log", spdlog::level::debug);
+    bik::logger::init("logger.log", spdlog::level::trace);
     auto& logger = bik::logger::getLogger();
     bik::core::Core core;
     core.configure();

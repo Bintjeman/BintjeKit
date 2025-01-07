@@ -21,9 +21,13 @@ namespace bik::window {
         virtual void configure(const config::Child& settings);
         virtual void initialize();
         virtual void open();
+        virtual void update();
         virtual void finalize();
 
     protected:
+        virtual void pre_rendering();
+        virtual void rendering();
+        virtual void post_rendering();
         std::string start_title_{};
         sf::Vector2u start_size_{200, 200};
         sf::Vector2i start_pos_{100, 100};
@@ -31,6 +35,6 @@ namespace bik::window {
         config::Child settings_;
 
     private:
-
+        void update_inner();
     };
 }

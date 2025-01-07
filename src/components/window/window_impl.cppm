@@ -25,7 +25,7 @@ namespace bik::window {
         LOGGER->info("Window::~Window()");
     }
 
-    void BaseWindow::configure(const config::Child& settings) {
+    void BaseWindow::configure(const config::Child &settings) {
         LOGGER->info("Window::configure()");
         settings_ = settings;
         settings_.set("/Title"_json_pointer, "titre");
@@ -34,9 +34,9 @@ namespace bik::window {
     void BaseWindow::initialize() {
         LOGGER->info("Window::initialize()");
         settings_.set("/Title2"_json_pointer, "titre2");
-        start_title_ = settings_.get_or_set("/Title"_json_pointer,std::string("BaseWindow") );
-        start_pos_ = settings_.get_or_set("/Position"_json_pointer,sf::Vector2i(100,100));
-        start_size_= settings_.get_or_set("/Size"_json_pointer,sf::Vector2u(200,200));
+        start_title_ = settings_.get_or_set("/Title"_json_pointer, std::string("BaseWindow"));
+        start_pos_ = settings_.get_or_set("/Position"_json_pointer, sf::Vector2i(100, 100));
+        start_size_ = settings_.get_or_set("/Size"_json_pointer, sf::Vector2u(200, 200));
     }
 
     void BaseWindow::open() {
@@ -47,12 +47,34 @@ namespace bik::window {
         setPosition(start_pos_);
     }
 
+    void BaseWindow::update() {
+        update_inner();
+    }
+
+    void BaseWindow::pre_rendering() {
+        clear();
+    }
+
+    void BaseWindow::rendering() {
+        display();
+    }
+
+    void BaseWindow::post_rendering() {
+
+    }
+
     void BaseWindow::finalize() {
         LOGGER->info("Window::finalize()");
-        auto position = getPosition();
-        auto size = getSize();
+        const sf::Vector2i position = getPosition();
+        const auto size = getSize();
+        LOGGER->trace("Position : {}", position);
         settings_.set("/Position"_json_pointer, position);
         settings_.set("/Size"_json_pointer, size);
     }
 
+    void BaseWindow::update_inner() {
+        pre_rendering();
+        rendering();
+        post_rendering();
+    }
 }

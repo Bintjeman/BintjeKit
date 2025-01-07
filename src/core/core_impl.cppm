@@ -58,6 +58,7 @@ namespace bik::core {
                 if (event->is<sf::Event::Closed>())
                     window_->close();
             }
+            window_->update();
         }
     }
 
