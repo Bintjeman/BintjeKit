@@ -25,9 +25,7 @@ namespace bik::utils::logger {
 
     std::shared_ptr<spdlog::logger> &Logger::getLogger() {
         if (!logger_) {
-            init();
-            std::cerr << "Logger initialisé par default" << std::endl;
-            logger_->error("Logger initialisé par default");
+            std::cerr << "Logger non initialisé" << std::endl;
         }
         return logger_;
     }

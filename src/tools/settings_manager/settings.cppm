@@ -8,6 +8,9 @@
  * @details 
  *
  */
-export module settings_manager;
+export module settings;
 export import :interface;
+export import :node;
+export import :nlohmann_extension;
 import :impl;
+import :node_impl;

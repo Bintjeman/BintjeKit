@@ -13,11 +13,18 @@ import core;
 import factory;
 import logger;
 int main() {
+    bik::logger::init("logger.log");
+    auto& logger = bik::logger::getLogger();
+    logger->info("Hello world !");
     bik::core::Core core;
-    core.hw();
+    logger->flush();
     core.configure();
+    logger->flush();
     core.initialize();
+    logger->flush();
     core.run();
+    logger->flush();
     core.finalize();
+    logger->flush();
     return 0;
 }

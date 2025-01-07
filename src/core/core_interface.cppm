@@ -11,16 +11,17 @@
 module;
 #include <memory>
 export module core:interface;
-import settings_manager;
+import settings;
 import window;
 export import factory;
 namespace bik::core {
     export class Core {
     public:
+        Core();
         explicit Core(std::unique_ptr<factory::Factory> factory);
         ~Core();
 
-        void configure(config::Node settings);
+        void configure(config::Child settings);
         void configure();
         void initialize();
         void run();
@@ -34,12 +35,5 @@ namespace bik::core {
         std::unique_ptr<factory::Factory> factory_;
         std::shared_ptr<window::Window> window_;
 
-        // Debug et test
-    public:
-        [[deprecated("Seulement pour des tests")]]
-        Core();
-
-        [[deprecated("Seulement pour des tests")]]
-        void hw();
     };
 }

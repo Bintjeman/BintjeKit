@@ -5,9 +5,12 @@
 ################################################################################
 message(STATUS "CMake script loaded depuis : ${CMAKE_CURRENT_LIST_FILE}")
 set(MODULES
-        settings_manager.cppm
-        settings_manager_interface.cppm
-        settings_manager_impl.cppm
+        settings.cppm
+        settings_interface.cppm
+        settings_impl.cppm
+        node.cppm
+        node_impl.cppm
+        settings_nlohmann_extension.cppm
 )
 target_sources(bintjeKit
         PUBLIC
