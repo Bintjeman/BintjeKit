@@ -10,4 +10,4 @@
  */
 export module bik.core;
 export import :interface;
-// import :impl;
+import :impl;

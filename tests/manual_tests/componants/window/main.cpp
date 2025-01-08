@@ -9,13 +9,14 @@
  *
  */
 #include <iostream>
+#include "tools/logger/logger_define.hpp"
 import factory;
 import bik.core;
 import bik.logger;
 int main() {
-    std::cout << "Hello, World!" << std::endl;
     bik::logger::init("logger.log", spdlog::level::trace);
-    bik::core::Core core(std::make_unique<Factory>());
+    bik::core::Core core(std::make_unique<tst::Factory>());
+    LOGGER->flush();
     core.configure();
     core.initialize();
     core.run();

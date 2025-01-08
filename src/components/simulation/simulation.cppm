@@ -10,3 +10,4 @@
  */
 export module bik.simulation;
 export import :interface;
+import :impl;

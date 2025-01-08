@@ -9,4 +9,7 @@
  *
  */
 module window;
-
+namespace tst {
+    Window::Window() {
+    }
+}

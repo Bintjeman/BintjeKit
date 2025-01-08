@@ -10,9 +10,9 @@
  */
 export module window;
 import bik.window;
-export class Window : public bik::window::BaseWindow{
+namespace tst {
+    export class Window : public bik::window::BaseWindow {
     public:
-        explicit Window() : bik::window::BaseWindow() {
-
-        }
-};
+        explicit Window();
+    };
+}
