@@ -50,7 +50,7 @@ namespace bik::config {
             }
         }
         file >> *json_;
-        LOGGER->trace("Json:\n```{}```;", json_->dump(4));
+        LOGGER->trace("Json:\n\"{}\"", json_->dump(4));
         file.close();
     }
 
@@ -61,8 +61,7 @@ namespace bik::config {
             LOGGER->error("Impossible d'ouvrir le fichier JSON : {}", filepath.string());
             throw std::runtime_error("Impossible d'écrire dans le fichier JSON : " + filepath.string());
         }
-        LOGGER->trace("Fichier JSON : {}", filepath.string());
-        LOGGER->trace("Json:\n```{}```;", json_->dump(4));
+        LOGGER->trace("Json:\n\"{}\"", json_->dump(4));
         file << json_->dump(4);
     }
 } // namespace bik::config

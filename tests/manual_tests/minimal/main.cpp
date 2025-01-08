@@ -19,6 +19,5 @@ int main() {
     core.configure();
     core.initialize();
     core.run();
-    core.finalize();
-    return 0;
+   return 0;
 }
