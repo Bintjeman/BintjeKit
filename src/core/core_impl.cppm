@@ -39,6 +39,7 @@ namespace bik::core {
     void Core::configure() {
         LOGGER->info("Core::configure()");
         create_components();
+        ui_->set_action_receiver(this);
         settings_.load("settings.json");
         auto window_settings = settings_.create_child("/Window"_json_pointer);
         window_->configure(window_settings);
@@ -54,11 +55,7 @@ namespace bik::core {
         LOGGER->info("Core::run()");
         window_->open();
         while (window_->isOpen()) {
-            while (const std::optional event = window_->pollEvent()) {
-                // "close requested" event: we close the window
-                if (event->is<sf::Event::Closed>())
-                    window_->close();
-            }
+            ui_->update();
             window_->update();
         }
     }
@@ -67,6 +64,10 @@ namespace bik::core {
         LOGGER->info("Core::finalize()");
         window_->finalize();
         settings_.save("settings.json");
+    }
+
+    void Core::on_close_window()  {
+        finalize();
     }
 
     void Core::create_components() {

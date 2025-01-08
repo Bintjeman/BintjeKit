@@ -12,19 +12,29 @@ module;
 #include <SFML/Window/Event.hpp>
 export module bik.ui:interface;
 import bik.window;
-namespace bik::ui {
-    export class BaseUI {
-    public:
-        explicit BaseUI(window::BaseWindow& window);
-        virtual void configure();
-        virtual void initialize();
-        virtual void update();
-        virtual void finalize();
+import bik.common;
+namespace bik {
+    namespace ui {
+        export class BaseUI {
+        public:
+            explicit BaseUI(window::BaseWindow &window);
+            virtual void configure();
+            virtual void initialize();
+            virtual void update();
+            virtual void finalize();
 
-    protected:
-        void event_handler(sf::Event &event);
-        bik::window::BaseWindow& window_;
-    };
+            void set_action_receiver(common::BaseIActionReceiver *action_receiver);
 
+        protected:
+            void event_handler();
 
+            window::BaseWindow &window_;
+            common::BaseIActionReceiver* action_receiver_;
+        private:
+            void on_close();
+            void key_pressed(const sf::Event::KeyPressed &event);
+            void resized(const sf::Event::Resized &event);
+            void mouse_scrolled(const sf::Event::MouseWheelScrolled &event);
+        };
+    }
 }

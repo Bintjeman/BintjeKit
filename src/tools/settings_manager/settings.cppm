@@ -9,8 +9,10 @@
  *
  */
 export module bik.settings;
+// interfaces
 export import :interface;
 export import :node;
 export import :nlohmann_extension;
+// implementations
 import :impl;
 import :node_impl;
