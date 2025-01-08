@@ -67,6 +67,7 @@ namespace bik::core {
     }
 
     void Core::on_close_window()  {
+        LOGGER->info("Core::on_close_window()");
         finalize();
     }
 
