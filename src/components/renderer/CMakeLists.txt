@@ -1,11 +1,15 @@
 ################################################################################
 # CMakeLists.txt
-# crée le 05.01.25
+# crée le 08.01.25
 # par bintjeman
 ################################################################################
 message(STATUS "CMake script loaded depuis : ${CMAKE_CURRENT_LIST_FILE}")
-add_subdirectory(ui)
-add_subdirectory(window)
-add_subdirectory(event)
-add_subdirectory(playground)
-add_subdirectory(renderer)
+set(MODULES
+        renderer.cppm
+        renderer_interface.cppm
+        renderer_iml.cppm
+)
+target_sources(bintjeKit PRIVATE
+        PUBLIC
+        FILE_SET renderer_modules TYPE CXX_MODULES FILES ${MODULES}
+)

@@ -11,7 +11,7 @@
 module;
 #include <memory>
 #include <SFML/Window/Window.hpp>
-export module factory;
+export module gol.factory;
 import bik.factory;
 import bik.window;
 import window;

@@ -1,25 +1,25 @@
 /*!
  * @file main.cpp
  * @author bintjeman
- * @date 07.01.25
+ * @date 08.01.25
  * 
  * @brief 
  *
  * @details 
  *
  */
-#include <iostream>
+#include <memory>
 #include "tools/logger/logger_define.hpp"
 import gol.factory;
 import bik.core;
 import bik.logger;
 int main() {
-    bik::logger::init("logger.log", spdlog::level::trace);
-    bik::core::Core core(std::make_unique<tst::Factory>());
-    LOGGER->flush();
+    bik::logger::init("gol_logger.log", spdlog::level::trace);
+    LOGGER->flush_on(spdlog::level::info);
+    bik::core::Core core(std::make_unique<gol::Factory>());
     core.configure();
     core.initialize();
     core.run();
-    core.finalize();
+
     return 0;
 }

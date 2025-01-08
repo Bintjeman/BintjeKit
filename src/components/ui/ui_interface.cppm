@@ -13,28 +13,36 @@ module;
 export module bik.ui:interface;
 import bik.window;
 import bik.common;
+import bik.playground;
 namespace bik {
     namespace ui {
         export class BaseUI {
         public:
             explicit BaseUI(window::BaseWindow &window);
+            // virtual ~BaseUI();
+
             virtual void configure();
             virtual void initialize();
             virtual void update();
             virtual void finalize();
 
             void set_action_receiver(common::BaseIActionReceiver *action_receiver);
+            virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
 
         protected:
-            void event_handler();
+            virtual void event_handler();
+            virtual void key_pressed(const sf::Event::KeyPressed &event);
+            virtual void resized(const sf::Event::Resized &event);
+            virtual void mouse_scrolled(const sf::Event::MouseWheelScrolled &event);
+            void on_close();
 
             window::BaseWindow &window_;
-            common::BaseIActionReceiver* action_receiver_;
+            std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
+            // renderer::BaseRenderer *renderer_ = nullptr;
+            common::BaseIActionReceiver *action_receiver_ = nullptr;
+
         private:
-            void on_close();
-            void key_pressed(const sf::Event::KeyPressed &event);
-            void resized(const sf::Event::Resized &event);
-            void mouse_scrolled(const sf::Event::MouseWheelScrolled &event);
+
         };
     }
 }

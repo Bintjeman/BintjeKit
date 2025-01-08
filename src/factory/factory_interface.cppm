@@ -11,9 +11,22 @@
 module;
 #include <memory>
 export module bik.factory:interface;
-import bik.ui;
-import bik.window;
+namespace bik {
+    namespace ui {
+        export class BaseUI;
+    }
+    namespace window {
+        export class BaseWindow;
+    }
+    namespace playground {
+        export class BasePlayGround;
+    }
+    namespace renderer {
+        export class BaseRenderer;
+    }
+}
 namespace bik::factory {
+
     export class BaseFactory {
     public:
         BaseFactory();
@@ -23,14 +36,22 @@ namespace bik::factory {
 
         std::shared_ptr<window::BaseWindow> window() const;
         std::shared_ptr<ui::BaseUI> ui() const;
+        std::shared_ptr<playground::BasePlayGround> playground() const;
+        std::shared_ptr<renderer::BaseRenderer> renderer() const;
 
     protected:
         virtual void build_window();
         virtual void build_ui();
+        virtual void build_playground();
+        virtual void build_renderer();
         std::shared_ptr<window::BaseWindow> window_ = nullptr;
         std::shared_ptr<ui::BaseUI> ui_ = nullptr;
+        std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
+        std::shared_ptr<renderer::BaseRenderer> renderer_ = nullptr;
     private:
         virtual void pre_build_window();
         virtual void pre_build_ui();
+        virtual void pre_build_playground();
+        virtual void pre_build_renderer();
     };
 }

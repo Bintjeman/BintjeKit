@@ -20,6 +20,7 @@ import bik.ui;
 import bik.factory;
 import bik.logger;
 import bik.settings;
+import bik.common;
 namespace bik::core {
     [[deprecated("Use the constructor with a unique_ptr<factory::Factory> instead")]]
     Core::Core() {
@@ -40,6 +41,7 @@ namespace bik::core {
         LOGGER->info("Core::configure()");
         create_components();
         ui_->set_action_receiver(this);
+        ui_->set_playground(playground_);
         settings_.load("settings.json");
         auto window_settings = settings_.create_child("/Window"_json_pointer);
         window_->configure(window_settings);
@@ -49,6 +51,9 @@ namespace bik::core {
     void Core::initialize() {
         LOGGER->info("Core::initialize()");
         window_->initialize();
+        ui_->initialize();
+        playground_->initialize();
+
     }
 
     void Core::run() {
@@ -64,6 +69,7 @@ namespace bik::core {
         LOGGER->info("Core::finalize()");
         window_->finalize();
         settings_.save("settings.json");
+
     }
 
     void Core::on_close_window()  {
@@ -76,6 +82,8 @@ namespace bik::core {
         factory_->creation();
         window_ = factory_->window();
         ui_ = factory_->ui();
+        playground_ = factory_->playground();
+        renderer_ = factory_->renderer();
         factory_->clear();
     }
 

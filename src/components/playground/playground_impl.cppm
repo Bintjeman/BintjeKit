@@ -13,6 +13,7 @@ module;
 export module bik.playground:impl;
 import :interface;
 import bik.common;
+import bik.settings;
 namespace bik::playground {
     BasePlayGround::BasePlayGround() {
         LOGGER->info("BasePlayGround::BasePlayGround()");
@@ -22,8 +23,9 @@ namespace bik::playground {
         LOGGER->info("BasePlayGround::~BasePlayGround()");
     }
 
-    void BasePlayGround::configure() {
+    void BasePlayGround::configure(config::Child settings) {
         LOGGER->info("BasePlayGround::configure()");
+        settings_ = settings;
     }
 
     void BasePlayGround::initialize() {

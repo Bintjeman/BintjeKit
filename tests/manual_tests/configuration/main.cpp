@@ -12,8 +12,8 @@
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
 #include "tools/logger/logger_define.hpp"
-import settings;
-import logger;
+import bik.settings;
+import bik.logger;
 int main() {
     std::cout << "Hello, World!" << std::endl;
     bik::logger::init("con_flogger.log", spdlog::level::trace);

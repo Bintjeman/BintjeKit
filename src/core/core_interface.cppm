@@ -12,16 +12,13 @@ module;
 #include <memory>
 export module bik.core:interface;
 import bik.settings;
-import bik.window;
+// import bik.window;
+// import bik.playground;
 import bik.common;
+import bik.playground;
 import bik.factory;
-namespace bik {
-    namespace ui {
-        class BaseUI;
-    }
-}
 namespace bik::core {
-    export class Core : public common::BaseIActionReceiver{
+    export class Core : public common::BaseIActionReceiver {
     public:
         Core();
         explicit Core(std::unique_ptr<factory::BaseFactory> factory);
@@ -42,5 +39,8 @@ namespace bik::core {
         std::unique_ptr<factory::BaseFactory> factory_;
         std::shared_ptr<window::BaseWindow> window_ = nullptr;
         std::shared_ptr<ui::BaseUI> ui_ = nullptr;
+        std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
+        std::shared_ptr<renderer::BaseRenderer> renderer_ = nullptr;
     };
+
 }

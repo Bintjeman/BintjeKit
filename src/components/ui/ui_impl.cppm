@@ -16,9 +16,13 @@ import :interface;
 import bik.window;
 import bik.common;
 import bik.logger;
+import bik.playground;
 namespace bik::ui {
     BaseUI::BaseUI(window::BaseWindow &window) : window_(window) {
     }
+
+    // BaseUI::~BaseUI() {
+    // }
 
     void BaseUI::configure() {
     }
@@ -35,6 +39,10 @@ namespace bik::ui {
 
     void BaseUI::set_action_receiver(common::BaseIActionReceiver *action_receiver) {
         action_receiver_ = action_receiver;
+    }
+
+    void BaseUI::set_playground(std::shared_ptr<playground::BasePlayGround> playground) {
+        playground_ = playground;
     }
 
     void BaseUI::event_handler() {

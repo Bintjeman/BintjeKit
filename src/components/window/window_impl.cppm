@@ -28,12 +28,10 @@ namespace bik::window {
     void BaseWindow::configure(const config::Child &settings) {
         LOGGER->info("Window::configure()");
         settings_ = settings;
-        settings_.set("/Title"_json_pointer, "titre");
     }
 
     void BaseWindow::initialize() {
         LOGGER->info("Window::initialize()");
-        settings_.set("/Title2"_json_pointer, "titre2");
         start_title_ = settings_.get_or_set("/Title"_json_pointer, std::string("BaseWindow"));
         start_pos_ = settings_.get_or_set("/Position"_json_pointer, sf::Vector2i(100, 100));
         if (start_pos_==sf::Vector2i{0,0}) {

@@ -12,6 +12,7 @@
 import bik.core;
 import bik.factory;
 import bik.logger;
+import bik.window;
 int main() {
     bik::logger::init("logger.log", spdlog::level::trace);
     auto& logger = bik::logger::getLogger();
@@ -21,3 +22,4 @@ int main() {
     core.run();
    return 0;
 }
+
