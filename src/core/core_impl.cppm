@@ -72,8 +72,8 @@ namespace bik::core {
     void Core::create_components() {
         LOGGER->info("Core::create_components()");
         factory_->creation();
-        window_ = factory_->get_window();
-        ui_ = factory_->get_ui();
+        window_ = factory_->window();
+        ui_ = factory_->ui();
         factory_->clear();
     }
 

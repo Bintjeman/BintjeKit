@@ -14,11 +14,10 @@ module;
 #include "tools/logger/logger_define.hpp"
 export module bik.window:impl;
 import :interface;
-import bik.ui;
 import bik.logger;
 import bik.settings;
 namespace bik::window {
-    BaseWindow::BaseWindow(ui::BaseUI &ui): ui_(ui) {
+    BaseWindow::BaseWindow(){
         LOGGER->info("Window::Window()");
     }
 
@@ -37,6 +36,9 @@ namespace bik::window {
         settings_.set("/Title2"_json_pointer, "titre2");
         start_title_ = settings_.get_or_set("/Title"_json_pointer, std::string("BaseWindow"));
         start_pos_ = settings_.get_or_set("/Position"_json_pointer, sf::Vector2i(100, 100));
+        if (start_pos_==sf::Vector2i{0,0}) {
+            start_pos_ = sf::Vector2i(100, 100);
+        }
         start_size_ = settings_.get_or_set("/Size"_json_pointer, sf::Vector2u(200, 200));
     }
 

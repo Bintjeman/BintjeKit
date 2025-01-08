@@ -18,9 +18,11 @@ export import  window;
 export class Factory : public bik::factory::BaseFactory {
 public:
         void build_window() override {
-                window_ = std::make_shared<Window>(*ui_);
+                build_window();
+                window_ = std::make_shared<Window>();
         }
         void  build_ui() override {
-                ui_ = std::make_shared<bik::ui::BaseUI>();
+                build_window();
+                ui_ = std::make_shared<bik::ui::BaseUI>(window_);
         }
 };

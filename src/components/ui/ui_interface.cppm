@@ -8,10 +8,23 @@
  * @details 
  *
  */
+module;
+#include <SFML/Window/Event.hpp>
 export module bik.ui:interface;
+import bik.window;
 namespace bik::ui {
     export class BaseUI {
     public:
-        void event_handler();
+        explicit BaseUI(window::BaseWindow& window);
+        virtual void configure();
+        virtual void initialize();
+        virtual void update();
+        virtual void finalize();
+
+    protected:
+        void event_handler(sf::Event &event);
+        bik::window::BaseWindow& window_;
     };
+
+
 }
