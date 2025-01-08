@@ -17,14 +17,21 @@ import bik.ui;
 import bik.window;
 import gol;
 import gol.user_interface;
+import gol.renderer;
+
 namespace gol {
     export class Factory : public bik::factory::BaseFactory {
-        protected:
+    protected:
         void build_playground() override {
-            playground_ = std::make_shared<gol::GameOfLife>();
+            playground_ = std::make_shared<GameOfLife>();
         }
+
         void build_ui() override {
-            ui_ = std::make_shared<gol::UserInterface>();
+            ui_ = std::make_shared<UserInterface>();
+        }
+
+        void build_renderer() override {
+            renderer_ = std::make_shared<Renderer>();
         }
     };
 }

@@ -48,22 +48,6 @@ namespace bik::window {
         setPosition(start_pos_);
     }
 
-    void BaseWindow::update() {
-        update_inner();
-    }
-
-    void BaseWindow::pre_rendering() {
-        clear();
-    }
-
-    void BaseWindow::rendering() {
-        display();
-    }
-
-    void BaseWindow::post_rendering() {
-
-    }
-
     void BaseWindow::finalize() {
         LOGGER->info("Window::finalize()");
         const sf::Vector2i position = getPosition();
@@ -74,9 +58,5 @@ namespace bik::window {
         close();
     }
 
-    void BaseWindow::update_inner() {
-        pre_rendering();
-        rendering();
-        post_rendering();
-    }
+
 }

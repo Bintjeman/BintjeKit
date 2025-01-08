@@ -10,10 +10,15 @@
  */
 module;
 #include <memory>
+#include <SFML/Graphics/RenderTarget.hpp>
 export module bik.renderer:impl;
 import :interface;
+import bik.playground;
 namespace bik::renderer {
     BaseRenderer::BaseRenderer() {
+    }
+
+    void BaseRenderer::draw() {
     }
 
     void BaseRenderer::set_target(std::shared_ptr<sf::RenderTarget> target) {

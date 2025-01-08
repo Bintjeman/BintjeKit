@@ -13,8 +13,9 @@ set(SOURCES
 set(MODULES
         gol.cppm
         map.cppm
-        factory.cppm
+        renderer.cppm
         user_interface.cppm
+        factory.cppm
 )
 
 target_sources(gol_test PRIVATE

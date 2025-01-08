@@ -60,7 +60,9 @@ namespace bik::core {
         window_->open();
         while (window_->isOpen()) {
             ui_->update();
-            window_->update();
+            playground_->update();
+            renderer_->draw();
+            window_->display();
         }
     }
 

@@ -24,6 +24,7 @@ namespace bik::renderer {
     export class BaseRenderer {
     public:
         BaseRenderer();
+        virtual void draw();
         virtual void set_target(std::shared_ptr<sf::RenderTarget> target);
         virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
 

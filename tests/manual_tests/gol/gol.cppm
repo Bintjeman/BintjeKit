@@ -25,6 +25,7 @@ namespace gol {
         GameOfLife() {
             LOGGER->info("GameOfLife::GameOfLife()");
         }
+
         void initialize() override {
             LOGGER->info("GameOfLife::initialize()");
         }
@@ -38,6 +39,14 @@ namespace gol {
         void kill_gol() {
             LOGGER->info("GameOfLife::kill_gol()");
             map_ = nullptr;
+        }
+
+        sf::Vector2u get_size() {
+            if (map_ == nullptr) {
+                return sf::Vector2u(0, 0);
+            } else {
+                return map_->size;
+            }
         }
 
     private:
