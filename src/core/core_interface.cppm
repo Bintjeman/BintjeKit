@@ -15,8 +15,25 @@ import bik.settings;
 // import bik.window;
 // import bik.playground;
 import bik.common;
-import bik.playground;
-import bik.factory;
+// import bik.playground;
+// import bik.factory;
+namespace bik {
+    namespace window {
+        export class BaseWindow;
+    }
+    namespace playground {
+        export class BasePlayGround;
+    }
+    namespace renderer {
+        export class BaseRenderer;
+    }
+    namespace ui {
+        export class BaseUI;
+    }
+    namespace factory {
+        export class BaseFactory;
+    }
+}
 namespace bik::core {
     export class Core : public common::BaseIActionReceiver {
     public:
