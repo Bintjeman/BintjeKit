@@ -8,6 +8,6 @@
  * @details 
  *
  */
-export module bik.simulation;
+export module bik.playground;
 export import :interface;
 import :impl;

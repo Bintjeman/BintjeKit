@@ -8,12 +8,12 @@
  * @details 
  *
  */
-export module bik.simulation:interface;
-namespace bik::simulation {
-    export class BaseSimulation {
+export module bik.playground:interface;
+namespace bik::playground {
+    export class BasePlayGround {
     public:
-        BaseSimulation();
-        virtual ~BaseSimulation();
+        BasePlayGround();
+        virtual ~BasePlayGround();
 
         virtual void configure();
         virtual void initialize();

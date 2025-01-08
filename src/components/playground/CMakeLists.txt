@@ -5,9 +5,9 @@
 ################################################################################
 message(STATUS "CMake script loaded depuis : ${CMAKE_CURRENT_LIST_FILE}")
 set(MODULES
-        simulation.cppm
-        simulation_interface.cppm
-        simulation_impl.cppm
+        playground.cppm
+        playground_interface.cppm
+        playground_impl.cppm
 )
 target_sources(bintjeKit PRIVATE
         PUBLIC
