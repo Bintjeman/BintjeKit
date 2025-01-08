@@ -32,7 +32,7 @@ namespace bik {
     namespace ui {
         export class BaseUI {
         public:
-            explicit BaseUI(window::BaseWindow &window);
+            explicit BaseUI();
             // virtual ~BaseUI();
 
             virtual void configure();
@@ -42,6 +42,7 @@ namespace bik {
 
             void set_action_receiver(common::BaseIActionReceiver *action_receiver);
             virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
+            virtual void set_window(std::shared_ptr<window::BaseWindow> window);
 
         protected:
             virtual void event_handler();
@@ -50,9 +51,8 @@ namespace bik {
             virtual void mouse_scrolled(const sf::Event::MouseWheelScrolled &event);
             void on_close();
 
-            window::BaseWindow &window_;
+            std::shared_ptr<window::BaseWindow> window_;
             std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
-            // renderer::BaseRenderer *renderer_ = nullptr;
             common::BaseIActionReceiver *action_receiver_ = nullptr;
 
         private:

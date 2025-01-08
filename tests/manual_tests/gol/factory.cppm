@@ -24,7 +24,7 @@ namespace gol {
             playground_ = std::make_shared<gol::GameOfLife>();
         }
         void build_ui() override {
-            ui_ = std::make_shared<gol::UserInterface>(*window_);
+            ui_ = std::make_shared<gol::UserInterface>();
         }
     };
 }

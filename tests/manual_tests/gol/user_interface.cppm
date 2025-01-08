@@ -9,6 +9,7 @@
  *
  */
 module;
+#include <set>
 #include <SFML/Window/Event.hpp>
 #include "tools/logger/logger_define.hpp"
 export module gol.user_interface;
@@ -19,8 +20,7 @@ import gol;
 namespace gol {
     export class UserInterface : public bik::ui::BaseUI {
     public:
-        explicit UserInterface(bik::window::BaseWindow& window): BaseUI(window){}
-        // ~UserInterface() override;
+        explicit UserInterface(){}
         void set_playground(std::shared_ptr<bik::playground::BasePlayGround> game_of_life) override{
             LOGGER->info("UserInterface::set_playground()");
             BaseUI::set_playground(game_of_life);

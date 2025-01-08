@@ -41,7 +41,6 @@ namespace bik::core {
         LOGGER->info("Core::configure()");
         create_components();
         ui_->set_action_receiver(this);
-        ui_->set_playground(playground_);
         settings_.load("settings.json");
         auto window_settings = settings_.create_child("/Window"_json_pointer);
         window_->configure(window_settings);

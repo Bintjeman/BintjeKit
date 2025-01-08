@@ -18,11 +18,8 @@ import bik.common;
 import bik.logger;
 import bik.playground;
 namespace bik::ui {
-    BaseUI::BaseUI(window::BaseWindow &window) : window_(window) {
+    BaseUI::BaseUI() {
     }
-
-    // BaseUI::~BaseUI() {
-    // }
 
     void BaseUI::configure() {
     }
@@ -45,8 +42,12 @@ namespace bik::ui {
         playground_ = playground;
     }
 
+    void BaseUI::set_window(std::shared_ptr<window::BaseWindow> window) {
+        window_ = window;
+    }
+
     void BaseUI::event_handler() {
-        while (const std::optional event = window_.pollEvent()) {
+        while (const std::optional event = window_->pollEvent()) {
             if (event.has_value()) {
             }
             if (event->is<sf::Event::Closed>()) {

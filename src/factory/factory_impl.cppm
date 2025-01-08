@@ -10,6 +10,8 @@
  */
 module;
 #include <memory>
+#include <__ranges/rend.h>
+
 #include "tools/logger/logger_define.hpp"
 export module bik.factory:impl;
 import :interface;
@@ -33,6 +35,10 @@ namespace bik::factory {
         build_ui();
         build_playground();
         build_renderer();
+        ui_->set_playground(playground_);
+        ui_->set_window(window_);
+        renderer_->set_playground(playground_);
+        renderer_->set_target(window_);
     }
 
     std::shared_ptr<window::BaseWindow> BaseFactory::window() const {
@@ -60,7 +66,7 @@ namespace bik::factory {
     void BaseFactory::build_ui() {
         LOGGER->info("Factory::create_ui()");
         pre_build_ui();
-        ui_ = std::make_shared<ui::BaseUI>(*window_);
+        ui_ = std::make_shared<ui::BaseUI>();
     }
 
     void BaseFactory::build_playground() {
