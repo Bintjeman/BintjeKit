@@ -10,7 +10,8 @@
  */
 #include <iostream>
 #include "tools/logger/logger_define.hpp"
-import gol.factory;
+import tst.factory;
+import bik.factory;
 import bik.core;
 import bik.logger;
 int main() {

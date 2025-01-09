@@ -11,15 +11,15 @@
 module;
 #include <memory>
 #include <SFML/Window/Window.hpp>
-export module gol.factory;
+export module tst.factory;
 import bik.factory;
-import bik.window;
+// import bik.window;
 import window;
 namespace tst {
     export class Factory : public bik::factory::BaseFactory {
     public:
         void build_window() override {
-            window_ = std::make_shared<Window>();
+            window_ = std::make_shared<tst::Window>();
         }
     };
 }

@@ -13,6 +13,6 @@ import bik.window;
 namespace tst {
     export class Window : public bik::window::BaseWindow {
     public:
-        explicit Window();
+        explicit Window(){}
     };
 }
