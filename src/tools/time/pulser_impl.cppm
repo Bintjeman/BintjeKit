@@ -41,7 +41,7 @@ namespace bik::time {
     template<typename Precision>
     void Pulser<Precision>::set_frequency(double frequency) {
         if (frequency <= 0.0) {
-            throw std::invalid_argument("Frequency must be greater than zero.");
+            each_ = true;
         }
         auto interval_duration = std::chrono::duration<double>(1.0 / frequency);
         interval_ = std::chrono::duration_cast<Precision>(interval_duration).count();
@@ -50,7 +50,7 @@ namespace bik::time {
     template<typename Precision>
     void Pulser<Precision>::set_interval(std::chrono::duration<double> interval) {
         if (interval <= std::chrono::duration<double>(0.0)) {
-            throw std::invalid_argument("Interval must be greater than zero.");
+            each_ = true;
         }
         interval_ = std::chrono::duration_cast<Precision>(interval).count();
     }
