@@ -27,7 +27,7 @@ function(add_bnj_library LIB_NAME LIBNAME_FOLDER CXX_MODULES SOURCES HEADERS)
     )
 
     configure_file(
-            ${LIB_NAME}Config.cmake.in
+            cmake/${LIB_NAME}Config.cmake.in
             "${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}Config.cmake"
             @ONLY
     )

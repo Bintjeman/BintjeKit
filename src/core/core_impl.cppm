@@ -42,9 +42,12 @@ namespace bik::core {
         create_components();
         ui_->set_action_receiver(this);
         settings_.load("settings.json");
+        int frame_per_sedond = settings_.get_or_set("/FramePerSedond"_json_pointer, 60);
+        int step_per_second = settings_.get_or_set("/StepPerSecond"_json_pointer, 10);
+        playground_pulser_.set_frequency( step_per_second);
+        renderer_pulser_.set_frequency(frame_per_sedond);
         auto window_settings = settings_.create_child("/Window"_json_pointer);
         window_->configure(window_settings);
-        configure_inner();
     }
 
     void Core::initialize() {
@@ -52,7 +55,6 @@ namespace bik::core {
         window_->initialize();
         ui_->initialize();
         playground_->initialize();
-
     }
 
     void Core::run() {
@@ -60,8 +62,12 @@ namespace bik::core {
         window_->open();
         while (window_->isOpen()) {
             ui_->update();
-            playground_->update();
-            renderer_->draw();
+            if (playground_pulser_()) {
+                playground_->update();
+            }
+            if (renderer_pulser_()) {
+                renderer_->draw();
+            }
             window_->display();
         }
     }
@@ -70,10 +76,9 @@ namespace bik::core {
         LOGGER->info("Core::finalize()");
         window_->finalize();
         settings_.save("settings.json");
-
     }
 
-    void Core::on_close_window()  {
+    void Core::on_close_window() {
         LOGGER->info("Core::on_close_window()");
         finalize();
     }
@@ -86,9 +91,5 @@ namespace bik::core {
         playground_ = factory_->playground();
         renderer_ = factory_->renderer();
         factory_->clear();
-    }
-
-    void Core::configure_inner() {
-        LOGGER->info("Core::configure_inner()");
     }
 }

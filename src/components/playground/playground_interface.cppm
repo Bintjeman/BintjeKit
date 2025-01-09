@@ -26,7 +26,6 @@ namespace bik::playground {
         [[nodiscard]] virtual sf::Rect<float> boundaries() const;
     protected:
         config::Child settings_;
-
     };
 
 }

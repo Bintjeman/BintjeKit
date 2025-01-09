@@ -17,23 +17,29 @@ import bik.settings;
 import bik.common;
 // import bik.playground;
 // import bik.factory;
+import bik.time;
 namespace bik {
     namespace window {
         export class BaseWindow;
     }
+
     namespace playground {
         export class BasePlayGround;
     }
+
     namespace renderer {
         export class BaseRenderer;
     }
+
     namespace ui {
         export class BaseUI;
     }
+
     namespace factory {
         export class BaseFactory;
     }
 }
+
 namespace bik::core {
     export class Core : public common::BaseIActionReceiver {
     public:
@@ -50,7 +56,6 @@ namespace bik::core {
 
     private:
         void create_components();
-        void configure_inner();
 
         config::Settings settings_;
         std::unique_ptr<factory::BaseFactory> factory_;
@@ -58,6 +63,9 @@ namespace bik::core {
         std::shared_ptr<ui::BaseUI> ui_ = nullptr;
         std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
         std::shared_ptr<renderer::BaseRenderer> renderer_ = nullptr;
-    };
 
+        time::Pulser<> playground_pulser_;
+        time::Pulser<> ui_pulser_;
+        time::Pulser<> renderer_pulser_;
+    };
 }
