@@ -1,0 +1,16 @@
+################################################################################
+# bintjeKitConfig.cmake.in
+# crée le 08.01.25
+# par bintjeman
+################################################################################
+# bintjeKitConfig.cmake.in
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# Importation des cibles
+include("${CMAKE_CURRENT_LIST_DIR}/bintjeKitTargets.cmake")
+
+# Ajout du namespace pour les cibles
+set(bintjeKit_INCLUDE_DIRS "@PACKAGE_INCLUDE_DESTINATION@")
+set(bintjeKit_LIBRARIES bintjeKit::bintjeKit)
