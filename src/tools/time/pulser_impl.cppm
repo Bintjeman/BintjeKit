@@ -25,8 +25,11 @@ namespace bik::time {
 
     template<typename Precision>
     bool Pulser<Precision>::pulse() {
-        if (each_ || this->elapsed() >= interval_) {
-            effective_interval_ = this->restart(); // Redémarre l'horloge
+        const auto now = SysClock::now();
+        const auto elapsed = std::chrono::duration_cast<Precision>(now - this->start_).count();
+        if (each_ || elapsed >= interval_) {
+            this->start_ = now;
+            effective_interval_ = elapsed;
             return true; // Pulse activée
         }
         return false;
@@ -42,8 +45,19 @@ namespace bik::time {
         if (frequency <= 0.0) {
             each_ = true;
         }
+
+        // Limite minimale d'intervalle en fonction de la précision donnée
+        auto min_interval = Precision::period::num / Precision::period::den;
+
+        // Calcul de l'intervalle à partir de la fréquence donnée
         auto interval_duration = std::chrono::duration<double>(1.0 / frequency);
-        interval_ = std::chrono::duration_cast<Precision>(interval_duration).count();
+
+        // Vérifiez si l'intervalle cible est inférieur à la précision minimale
+        if (interval_duration.count() < min_interval) {
+            interval_ = min_interval; // Forcer un intervalle minimal
+        } else {
+            interval_ = std::chrono::duration_cast<Precision>(interval_duration).count();
+        }
     }
 
     template<typename Precision>

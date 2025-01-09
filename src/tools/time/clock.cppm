@@ -12,10 +12,10 @@ module;
 #include <chrono>>
 export module bik.time:clock;
 namespace bik::time {
-    export using SysClock = std::chrono::high_resolution_clock;
-    export using TimePoint = std::chrono::high_resolution_clock::time_point;
+    export using SysClock = std::chrono::steady_clock;
+    export using TimePoint = SysClock::time_point;
     // export using Precision = std::chrono::milliseconds;
-    export template<typename Precision = std::chrono::milliseconds>
+    export template<typename Precision = std::chrono::nanoseconds>
     class Clock {
     public:
         using Duration = typename Precision::duration;
