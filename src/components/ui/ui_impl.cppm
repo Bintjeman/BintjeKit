@@ -19,6 +19,11 @@ import bik.logger;
 import bik.playground;
 namespace bik::ui {
     BaseUI::BaseUI() {
+        LOGGER->info("UI::UI()");
+    }
+
+    BaseUI::~BaseUI() {
+        LOGGER->info("UI::~UI()");
     }
 
     void BaseUI::configure() {

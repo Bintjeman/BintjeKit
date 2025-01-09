@@ -16,7 +16,7 @@ namespace bik::window {
     export class BaseWindow : public sf::RenderWindow {
     public:
         explicit BaseWindow();
-        ~BaseWindow() override;
+        virtual ~BaseWindow() override;
 
         virtual void configure(const config::Child& settings);
         virtual void initialize();

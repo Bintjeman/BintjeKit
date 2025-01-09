@@ -7,6 +7,7 @@ message(STATUS "CMake script loaded depuis : ${CMAKE_CURRENT_LIST_FILE}")
 
 add_library(bintjeKit STATIC)
 set_target_properties(bintjeKit PROPERTIES EXPORT_NAME bintjeKit)
+set_target_properties(bintjeKit PROPERTIES DEBUG_POSTFIX "-d")
 
 # Variables pour collecter tous les headers et modules
 set(BIK_HEADER "")   # Headers publics

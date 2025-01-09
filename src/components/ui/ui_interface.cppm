@@ -33,7 +33,7 @@ namespace bik {
         export class BaseUI {
         public:
             explicit BaseUI();
-            // virtual ~BaseUI();
+            virtual ~BaseUI();
 
             virtual void configure();
             virtual void initialize();

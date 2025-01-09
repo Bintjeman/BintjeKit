@@ -18,6 +18,9 @@ namespace bik::renderer {
     BaseRenderer::BaseRenderer() {
     }
 
+    BaseRenderer::~BaseRenderer() {
+    }
+
     void BaseRenderer::draw() {
     }
 

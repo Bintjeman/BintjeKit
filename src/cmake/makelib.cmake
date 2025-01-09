@@ -11,6 +11,8 @@ message("CMAKE_CURRENT_LIST_FILE is ${CMAKE_CURRENT_LIST_FILE}")
 ################################################################################
 # MyLibrarySetup.cmake
 include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)
+set(CMAKE_DEBUG_POSTFIX "-d")
 
 function(add_bnj_library LIB_NAME LIBNAME_FOLDER CXX_MODULES SOURCES HEADERS)
     message("add_bnj_library: ${LIB_NAME} depuis ${LIBNAME_FOLDER}")
@@ -41,29 +43,6 @@ function(add_bnj_library LIB_NAME LIBNAME_FOLDER CXX_MODULES SOURCES HEADERS)
             INCLUDES
             DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     )
-
-
 endfunction()
 ################################################################################
-
-################################################################################
-
-############################# Installer les fichiers d'en-tête
-#    install(DIRECTORY ${CMAKE_SOURCE_DIR}/${LIB_NAME}/
-#            DESTINATION include/${LIB_NAME}
-#            FILES_MATCHING PATTERN "*.h"
-#    )
-#
-#    # Exporter les cibles
-#    install(EXPORT ${LIB_NAME}Targets
-#            FILE ${LIB_NAME}Targets.cmake
-#            NAMESPACE bnj::  # Ajoute le préfixe 'bnj::' aux cibles exportées
-#            DESTINATION lib/cmake/${LIB_NAME}
-#    )
-#
-#    # Installer les fichiers de configuration
-#    install(FILES
-#            "${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}Config.cmake"
-#            "${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}ConfigVersion.cmake"
-#            DESTINATION lib/cmake/${LIB_NAME}
-#    )####################################################
+#######
