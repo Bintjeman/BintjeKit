@@ -9,7 +9,6 @@
  *
  */
 module;
-#include <stdexcept>
 #include <chrono>
 export module bik.time:pulser_impl;
 import :pulser;
