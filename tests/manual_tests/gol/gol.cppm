@@ -28,6 +28,9 @@ namespace gol {
 
         void initialize() override {
             LOGGER->info("GameOfLife::initialize()");
+            if (settings_.get_or_set("/Gol/Rules/Autostart"_json_pointer, true)) {
+                new_gol();
+            }
         }
 
         void new_gol() {
