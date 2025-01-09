@@ -11,8 +11,7 @@
 module;
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>
-#include <spdlog/fmt/bundled/base.h>
-
+#include <SFML/Graphics/Rect.hpp>
 #include "tools/logger/logger_define.hpp"
 export module gol;
 import :map;
@@ -26,13 +25,18 @@ namespace gol {
             LOGGER->info("GameOfLife::GameOfLife()");
         }
 
-        void update() override{}
+        void update() override {
+        }
 
         void initialize() override {
             LOGGER->info("GameOfLife::initialize()");
             if (settings_.get_or_set("/Gol/Rules/Autostart"_json_pointer, true)) {
                 new_gol();
             }
+        }
+
+        sf::Rect<float> boundaries() const override {
+            return sf::Rect<float>({0.f, 0.f}, sf::Vector2f(map_->size));
         }
 
         void new_gol() {

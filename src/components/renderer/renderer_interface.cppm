@@ -33,6 +33,7 @@ namespace bik::renderer {
         void set_view(sf::View view);
         void camera_move(sf::Vector2f offset);
         void camera_zoom(float zoom);
+        void reframe();
     protected:
         std::shared_ptr<sf::RenderTarget> target_ = nullptr;
         std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;

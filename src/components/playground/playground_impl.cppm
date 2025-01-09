@@ -9,6 +9,7 @@
  *
  */
 module;
+#include <SFML/Graphics/Rect.hpp>
 #include "tools/logger/logger_define.hpp"
 export module bik.playground:impl;
 import :interface;
@@ -38,5 +39,9 @@ namespace bik::playground {
 
     void BasePlayGround::finalize() {
         LOGGER->info("BasePlayGround::finalize()");
+    }
+
+    sf::Rect<float> BasePlayGround::boundaries() const {
+        return sf::Rect<float>();
     }
 }

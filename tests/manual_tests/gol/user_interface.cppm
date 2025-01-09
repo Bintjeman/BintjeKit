@@ -21,8 +21,10 @@ import gol;
 namespace gol {
     export class UserInterface : public bik::ui::BaseUI {
     public:
-        explicit UserInterface(){}
-        void set_playground(std::shared_ptr<bik::playground::BasePlayGround> game_of_life) override{
+        explicit UserInterface() {
+        }
+
+        void set_playground(std::shared_ptr<bik::playground::BasePlayGround> game_of_life) override {
             LOGGER->info("UserInterface::set_playground()");
             BaseUI::set_playground(game_of_life);
             game_of_life_ = std::dynamic_pointer_cast<GameOfLife>(game_of_life);
@@ -47,16 +49,20 @@ namespace gol {
                     break;
                 case sf::Keyboard::Scancode::A:
                     renderer_->camera_move(sf::Vector2f(-1, 0));
-                break;
+                    break;
                 case sf::Keyboard::Scancode::D:
                     renderer_->camera_move(sf::Vector2f(1, 0));
-                break;
+                    break;
                 case sf::Keyboard::Scancode::W:
                     renderer_->camera_move(sf::Vector2f(0, -1));
-                break;
+                    break;
                 case sf::Keyboard::Scancode::S:
                     renderer_->camera_move(sf::Vector2f(0, 1));
-                break;
+                    break;
+                case sf::Keyboard::Scancode::C:
+                    if (key_event.control) {
+                        renderer_->reframe();
+                    }
             }
         }
 
@@ -69,6 +75,7 @@ namespace gol {
                 renderer_->camera_zoom(0.9f);
             }
         }
+
     private:
         std::shared_ptr<GameOfLife> game_of_life_;
     };

@@ -8,6 +8,8 @@
  * @details 
  *
  */
+module;
+#include <SFML/Graphics/Rect.hpp>
 export module bik.playground:interface;
 import bik.settings;
 namespace bik::playground {
@@ -20,6 +22,8 @@ namespace bik::playground {
         virtual void initialize();
         virtual void update();
         virtual void finalize();
+
+        [[nodiscard]] virtual sf::Rect<float> boundaries() const;
     protected:
         config::Child settings_;
 

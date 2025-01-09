@@ -24,6 +24,7 @@ set(SFML_STATIC_LIBRARIES ON)
 find_package(SFML 3 COMPONENTS REQUIRED System Window Graphics)
 
 set(BIK_MODULES
+        tools/d2/d2.cppm
         tools/settings_manager/node.cppm
         tools/settings_manager/node_impl.cppm
         tools/settings_manager/settings.cppm
