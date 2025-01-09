@@ -28,15 +28,3 @@ endif ()
 if (BINTJEKIT_BUILD_EXEMPLES)
     add_subdirectory(exemples)
 endif ()
-# Génération de la documentation via Doxygen (facultative)
-find_package(Doxygen)
-if(DOXYGEN_FOUND)
-    add_custom_target(doc
-            COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/docs
-            COMMENT "Génération de la documentation Doxygen"
-            VERBATIM
-    )
-endif()
-
-
