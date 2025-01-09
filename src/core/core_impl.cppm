@@ -41,10 +41,11 @@ namespace bik::core {
         LOGGER->info("Core::configure()");
         create_components();
         ui_->set_action_receiver(this);
+        renderer_->set_core_info_provider(this);
         settings_.load("settings.json");
         int frame_per_sedond = settings_.get_or_set("/FramePerSedond"_json_pointer, 60);
         int step_per_second = settings_.get_or_set("/StepPerSecond"_json_pointer, 10);
-        playground_pulser_.set_frequency( step_per_second);
+        playground_pulser_.set_frequency(step_per_second);
         renderer_pulser_.set_frequency(frame_per_sedond);
         auto window_settings = settings_.create_child("/Window"_json_pointer);
         window_->configure(window_settings);
@@ -84,12 +85,12 @@ namespace bik::core {
         finalize();
     }
 
-    long long Core::playground_time() const {
-        return playground_pulser_.effective_interval();
+    long long Core::renderer_frequency() const {
+        return renderer_pulser_.effective_interval();
     }
 
-    long long Core::renderer_time() const {
-        return renderer_pulser_.effective_interval();
+    long long Core::playground_frequency() const {
+        return playground_pulser_.effective_interval();
     }
 
     void Core::create_components() {

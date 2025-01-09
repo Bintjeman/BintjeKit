@@ -12,10 +12,13 @@ module;
 #include <memory>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
 export module gol.renderer;
 import bik.renderer;
 import bik.playground;
 import gol;
+import bik.common;
 namespace gol {
     export class Renderer : public bik::renderer::BaseRenderer {
 
@@ -32,6 +35,18 @@ namespace gol {
             shape.setFillColor(sf::Color::Red);
             target_->setView(playground_view_);
             target_->draw(shape);
+
+            static sf::Font font;
+            font.openFromFile("JetBrainsMono-Regular.ttf");
+            sf::Text text(font);
+
+            auto playground_frequency = core_info_provider_->playground_frequency();
+            auto renderer_frequency = core_info_provider_->renderer_frequency();
+            text.setString("SPS:"+std::to_string(playground_frequency)+"\nFPS:"+std::to_string(renderer_frequency));
+            target_->setView(ui_view_);
+            target_->draw(text);
+
+
         }
 
     private:

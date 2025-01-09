@@ -41,7 +41,7 @@ namespace bik {
 }
 
 namespace bik::core {
-    export class Core : public common::BaseIActionReceiver {
+    export class Core : public common::BaseIActionReceiver, public common::BaseCoreInfoProvider {
     public:
         Core();
         explicit Core(std::unique_ptr<factory::BaseFactory> factory);
@@ -52,11 +52,9 @@ namespace bik::core {
         void run();
         void finalize();
         void on_close_window() override;
-    // Getters
-        long long playground_time() const;
-        long long renderer_time() const;
-
-
+        // Getters
+        long long renderer_frequency() const override;
+        long long playground_frequency() const override;
     private:
         void create_components();
 

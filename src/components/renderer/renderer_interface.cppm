@@ -19,6 +19,9 @@ namespace bik {
     namespace playground {
         class BasePlayGround;
     }
+    namespace common {
+        class BaseCoreInfoProvider;
+    }
 }
 
 namespace bik::renderer {
@@ -29,6 +32,7 @@ namespace bik::renderer {
         virtual void draw();
         virtual void set_target(std::shared_ptr<sf::RenderTarget> target);
         virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
+        void set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider);
 
         void set_view(sf::View view);
         void camera_move(sf::Vector2f offset);
@@ -40,6 +44,6 @@ namespace bik::renderer {
         sf::View main_view_;
         sf::View playground_view_;
         sf::View ui_view_;
-
+        common::BaseCoreInfoProvider *core_info_provider_ = nullptr;
     };
 }

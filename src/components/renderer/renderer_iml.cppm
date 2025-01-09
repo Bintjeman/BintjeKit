@@ -14,6 +14,7 @@ module;
 export module bik.renderer:impl;
 import :interface;
 import bik.playground;
+import bik.common;
 import bik.d2;
 namespace bik::renderer {
     BaseRenderer::BaseRenderer() {
@@ -35,6 +36,10 @@ namespace bik::renderer {
 
     void BaseRenderer::set_playground(std::shared_ptr<playground::BasePlayGround> playground) {
         playground_ = playground;
+    }
+
+    void BaseRenderer::set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider) {
+        core_info_provider_ = core_info_provider;
     }
 
     void BaseRenderer::set_view(sf::View view) {

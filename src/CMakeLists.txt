@@ -58,8 +58,9 @@ set(BIK_MODULES
         components/playground/playground_interface.cppm
         components/playground/playground_impl.cppm
         components/playground/playground.cppm
-        components/event/iactionreceiver.cppm
-        components/event/common.cppm
+        components/common/core_info_profider.cppm
+        components/common/iactionreceiver.cppm
+        components/common/common.cppm
 )
 set(BIK_HEADERS
         tools/logger/logger_define.hpp
