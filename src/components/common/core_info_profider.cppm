@@ -13,8 +13,8 @@ namespace bik::common {
     export class BaseCoreInfoProvider {
     public:
         virtual ~BaseCoreInfoProvider() = default;
-        virtual long long renderer_frequency() const = 0;
-        virtual long long playground_frequency() const = 0;
+        virtual double renderer_frequency() const = 0;
+        virtual double playground_frequency() const = 0;
 
     };
 }

@@ -53,8 +53,8 @@ namespace bik::core {
         void finalize();
         void on_close_window() override;
         // Getters
-        long long renderer_frequency() const override;
-        long long playground_frequency() const override;
+        double renderer_frequency() const override;
+        double playground_frequency() const override;
     private:
         void create_components();
 

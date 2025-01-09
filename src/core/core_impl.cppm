@@ -85,12 +85,12 @@ namespace bik::core {
         finalize();
     }
 
-    long long Core::renderer_frequency() const {
-        return renderer_pulser_.effective_interval();
+    double Core::renderer_frequency() const {
+        return renderer_pulser_.effective_frequency();
     }
 
-    long long Core::playground_frequency() const {
-        return playground_pulser_.effective_interval();
+    double Core::playground_frequency() const {
+        return playground_pulser_.effective_frequency();
     }
 
     void Core::create_components() {

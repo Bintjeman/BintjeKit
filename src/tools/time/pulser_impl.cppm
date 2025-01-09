@@ -65,6 +65,20 @@ namespace bik::time {
     }
 
     template<typename Precision>
+    auto Pulser<Precision>::effective_frequency() const -> double {
+        // Si l'intervalle effectif est 0, la fréquence ne peut pas être calculée, retourne 0
+        if (effective_interval_ == 0) {
+            return 0.0;
+        }
+        // Calcul de la fréquence en fonction de l'intervalle effectif
+        auto interval_in_seconds = static_cast<double>(effective_interval_) *
+                                   Precision::period::num /
+                                   Precision::period::den;
+
+        return 1.0 / interval_in_seconds;
+    }
+
+    template<typename Precision>
     void Pulser<Precision>::each(bool each) {
         each_ = each;
     }
