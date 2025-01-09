@@ -31,4 +31,16 @@ namespace bik::renderer {
     void BaseRenderer::set_playground(std::shared_ptr<playground::BasePlayGround> playground) {
         playground_ = playground;
     }
+
+    void BaseRenderer::set_view(sf::View view) {
+        target_->setView(view);
+    }
+
+    void BaseRenderer::camera_move(sf::Vector2f offset) {
+        playground_view_.move(offset);
+    }
+
+    void BaseRenderer::camera_zoom(float zoom) {
+        playground_view_.zoom(zoom);
+    }
 }

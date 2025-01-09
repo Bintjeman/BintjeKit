@@ -35,10 +35,11 @@ namespace bik::factory {
         build_ui();
         build_playground();
         build_renderer();
-        ui_->set_playground(playground_);
-        ui_->set_window(window_);
         renderer_->set_playground(playground_);
         renderer_->set_target(window_);
+        ui_->set_playground(playground_);
+        ui_->set_window(window_);
+        ui_->set_renderer(renderer_);
     }
 
     std::shared_ptr<window::BaseWindow> BaseFactory::window() const {
@@ -81,7 +82,6 @@ namespace bik::factory {
 
 
     void BaseFactory::pre_build_window() {
-
     }
 
     void BaseFactory::pre_build_ui() {
@@ -89,13 +89,13 @@ namespace bik::factory {
             LOGGER->error("Window est null et doit être créé avant UI");
         }
     }
-    void BaseFactory::pre_build_playground() {
 
+    void BaseFactory::pre_build_playground() {
     }
 
     void BaseFactory::pre_build_renderer() {
-
     }
+
     void BaseFactory::clear() {
         LOGGER->info("Factory::clear()");
         window_ = nullptr;

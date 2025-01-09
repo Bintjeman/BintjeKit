@@ -47,6 +47,10 @@ namespace bik::ui {
         playground_ = playground;
     }
 
+    void BaseUI::set_renderer(std::shared_ptr<renderer::BaseRenderer> renderer) {
+        renderer_ = renderer;
+    }
+
     void BaseUI::set_window(std::shared_ptr<window::BaseWindow> window) {
         window_ = window;
     }

@@ -42,6 +42,7 @@ namespace bik {
 
             void set_action_receiver(common::BaseIActionReceiver *action_receiver);
             virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
+            virtual void set_renderer(std::shared_ptr<renderer::BaseRenderer> renderer);
             virtual void set_window(std::shared_ptr<window::BaseWindow> window);
 
         protected:
@@ -53,6 +54,7 @@ namespace bik {
 
             std::shared_ptr<window::BaseWindow> window_;
             std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
+            std::shared_ptr<renderer::BaseRenderer> renderer_ = nullptr;
             common::BaseIActionReceiver *action_receiver_ = nullptr;
 
         private:

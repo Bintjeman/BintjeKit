@@ -10,6 +10,7 @@
  */
 module;
 #include <memory>
+#include <SFML/Graphics/View.hpp>
 export module bik.renderer:interface;
 namespace sf {
     class RenderTarget;
@@ -29,8 +30,15 @@ namespace bik::renderer {
         virtual void set_target(std::shared_ptr<sf::RenderTarget> target);
         virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
 
+        void set_view(sf::View view);
+        void camera_move(sf::Vector2f offset);
+        void camera_zoom(float zoom);
     protected:
         std::shared_ptr<sf::RenderTarget> target_ = nullptr;
         std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
+        sf::View main_view_;
+        sf::View playground_view_;
+        sf::View ui_view_;
+
     };
 }
