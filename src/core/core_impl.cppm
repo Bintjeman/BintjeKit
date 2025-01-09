@@ -60,6 +60,7 @@ namespace bik::core {
     void Core::run() {
         LOGGER->info("Core::run()");
         window_->open();
+        renderer_->reframe();
         while (window_->isOpen()) {
             ui_->update();
             if (playground_pulser_()) {
@@ -81,6 +82,14 @@ namespace bik::core {
     void Core::on_close_window() {
         LOGGER->info("Core::on_close_window()");
         finalize();
+    }
+
+    long long Core::playground_time() const {
+        return playground_pulser_.effective_interval();
+    }
+
+    long long Core::renderer_time() const {
+        return renderer_pulser_.effective_interval();
     }
 
     void Core::create_components() {

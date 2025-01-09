@@ -55,12 +55,12 @@ namespace bik::time {
     }
 
     template<typename Precision>
-    Precision Pulser<Precision>::interval() const {
+    long long Pulser<Precision>::interval() const {
         return interval_;
     }
 
     template<typename Precision>
-    Precision Pulser<Precision>::effective_interval() const {
+    long long Pulser<Precision>::effective_interval() const {
         return effective_interval_;
     }
 

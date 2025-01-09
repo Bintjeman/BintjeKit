@@ -46,13 +46,16 @@ namespace bik::core {
         Core();
         explicit Core(std::unique_ptr<factory::BaseFactory> factory);
         ~Core();
-
+        //
         void configure();
         void initialize();
         void run();
         void finalize();
-
         void on_close_window() override;
+    // Getters
+        long long playground_time() const;
+        long long renderer_time() const;
+
 
     private:
         void create_components();

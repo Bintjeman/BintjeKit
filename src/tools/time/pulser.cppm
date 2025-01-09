@@ -23,8 +23,8 @@ namespace bik::time {
         bool operator ()();
         void set_frequency(double frequency);
         void set_interval(std::chrono::duration<double> interval);
-        Precision interval() const;
-        Precision effective_interval() const;
+        long long interval() const;
+        long long effective_interval() const;
         void each(bool each);
 
     private:
