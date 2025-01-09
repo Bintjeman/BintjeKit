@@ -47,9 +47,9 @@ namespace bik {
 
         protected:
             virtual void event_handler();
-            virtual void key_pressed(const sf::Event::KeyPressed &event);
-            virtual void resized(const sf::Event::Resized &event);
-            virtual void mouse_scrolled(const sf::Event::MouseWheelScrolled &event);
+            virtual void key_pressed(const sf::Event::KeyPressed &key_event);
+            virtual void resized(const sf::Event::Resized &size_event);
+            virtual void mouse_scrolled(const sf::Event::MouseWheelScrolled &scroll_event);
             void on_close();
 
             std::shared_ptr<window::BaseWindow> window_;

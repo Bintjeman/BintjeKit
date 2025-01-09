@@ -11,6 +11,7 @@
 module;
 #include <memory>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 export module gol.renderer;
 import bik.renderer;
 import bik.playground;
@@ -29,6 +30,7 @@ namespace gol {
             sf::Vector2f sizef = sf::Vector2f(game_of_life_->get_size());
             shape.setSize(sizef);
             shape.setFillColor(sf::Color::Red);
+            target_->setView(playground_view_);
             target_->draw(shape);
         }
 

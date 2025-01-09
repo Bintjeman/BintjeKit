@@ -16,6 +16,7 @@ export module gol.user_interface;
 import bik.ui;
 import bik.window;
 import bik.playground;
+import bik.renderer;
 import gol;
 namespace gol {
     export class UserInterface : public bik::ui::BaseUI {
@@ -27,26 +28,47 @@ namespace gol {
             game_of_life_ = std::dynamic_pointer_cast<GameOfLife>(game_of_life);
         }
 
-        void key_pressed(const ::sf::Event::KeyPressed &event) override {
-            switch (event.scancode) {
+        void key_pressed(const ::sf::Event::KeyPressed &key_event) override {
+            switch (key_event.scancode) {
                 case sf::Keyboard::Scancode::Q:
-                    if (event.control) {
+                    if (key_event.control) {
                         on_close();
                     }
                     break;
                 case sf::Keyboard::Scancode::N:
-                    if (event.control) {
+                    if (key_event.control) {
                         game_of_life_->new_gol();
                     }
                     break;
                 case sf::Keyboard::Scancode::K:
-                    if (event.control) {
+                    if (key_event.control) {
                         game_of_life_->kill_gol();
                     }
                     break;
+                case sf::Keyboard::Scancode::A:
+                    renderer_->camera_move(sf::Vector2f(-1, 0));
+                break;
+                case sf::Keyboard::Scancode::D:
+                    renderer_->camera_move(sf::Vector2f(1, 0));
+                break;
+                case sf::Keyboard::Scancode::W:
+                    renderer_->camera_move(sf::Vector2f(0, -1));
+                break;
+                case sf::Keyboard::Scancode::S:
+                    renderer_->camera_move(sf::Vector2f(0, 1));
+                break;
             }
         }
 
+        void mouse_scrolled(const sf::Event::MouseWheelScrolled &scrolled_event) override {
+            LOGGER->trace("Mouse scrolled");
+            float scrolled = scrolled_event.delta;
+            if (scrolled > 0) {
+                renderer_->camera_zoom(1.1f);
+            } else if (scrolled < 0) {
+                renderer_->camera_zoom(0.9f);
+            }
+        }
     private:
         std::shared_ptr<GameOfLife> game_of_life_;
     };

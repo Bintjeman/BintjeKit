@@ -26,6 +26,10 @@ namespace bik::renderer {
 
     void BaseRenderer::set_target(std::shared_ptr<sf::RenderTarget> target) {
         target_ = target;
+        main_view_ = target->getView();
+        playground_view_ = main_view_;
+        ui_view_ = main_view_;
+        target->setView(main_view_);
     }
 
     void BaseRenderer::set_playground(std::shared_ptr<playground::BasePlayGround> playground) {

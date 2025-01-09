@@ -16,6 +16,7 @@ import :interface;
 import bik.window;
 import bik.common;
 import bik.logger;
+import bik.renderer;
 import bik.playground;
 namespace bik::ui {
     BaseUI::BaseUI() {
@@ -75,20 +76,20 @@ namespace bik::ui {
         action_receiver_->on_close_window();
     }
 
-    void BaseUI::key_pressed(const sf::Event::KeyPressed &key) {
+    void BaseUI::key_pressed(const sf::Event::KeyPressed &key_event) {
         LOGGER->trace("Touche appuyée");
-        switch (key.scancode) {
+        switch (key_event.scancode) {
             case sf::Keyboard::Scancode::Q:
-                if (key.control) {
+                if (key_event.control) {
                     on_close();
                 }
                 break;
         }
     }
 
-    void BaseUI::resized(const sf::Event::Resized &event) {
+    void BaseUI::resized(const sf::Event::Resized &size_event) {
     }
 
-    void BaseUI::mouse_scrolled(const sf::Event::MouseWheelScrolled &event) {
+    void BaseUI::mouse_scrolled(const sf::Event::MouseWheelScrolled &scroll_event) {
     }
 }
