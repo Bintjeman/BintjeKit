@@ -33,7 +33,7 @@ namespace gol {
             // sf::Vector2f sizef = sf::Vector2f(game_of_life_->get_size());
             // shape.setSize(sizef);
             // shape.setFillColor(sf::Color::Red);
-            // target_->setView(playground_view_);
+            target_->setView(playground_view_);
             // target_->draw(shape);
             // Game
             game_of_life_->prerendering();

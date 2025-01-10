@@ -50,7 +50,7 @@ template<typename T>
 T Node::get_or_set(const nlohmann::json::json_pointer &key, const T &defaultValue) {
     auto ptr = root_ / key;
     if (!json_->contains(ptr)) {
-        set_inner(key, defaultValue);
+        (*json_)[root_ / key] = defaultValue;
         return defaultValue;
     } else {
         return json_->at(ptr).get<T>();
@@ -59,7 +59,7 @@ T Node::get_or_set(const nlohmann::json::json_pointer &key, const T &defaultValu
 
 template<typename T>
 void Node::set(const nlohmann::json::json_pointer &key, const T &value) {
-    set_inner(root_ / key, value);
+    (*json_)[root_ / key] = value;
 }
 
 Node Node::create_child(const nlohmann::json::json_pointer &key) {
