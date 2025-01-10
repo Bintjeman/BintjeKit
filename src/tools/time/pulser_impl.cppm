@@ -89,7 +89,7 @@ namespace bik::time {
                                    Precision::period::num /
                                    Precision::period::den;
 
-        return 1.0 / interval_in_seconds;
+        return  1.0 / interval_in_seconds;
     }
 
     template<typename Precision>
