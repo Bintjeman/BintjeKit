@@ -49,6 +49,7 @@ namespace bik::core {
         renderer_pulser_.set_frequency(frame_per_sedond);
         auto window_settings = settings_.create_child("/Window"_json_pointer);
         window_->configure(window_settings);
+        renderer_->configure(settings_.create_child("/Renderer"_json_pointer));
     }
 
     void Core::initialize() {
@@ -56,6 +57,7 @@ namespace bik::core {
         window_->initialize();
         ui_->initialize();
         playground_->initialize();
+        renderer_->initialize();
     }
 
     void Core::run() {

@@ -11,14 +11,18 @@
 module;
 #include <memory>
 #include <SFML/Graphics/View.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 export module bik.renderer:interface;
-namespace sf {
-    class RenderTarget;
-}
+export import bik.settings;
+// namespace sf {
+    // class RenderTarget;
+// }
 namespace bik {
     namespace playground {
         class BasePlayGround;
     }
+
     namespace common {
         class BaseCoreInfoProvider;
     }
@@ -29,6 +33,10 @@ namespace bik::renderer {
     public:
         BaseRenderer();
         virtual ~BaseRenderer();
+        virtual void configure(config::Child settings);
+        virtual void initialize();
+        virtual void update();
+        virtual void finalize();
         virtual void draw();
         virtual void set_target(std::shared_ptr<sf::RenderTarget> target);
         virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
@@ -38,12 +46,15 @@ namespace bik::renderer {
         void camera_move(sf::Vector2f offset);
         void camera_zoom(float zoom);
         void reframe();
+
     protected:
-        std::shared_ptr<sf::RenderTarget> target_ = nullptr;
-        std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
+        config::Child settings_;
         sf::View main_view_;
         sf::View playground_view_;
         sf::View ui_view_;
+        sf::Font font_;
+        std::shared_ptr<sf::RenderTarget> target_ = nullptr;
+        std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
         common::BaseCoreInfoProvider *core_info_provider_ = nullptr;
     };
 }

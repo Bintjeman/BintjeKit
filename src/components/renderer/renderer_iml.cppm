@@ -10,17 +10,42 @@
  */
 module;
 #include <memory>
+#include <filesystem>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <nlohmann/json.hpp>
+#include "tools/logger/logger_define.hpp"
 export module bik.renderer:impl;
 import :interface;
 import bik.playground;
 import bik.common;
 import bik.d2;
+import bik.logger;
 namespace bik::renderer {
     BaseRenderer::BaseRenderer() {
+        LOGGER->info("Renderer::Renderer()");
     }
 
     BaseRenderer::~BaseRenderer() {
+        LOGGER->info("Renderer::~Renderer()");
+    }
+
+    void BaseRenderer::configure(config::Child settings) {
+        LOGGER->info("Renderer::configure()");
+        settings_ = settings;
+    }
+
+    void BaseRenderer::initialize() {
+        LOGGER->info("Renderer::initialize()");
+        std::string font_path = settings_.get_or_set("/Font"_json_pointer, std::string("JetBrainsMono-Regular.ttf"));
+        font_.openFromFile(font_path);
+    }
+
+    void BaseRenderer::update() {
+    }
+
+    void BaseRenderer::finalize() {
+        LOGGER->info("Renderer::finalize()");
     }
 
     void BaseRenderer::draw() {

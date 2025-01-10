@@ -36,9 +36,7 @@ namespace gol {
             target_->setView(playground_view_);
             target_->draw(shape);
 
-            static sf::Font font;
-            font.openFromFile("JetBrainsMono-Regular.ttf");
-            sf::Text text(font);
+            static sf::Text text(font_);
 
             auto playground_frequency = core_info_provider_->playground_frequency();
             auto renderer_frequency = core_info_provider_->renderer_frequency();
