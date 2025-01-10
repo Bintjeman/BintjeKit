@@ -25,14 +25,20 @@ namespace gol {
             BaseRenderer::set_playground(playground);
             game_of_life_ = std::dynamic_pointer_cast<GameOfLife>(playground);
         }
+
         void draw() override {
+            // Background
             target_->clear(sf::Color::Black);
-            sf::RectangleShape shape;
-            sf::Vector2f sizef = sf::Vector2f(game_of_life_->get_size());
-            shape.setSize(sizef);
-            shape.setFillColor(sf::Color::Red);
-            target_->setView(playground_view_);
-            target_->draw(shape);
+            // sf::RectangleShape shape;
+            // sf::Vector2f sizef = sf::Vector2f(game_of_life_->get_size());
+            // shape.setSize(sizef);
+            // shape.setFillColor(sf::Color::Red);
+            // target_->setView(playground_view_);
+            // target_->draw(shape);
+            // Game
+            game_of_life_->prerendering();
+            target_->draw(game_of_life_->drawable());
+            // UI
             static sf::Text text(font_);
             auto playground_frequency = std::format("{:.2f}", core_info_provider_->playground_frequency());
             auto renderer_frequency = std::format("{:.2f}", core_info_provider_->renderer_frequency());
@@ -40,6 +46,7 @@ namespace gol {
             target_->setView(ui_view_);
             target_->draw(text);
         }
+
     private:
         std::shared_ptr<GameOfLife> game_of_life_;
     };

@@ -13,6 +13,7 @@ set(SOURCES
 set(MODULES
         gol.cppm
         map.cppm
+        gol_renderer.cppm
         renderer.cppm
         user_interface.cppm
         factory.cppm

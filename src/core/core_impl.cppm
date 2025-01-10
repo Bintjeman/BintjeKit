@@ -50,6 +50,7 @@ namespace bik::core {
         auto window_settings = settings_.create_child("/Window"_json_pointer);
         window_->configure(window_settings);
         renderer_->configure(settings_.create_child("/Renderer"_json_pointer));
+        playground_->configure(settings_.create_child("/Playground"_json_pointer));
     }
 
     void Core::initialize() {

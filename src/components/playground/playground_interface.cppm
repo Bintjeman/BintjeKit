@@ -12,6 +12,9 @@ module;
 #include <SFML/Graphics/Rect.hpp>
 export module bik.playground:interface;
 import bik.settings;
+namespace sf {
+    class Drawable;
+}
 namespace bik::playground {
     export class BasePlayGround {
     public:
@@ -24,8 +27,8 @@ namespace bik::playground {
         virtual void finalize();
 
         [[nodiscard]] virtual sf::Rect<float> boundaries() const;
+
     protected:
         config::Child settings_;
     };
-
 }

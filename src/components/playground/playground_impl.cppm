@@ -9,6 +9,8 @@
  *
  */
 module;
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include "tools/logger/logger_define.hpp"
 export module bik.playground:impl;
