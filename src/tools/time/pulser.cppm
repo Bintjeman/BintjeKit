@@ -16,21 +16,22 @@ namespace bik::time {
     export template<typename Precision = std::chrono::milliseconds>
     class Pulser : public Clock<Precision> {
     public:
-        using Duration = std::chrono::duration<double>;
+        using Duration = typename Precision::duration;
+        using Period = typename Precision::period;
         Pulser();
         virtual ~Pulser();
         bool pulse();
         bool operator ()();
         void set_frequency(double frequency);
-        void set_interval(std::chrono::duration<double> interval);
-        [[nodiscard]] auto interval() const -> long long;
-        [[nodiscard]] auto effective_interval() const -> long long;
-        [[nodiscard]] auto effective_frequency() const -> double;
+        void set_interval(Duration interval);
+        [[nodiscard]] auto interval() const;
+        [[nodiscard]] auto effective_interval() const;
+        [[nodiscard]] auto effective_frequency() const;
         void each(bool each);
 
     private:
-        long long interval_;
-        long long effective_interval_;
+        Duration interval_;
+        Duration effective_interval_;
         bool each_ = false;
     };
 }

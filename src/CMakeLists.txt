@@ -30,6 +30,7 @@ set(BIK_MODULES
         tools/time/pulser.cppm
         tools/time/pulser_impl.cppm
         tools/time/time.cppm
+        tools/time/utils.cppm
         tools/settings_manager/node.cppm
         tools/settings_manager/node_impl.cppm
         tools/settings_manager/settings.cppm

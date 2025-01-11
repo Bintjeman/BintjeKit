@@ -13,6 +13,7 @@ module;
 export module bik.time:pulser_impl;
 import :pulser;
 import :clock;
+import :utils;
 namespace bik::time {
     template<typename Precision>
     Pulser<Precision>::Pulser(): interval_(0) {
@@ -26,7 +27,7 @@ namespace bik::time {
     template<typename Precision>
     bool Pulser<Precision>::pulse() {
         const auto now = SysClock::now();
-        const auto elapsed = std::chrono::duration_cast<Precision>(now - this->start_).count();
+        const auto elapsed = std::chrono::duration_cast<Precision>(now - this->start_);
         if (each_ || elapsed >= interval_) {
             this->start_ = now;
             effective_interval_ = elapsed;
@@ -45,51 +46,34 @@ namespace bik::time {
         if (frequency <= 0.0) {
             each_ = true;
         }
-
-        // Limite minimale d'intervalle en fonction de la précision donnée
-        auto min_interval = Precision::period::num / Precision::period::den;
-
-        // Calcul de l'intervalle à partir de la fréquence donnée
-        auto interval_duration = std::chrono::duration<double>(1.0 / frequency);
-
-        // Vérifiez si l'intervalle cible est inférieur à la précision minimale
-        if (interval_duration.count() < min_interval) {
-            interval_ = min_interval; // Forcer un intervalle minimal
-        } else {
-            interval_ = std::chrono::duration_cast<Precision>(interval_duration).count();
-        }
+        interval_ = bik::time::to_duration<Precision>(frequency);
     }
 
     template<typename Precision>
-    void Pulser<Precision>::set_interval(std::chrono::duration<double> interval) {
-        if (interval <= std::chrono::duration<double>(0.0)) {
+    void Pulser<Precision>::set_interval(Duration interval) {
+        if (interval <= Duration(0.0)) {
             each_ = true;
         }
-        interval_ = std::chrono::duration_cast<Precision>(interval).count();
+        interval_ = interval;
     }
 
     template<typename Precision>
-    long long Pulser<Precision>::interval() const {
+    auto Pulser<Precision>::interval() const {
         return interval_;
     }
 
     template<typename Precision>
-    long long Pulser<Precision>::effective_interval() const {
+    auto Pulser<Precision>::effective_interval() const {
         return effective_interval_;
     }
 
     template<typename Precision>
-    auto Pulser<Precision>::effective_frequency() const -> double {
+    auto Pulser<Precision>::effective_frequency() const {
         // Si l'intervalle effectif est 0, la fréquence ne peut pas être calculée, retourne 0
-        if (effective_interval_ == 0) {
+        if (effective_interval_ == Duration(0)) {
             return 0.0;
         }
-        // Calcul de la fréquence en fonction de l'intervalle effectif
-        auto interval_in_seconds = static_cast<double>(effective_interval_) *
-                                   Precision::period::num /
-                                   Precision::period::den;
-
-        return  1.0 / interval_in_seconds;
+        return to_frequency(effective_interval_);
     }
 
     template<typename Precision>

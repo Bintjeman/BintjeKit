@@ -54,6 +54,6 @@ namespace bik::time {
     auto Clock<Precision>::elapsed() {
         now_ = SysClock::now();
         auto diff = (now_ - start_);
-        return std::chrono::duration_cast<Precision>(diff).count();
+        return diff;
     }
 }

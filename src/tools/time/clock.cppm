@@ -14,11 +14,11 @@ export module bik.time:clock;
 namespace bik::time {
     export using SysClock = std::chrono::steady_clock;
     export using TimePoint = SysClock::time_point;
-    // export using Precision = std::chrono::milliseconds;
     export template<typename Precision = std::chrono::nanoseconds>
     class Clock {
     public:
         using Duration = typename Precision::duration;
+        using Period = typename Precision::period;
         Clock();
         ~Clock();
         void start();
