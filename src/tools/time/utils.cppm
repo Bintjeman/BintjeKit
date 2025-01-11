@@ -45,14 +45,14 @@ namespace bik::time {
         return std::chrono::duration_cast<std::chrono::seconds>(elapsed_duration).count();
     }
 
-    export template<typename Duration = DurationDef>
-    auto to_frequency(const Duration &elapsed_duration) {
+    export template<typename Duration = DurationDef, typename T>
+    auto to_frequency(T counter, const Duration &elapsed_duration) {
         static_assert(is_chrono_duration_v<Duration>, "Duration must be a chrono duration");
         auto seconds = std::chrono::duration<double>(elapsed_duration);
         if (seconds <= std::chrono::seconds(0)) {
             return std::numeric_limits<double>::infinity();
         }
-        return static_cast<double>(1.0 / seconds.count());
+        return static_cast<double>(static_cast<double>(counter) / seconds.count());
     }
 
     export template<typename Duration = DurationDef, typename T>

@@ -33,7 +33,7 @@ namespace min {
             if (counter_ % 1'000 == 0) {
                 auto elapsed = clock_.elapsed();
                 auto milli = bik::time::to_milliseconds(elapsed);
-                auto frequency = bik::time::to_frequency(elapsed);
+                auto frequency = bik::time::to_frequency(counter_, elapsed);
                 LOGGER->trace("counter: {}, elapsed: {}, frequency: {}", counter_, milli, frequency);
             }
         }
@@ -50,8 +50,13 @@ namespace min {
             if (counter_ >= target_) {
                 auto elapsed = clock_.elapsed();
                 auto milli = bik::time::to_milliseconds(elapsed);
-                auto frequency = bik::time::to_frequency(elapsed);
+                auto frequency = bik::time::to_frequency(counter_,elapsed);
                 LOGGER->trace("counter: {}, elapsed: {}, frequency: {}", counter_, milli, frequency);
+                auto seconds = bik::time::to_seconds(elapsed);
+                auto nanoseconds = bik::time::to_nanoseconds(elapsed);
+                auto microseconds = bik::time::to_microseconds(elapsed);
+                LOGGER->info("counter: {}, elapsed: {}, frequency: {}, seconds: {}, nanoseconds: {}, microseconds: {}", counter_, milli, frequency, seconds, nanoseconds, microseconds);
+
                 return true;
             }
             return false;

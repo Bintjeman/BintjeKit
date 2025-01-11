@@ -65,7 +65,7 @@ namespace bik::time {
         if (effective_interval_ == DurationDef(0)) {
             return std::numeric_limits<double>::infinity();
         }
-        return to_frequency(effective_interval_);
+        return to_frequency(1, effective_interval_);
     }
 
     void Pulser::each(bool each) {
