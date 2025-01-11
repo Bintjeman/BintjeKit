@@ -16,12 +16,15 @@ import min.playground;
 namespace min {
     export class UI : public bik::ui::BaseUI {
     public:
+        void set_playground(std::shared_ptr<bik::playground::BasePlayGround> playground) override {
+            minplayground_ = std::dynamic_pointer_cast<min::PlayGround>(playground);
+        }
         void update() override {
             event_handler();
-            min::PlayGround &playground = *std::dynamic_pointer_cast<min::PlayGround>(playground_);
-            if (playground.over()) {
+            if (minplayground_->over()) {
                 on_close();
             }
         }
+        std::shared_ptr<min::PlayGround> minplayground_;
     };
 }

@@ -20,8 +20,9 @@ namespace min {
         void build_playground() override {
             playground_ = std::make_shared<min::PlayGround>();
         }
+
         void build_ui() override {
-            ui_=std::make_shared<min::UI>();
+            ui_ = std::make_shared<min::UI>();
         }
     };
 }

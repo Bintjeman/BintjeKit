@@ -9,10 +9,11 @@
  *
  */
 #include <spdlog/spdlog.h>
-#include <chrono>
 import min.factory;
 import bik.core;
 import bik.logger;
+import min.playground;
+import min.ui;
 int main() {
     bik::logger::init("logger.log", spdlog::level::trace);
     auto &logger = bik::logger::getLogger();

@@ -10,6 +10,7 @@
  */
 module;
 #include <iostream>
+#include "tools/logger/logger_define.hpp"
 export module min.playground;
 export import bik.playground;
 import bik.logger;
@@ -25,7 +26,8 @@ namespace min {
             counter_++;
             if (counter_ % 1'000 == 0) {
                 auto elapsed = clock_.elapsed();
-                std::cout << "counter: " << counter_ << ", elapsed: " << elapsed << "\n";
+                double elapsed_d = static_cast<double>(elapsed) / 1'000'000'000.0;
+                LOGGER->trace("counter: {}, elapsed: {}",counter_, elapsed_d);
             }
         }
 
@@ -41,7 +43,7 @@ namespace min {
             if (counter_ >= target_) {
                 auto elapsed = clock_.elapsed();
                 double elapsed_d = static_cast<double>(elapsed) / 1'000'000'000.0;
-                std::cout << "counter: " << counter_ << ", elapsed: " << elapsed_d << " S\nFINISHED!";
+                LOGGER->info("counter: {}, elapsed: {}",counter_, elapsed_d);
                 return true;
             }
             return false;

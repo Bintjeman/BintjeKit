@@ -37,8 +37,6 @@ namespace bik::renderer {
 
     void BaseRenderer::initialize() {
         LOGGER->info("Renderer::initialize()");
-        std::string font_path = settings_.get_or_set("/Font"_json_pointer, std::string("JetBrainsMono-Regular.ttf"));
-        font_.openFromFile(font_path);
     }
 
     void BaseRenderer::update() {
