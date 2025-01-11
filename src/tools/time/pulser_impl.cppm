@@ -46,7 +46,7 @@ namespace bik::time {
         if (frequency <= 0.0) {
             each_ = true;
         }
-        interval_ = bik::time::to_duration<Precision>(frequency);
+        interval_ = to_duration<Precision>(frequency);
     }
 
     template<typename Precision>
@@ -69,7 +69,6 @@ namespace bik::time {
 
     template<typename Precision>
     auto Pulser<Precision>::effective_frequency() const {
-        // Si l'intervalle effectif est 0, la fréquence ne peut pas être calculée, retourne 0
         if (effective_interval_ == Duration(0)) {
             return 0.0;
         }

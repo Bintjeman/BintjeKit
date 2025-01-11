@@ -9,8 +9,8 @@
  *
  */
 export module bik.time;
+export import :utils;
 export import :pulser;
 export import :clock;
-export import :utils;
 import :pulser_impl;
 import :clock_impl;

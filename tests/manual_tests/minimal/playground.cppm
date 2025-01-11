@@ -13,10 +13,10 @@ module;
 #include <nlohmann/json.hpp>
 #include "tools/logger/logger_define.hpp"
 export module min.playground;
+import bik.time;
 export import bik.playground;
 import bik.logger;
 import bik.settings;
-import bik.time;
 namespace min {
     export class PlayGround : public bik::playground::BasePlayGround {
     public:
@@ -49,8 +49,9 @@ namespace min {
         bool over() {
             if (counter_ >= target_) {
                 auto elapsed = clock_.elapsed();
-                double elapsed_d = static_cast<double>(elapsed) / 1'000'000'000.0;
-                LOGGER->info("counter: {}, elapsed: {}", counter_, elapsed_d);
+                auto seconds = bik::time::to_seconds(elapsed);
+                auto frequency = bik::time::to_frequency(elapsed);
+                LOGGER->trace("counter: {}, elapsed: {}, frequency: {}", counter_, seconds, frequency);
                 return true;
             }
             return false;

@@ -25,12 +25,12 @@ find_package(SFML 3 COMPONENTS REQUIRED System Window Graphics)
 
 set(BIK_MODULES
         tools/d2/d2.cppm
+        tools/time/utils.cppm
         tools/time/clock.cppm
         tools/time/clock_impl.cppm
         tools/time/pulser.cppm
         tools/time/pulser_impl.cppm
         tools/time/time.cppm
-        tools/time/utils.cppm
         tools/settings_manager/node.cppm
         tools/settings_manager/node_impl.cppm
         tools/settings_manager/settings.cppm

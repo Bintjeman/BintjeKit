@@ -9,7 +9,7 @@
  *
  */
 module;
-#include <chrono>>
+#include <chrono>
 export module bik.time:clock;
 namespace bik::time {
     export using SysClock = std::chrono::steady_clock;
