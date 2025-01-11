@@ -13,6 +13,9 @@ set(SOURCES
         main.cpp
 )
 set(MODULES
+        factory.cppm
+        playground.cppm
+        ui.cppm
 )
 target_sources(minimal_test
         PRIVATE

@@ -9,17 +9,16 @@
  *
  */
 #include <spdlog/spdlog.h>
+#include <chrono>
+import min.factory;
 import bik.core;
-import bik.factory;
 import bik.logger;
-import bik.window;
 int main() {
     bik::logger::init("logger.log", spdlog::level::trace);
-    auto& logger = bik::logger::getLogger();
-    bik::core::Core core;
+    auto &logger = bik::logger::getLogger();
+    bik::core::Core core(std::make_unique<min::Factory>());
     core.configure();
     core.initialize();
     core.run();
-   return 0;
+    return 0;
 }
-
