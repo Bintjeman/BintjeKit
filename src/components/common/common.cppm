@@ -11,3 +11,4 @@
 export module bik.common;
 export import :action_receiver;
 export import :core_info_provider;
+export import :component;

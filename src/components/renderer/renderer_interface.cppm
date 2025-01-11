@@ -14,7 +14,9 @@ module;
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 export module bik.renderer:interface;
+import bik.common;
 export import bik.settings;
+
 // namespace sf {
     // class RenderTarget;
 // }
@@ -23,13 +25,13 @@ namespace bik {
         class BasePlayGround;
     }
 
-    namespace common {
-        class BaseCoreInfoProvider;
-    }
+    // namespace common {
+        // class BaseCoreInfoProvider;
+    // }
 }
 
 namespace bik::renderer {
-    export class BaseRenderer {
+    export class BaseRenderer: public component::BaseComponent {
     public:
         BaseRenderer();
         virtual ~BaseRenderer();

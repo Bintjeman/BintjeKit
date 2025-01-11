@@ -40,6 +40,7 @@ namespace bik::core {
     void Core::configure() {
         LOGGER->info("Core::configure()");
         create_components();
+
         ui_->set_action_receiver(this);
         renderer_->set_core_info_provider(this);
         settings_.load("settings.json");
@@ -99,10 +100,10 @@ namespace bik::core {
     void Core::create_components() {
         LOGGER->info("Core::create_components()");
         factory_->creation();
-        window_ = factory_->window();
-        ui_ = factory_->ui();
-        playground_ = factory_->playground();
-        renderer_ = factory_->renderer();
+        ui_ = factory_->consume_ui();
+        window_ = factory_->consume_window();
+        playground_ = factory_->consume_playground();
+        renderer_ = factory_->consume_renderer();
         factory_->clear();
     }
 }

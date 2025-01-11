@@ -62,6 +62,7 @@ set(BIK_MODULES
         components/common/core_info_profider.cppm
         components/common/iactionreceiver.cppm
         components/common/common.cppm
+        components/common/components.cppm
 )
 set(BIK_HEADERS
         tools/logger/logger_define.hpp

@@ -60,10 +60,10 @@ namespace bik::core {
 
         config::Settings settings_;
         std::unique_ptr<factory::BaseFactory> factory_;
-        std::shared_ptr<window::BaseWindow> window_ = nullptr;
-        std::shared_ptr<ui::BaseUI> ui_ = nullptr;
-        std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
-        std::shared_ptr<renderer::BaseRenderer> renderer_ = nullptr;
+        std::unique_ptr<window::BaseWindow> window_ = nullptr;
+        std::unique_ptr<ui::BaseUI> ui_ = nullptr;
+        std::unique_ptr<playground::BasePlayGround> playground_ = nullptr;
+        std::unique_ptr<renderer::BaseRenderer> renderer_ = nullptr;
 
         time::Pulser playground_pulser_;
         time::Pulser ui_pulser_;

@@ -12,11 +12,12 @@ module;
 #include <SFML/Graphics/Rect.hpp>
 export module bik.playground:interface;
 import bik.settings;
+import bik.common;
 namespace sf {
     class Drawable;
 }
 namespace bik::playground {
-    export class BasePlayGround {
+    export class BasePlayGround :public component::BaseComponent{
     public:
         BasePlayGround();
         virtual ~BasePlayGround();

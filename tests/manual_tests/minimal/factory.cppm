@@ -18,11 +18,11 @@ namespace min {
     export class Factory : public bik::factory::BaseFactory {
     public:
         void build_playground() override {
-            playground_ = std::make_shared<min::PlayGround>();
+            components_["playground"] = std::make_unique<min::PlayGround>();
         }
 
         void build_ui() override {
-            ui_ = std::make_shared<min::UI>();
+            components_["ui"] = std::make_unique<min::UI>();
         }
     };
 }

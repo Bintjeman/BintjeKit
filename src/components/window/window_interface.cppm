@@ -12,8 +12,9 @@ module;
 #include <SFML/Graphics/RenderWindow.hpp>
 export module bik.window:interface;
 import bik.settings;
+import bik.common;
 namespace bik::window {
-    export class BaseWindow : public sf::RenderWindow {
+    export class BaseWindow : public sf::RenderWindow, public component::BaseComponent{
     public:
         explicit BaseWindow();
         virtual ~BaseWindow() override;
