@@ -65,8 +65,8 @@ namespace bik::core {
         std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
         std::shared_ptr<renderer::BaseRenderer> renderer_ = nullptr;
 
-        time::Pulser<> playground_pulser_;
-        time::Pulser<> ui_pulser_;
-        time::Pulser<> renderer_pulser_;
+        time::Pulser playground_pulser_;
+        time::Pulser ui_pulser_;
+        time::Pulser renderer_pulser_;
     };
 }

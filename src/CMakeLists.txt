@@ -65,6 +65,7 @@ set(BIK_MODULES
 )
 set(BIK_HEADERS
         tools/logger/logger_define.hpp
+        tools/time/using.hpp
 )
 
 target_sources(bintjeKit

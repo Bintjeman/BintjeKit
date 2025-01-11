@@ -32,9 +32,9 @@ namespace min {
             counter_++;
             if (counter_ % 1'000 == 0) {
                 auto elapsed = clock_.elapsed();
-                auto seconds = bik::time::to_seconds(elapsed);
+                auto milli = bik::time::to_milliseconds(elapsed);
                 auto frequency = bik::time::to_frequency(elapsed);
-                LOGGER->trace("counter: {}, elapsed: {}, frequency: {}", counter_, seconds, frequency);
+                LOGGER->trace("counter: {}, elapsed: {}, frequency: {}", counter_, milli, frequency);
             }
         }
 
@@ -49,9 +49,9 @@ namespace min {
         bool over() {
             if (counter_ >= target_) {
                 auto elapsed = clock_.elapsed();
-                auto seconds = bik::time::to_seconds(elapsed);
+                auto milli = bik::time::to_milliseconds(elapsed);
                 auto frequency = bik::time::to_frequency(elapsed);
-                LOGGER->trace("counter: {}, elapsed: {}, frequency: {}", counter_, seconds, frequency);
+                LOGGER->trace("counter: {}, elapsed: {}, frequency: {}", counter_, milli, frequency);
                 return true;
             }
             return false;
@@ -60,6 +60,6 @@ namespace min {
     private:
         long long int counter_ = 0;
         long long int target_ = 10'000;
-        bik::time::Clock<> clock_;
+        bik::time::Clock clock_;
     };
 }

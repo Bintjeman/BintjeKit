@@ -10,21 +10,19 @@
  */
 module;
 #include <chrono>
+#include "using.hpp"
 export module bik.time:clock;
 namespace bik::time {
     export using SysClock = std::chrono::steady_clock;
     export using TimePoint = SysClock::time_point;
-    export template<typename Precision = std::chrono::nanoseconds>
-    class Clock {
+    export class Clock {
     public:
-        using Duration = typename Precision::duration;
-        using Period = typename Precision::period;
         Clock();
         ~Clock();
         void start();
         void pause();
-        auto restart();
-        auto elapsed();
+        DurationDef restart();
+        DurationDef elapsed();
 
     protected:
         TimePoint start_;

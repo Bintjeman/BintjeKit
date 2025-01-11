@@ -10,73 +10,65 @@
  */
 module;
 #include <chrono>
+#include <limits>
+#include "using.hpp"
 export module bik.time:pulser_impl;
 import :pulser;
 import :clock;
 import :utils;
 namespace bik::time {
-    template<typename Precision>
-    Pulser<Precision>::Pulser(): interval_(0) {
+    Pulser::Pulser(): interval_(0) {
         this->start();
     }
 
-    template<typename Precision>
-    Pulser<Precision>::~Pulser() {
+    Pulser::~Pulser() {
     }
 
-    template<typename Precision>
-    bool Pulser<Precision>::pulse() {
+    bool Pulser::pulse() {
         const auto now = SysClock::now();
-        const auto elapsed = std::chrono::duration_cast<Precision>(now - this->start_);
+        const auto elapsed = now - this->start_;
         if (each_ || elapsed >= interval_) {
             this->start_ = now;
-            effective_interval_ = elapsed;
+            effective_interval_ = std::chrono::duration_cast<DurationDef>(elapsed);
             return true; // Pulse activée
         }
         return false;
     }
 
-    template<typename Precision>
-    bool Pulser<Precision>::operator()() {
+    bool Pulser::operator()() {
         return pulse();
     }
 
-    template<typename Precision>
-    void Pulser<Precision>::set_frequency(double frequency) {
+    void Pulser::set_frequency(double frequency) {
         if (frequency <= 0.0) {
             each_ = true;
         }
-        interval_ = to_duration<Precision>(frequency);
+        interval_ = to_duration<DurationDef>(frequency);
     }
 
-    template<typename Precision>
-    void Pulser<Precision>::set_interval(Duration interval) {
-        if (interval <= Duration(0.0)) {
+    void Pulser::set_interval(DurationDef interval) {
+        if (interval <= DurationDef(0)) {
             each_ = true;
         }
         interval_ = interval;
     }
 
-    template<typename Precision>
-    auto Pulser<Precision>::interval() const {
+    auto Pulser::interval() const {
         return interval_;
     }
 
-    template<typename Precision>
-    auto Pulser<Precision>::effective_interval() const {
+    auto Pulser::effective_interval() const {
         return effective_interval_;
     }
 
-    template<typename Precision>
-    auto Pulser<Precision>::effective_frequency() const {
-        if (effective_interval_ == Duration(0)) {
-            return 0.0;
+    auto Pulser::effective_frequency() const {
+        if (effective_interval_ == DurationDef(0)) {
+            return std::numeric_limits<double>::infinity();
         }
         return to_frequency(effective_interval_);
     }
 
-    template<typename Precision>
-    void Pulser<Precision>::each(bool each) {
+    void Pulser::each(bool each) {
         each_ = each;
     }
 }
