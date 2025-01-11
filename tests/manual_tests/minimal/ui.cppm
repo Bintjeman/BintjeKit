@@ -8,18 +8,20 @@
  * @details 
  *
  */
+module;
+#include <memory>
 export module min.ui;
 export import bik.ui;
 import min.playground;
 namespace min {
-export class UI :public bik::ui::BaseUI {
-   public:
-      void update() override {
-        bik::ui::BaseUI::update();
-            min::PlayGround& playground = dynamic_cast<min::PlayGround>(playground_);
-          if (playground.over()) {
-
-          }
-      }
-};
+    export class UI : public bik::ui::BaseUI {
+    public:
+        void update() override {
+            event_handler();
+            min::PlayGround &playground = *std::dynamic_pointer_cast<min::PlayGround>(playground_);
+            if (playground.over()) {
+                on_close();
+            }
+        }
+    };
 }
