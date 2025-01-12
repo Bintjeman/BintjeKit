@@ -16,32 +16,25 @@ module;
 export module bik.renderer:interface;
 import bik.common;
 export import bik.settings;
-
-// namespace sf {
-    // class RenderTarget;
-// }
 namespace bik {
     namespace playground {
         class BasePlayGround;
     }
-
-    // namespace common {
-        // class BaseCoreInfoProvider;
-    // }
+    namespace window {
+        class BaseWindow;
+    }
 }
-
 namespace bik::renderer {
     export class BaseRenderer: public component::BaseComponent {
     public:
-        BaseRenderer();
+        BaseRenderer(window::BaseWindow* window, playground::BasePlayGround& playground);
         virtual ~BaseRenderer();
         virtual void configure(config::Child settings);
         virtual void initialize();
         virtual void update();
         virtual void finalize();
         virtual void draw();
-        virtual void set_target(std::shared_ptr<sf::RenderTarget> target);
-        virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
+        virtual void set_view();
         void set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider);
 
         void set_view(sf::View view);
@@ -55,8 +48,8 @@ namespace bik::renderer {
         sf::View playground_view_;
         sf::View ui_view_;
         sf::Font font_;
-        std::shared_ptr<sf::RenderTarget> target_ = nullptr;
-        std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
+        sf::RenderTarget& target_;
+        playground::BasePlayGround& playground_;
         common::BaseCoreInfoProvider *core_info_provider_ = nullptr;
     };
 }

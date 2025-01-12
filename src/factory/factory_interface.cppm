@@ -49,11 +49,6 @@ namespace bik::factory {
         virtual void build_playground();
         virtual void build_renderer();
         std::map<std::string, std::unique_ptr<component::BaseComponent>> components_;
-
-        // std::shared_ptr<window::BaseWindow> window_ = nullptr;
-        // std::shared_ptr<ui::BaseUI> ui_ = nullptr;
-        // std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
-        // std::shared_ptr<renderer::BaseRenderer> renderer_ = nullptr;
     private:
         virtual void pre_build_window();
         virtual void pre_build_ui();

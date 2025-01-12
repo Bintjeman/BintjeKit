@@ -29,6 +29,14 @@ namespace bik::factory {
         LOGGER->info("Factory::~Factory()");
     }
 
+    /*!
+     * @note
+     * Liste des dépendances des classes
+     *  - Window ne dépend de rien
+     *  - Playground ne dépends de rien
+     *  - Renderer dépend de playground et window
+     *  - UI Dépend de playground et renderer
+     */
     void BaseFactory::creation() {
         LOGGER->info("Factory::creation()");
         build_window();
@@ -39,15 +47,6 @@ namespace bik::factory {
         auto window = dynamic_cast<window::BaseWindow *>(components_.at("window").get());
         auto ui = dynamic_cast<ui::BaseUI *>(components_.at("ui").get());
         auto playground = dynamic_cast<playground::BasePlayGround *>(components_.at("playground").get());
-
-        // renderer->set_target(*window);
-        //
-        // renderer->set_window(window_);
-        // renderer_->set_playground(playground_);
-        // renderer_->set_target(window_);
-        // ui_->set_playground(playground_);
-        // ui_->set_window(window_);
-        // ui_->set_renderer(renderer_);
     }
 
     std::unique_ptr<window::BaseWindow> BaseFactory::consume_window() {
@@ -76,29 +75,32 @@ namespace bik::factory {
     void BaseFactory::build_window() {
         LOGGER->info("Factory::create_window()");
         pre_build_window();
-        // window_ = std::make_shared<window::BaseWindow>();
         components_["window"] = std::make_unique<window::BaseWindow>();
     }
 
     void BaseFactory::build_ui() {
         LOGGER->info("Factory::create_ui()");
         pre_build_ui();
-        // ui_ = std::make_shared<ui::BaseUI>();
         components_["ui"] = std::make_unique<ui::BaseUI>();
     }
 
     void BaseFactory::build_playground() {
         pre_build_playground();
-        // playground_ = std::make_shared<playground::BasePlayGround>();
         components_["playground"] = std::make_unique<playground::BasePlayGround>();
     }
 
     void BaseFactory::build_renderer() {
         pre_build_renderer();
-        // renderer_ = std::make_shared<renderer::BaseRenderer>();
-        components_["renderer"] = std::make_unique<renderer::BaseRenderer>();
+        auto window = dynamic_cast<window::BaseWindow *>(components_["window"].get());
+        if (!window) {
+            LOGGER->error("Impossible de créer le Renderer : la fenêtre est invalide ou introuvable.");
+            return;
+        }
+        // Récupérer "playground".
+        auto &playground = *dynamic_cast<playground::BasePlayGround *>(components_["playground"].get());
+        // Construction du renderer avec la référence à "RenderTarget".
+        components_["renderer"] = std::make_unique<renderer::BaseRenderer>(window, playground);
     }
-
 
     void BaseFactory::pre_build_window() {
     }
