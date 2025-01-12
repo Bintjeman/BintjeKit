@@ -23,6 +23,26 @@ find_package(nlohmann_json CONFIG REQUIRED)
 set(SFML_STATIC_LIBRARIES ON)
 find_package(SFML 3 COMPONENTS REQUIRED System Window Graphics)
 
+set(IMGUI_SOURCES
+        external/dear_imgui/imgui-SFML.cpp
+        external/dear_imgui/imgui.cpp
+        external/dear_imgui/imgui_widgets.cpp
+        external/dear_imgui/imgui_draw.cpp
+        external/dear_imgui/imgui_tables.cpp
+)
+set(IMGUI_HEADERS
+        external/dear_imgui/imconfig.h
+        external/dear_imgui/imgui.h
+        external/dear_imgui/imgui_internal.h
+        external/dear_imgui/imstb_rectpack.h
+        external/dear_imgui/imstb_textedit.h
+        external/dear_imgui/imstb_truetype.h
+        external/dear_imgui/imgui-SFML.h
+        external/dear_imgui/imgui-SFML_export.h
+)
+
+set(BIK_SOURCES)
+
 set(BIK_MODULES
         tools/d2/d2.cppm
         tools/time/utils.cppm
@@ -69,6 +89,9 @@ set(BIK_HEADERS
 )
 
 target_sources(bintjeKit
+        PRIVATE
+        ${BIK_SOURCES}
+        ${IMGUI_SOURCES}
         PUBLIC
         FILE_SET CXX_MODULES
         BASE_DIRS
@@ -76,7 +99,7 @@ target_sources(bintjeKit
         PUBLIC
         FILE_SET HEADERS
         BASE_DIRS
-        FILES ${BIK_HEADERS}
+        FILES ${BIK_HEADERS} ${IMGUI_HEADERS}
 )
 
 target_include_directories(bintjeKit
