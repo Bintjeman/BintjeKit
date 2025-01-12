@@ -19,7 +19,9 @@ import bik.logger;
 import bik.renderer;
 import bik.playground;
 namespace bik::ui {
-    BaseUI::BaseUI() {
+    BaseUI::BaseUI(window::BaseWindow &window, renderer::BaseRenderer &renderer,
+                   playground::BasePlayGround &playground) : window_(window), renderer_(renderer),
+                                                             playground_(playground) {
         LOGGER->info("UI::UI()");
     }
 
@@ -44,20 +46,8 @@ namespace bik::ui {
         action_receiver_ = action_receiver;
     }
 
-    void BaseUI::set_playground(std::shared_ptr<playground::BasePlayGround> playground) {
-        playground_ = playground;
-    }
-
-    void BaseUI::set_renderer(std::shared_ptr<renderer::BaseRenderer> renderer) {
-        renderer_ = renderer;
-    }
-
-    void BaseUI::set_window(std::shared_ptr<window::BaseWindow> window) {
-        window_ = window;
-    }
-
     void BaseUI::event_handler() {
-        while (const std::optional event = window_->pollEvent()) {
+        while (const std::optional event = window_.pollEvent()) {
             if (event.has_value()) {
             }
             if (event->is<sf::Event::Closed>()) {

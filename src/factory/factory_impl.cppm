@@ -43,15 +43,12 @@ namespace bik::factory {
         build_ui();
         build_playground();
         build_renderer();
-        auto renderer = dynamic_cast<renderer::BaseRenderer *>(components_.at("renderer").get());
-        auto window = dynamic_cast<window::BaseWindow *>(components_.at("window").get());
-        auto ui = dynamic_cast<ui::BaseUI *>(components_.at("ui").get());
-        auto playground = dynamic_cast<playground::BasePlayGround *>(components_.at("playground").get());
     }
 
     std::unique_ptr<window::BaseWindow> BaseFactory::consume_window() {
         return std::move(
-            std::unique_ptr<window::BaseWindow>(static_cast<window::BaseWindow *>(components_["window"].release())));
+            std::unique_ptr<window::BaseWindow>(
+                static_cast<window::BaseWindow *>(components_["window"].release())));
     }
 
     std::unique_ptr<ui::BaseUI> BaseFactory::consume_ui() {
@@ -71,7 +68,6 @@ namespace bik::factory {
                 static_cast<renderer::BaseRenderer *>(components_["renderer"].release())));
     }
 
-
     void BaseFactory::build_window() {
         LOGGER->info("Factory::create_window()");
         pre_build_window();
@@ -81,7 +77,10 @@ namespace bik::factory {
     void BaseFactory::build_ui() {
         LOGGER->info("Factory::create_ui()");
         pre_build_ui();
-        components_["ui"] = std::make_unique<ui::BaseUI>();
+        auto &window = window_ref_from_unique();
+        auto &playground = playground_ref_from_unique();
+        auto &renderer = renderer_ref_from_unique();
+        components_["ui"] = std::make_unique<ui::BaseUI>(window, renderer, playground);
     }
 
     void BaseFactory::build_playground() {
@@ -91,15 +90,62 @@ namespace bik::factory {
 
     void BaseFactory::build_renderer() {
         pre_build_renderer();
+        auto window = window_ptr_from_unique();
+        auto &playground = playground_ref_from_unique();
+        components_["renderer"] = std::make_unique<renderer::BaseRenderer>(window, playground);
+    }
+
+    window::BaseWindow *BaseFactory::window_ptr_from_unique() {
+        return dynamic_cast<window::BaseWindow *>(components_.at("window").get());
+    }
+
+    ui::BaseUI *BaseFactory::ui_ptr_from_unique() {
+        return dynamic_cast<ui::BaseUI *>(components_.at("ui").get());
+    }
+
+    playground::BasePlayGround *BaseFactory::playground_ptr_from_unique() {
+        return dynamic_cast<playground::BasePlayGround *>(components_.at("playground").get());
+    }
+
+    renderer::BaseRenderer *BaseFactory::renderer_ptr_from_unique() {
+        return dynamic_cast<renderer::BaseRenderer *>(components_.at("renderer").get());
+    }
+
+    window::BaseWindow &BaseFactory::window_ref_from_unique() {
         auto window = dynamic_cast<window::BaseWindow *>(components_["window"].get());
         if (!window) {
-            LOGGER->error("Impossible de créer le Renderer : la fenêtre est invalide ou introuvable.");
-            return;
+            LOGGER->error(
+                "La fenêtre est invalide ou introuvable.");
         }
-        // Récupérer "playground".
-        auto &playground = *dynamic_cast<playground::BasePlayGround *>(components_["playground"].get());
-        // Construction du renderer avec la référence à "RenderTarget".
-        components_["renderer"] = std::make_unique<renderer::BaseRenderer>(window, playground);
+        return *window;
+    }
+
+    ui::BaseUI &BaseFactory::ui_ref_from_unique() {
+        auto ui = dynamic_cast<ui::BaseUI *>(components_["ui"].get());
+        if (!ui) {
+            LOGGER->error(
+                "L'ui est invalide ou introuvable.");
+        }
+        return *ui;
+    }
+
+    playground::BasePlayGround &BaseFactory::playground_ref_from_unique() {
+        auto playground = dynamic_cast<playground::BasePlayGround *>(components_["playground"].
+            get());
+        if (!playground) {
+            LOGGER->error(
+                "Le playground est invalide ou introuvable.");
+        }
+        return *playground;
+    }
+
+    renderer::BaseRenderer &BaseFactory::renderer_ref_from_unique() {
+        auto renderer = dynamic_cast<renderer::BaseRenderer *>(components_["renderer"].get());
+        if (!renderer) {
+            LOGGER->error(
+                "Le renderer est invalide ou introuvable.");
+        }
+        return *renderer;
     }
 
     void BaseFactory::pre_build_window() {

@@ -22,7 +22,10 @@ namespace min {
         }
 
         void build_ui() override {
-            components_["ui"] = std::make_unique<min::UI>();
+            auto &playground = playground_ref_from_unique();
+            auto &window = window_ref_from_unique();
+            auto &renderer = renderer_ref_from_unique();
+            components_["ui"] = std::make_unique<min::UI>(window, renderer, playground);
         }
     };
 }

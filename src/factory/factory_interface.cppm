@@ -48,13 +48,22 @@ namespace bik::factory {
         virtual void build_ui();
         virtual void build_playground();
         virtual void build_renderer();
+
+        window::BaseWindow* window_ptr_from_unique();
+        ui::BaseUI* ui_ptr_from_unique();
+        playground::BasePlayGround* playground_ptr_from_unique();
+        renderer::BaseRenderer* renderer_ptr_from_unique();
+
+        window::BaseWindow& window_ref_from_unique();
+        ui::BaseUI& ui_ref_from_unique();
+        playground::BasePlayGround& playground_ref_from_unique();
+        renderer::BaseRenderer& renderer_ref_from_unique();
+
         std::map<std::string, std::unique_ptr<component::BaseComponent>> components_;
     private:
         virtual void pre_build_window();
         virtual void pre_build_ui();
         virtual void pre_build_playground();
         virtual void pre_build_renderer();
-
-
     };
 }
