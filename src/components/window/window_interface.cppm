@@ -27,7 +27,6 @@ namespace bik::window {
         std::string start_title_{};
         sf::Vector2u start_size_{200, 200};
         sf::Vector2i start_pos_{100, 100};
-
         config::Child settings_;
 
     private:

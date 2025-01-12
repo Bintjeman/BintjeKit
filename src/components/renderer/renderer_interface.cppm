@@ -20,7 +20,7 @@ export import bik.settings;
 // }
 namespace bik {
     namespace playground {
-        class BasePlayGround;
+        export class BasePlayGround;
     }
 
     namespace common {

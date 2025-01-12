@@ -56,6 +56,7 @@ namespace bik::core {
     void Core::initialize() {
         LOGGER->info("Core::initialize()");
         window_->initialize();
+        imgui_wrapper_->initialize();
         ui_->initialize();
         playground_->initialize();
         renderer_->initialize();
@@ -67,11 +68,13 @@ namespace bik::core {
         renderer_->reframe();
         while (window_->isOpen()) {
             ui_->update();
+            imgui_wrapper_->update();
             if (playground_pulser_()) {
                 playground_->update();
             }
             if (renderer_pulser_()) {
                 renderer_->draw();
+                imgui_wrapper_->render();
             }
             window_->display();
         }
@@ -80,6 +83,7 @@ namespace bik::core {
     void Core::finalize() {
         LOGGER->info("Core::finalize()");
         window_->finalize();
+        imgui_wrapper_->finalize();
         settings_.save("settings.json");
     }
 
@@ -103,6 +107,8 @@ namespace bik::core {
         ui_ = factory_->ui();
         playground_ = factory_->playground();
         renderer_ = factory_->renderer();
+        imgui_wrapper_ = factory_->imgui_wrapper();
         factory_->clear();
+
     }
 }

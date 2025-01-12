@@ -20,6 +20,7 @@ import bik.ui;
 import bik.window;
 import bik.playground;
 import bik.renderer;
+import bik.imgui_wrapper;
 namespace bik::factory {
     BaseFactory::BaseFactory() {
         LOGGER->info("Factory::Factory()");
@@ -35,11 +36,14 @@ namespace bik::factory {
         build_ui();
         build_playground();
         build_renderer();
+        build_imgui_wrapper();
+        imgui_wrapper_->set_window(window_);
         renderer_->set_playground(playground_);
         renderer_->set_target(window_);
         ui_->set_playground(playground_);
         ui_->set_window(window_);
         ui_->set_renderer(renderer_);
+        ui_->set_imgui_wrapper(imgui_wrapper_);
     }
 
     std::shared_ptr<window::BaseWindow> BaseFactory::window() const {
@@ -56,6 +60,10 @@ namespace bik::factory {
 
     std::shared_ptr<renderer::BaseRenderer> BaseFactory::renderer() const {
         return renderer_;
+    }
+
+    std::shared_ptr<imguiwrapper::BaseImGuiWrapper> BaseFactory::imgui_wrapper() const {
+        return imgui_wrapper_;
     }
 
     void BaseFactory::build_window() {
@@ -80,6 +88,10 @@ namespace bik::factory {
         renderer_ = std::make_shared<renderer::BaseRenderer>();
     }
 
+    void BaseFactory::build_imgui_wrapper() {
+        imgui_wrapper_ = std::make_shared<imguiwrapper::BaseImGuiWrapper>();
+    }
+
 
     void BaseFactory::pre_build_window() {
     }
@@ -96,11 +108,15 @@ namespace bik::factory {
     void BaseFactory::pre_build_renderer() {
     }
 
+    void BaseFactory::pre_build_imgui_wrapper() {
+    }
+
     void BaseFactory::clear() {
         LOGGER->info("Factory::clear()");
         window_ = nullptr;
         ui_ = nullptr;
         playground_ = nullptr;
         renderer_ = nullptr;
+        imgui_wrapper_ = nullptr;
     }
 }

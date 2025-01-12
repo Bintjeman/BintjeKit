@@ -35,6 +35,10 @@ namespace bik {
         export class BaseUI;
     }
 
+    namespace imguiwrapper {
+        export class BaseImGuiWrapper;
+    }
+
     namespace factory {
         export class BaseFactory;
     }
@@ -55,6 +59,7 @@ namespace bik::core {
         // Getters
         double renderer_frequency() const override;
         double playground_frequency() const override;
+
     private:
         void create_components();
 
@@ -64,6 +69,7 @@ namespace bik::core {
         std::shared_ptr<ui::BaseUI> ui_ = nullptr;
         std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
         std::shared_ptr<renderer::BaseRenderer> renderer_ = nullptr;
+        std::shared_ptr<imguiwrapper::BaseImGuiWrapper> imgui_wrapper_ = nullptr;
 
         time::Pulser playground_pulser_;
         time::Pulser ui_pulser_;

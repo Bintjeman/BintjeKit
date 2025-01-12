@@ -79,6 +79,9 @@ set(BIK_MODULES
         components/playground/playground_interface.cppm
         components/playground/playground_impl.cppm
         components/playground/playground.cppm
+        components/imgui_wrapper/imgui_wrapper_interface.cppm
+        components/imgui_wrapper/imgui_wrapper_impl.cppm
+        components/imgui_wrapper/imgui_wrapper.cppm
         components/common/core_info_profider.cppm
         components/common/iactionreceiver.cppm
         components/common/common.cppm

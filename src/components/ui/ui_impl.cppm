@@ -10,6 +10,7 @@
  */
 module;
 #include <SFML/Window/Event.hpp>
+#include "external/dear_imgui/imgui-SFML.h"
 #include "tools/logger/logger_define.hpp"
 export module bik.ui:impl;
 import :interface;
@@ -18,6 +19,7 @@ import bik.common;
 import bik.logger;
 import bik.renderer;
 import bik.playground;
+import bik.imgui_wrapper;
 namespace bik::ui {
     BaseUI::BaseUI() {
         LOGGER->info("UI::UI()");
@@ -56,8 +58,13 @@ namespace bik::ui {
         window_ = window;
     }
 
+    void BaseUI::set_imgui_wrapper(std::shared_ptr<imguiwrapper::BaseImGuiWrapper> imgui_wrapper) {
+        imgui_wrapper_ = imgui_wrapper;
+    }
+
     void BaseUI::event_handler() {
         while (const std::optional event = window_->pollEvent()) {
+            ImGui::SFML::ProcessEvent(*window_, *event);
             if (event.has_value()) {
             }
             if (event->is<sf::Event::Closed>()) {
