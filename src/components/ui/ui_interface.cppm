@@ -30,8 +30,8 @@ namespace bik {
     namespace ui {
         export class BaseUI : public component::BaseComponent {
         public:
-            explicit BaseUI(window::BaseWindow &window, renderer::BaseRenderer &renderer,
-                            playground::BasePlayGround &playground);
+            explicit BaseUI(window::BaseWindow *window, renderer::BaseRenderer *renderer,
+                            playground::BasePlayGround *playground);
             virtual ~BaseUI();
 
 

@@ -24,8 +24,8 @@ import bik.logger;
 import bik.window;
 namespace bik::renderer {
     BaseRenderer::BaseRenderer(window::BaseWindow *window,
-                               playground::BasePlayGround &playground) :
-        target_(static_cast<sf::RenderTarget &>(*window)), playground_(playground) {
+                               playground::BasePlayGround *playground) :
+        target_(static_cast<sf::RenderTarget &>(*window)), playground_(*playground) {
         LOGGER->info("Renderer::Renderer()");
     }
 

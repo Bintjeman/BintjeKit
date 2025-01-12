@@ -27,7 +27,7 @@ namespace bik {
 namespace bik::renderer {
     export class BaseRenderer: public component::BaseComponent {
     public:
-        BaseRenderer(window::BaseWindow* window, playground::BasePlayGround& playground);
+        BaseRenderer(window::BaseWindow* window, playground::BasePlayGround* playground);
         virtual ~BaseRenderer();
         virtual void configure(config::Child settings);
         virtual void initialize();

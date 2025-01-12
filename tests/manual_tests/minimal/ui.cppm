@@ -16,10 +16,10 @@ import min.playground;
 namespace min {
     export class UI : public bik::ui::BaseUI {
     public:
-        explicit UI(bik::window::BaseWindow &window, bik::renderer::BaseRenderer &renderer,
-                    bik::playground::BasePlayGround &base_playground) :
+        explicit UI(bik::window::BaseWindow *window, bik::renderer::BaseRenderer *renderer,
+                    bik::playground::BasePlayGround *base_playground) :
             BaseUI(window, renderer, base_playground),
-            minplayground_(static_cast<min::PlayGround &>(base_playground)) {
+            minplayground_(static_cast<min::PlayGround &>(*base_playground)) {
         }
 
         void update() override {

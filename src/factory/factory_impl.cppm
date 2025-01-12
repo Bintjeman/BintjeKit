@@ -40,9 +40,9 @@ namespace bik::factory {
     void BaseFactory::creation() {
         LOGGER->info("Factory::creation()");
         build_window();
-        build_ui();
         build_playground();
         build_renderer();
+        build_ui();
     }
 
     std::unique_ptr<window::BaseWindow> BaseFactory::consume_window() {
@@ -77,9 +77,9 @@ namespace bik::factory {
     void BaseFactory::build_ui() {
         LOGGER->info("Factory::create_ui()");
         pre_build_ui();
-        auto &window = window_ref_from_unique();
-        auto &playground = playground_ref_from_unique();
-        auto &renderer = renderer_ref_from_unique();
+        auto window = window_ptr_from_unique();
+        auto playground = playground_ptr_from_unique();
+        auto renderer = renderer_ptr_from_unique();
         components_["ui"] = std::make_unique<ui::BaseUI>(window, renderer, playground);
     }
 
@@ -91,7 +91,7 @@ namespace bik::factory {
     void BaseFactory::build_renderer() {
         pre_build_renderer();
         auto window = window_ptr_from_unique();
-        auto &playground = playground_ref_from_unique();
+        auto playground = playground_ptr_from_unique();
         components_["renderer"] = std::make_unique<renderer::BaseRenderer>(window, playground);
     }
 

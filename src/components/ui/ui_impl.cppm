@@ -19,9 +19,9 @@ import bik.logger;
 import bik.renderer;
 import bik.playground;
 namespace bik::ui {
-    BaseUI::BaseUI(window::BaseWindow &window, renderer::BaseRenderer &renderer,
-                   playground::BasePlayGround &playground) : window_(window), renderer_(renderer),
-                                                             playground_(playground) {
+    BaseUI::BaseUI(window::BaseWindow *window, renderer::BaseRenderer *renderer,
+                   playground::BasePlayGround *playground) : window_(*window), renderer_(*renderer),
+                                                             playground_(*playground) {
         LOGGER->info("UI::UI()");
     }
 
