@@ -11,8 +11,9 @@
 export module bik.common:component;
 namespace bik::component {
     export class BaseComponent {
-        public:
+    public:
         inline BaseComponent() = default;
-        inline virtual ~BaseComponent() {}
+
+        inline virtual ~BaseComponent() = default;
     };
 }
