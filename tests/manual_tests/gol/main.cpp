@@ -20,6 +20,6 @@ int main() {
     core.configure();
     core.initialize();
     core.run();
-
+    LOGGER->flush();
     return 0;
 }
