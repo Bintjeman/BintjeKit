@@ -15,7 +15,7 @@ export module gol:map;
 namespace gol {
     export class Map {
     public:
-        using cell = int;
+        using cell = std::pair<int,bool>;
         cell &get(sf::Vector2i pos) { return get(pos.x, pos.y); }
         cell &get(int x, int y) { return cells[x + y * size.x]; }
         [[nodiscard]] long coord_to_index(sf::Vector2i pos) const { return pos.x + pos.y * size.x; }

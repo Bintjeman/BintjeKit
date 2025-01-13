@@ -30,7 +30,7 @@ namespace gol {
         void prerendering() {
             for (unsigned int i = 0; i < map_->cells.size(); ++i) {
                 const auto cell = map_->cells[i];
-                const auto color = color_map_[cell];
+                const auto color = color_map_[cell.first];
                 const sf::Vector2i pos = map_->index_to_coord(i);
                 const auto index = i * 6;
                 vertices_[index + 0].color = color;
