@@ -28,4 +28,12 @@ L'utilisateur peut aussi utiliser ce même logger pour ces propres messages
 
  - Un gestionnaire de configurations qui permet de charger un fichier json, de créer des "enfants" (qui partagent le même json). Chacun de ces nœuds peut set, get ou get_or_set chaque item.
 
+## Dépendances
+
+https://github.com/nlohmann/json
+https://github.com/gabime/spdlog
+https://www.sfml-dev.org/ (3)
+
+Et utilise Dear-ImGui et sfml-ImGui
+
 ## ToDo
