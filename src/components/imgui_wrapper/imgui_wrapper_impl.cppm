@@ -47,6 +47,9 @@ namespace bik::imguiwrapper {
         ImGui::SFML::Update(*window_, clock.restart());
     }
 
+    void BaseImGuiWrapper::draw() {
+    }
+
     void BaseImGuiWrapper::render() {
         ImGui::SFML::Render(*window_);
     }

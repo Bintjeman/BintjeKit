@@ -70,15 +70,17 @@ namespace bik::core {
         LOGGER->flush();
         while (run_) {
             ui_->update();
-            imgui_wrapper_->update();
             if (playground_pulser_()) {
                 playground_->update();
             }
             if (renderer_pulser_()) {
+                imgui_wrapper_->update();
+                window_->clear();
                 renderer_->draw();
+                imgui_wrapper_->draw();
                 imgui_wrapper_->render();
+                window_->display();
             }
-            window_->display();
         }
         finalize();
     }
@@ -118,6 +120,5 @@ namespace bik::core {
         renderer_ = factory_->renderer();
         imgui_wrapper_ = factory_->imgui_wrapper();
         factory_->clear();
-
     }
 }

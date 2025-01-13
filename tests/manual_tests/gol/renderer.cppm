@@ -28,7 +28,7 @@ namespace gol {
 
         void draw() override {
             // Background
-            target_->clear(sf::Color::Black);
+            // target_->clear(sf::Color::Black);
             // sf::RectangleShape shape;
             // sf::Vector2f sizef = sf::Vector2f(game_of_life_->get_size());
             // shape.setSize(sizef);

@@ -29,6 +29,7 @@ set(IMGUI_SOURCES
         external/dear_imgui/imgui_widgets.cpp
         external/dear_imgui/imgui_draw.cpp
         external/dear_imgui/imgui_tables.cpp
+        external/dear_imgui/imgui_demo.cpp
 )
 set(IMGUI_HEADERS
         external/dear_imgui/imconfig.h

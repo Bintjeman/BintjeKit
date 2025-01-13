@@ -16,17 +16,17 @@ namespace bik {
         export class BaseWindow;
     }
 }
-
 namespace bik::imguiwrapper {
     export class BaseImGuiWrapper {
     public:
         BaseImGuiWrapper();
-        ~BaseImGuiWrapper();
+        virtual ~BaseImGuiWrapper();
         void set_window(const std::shared_ptr<window::BaseWindow> &window);
         void initialize();
         void finalize();
         void update();
-        virtual void render();
+        virtual void draw();
+        void render();
 
     private:
         std::shared_ptr<window::BaseWindow> window_;

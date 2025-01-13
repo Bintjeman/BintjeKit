@@ -18,12 +18,16 @@ import bik.window;
 import gol;
 import gol.user_interface;
 import gol.renderer;
-
+import gol.imgui;
 namespace gol {
     export class Factory : public bik::factory::BaseFactory {
     protected:
         void build_playground() override {
             playground_ = std::make_shared<GameOfLife>();
+        }
+
+        void build_imgui_wrapper() override {
+            imgui_wrapper_ = std::make_shared<imgui::Imgui>();
         }
 
         void build_ui() override {

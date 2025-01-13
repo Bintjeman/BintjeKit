@@ -17,6 +17,7 @@ set(MODULES
         renderer.cppm
         user_interface.cppm
         factory.cppm
+        imgui.cppm
 )
 
 target_sources(gol_test PRIVATE

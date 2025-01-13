@@ -10,8 +10,6 @@
  */
 module;
 #include <memory>
-#include <__ranges/rend.h>
-
 #include "tools/logger/logger_define.hpp"
 export module bik.factory:impl;
 import :interface;

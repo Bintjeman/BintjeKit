@@ -44,6 +44,7 @@ namespace bik::window {
         LOGGER->info("Window::open()");
         const auto style = sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize;
         const auto mode = sf::VideoMode{start_size_, 32};
+        setFramerateLimit(60);
         create(mode, start_title_, style);
         setPosition(start_pos_);
     }
