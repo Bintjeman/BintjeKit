@@ -23,13 +23,11 @@ namespace gol {
     public:
         explicit UserInterface() {
         }
-
         void set_playground(std::shared_ptr<bik::playground::BasePlayGround> game_of_life) override {
             LOGGER->info("UserInterface::set_playground()");
             BaseUI::set_playground(game_of_life);
             game_of_life_ = std::dynamic_pointer_cast<GameOfLife>(game_of_life);
         }
-
         void key_pressed(const ::sf::Event::KeyPressed &key_event) override {
             switch (key_event.scancode) {
                 case sf::Keyboard::Scancode::Q:

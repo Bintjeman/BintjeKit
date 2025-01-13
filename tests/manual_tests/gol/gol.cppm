@@ -22,6 +22,7 @@ import bik.playground;
 import bik.settings;
 import bik.logger;
 namespace gol {
+    using Neighbors = std::array<int, 8>;
     export class GameOfLife : public bik::playground::BasePlayGround {
     public:
         GameOfLife() {
@@ -29,6 +30,9 @@ namespace gol {
         }
 
         void update() override {
+            for (auto &cell: map_->cells) {
+
+            }
         }
 
         void initialize() override {
@@ -76,9 +80,18 @@ namespace gol {
         }
 
     private:
+
+        Neighbors get_neighbors(const sf::Vector2u &pos) {
+            if (pos.x == 0) {
+                if (pos.y == 0) {
+
+                }
+            }
+
+        }
+
         std::shared_ptr<Map> map_ = nullptr;
         GolRenderer gol_renderer_;
-
         static void generation(Map &map) {
             std::random_device rd;
             std::mt19937 gen(rd());

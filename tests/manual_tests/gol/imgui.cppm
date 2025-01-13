@@ -16,7 +16,6 @@ namespace gol::imgui {
     export class Imgui : public bik::imguiwrapper::BaseImGuiWrapper {
         public:
         void draw() override {
-            ImGui::ShowDemoWindow();
         }
     };
 }
