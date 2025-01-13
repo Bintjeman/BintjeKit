@@ -30,9 +30,9 @@ L'utilisateur peut aussi utiliser ce même logger pour ces propres messages
 
 ## Dépendances
 
-https://github.com/nlohmann/json
-https://github.com/gabime/spdlog
-https://www.sfml-dev.org/ (3)
+ - https://github.com/nlohmann/json
+ - https://github.com/gabime/spdlog
+ - https://www.sfml-dev.org/ (3)
 
 Et utilise Dear-ImGui et sfml-ImGui
 
