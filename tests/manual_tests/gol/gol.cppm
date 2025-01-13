@@ -11,6 +11,10 @@
 module;
 #include <random>
 #include <thread>
+#include <future>
+// #include <memory>
+// #include <vector>
+// #include <SFML/Graphics/Vertex.hpp>
 // #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -53,23 +57,23 @@ namespace gol {
                 }
             };
 
-            // Diviser la grille en 4 parties (ou plus, selon le nombre de threads souhaité)
-            int num_threads = 20;
-            int rows_per_thread = map_->size.x / num_threads;
+            // Diviser en tâches
+            int num_tasks = 20;
+            int rows_per_task = map_->size.x / num_tasks;
 
-            std::vector<std::thread> threads;
-            for (int i = 0; i < num_threads; ++i) {
-                int start_row = i * rows_per_thread;
-                int end_row = (i == num_threads - 1) ? map_->size.x : (i + 1) * rows_per_thread;
-                threads.emplace_back(worker, start_row, end_row);
+            std::vector<std::future<void> > futures;
+            for (int i = 0; i < num_tasks; ++i) {
+                int start_row = i * rows_per_task;
+                int end_row = (i == num_tasks - 1) ? map_->size.x : (i + 1) * rows_per_task;
+                futures.push_back(std::async(std::launch::async, worker, start_row, end_row));
             }
 
-            // Joindre les threads
-            for (auto &t: threads) {
-                t.join();
+            // Attendre toutes les tâches
+            for (auto &f: futures) {
+                f.get();
             }
 
-            // Appliquer les changements accumulés
+            // Synchroniser les résultats
             for (auto &cell: map_->cells) {
                 if (cell.second) {
                     if (cell.first < map_->max_value - 1) {
