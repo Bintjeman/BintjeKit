@@ -4,7 +4,8 @@
 Le Kit de travail.
 
 ## Objectif
-Une bibliothèque modulable statique qui aide l'utilisateur à créer facilement et rapidement des programmes de simulation ou de petits jeux en deux dimensions.
+Une petite bibliothèque pour m'aider à commencer des projet sfml plus rapidement... Et tester les module c++20...
+
 
 ## Contenu
 
