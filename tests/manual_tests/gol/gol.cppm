@@ -10,6 +10,8 @@
  */
 module;
 #include <random>
+#include <thread>
+// #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>
@@ -31,23 +33,43 @@ namespace gol {
         }
 
         void update() override {
-            for (int x = 0; x < map_->size.x; x++) {
-                for (int y = 0; y < map_->size.y; y++) {
-                    bool grow = false;
-                    auto neighbors = get_neighbors(sf::Vector2u(x, y));
-                    auto &cell = map_->get(x, y);
-                    for (auto neighbor: neighbors) {
-                        if (cell.first == map_->max_value - 1 && neighbor == 0) {
-                            cell.second = true;
-                            break;
-                        }
-                        if (cell.first + 1 == neighbor) {
-                            cell.second = true;
-                            break;
+            auto worker = [this](int start_row, int end_row) {
+                for (int x = start_row; x < end_row; x++) {
+                    for (int y = 0; y < map_->size.y; y++) {
+                        bool grow = false;
+                        auto neighbors = get_neighbors(sf::Vector2u(x, y));
+                        auto &cell = map_->get(x, y);
+                        for (auto neighbor: neighbors) {
+                            if (cell.first == map_->max_value - 1 && neighbor == 0) {
+                                cell.second = true;
+                                break;
+                            }
+                            if (cell.first + 1 == neighbor) {
+                                cell.second = true;
+                                break;
+                            }
                         }
                     }
                 }
+            };
+
+            // Diviser la grille en 4 parties (ou plus, selon le nombre de threads souhaité)
+            int num_threads = 20;
+            int rows_per_thread = map_->size.x / num_threads;
+
+            std::vector<std::thread> threads;
+            for (int i = 0; i < num_threads; ++i) {
+                int start_row = i * rows_per_thread;
+                int end_row = (i == num_threads - 1) ? map_->size.x : (i + 1) * rows_per_thread;
+                threads.emplace_back(worker, start_row, end_row);
             }
+
+            // Joindre les threads
+            for (auto &t: threads) {
+                t.join();
+            }
+
+            // Appliquer les changements accumulés
             for (auto &cell: map_->cells) {
                 if (cell.second) {
                     if (cell.first < map_->max_value - 1) {
