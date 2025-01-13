@@ -63,6 +63,8 @@ namespace bik::core {
     private:
         void create_components();
 
+        bool run_= false;
+
         config::Settings settings_;
         std::unique_ptr<factory::BaseFactory> factory_;
         std::shared_ptr<window::BaseWindow> window_ = nullptr;

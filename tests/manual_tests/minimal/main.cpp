@@ -21,5 +21,6 @@ int main() {
     core.configure();
     core.initialize();
     core.run();
+    logger->debug("core: closed");
     return 0;
 }

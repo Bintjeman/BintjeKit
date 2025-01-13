@@ -55,7 +55,10 @@ namespace bik::window {
         LOGGER->trace("Position : {}", position);
         settings_.set("/Position"_json_pointer, position);
         settings_.set("/Size"_json_pointer, size);
+        LOGGER->flush();
         close();
+        LOGGER->debug("Window::finalize() - end");
+        LOGGER->flush();
     }
 
 

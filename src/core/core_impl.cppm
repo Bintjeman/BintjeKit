@@ -66,7 +66,9 @@ namespace bik::core {
         LOGGER->info("Core::run()");
         window_->open();
         renderer_->reframe();
-        while (window_->isOpen()) {
+        run_ = true;
+        LOGGER->flush();
+        while (run_) {
             ui_->update();
             imgui_wrapper_->update();
             if (playground_pulser_()) {
@@ -78,18 +80,25 @@ namespace bik::core {
             }
             window_->display();
         }
+        finalize();
     }
 
     void Core::finalize() {
         LOGGER->info("Core::finalize()");
+        LOGGER->flush();
         window_->finalize();
+        LOGGER->debug("Windows finalized");
         imgui_wrapper_->finalize();
+        LOGGER->debug("ImGuiWrapper finalized");
         settings_.save("settings.json");
+        LOGGER->debug("Settings saved");
+        LOGGER->info("Core::finalize() - done");
+        LOGGER->flush();
     }
 
     void Core::on_close_window() {
         LOGGER->info("Core::on_close_window()");
-        finalize();
+        run_ = false;
     }
 
     double Core::renderer_frequency() const {
