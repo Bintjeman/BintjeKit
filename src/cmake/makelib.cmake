@@ -34,13 +34,13 @@ function(add_bnj_library LIB_NAME LIBNAME_FOLDER CXX_MODULES SOURCES HEADERS)
     # Installer la cible de la bibliothèque
     install(TARGETS ${LIB_NAME}
             EXPORT ${LIB_NAME}Targets
-            DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            DESTINATION lib
             FILE_SET CXX_MODULES
-            DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIB_NAME}/src
+            DESTINATION lib/cmake/${LIB_NAME}/src
             FILE_SET HEADERS
-            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${LIB_NAME}
+            DESTINATION include/${LIB_NAME}
             INCLUDES
-            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+            DESTINATION include
     )
     install(
             EXPORT bintjeKitTargets        # Utiliser un nom cohérent avec votre lib
@@ -51,7 +51,7 @@ function(add_bnj_library LIB_NAME LIBNAME_FOLDER CXX_MODULES SOURCES HEADERS)
     install(FILES
             "${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}Config.cmake"
             "${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}ConfigVersion.cmake"
-            DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${LIB_NAME}"  # Dossier attendu par FindPackage
+            DESTINATION "lib/cmake/${LIB_NAME}"  # Dossier attendu par FindPackage
     )
 endfunction()
 ################################################################################
