@@ -11,8 +11,7 @@ message("CMAKE_CURRENT_LIST_FILE is ${CMAKE_CURRENT_LIST_FILE}")
 ################################################################################
 # MyLibrarySetup.cmake
 include(CMakePackageConfigHelpers)
-include(GNUInstallDirs)
-set(CMAKE_DEBUG_POSTFIX "-d")
+#include(GNUInstallDirs)
 
 function(add_bnj_library LIB_NAME LIBNAME_FOLDER CXX_MODULES SOURCES HEADERS)
     message("add_bnj_library: ${LIB_NAME} depuis ${LIBNAME_FOLDER}")
@@ -39,9 +38,20 @@ function(add_bnj_library LIB_NAME LIBNAME_FOLDER CXX_MODULES SOURCES HEADERS)
             FILE_SET CXX_MODULES
             DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIB_NAME}/src
             FILE_SET HEADERS
-            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${LIB_NAME}
             INCLUDES
             DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    )
+    install(
+            EXPORT bintjeKitTargets        # Utiliser un nom cohérent avec votre lib
+            NAMESPACE bintjeKit::          # Préfixe pour les cibles exportées
+            DESTINATION lib/cmake/bintjeKit # Emplacement standard pour les fichiers CMake
+            FILE bintjeKitTargets.cmake    # Nom du fichier Targets.cmake
+    )
+    install(FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}Config.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/${LIB_NAME}ConfigVersion.cmake"
+            DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${LIB_NAME}"  # Dossier attendu par FindPackage
     )
 endfunction()
 ################################################################################
