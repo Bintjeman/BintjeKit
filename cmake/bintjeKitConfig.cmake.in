@@ -1,0 +1,9 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# Inclure les dépendances si nécessaire
+# find_dependency(SFML)
+# find_dependency(ImGui)
+
+include("${CMAKE_CURRENT_LIST_DIR}/bintjeKitTargets.cmake")

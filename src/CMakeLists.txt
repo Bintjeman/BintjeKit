@@ -30,70 +30,6 @@ message("BIK_HEADERS: ${BIK_HEADERS}")
 message("BIK_SOURCES: ${BIK_SOURCES}")
 message("BIK_MODULES: ${BIK_MODULES}")
 
-#set(IMGUI_SOURCES
-#        external/dear_imgui/imgui-SFML.cpp
-#        external/dear_imgui/imgui.cpp
-#        external/dear_imgui/imgui_widgets.cpp
-#        external/dear_imgui/imgui_draw.cpp
-#        external/dear_imgui/imgui_tables.cpp
-#        external/dear_imgui/imgui_demo.cpp
-#)
-#set(IMGUI_HEADERS
-#        external/dear_imgui/imconfig.h
-#        external/dear_imgui/imgui.h
-#        external/dear_imgui/imgui_internal.h
-#        external/dear_imgui/imstb_rectpack.h
-#        external/dear_imgui/imstb_textedit.h
-#        external/dear_imgui/imstb_truetype.h
-#        external/dear_imgui/imgui-SFML.h
-#        external/dear_imgui/imgui-SFML_export.h
-#)
-#
-#set(BIK_SOURCES)
-#
-#set(BIK_MODULES
-#        tools/d2/d2.cppm
-#        tools/time/utils.cppm
-#        tools/time/clock.cppm
-#        tools/time/clock_impl.cppm
-#        tools/time/pulser.cppm
-#        tools/time/pulser_impl.cppm
-#        tools/time/time.cppm
-#        tools/settings_manager/node.cppm
-#        tools/settings_manager/node_impl.cppm
-#        tools/settings_manager/settings.cppm
-#        tools/settings_manager/settings_impl.cppm
-#        tools/settings_manager/settings_interface.cppm
-#        tools/settings_manager/settings_nlohmann_extension.cppm
-#        tools/logger/logger_extension.cppm
-#        tools/logger/logger_impl.cppm
-#        tools/logger/logger_interface.cppm
-#        tools/logger/logger.cppm
-#        factory/factory_interface.cppm
-#        factory/factory_impl.cppm
-#        factory/factory.cppm
-#        core/core_interface.cppm
-#        core/core_impl.cppm
-#        core/core.cppm
-#        components/window/window_interface.cppm
-#        components/window/window_impl.cppm
-#        components/window/window.cppm
-#        components/ui/ui_interface.cppm
-#        components/ui/ui_impl.cppm
-#        components/ui/ui.cppm
-#        components/renderer/renderer_interface.cppm
-#        components/renderer/renderer_iml.cppm
-#        components/renderer/renderer.cppm
-#        components/playground/playground_interface.cppm
-#        components/playground/playground_impl.cppm
-#        components/playground/playground.cppm
-#        components/imgui_wrapper/imgui_wrapper_interface.cppm
-#        components/imgui_wrapper/imgui_wrapper_impl.cppm
-#        components/imgui_wrapper/imgui_wrapper.cppm
-#        components/common/core_info_provider.cppm
-#        components/common/iactionreceiver.cppm
-#        components/common/common.cppm
-#)
 set(BIK_HEADERS
         tools/logger/logger_define.hpp
         tools/time/using.hpp
@@ -113,7 +49,7 @@ target_sources(bintjeKit
         PUBLIC
         FILE_SET CXX_MODULES
         BASE_DIRS
-        FILES ${BIK_MODULES}        PUBLIC
+        FILES ${BIK_MODULES} PUBLIC
         FILE_SET HEADERS
         BASE_DIRS
         FILES ${BIK_HEADERS} ${IMGUI_HEADERS}
@@ -126,4 +62,46 @@ target_link_libraries(bintjeKit
 )
 target_link_libraries(bintjeKit
         PRIVATE fmt::fmt spdlog::spdlog SFML::Window SFML::Graphics SFML::System nlohmann_json::nlohmann_json
+)
+
+# Configuration pour l'installation (exportation des cibles)
+include(CMakePackageConfigHelpers)
+set(INSTALL_CONFIGDIR lib/cmake)
+
+# Générer un fichier d'exportation pour find_package
+install(
+        EXPORT bintjeKitTargets
+        FILE bintjeKitTargets.cmake
+        NAMESPACE bnj::
+        DESTINATION ${INSTALL_CONFIGDIR}
+)
+
+# Config.cmake et ConfigVersion.cmake
+write_basic_package_version_file(
+        "${CMAKE_CURRENT_BINARY_DIR}/bintjeKitConfigVersion.cmake"
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion
+)
+configure_package_config_file(
+        "${CMAKE_SOURCE_DIR}/cmake/bintjeKitConfig.cmake.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/bintjeKitConfig.cmake"
+        INSTALL_DESTINATION ${INSTALL_CONFIGDIR}
+)
+install(FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/bintjeKitConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/bintjeKitConfigVersion.cmake"
+        DESTINATION ${INSTALL_CONFIGDIR}
+)
+
+#install(DIRECTORY ${PROJECT_SOURCE_DIR}/src/
+#        DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bintjeKit
+#        FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h"
+#)
+
+install(TARGETS bintjeKit EXPORT bintjeKitTargets
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+        LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+        FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bintjeKit
+        FILE_SET CXX_MODULES DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/modules
 )

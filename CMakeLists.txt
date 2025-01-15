@@ -27,3 +27,4 @@ endif ()
 if (BINTJEKIT_BUILD_EXEMPLES)
     add_subdirectory(exemples)
 endif ()
+

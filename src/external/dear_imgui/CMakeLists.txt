@@ -44,3 +44,19 @@ target_include_directories(${LIB_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 target_link_libraries(${LIB_NAME} PRIVATE logger)
 target_link_libraries(${LIB_NAME} PRIVATE SFML::Graphics)
+
+target_include_directories(${LIB_NAME} PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+        $<INSTALL_INTERFACE:include>
+)
+
+# Installer la bibliothèque et ses file sets
+install(TARGETS ${LIB_NAME}
+        EXPORT bintjeKitTargets
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include
+        FILE_SET HEADERS DESTINATION include/bintjeKit/imgui
+        FILE_SET CXX_MODULES DESTINATION lib/modules
+)
