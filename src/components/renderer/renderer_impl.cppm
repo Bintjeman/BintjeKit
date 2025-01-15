@@ -1,5 +1,5 @@
 /*!
- * @file renderer_iml.cppm
+ * @file renderer_impl.cppm
  * @author bintjeman
  * @date 08.01.25
  * 
