@@ -49,7 +49,7 @@ install(TARGETS ${LIB_NAME}
         RUNTIME DESTINATION bin
         INCLUDES DESTINATION include
         FILE_SET HEADERS DESTINATION include/bintjeKit
-        FILE_SET modules DESTINATION lib/modules
+        FILE_SET modules DESTINATION lib/modules/bintjeKit/settings_manager
 )
 install(
         DIRECTORY cmake-build-release/src/tools/settings_manager/CMakeFiles/settings.dir

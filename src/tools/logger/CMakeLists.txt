@@ -48,5 +48,5 @@ install(TARGETS ${LIB_NAME}
         RUNTIME DESTINATION bin
         INCLUDES DESTINATION include
         FILE_SET HEADERS DESTINATION include/bintjeKit
-        FILE_SET CXX_MODULES DESTINATION lib/modules
+        FILE_SET CXX_MODULES DESTINATION lib/modules/bintjeKit/logger
 )
