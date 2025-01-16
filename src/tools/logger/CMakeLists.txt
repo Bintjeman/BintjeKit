@@ -6,6 +6,7 @@
 message(STATUS "CMake script loaded depuis : ${CMAKE_CURRENT_LIST_FILE}")
 set(LIB_NAME logger)
 add_library(${LIB_NAME} STATIC)
+set(CMAKE_CXX_MODULE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/pcm")
 set(LOGGER_MODULES
         logger.cppm
         logger_interface.cppm
@@ -30,8 +31,9 @@ target_sources(${LIB_NAME}
         FILES ${LOGGER_HEADERS}
 )
 
-target_link_libraries(${LIB_NAME} PRIVATE SFML::Graphics)
+target_compile_features(${LIB_NAME} PRIVATE cxx_std_20)
 
+target_link_libraries(${LIB_NAME} PRIVATE SFML::Graphics)
 
 target_include_directories(${LIB_NAME} PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>

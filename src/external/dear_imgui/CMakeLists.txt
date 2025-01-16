@@ -6,7 +6,7 @@
 message(STATUS "CMake script loaded depuis : ${CMAKE_CURRENT_LIST_FILE}")
 set(LIB_NAME sfml-imgui)
 add_library(${LIB_NAME} STATIC)
-set(SFML_IMGUI_MODULES)
+#set(SFML_IMGUI_MODULES)
 set(SFML_IMGUI_SOURCES
         imgui_widgets.cpp
         imgui_draw.cpp
@@ -30,10 +30,10 @@ set(SFML_IMGUI_HEADERS
 target_sources(${LIB_NAME}
         PRIVATE
         ${SFML_IMGUI_SOURCES}
-        PUBLIC
-        FILE_SET CXX_MODULES
-        BASE_DIRS
-        FILES ${SFML_IMGUI_MODULES}
+#        PUBLIC
+#        FILE_SET CXX_MODULES
+#        BASE_DIRS
+#        FILES ${SFML_IMGUI_MODULES}
         PUBLIC
         FILE_SET HEADERS
         BASE_DIRS
@@ -58,5 +58,5 @@ install(TARGETS ${LIB_NAME}
         RUNTIME DESTINATION bin
         INCLUDES DESTINATION include
         FILE_SET HEADERS DESTINATION include/bintjeKit/imgui
-        FILE_SET CXX_MODULES DESTINATION lib/modules
+#        FILE_SET CXX_MODULES DESTINATION lib/modules
 )

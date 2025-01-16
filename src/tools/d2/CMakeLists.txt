@@ -26,8 +26,9 @@ target_sources(${LIB_NAME}
         FILES ${D2_HEADERS}
 )
 
-target_link_libraries(${LIB_NAME} PRIVATE SFML::System)
+target_compile_features(${LIB_NAME} PRIVATE cxx_std_20)
 
+target_link_libraries(${LIB_NAME} PRIVATE SFML::System)
 
 target_include_directories(${LIB_NAME} PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>

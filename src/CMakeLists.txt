@@ -72,8 +72,8 @@ set(INSTALL_CONFIGDIR lib/cmake)
 install(
         EXPORT bintjeKitTargets
         FILE bintjeKitTargets.cmake
-        NAMESPACE bnj::
-        DESTINATION ${INSTALL_CONFIGDIR}
+        NAMESPACE bintjeKit::
+        DESTINATION ${INSTALL_CONFIGDIR}/bintjeKit
 )
 
 # Config.cmake et ConfigVersion.cmake
@@ -85,23 +85,18 @@ write_basic_package_version_file(
 configure_package_config_file(
         "${CMAKE_SOURCE_DIR}/cmake/bintjeKitConfig.cmake.in"
         "${CMAKE_CURRENT_BINARY_DIR}/bintjeKitConfig.cmake"
-        INSTALL_DESTINATION ${INSTALL_CONFIGDIR}
+        INSTALL_DESTINATION ${INSTALL_CONFIGDIR}/bintjeKit
 )
 install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/bintjeKitConfig.cmake"
         "${CMAKE_CURRENT_BINARY_DIR}/bintjeKitConfigVersion.cmake"
-        DESTINATION ${INSTALL_CONFIGDIR}
+        DESTINATION ${INSTALL_CONFIGDIR}/bintjeKit
 )
-
-#install(DIRECTORY ${PROJECT_SOURCE_DIR}/src/
-#        DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bintjeKit
-#        FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h"
-#)
 
 install(TARGETS bintjeKit EXPORT bintjeKitTargets
         ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
         RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
         FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bintjeKit
-        FILE_SET CXX_MODULES DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/modules
+        FILE_SET CXX_MODULES DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/modules/bintjeKit
 )
