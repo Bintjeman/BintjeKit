@@ -84,7 +84,6 @@ namespace bik::ui {
     }
 
     void BaseUI::key_pressed(const sf::Event::KeyPressed &key_event) {
-        LOGGER->trace("Touche appuyée");
         switch (key_event.scancode) {
             case sf::Keyboard::Scancode::Q:
                 if (key_event.control) {
