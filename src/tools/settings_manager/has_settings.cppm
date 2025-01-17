@@ -22,7 +22,7 @@ namespace bik::settings {
         virtual void initialize() {
         }
 
-    private:
+    protected:
         config::Child settings_{};
     };
 }

@@ -30,15 +30,6 @@ namespace bik::renderer {
         LOGGER->info("Renderer::~Renderer()");
     }
 
-    void BaseRenderer::configure(config::Child settings) {
-        LOGGER->info("Renderer::configure()");
-        settings_ = settings;
-    }
-
-    void BaseRenderer::initialize() {
-        LOGGER->info("Renderer::initialize()");
-    }
-
     void BaseRenderer::update() {
     }
 

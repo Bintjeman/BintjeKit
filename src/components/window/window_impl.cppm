@@ -25,10 +25,6 @@ namespace bik::window {
         LOGGER->info("Window::~Window()");
     }
 
-    void BaseWindow::configure(const config::Child &settings) {
-        LOGGER->info("Window::configure()");
-        settings_ = settings;
-    }
 
     void BaseWindow::initialize() {
         LOGGER->info("Window::initialize()");

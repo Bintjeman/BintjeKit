@@ -26,15 +26,6 @@ namespace bik::playground {
         LOGGER->info("BasePlayGround::~BasePlayGround()");
     }
 
-    void BasePlayGround::configure(config::Child settings) {
-        LOGGER->info("BasePlayGround::configure()");
-        settings_ = settings;
-    }
-
-    void BasePlayGround::initialize() {
-        LOGGER->info("BasePlayGround::initialize()");
-    }
-
     void BasePlayGround::update() {
         LOGGER->info("BasePlayGround::update()");
     }

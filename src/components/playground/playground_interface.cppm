@@ -17,23 +17,11 @@ namespace bik::playground {
     /*!
      * @prief Class de base pour la simulation. Elle est un composant de la class Core
      */
-    class BasePlayGround {
+    class BasePlayGround : public settings::HasSettings {
     public:
         BasePlayGround();
         virtual ~BasePlayGround();
 
-        /*!
-         * @brief Définit les paramètres (nlohmann::json avec le wrapper bik::settings) de la simulation.
-         *
-         * Appelée par core avant void initialize(). Avec un child nomé "Playground".
-         *
-         * @param settings bik::config::Child qui sera la racine pour les paramètre de la simulation
-         */
-        virtual void configure(config::Child settings);
-        /*!
-         * @brief Appelée par Core par default après void configure(config::Child)
-         */
-        virtual void initialize();
         /*!
          * @brief Appelée à chaque tour par Core
          */
@@ -50,6 +38,5 @@ namespace bik::playground {
         [[nodiscard]] virtual sf::Rect<float> boundaries() const;
 
     protected:
-        config::Child settings_;
     };
 }

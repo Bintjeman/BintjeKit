@@ -41,24 +41,11 @@ namespace bik::renderer {
      *          allowing customization of the rendering logic.
      */
     export
-    class BaseRenderer {
+    class BaseRenderer: public bik::settings::HasSettings {
     public:
         BaseRenderer();
         virtual ~BaseRenderer();
 
-        /*!
-         * @brief Définit les paramètres (nlohmann::json avec le wrapper bik::settings) de la simulation.
-         *
-         * Appelée par core avant void initialize(). Avec un child nomé "Playground".
-         *
-         * @param settings bik::config::Child qui sera la racine pour les paramètre de la simulation
-         */
-        virtual void configure(config::Child settings);
-
-        /*!
-         * @brief Appelée par Core par default après void configure(config::Child)
-         */
-        virtual void initialize();
         /*!
          * @brief Appelée par Core à chaque tour
          */
@@ -107,7 +94,6 @@ namespace bik::renderer {
         void reframe();
 
     protected:
-        config::Child settings_;
         sf::View main_view_;
         sf::View playground_view_;
         sf::View ui_view_;
