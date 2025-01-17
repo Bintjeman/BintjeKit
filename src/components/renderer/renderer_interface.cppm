@@ -41,7 +41,7 @@ namespace bik::renderer {
      *          allowing customization of the rendering logic.
      */
     export
-    class BaseRenderer: public bik::settings::HasSettings {
+    class BaseRenderer : public bik::settings::HasSettings {
     public:
         BaseRenderer();
         virtual ~BaseRenderer();
@@ -62,12 +62,12 @@ namespace bik::renderer {
          * @brief Définition de la cible sur laquelle sera dessinée la scène à l'appel de void draw()
          * @param target La cible (sf::RenderTarget)
          */
-        virtual void set_target(std::shared_ptr<sf::RenderTarget> target);
+        virtual void set_target(const std::shared_ptr<sf::RenderTarget> &target);
         /*!
          * @brief Définit la simulation/le jeu qui sera dessiner à l'appel de void draw()
          * @param playground La simulation/le jeu à dessiner (dérivé de bik::BasePlayground)
          */
-        virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
+        virtual void set_playground(const std::shared_ptr<playground::BasePlayGround> &playground);
         /*!
          * @brief Définit le core_info_provider qui partage des informations de Core à BaseRenderer
          * @param core_info_provider

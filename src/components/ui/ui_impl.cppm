@@ -34,25 +34,31 @@ namespace bik::ui {
     }
 
     void BaseUI::finalize() {
+        LOGGER->info("UI::finalize()");
     }
 
     void BaseUI::set_action_receiver(common::BaseIActionReceiver *action_receiver) {
+        LOGGER->debug("UI::set_action_receiver()");
         action_receiver_ = action_receiver;
     }
 
-    void BaseUI::set_playground(std::shared_ptr<playground::BasePlayGround> playground) {
+    void BaseUI::set_playground(const std::shared_ptr<playground::BasePlayGround>& playground) {
+        LOGGER->debug("UI::set_playground()");
         playground_ = playground;
     }
 
-    void BaseUI::set_renderer(std::shared_ptr<renderer::BaseRenderer> renderer) {
+    void BaseUI::set_renderer(const std::shared_ptr<renderer::BaseRenderer>& renderer) {
+        LOGGER->debug("UI::set_renderer()");
         renderer_ = renderer;
     }
 
-    void BaseUI::set_window(std::shared_ptr<window::BaseWindow> window) {
+    void BaseUI::set_window(const std::shared_ptr<window::BaseWindow>& window) {
+        LOGGER->debug("UI::set_window()");
         window_ = window;
     }
 
-    void BaseUI::set_imgui_wrapper(std::shared_ptr<imguiwrapper::BaseImGuiWrapper> imgui_wrapper) {
+    void BaseUI::set_imgui_wrapper(const std::shared_ptr<imguiwrapper::BaseImGuiWrapper>& imgui_wrapper) {
+        LOGGER->debug("UI::set_imgui_wrapper()");
         imgui_wrapper_ = imgui_wrapper;
     }
 
@@ -74,6 +80,7 @@ namespace bik::ui {
     }
 
     void BaseUI::on_close() {
+        LOGGER->info("UI::on_close()");
         action_receiver_->on_close_window();
     }
 

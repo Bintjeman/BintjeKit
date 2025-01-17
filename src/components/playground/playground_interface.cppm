@@ -11,7 +11,7 @@
 module;
 #include <SFML/Graphics/Rect.hpp>
 export module bik.playground:interface;
-import bik.settings;
+export import bik.settings;
 namespace bik::playground {
     export
     /*!

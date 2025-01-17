@@ -21,7 +21,7 @@ import gol;
 import bik.common;
 namespace gol {
     export class Renderer : public bik::renderer::BaseRenderer {
-        void set_playground(std::shared_ptr<bik::playground::BasePlayGround> playground) override {
+        void set_playground(const std::shared_ptr<bik::playground::BasePlayGround>& playground) override {
             BaseRenderer::set_playground(playground);
             game_of_life_ = std::dynamic_pointer_cast<GameOfLife>(playground);
         }

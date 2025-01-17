@@ -25,9 +25,8 @@ namespace bik::window {
         LOGGER->info("Window::~Window()");
     }
 
-
     void BaseWindow::initialize() {
-        LOGGER->info("Window::initialize()");
+        LOGGER->info("Window::setup_window()");
         start_title_ = settings_.get_or_set("/Title"_json_pointer, std::string("BaseWindow"));
         start_pos_ = settings_.get_or_set("/Position"_json_pointer, sf::Vector2i(100, 100));
         if (start_pos_==sf::Vector2i{0,0}) {

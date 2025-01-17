@@ -40,7 +40,8 @@ namespace bik::renderer {
     void BaseRenderer::draw() {
     }
 
-    void BaseRenderer::set_target(std::shared_ptr<sf::RenderTarget> target) {
+    void BaseRenderer::set_target(const std::shared_ptr<sf::RenderTarget>& target) {
+        LOGGER->debug("Renderer::set_target()");
         target_ = target;
         main_view_ = target->getView();
         playground_view_ = main_view_;
@@ -48,11 +49,13 @@ namespace bik::renderer {
         target->setView(main_view_);
     }
 
-    void BaseRenderer::set_playground(std::shared_ptr<playground::BasePlayGround> playground) {
+    void BaseRenderer::set_playground(const std::shared_ptr<playground::BasePlayGround>& playground) {
+        LOGGER->debug("Renderer::set_playground()");
         playground_ = playground;
     }
 
     void BaseRenderer::set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider) {
+        LOGGER->debug("Renderer::set_core_info_provider()");
         core_info_provider_ = core_info_provider;
     }
 

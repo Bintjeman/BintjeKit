@@ -31,7 +31,7 @@ namespace bik::imguiwrapper {
     }
 
     void BaseImGuiWrapper::initialize() {
-        LOGGER->info("ImGuiWrapper::initialize()");
+        LOGGER->info("ImGuiWrapper::setup_window()");
         ImGui::SFML::Init(*window_);
         clock.restart();
     }

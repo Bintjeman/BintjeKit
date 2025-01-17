@@ -23,7 +23,7 @@ namespace gol {
     public:
         explicit UserInterface() {
         }
-        void set_playground(std::shared_ptr<bik::playground::BasePlayGround> game_of_life) override {
+        void set_playground(const std::shared_ptr<bik::playground::BasePlayGround>& game_of_life) override {
             LOGGER->info("UserInterface::set_playground()");
             BaseUI::set_playground(game_of_life);
             game_of_life_ = std::dynamic_pointer_cast<GameOfLife>(game_of_life);

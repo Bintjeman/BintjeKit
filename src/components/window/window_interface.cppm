@@ -11,7 +11,7 @@
 module;
 #include <SFML/Graphics/RenderWindow.hpp>
 export module bik.window:interface;
-import bik.settings;
+export import bik.settings;
 namespace bik::window {
     export class BaseWindow : public sf::RenderWindow, public settings::HasSettings {
     public:

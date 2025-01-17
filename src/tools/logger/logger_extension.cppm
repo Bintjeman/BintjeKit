@@ -15,36 +15,47 @@ module;
 #include <spdlog/fmt/fmt.h>
 export module bik.logger:extension;
 namespace fmt {
-    export template<typename T> struct fmt::formatter<sf::Vector2<T> > {
-        template<typename ParseContext> constexpr auto parse(ParseContext& ctx) const {
+    export template<typename T>
+    struct fmt::formatter<sf::Vector2<T> > {
+        template<typename ParseContext>
+        constexpr auto parse(ParseContext &ctx) const {
             return ctx.begin();
         }
 
-        template<typename FormatContext> auto format(const sf::Vector2<T>& v, FormatContext& ctx) const {
+        template<typename FormatContext>
+        auto format(const sf::Vector2<T> &v, FormatContext &ctx) const {
             return fmt::format_to(ctx.out(), "Vector2({}, {})", v.x, v.y);
         }
     };
 
-    export template<typename T> struct fmt::formatter<sf::Rect<T> > {
-        template<typename ParseContext> constexpr auto parse(ParseContext& ctx) const {
+    export template<typename T>
+    struct fmt::formatter<sf::Rect<T> > {
+        template<typename ParseContext>
+        constexpr auto parse(ParseContext &ctx) const {
             return ctx.begin();
         }
 
-        template<typename FormatContext> auto format(const sf::Rect<T>& r, FormatContext& ctx) const {
-            return fmt::format_to(ctx.out(), "Rect({}, {}, {}, {})", r.left, r.top, r.width, r.height);
+        template<typename FormatContext>
+        auto format(const sf::Rect<T> &r, FormatContext &ctx) const {
+            return fmt::format_to(ctx.out(), "Rect({}, {}, {}, {})", r.position.x, r.position.x,
+                                  r.size.x, r.size.y);
         }
     };
 
-    export template<> struct fmt::formatter<sf::Color> {
-        template<typename ParseContext> constexpr auto parse(ParseContext& ctx) const {
+    export template<>
+    struct fmt::formatter<sf::Color> {
+        template<typename ParseContext>
+        constexpr auto parse(ParseContext &ctx) const {
             return ctx.begin();
         }
 
-        template<typename FormatContext> auto format(const sf::Color& clr, FormatContext& ctx) const {
+        template<typename FormatContext>
+        auto format(const sf::Color &clr, FormatContext &ctx) const {
             if (clr.a == 255) {
                 return fmt::format_to(ctx.out(), "Color({}, {}, {})", clr.r, clr.g, clr.b);
             } else {
-                return fmt::format_to(ctx.out(), "Color({}, {}, {}, {})", clr.r, clr.g, clr.b, clr.a);
+                return fmt::format_to(ctx.out(), "Color({}, {}, {}, {})", clr.r, clr.g, clr.b,
+                                      clr.a);
             }
         }
     };

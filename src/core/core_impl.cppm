@@ -55,7 +55,7 @@ namespace bik::core {
     }
 
     void Core::initialize() {
-        LOGGER->info("Core::initialize()");
+        LOGGER->info("Core::setup_window()");
         window_->initialize();
         imgui_wrapper_->initialize();
         ui_->initialize();
