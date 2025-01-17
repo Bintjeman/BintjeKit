@@ -15,9 +15,6 @@ module;
 #include <SFML/Graphics/RenderTarget.hpp>
 export module bik.renderer:interface;
 export import bik.settings;
-// namespace sf {
-    // class RenderTarget;
-// }
 namespace bik {
     namespace playground {
         export class BasePlayGround;
@@ -29,22 +26,84 @@ namespace bik {
 }
 
 namespace bik::renderer {
-    export class BaseRenderer {
+    /*!
+     * @brief BaseRenderer is an abstract class that serves as the foundational renderer interface.
+     *
+     * @details This class provides the essential rendering operations and management
+     *          of graphical resources such as views, targets, and playgrounds.
+     *          BaseRenderer is designed to be extended by specific implementations
+     *          for different rendering backends or display configurations.
+     *
+     * @note This interface also incorporates functionality for camera manipulation
+     *       and core system integration.
+     *
+     * @remarks Extending classes must implement all pure virtual methods,
+     *          allowing customization of the rendering logic.
+     */
+    export
+    class BaseRenderer {
     public:
         BaseRenderer();
         virtual ~BaseRenderer();
-        virtual void configure(config::Child settings);
-        virtual void initialize();
-        virtual void update();
-        virtual void finalize();
-        virtual void draw();
-        virtual void set_target(std::shared_ptr<sf::RenderTarget> target);
-        virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
-        void set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider);
 
+        /*!
+         * @brief Définit les paramètres (nlohmann::json avec le wrapper bik::settings) de la simulation.
+         *
+         * Appelée par core avant void initialize(). Avec un child nomé "Playground".
+         *
+         * @param settings bik::config::Child qui sera la racine pour les paramètre de la simulation
+         */
+        virtual void configure(config::Child settings);
+
+        /*!
+         * @brief Appelée par Core par default après void configure(config::Child)
+         */
+        virtual void initialize();
+        /*!
+         * @brief Appelée par Core à chaque tour
+         */
+        virtual void update();
+        /*!
+         * @brief Appelée par core à la fermeture du programme
+         */
+        virtual void finalize();
+        /*!
+         * @brief Appelée par Core. Par default dessine sur la BaseWindow ou sa dérivée (sf::RenderTarget target_)
+         */
+        virtual void draw();
+        /*!
+         * @brief Définition de la cible sur laquelle sera dessinée la scène à l'appel de void draw()
+         * @param target La cible (sf::RenderTarget)
+         */
+        virtual void set_target(std::shared_ptr<sf::RenderTarget> target);
+        /*!
+         * @brief Définit la simulation/le jeu qui sera dessiner à l'appel de void draw()
+         * @param playground La simulation/le jeu à dessiner (dérivé de bik::BasePlayground)
+         */
+        virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
+        /*!
+         * @brief Définit le core_info_provider qui partage des informations de Core à BaseRenderer
+         * @param core_info_provider
+         */
+        void set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider);
+        /*!
+         * @brief Wrapper pour sf::Target::SetView()
+         * @param view sf::View
+         */
         void set_view(sf::View view);
+        /*!
+         * @brief Déplace la caméra de la vue du playground
+         * @param offset
+         */
         void camera_move(sf::Vector2f offset);
+        /*!
+         * @brief Zoom la caméra de la vue du playground
+         * @param zoom
+         */
         void camera_zoom(float zoom);
+        /*!
+         * @brief Recentre et ajuste la taille de la sf::View (playground_view_) sur la sf::Target (target_) en fonction des limites définit par bik::BasePlayground ou sa dérivée)
+         */
         void reframe();
 
     protected:

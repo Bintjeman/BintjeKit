@@ -11,9 +11,6 @@
 module;
 #include <SFML/Window/Event.hpp>
 export module bik.ui:interface;
-// import bik.window;
-// import bik.common;
-// import bik.playground;
 namespace bik {
     namespace window {
         export class BaseWindow;
