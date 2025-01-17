@@ -10,6 +10,7 @@
  */
 export module bik.settings;
 // interfaces
+export import :has_settings;
 export import :interface;
 export import :node;
 export import :nlohmann_extension;

@@ -13,6 +13,7 @@ set(SETTINGS_MODULES
         node.cppm
         node_impl.cppm
         settings_nlohmann_extension.cppm
+        has_settings.cppm
 )
 set(SETTINGS_SOURCES)
 set(SETTINGS_HEADERS)

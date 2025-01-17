@@ -29,12 +29,6 @@ namespace bik::ui {
         LOGGER->info("UI::~UI()");
     }
 
-    void BaseUI::configure() {
-    }
-
-    void BaseUI::initialize() {
-    }
-
     void BaseUI::update() {
         event_handler();
     }

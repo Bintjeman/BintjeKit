@@ -11,33 +11,36 @@
 module;
 #include <SFML/Window/Event.hpp>
 export module bik.ui:interface;
+import bik.settings;
 namespace bik {
     namespace window {
         export class BaseWindow;
     }
+
     namespace imguiwrapper {
         export class BaseImGuiWrapper;
     }
+
     namespace renderer {
         export class BaseRenderer;
     }
+
     namespace playground {
         export class BasePlayGround;
     }
+
     namespace common {
         export class BaseIActionReceiver;
     }
-
 }
+
 namespace bik {
     namespace ui {
-        export class BaseUI {
+        export class BaseUI : public settings::HasSettings {
         public:
             explicit BaseUI();
             virtual ~BaseUI();
 
-            virtual void configure();
-            virtual void initialize();
             virtual void update();
             virtual void finalize();
 
@@ -45,7 +48,8 @@ namespace bik {
             virtual void set_playground(std::shared_ptr<playground::BasePlayGround> playground);
             virtual void set_renderer(std::shared_ptr<renderer::BaseRenderer> renderer);
             virtual void set_window(std::shared_ptr<window::BaseWindow> window);
-            virtual void set_imgui_wrapper(std::shared_ptr<imguiwrapper::BaseImGuiWrapper> imgui_wrapper);
+            virtual void set_imgui_wrapper(
+                std::shared_ptr<imguiwrapper::BaseImGuiWrapper> imgui_wrapper);
 
         protected:
             virtual void event_handler();
@@ -61,7 +65,6 @@ namespace bik {
             common::BaseIActionReceiver *action_receiver_ = nullptr;
 
         private:
-
         };
     }
 }
