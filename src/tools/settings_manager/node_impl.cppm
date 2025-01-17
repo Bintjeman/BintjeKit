@@ -20,7 +20,8 @@ import :nlohmann_extension;
 int Node::node_counter = 0;
 
 Node::Node(const std::shared_ptr<nlohmann::json> &json, const nlohmann::json::json_pointer &root) {
-    LOGGER->info("Node::Node(const std::shared_ptr<Json>& json, const nlohmann::json::json_pointer &root)");
+    LOGGER->info(
+        "Node::Node(const std::shared_ptr<Json>& json, const nlohmann::json::json_pointer &root)");
     node_counter++;
     root_ = root;
     if (json == nullptr) {
@@ -44,6 +45,12 @@ T Node::get(const nlohmann::json::json_pointer &key, const T &defaultValue) cons
     } else {
         return json_->at(ptr).get<T>();
     }
+}
+
+template<typename T>
+T Node::get(const nlohmann::json::json_pointer &key) const {
+    auto ptr = root_ / key;
+    return json_->at(ptr).get<T>();
 }
 
 template<typename T>

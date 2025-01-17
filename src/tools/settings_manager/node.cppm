@@ -20,6 +20,8 @@ public:
 
     template<typename T>
     T get(const nlohmann::json::json_pointer &key, const T &defaultValue) const;
+    template<typename T>
+    T get(const nlohmann::json::json_pointer &key) const;
 
     template<typename T>
     T get_or_set(const nlohmann::json::json_pointer &key, const T &defaultValue);
