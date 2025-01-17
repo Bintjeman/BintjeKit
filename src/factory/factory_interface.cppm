@@ -15,21 +15,25 @@ namespace bik {
     namespace ui {
         export class BaseUI;
     }
+
     namespace window {
         export class BaseWindow;
     }
+
     namespace playground {
         export class BasePlayGround;
     }
+
     namespace renderer {
         export class BaseRenderer;
     }
+
     namespace imguiwrapper {
         export class BaseImGuiWrapper;
     }
 }
-namespace bik::factory {
 
+namespace bik::factory {
     export class BaseFactory {
     public:
         BaseFactory();
@@ -37,11 +41,11 @@ namespace bik::factory {
         virtual void creation();
         virtual void clear();
 
-        std::shared_ptr<window::BaseWindow> window() const;
-        std::shared_ptr<ui::BaseUI> ui() const;
-        std::shared_ptr<playground::BasePlayGround> playground() const;
-        std::shared_ptr<renderer::BaseRenderer> renderer() const;
-        std::shared_ptr<imguiwrapper::BaseImGuiWrapper> imgui_wrapper() const;
+        [[nodiscard]] std::shared_ptr<window::BaseWindow> window() const;
+        [[nodiscard]] std::shared_ptr<ui::BaseUI> ui() const;
+        [[nodiscard]] std::shared_ptr<playground::BasePlayGround> playground() const;
+        [[nodiscard]] std::shared_ptr<renderer::BaseRenderer> renderer() const;
+        [[nodiscard]] std::shared_ptr<imguiwrapper::BaseImGuiWrapper> imgui_wrapper() const;
 
     protected:
         virtual void build_window();

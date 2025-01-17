@@ -44,7 +44,7 @@ namespace bik::renderer {
     class BaseRenderer : public bik::settings::HasSettings {
     public:
         BaseRenderer();
-        virtual ~BaseRenderer();
+        ~BaseRenderer() override;
 
         /*!
          * @brief Appelée par Core à chaque tour

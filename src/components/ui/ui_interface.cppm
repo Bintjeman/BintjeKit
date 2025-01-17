@@ -38,7 +38,7 @@ namespace bik::ui {
     export class BaseUI : public settings::HasSettings {
     public:
         explicit BaseUI();
-        virtual ~BaseUI();
+        ~BaseUI() override;
 
         virtual void update();
         virtual void finalize();

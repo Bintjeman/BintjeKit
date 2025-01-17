@@ -20,7 +20,7 @@ namespace bik::playground {
     class BasePlayGround : public settings::HasSettings {
     public:
         BasePlayGround();
-        virtual ~BasePlayGround();
+        ~BasePlayGround() override;
 
         /*!
          * @brief Appelée à chaque tour par Core
