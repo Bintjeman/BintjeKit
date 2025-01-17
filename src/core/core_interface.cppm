@@ -51,19 +51,20 @@ namespace bik::core {
         explicit Core(std::unique_ptr<factory::BaseFactory> factory);
         ~Core();
         //
+        void set_factory(std::unique_ptr<factory::BaseFactory> factory);
         void configure();
         void initialize();
         void run();
-        void finalize();
         void on_close_window() override;
         // Getters
-        double renderer_frequency() const override;
-        double playground_frequency() const override;
+        [[nodiscard]] double renderer_frequency() const override;
+        [[nodiscard]] double playground_frequency() const override;
 
     private:
         void create_components();
+        void finalize();
 
-        bool run_= false;
+        bool run_ = false;
 
         config::Settings settings_;
         std::unique_ptr<factory::BaseFactory> factory_;

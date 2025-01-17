@@ -37,6 +37,11 @@ namespace bik::core {
         LOGGER->info("Core::~Core()");
     }
 
+    void Core::set_factory(std::unique_ptr<factory::BaseFactory> factory) {
+        LOGGER->info("Core::set_factory()");
+        factory_ = std::move(factory);
+    }
+
     void Core::configure() {
         LOGGER->info("Core::configure()");
         create_components();
