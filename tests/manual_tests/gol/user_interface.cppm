@@ -17,6 +17,7 @@ import bik.ui;
 import bik.window;
 import bik.playground;
 import bik.renderer;
+import bik.imgui_wrapper;
 import gol;
 namespace gol {
     export class UserInterface : public bik::ui::BaseUI {

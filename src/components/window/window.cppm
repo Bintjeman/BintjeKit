@@ -10,4 +10,3 @@
  */
 export module bik.window;
 export import :interface;
-import :impl;

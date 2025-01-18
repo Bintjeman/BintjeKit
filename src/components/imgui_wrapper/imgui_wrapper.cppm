@@ -10,4 +10,3 @@
  */
 export module bik.imgui_wrapper;
 export import :interface;
-import :impl;

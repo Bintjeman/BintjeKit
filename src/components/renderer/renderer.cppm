@@ -10,4 +10,3 @@
  */
 export module bik.renderer;
 export import :interface;
-import :impl;

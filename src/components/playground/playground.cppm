@@ -10,4 +10,3 @@
  */
 export module bik.playground;
 export import :interface;
-import :impl;

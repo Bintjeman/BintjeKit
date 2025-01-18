@@ -21,6 +21,9 @@ import bik.factory;
 import bik.logger;
 import bik.settings;
 import bik.common;
+import bik.renderer;
+import bik.playground;
+import bik.imgui_wrapper;
 namespace bik::core {
     [[deprecated("Use the constructor with a unique_ptr<factory::Factory> instead")]]
     Core::Core() {
