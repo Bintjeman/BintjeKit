@@ -64,6 +64,7 @@ namespace bik::renderer {
     }
 
     void BaseRenderer::camera_move(sf::Vector2f offset) {
+        LOGGER->trace("Renderer::camera_move()");
         playground_view_.move(offset);
     }
 

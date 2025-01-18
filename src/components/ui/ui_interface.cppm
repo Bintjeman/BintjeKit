@@ -12,6 +12,7 @@ module;
 #include <SFML/Window/Event.hpp>
 export module bik.ui:interface;
 export import bik.settings;
+// export import bik.renderer;
 namespace bik {
     namespace window {
         export class BaseWindow;
@@ -40,7 +41,7 @@ namespace bik::ui {
         explicit BaseUI();
         ~BaseUI() override;
 
-        virtual void update();
+        void update();
         virtual void finalize();
 
         void set_action_receiver(common::BaseIActionReceiver *action_receiver);
