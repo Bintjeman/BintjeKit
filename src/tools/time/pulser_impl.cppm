@@ -21,9 +21,7 @@ namespace bik::time {
         this->start();
     }
 
-    Pulser::~Pulser() {
-    }
-
+    Pulser::~Pulser() =default;
     bool Pulser::pulse() {
         const auto now = SysClock::now();
         const auto elapsed = now - this->start_;
@@ -55,6 +53,9 @@ namespace bik::time {
 
     auto Pulser::interval() const {
         return interval_;
+    }
+    auto Pulser::frequency() const {
+        return to_frequency(1, interval_);
     }
 
     auto Pulser::effective_interval() const {

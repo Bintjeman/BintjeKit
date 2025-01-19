@@ -18,7 +18,7 @@ namespace bik::time {
     export class Clock {
     public:
         Clock();
-        ~Clock();
+        virtual ~Clock();
         void start();
         void pause();
         DurationDef restart();

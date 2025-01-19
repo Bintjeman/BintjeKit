@@ -113,12 +113,20 @@ namespace bik::core {
         run_ = false;
     }
 
-    double Core::renderer_frequency() const {
+    double Core::renderer_effective_frequency() const {
         return renderer_pulser_.effective_frequency();
     }
 
-    double Core::playground_frequency() const {
+    double Core::playground_effective_frequency() const {
         return playground_pulser_.effective_frequency();
+    }
+
+    double Core::renderer_target_frequency() const {
+        return renderer_pulser_.frequency();
+    }
+
+    double Core::playground_target_frequency() const {
+        return playground_pulser_.frequency();
     }
 
     void Core::create_components() {

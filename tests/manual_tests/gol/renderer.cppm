@@ -32,8 +32,8 @@ namespace gol {
             target_->draw(game_of_life_->drawable());
             // UI
             static sf::Text text(font_);
-            auto playground_frequency = std::format("{:.2f}", core_info_provider_->playground_frequency());
-            auto renderer_frequency = std::format("{:.2f}", core_info_provider_->renderer_frequency());
+            auto playground_frequency = std::format("{:.2f}", core_info_provider_->playground_effective_frequency());
+            auto renderer_frequency = std::format("{:.2f}", core_info_provider_->renderer_effective_frequency());
             text.setString("SPS:" + playground_frequency + "\nFPS:" + renderer_frequency);
             target_->setView(ui_view_);
             target_->draw(text);

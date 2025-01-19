@@ -13,8 +13,9 @@ namespace bik::common {
     export class BaseCoreInfoProvider {
     public:
         virtual ~BaseCoreInfoProvider() = default;
-        virtual double renderer_frequency() const = 0;
-        virtual double playground_frequency() const = 0;
-
+        [[nodiscard]] virtual double renderer_effective_frequency() const = 0;
+        [[nodiscard]] virtual double playground_effective_frequency() const = 0;
+        [[nodiscard]] virtual double renderer_target_frequency() const =0;
+        [[nodiscard]] virtual double playground_target_frequency() const =0;
     };
 }

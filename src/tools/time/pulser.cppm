@@ -14,15 +14,16 @@ module;
 export module bik.time:pulser;
 import :clock;
 namespace bik::time {
-    export class Pulser : public Clock {
+    export class Pulser final : public Clock {
     public:
         Pulser();
-        virtual ~Pulser();
+        ~Pulser() override;
         bool pulse();
         bool operator ()();
         void set_frequency(double frequency);
         void set_interval(DurationDef interval);
         [[nodiscard]] auto interval() const;
+        [[nodiscard]] auto frequency() const;
         [[nodiscard]] auto effective_interval() const;
         [[nodiscard]] auto effective_frequency() const;
         void each(bool each);

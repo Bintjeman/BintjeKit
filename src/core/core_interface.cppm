@@ -57,8 +57,10 @@ namespace bik::core {
         void run();
         void on_close_window() override;
         // Getters
-        [[nodiscard]] double renderer_frequency() const override;
-        [[nodiscard]] double playground_frequency() const override;
+        [[nodiscard]] double renderer_effective_frequency() const override;
+        [[nodiscard]] double playground_effective_frequency() const override;
+        [[nodiscard]] double renderer_target_frequency() const override;
+        [[nodiscard]] double playground_target_frequency() const override;
 
     private:
         void create_components();
