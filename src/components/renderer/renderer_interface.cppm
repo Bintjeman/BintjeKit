@@ -97,7 +97,6 @@ namespace bik::renderer {
         sf::View main_view_;
         sf::View playground_view_;
         sf::View ui_view_;
-        sf::Font font_;
         std::shared_ptr<sf::RenderTarget> target_ = nullptr;
         std::shared_ptr<playground::BasePlayGround> playground_ = nullptr;
         common::BaseCoreInfoProvider *core_info_provider_ = nullptr;
