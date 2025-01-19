@@ -15,6 +15,9 @@ namespace bik {
     namespace window {
         export class BaseWindow;
     }
+    namespace common {
+        export class BaseCoreInfoProvider;
+    }
 }
 namespace bik::imguiwrapper {
     export class BaseImGuiWrapper {
@@ -22,6 +25,7 @@ namespace bik::imguiwrapper {
         BaseImGuiWrapper();
         virtual ~BaseImGuiWrapper();
         void set_window(const std::shared_ptr<window::BaseWindow> &window);
+        void set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider);
         void initialize();
         void finalize();
         void update();
@@ -29,7 +33,8 @@ namespace bik::imguiwrapper {
         void render();
 
     private:
-        std::shared_ptr<window::BaseWindow> window_;
         sf::Clock clock;
+        std::shared_ptr<window::BaseWindow> window_;
+        common::BaseCoreInfoProvider *core_info_provider_ = nullptr;
     };
 }

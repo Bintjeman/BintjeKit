@@ -30,11 +30,16 @@ namespace bik::imguiwrapper {
         window_ = window;
     }
 
+    void BaseImGuiWrapper::
+    set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider) {
+        core_info_provider_ = core_info_provider;
+    }
+
     void BaseImGuiWrapper::initialize() {
         LOGGER->info("ImGuiWrapper::setup_window()");
         if (ImGui::SFML::Init(*window_)) {
             LOGGER->info("ImGuiWrapper::setup_window() - done");
-        }else {
+        } else {
             LOGGER->error("ImGuiWrapper::setup_window() - failed");
         }
         clock.restart();

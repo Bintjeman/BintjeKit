@@ -50,6 +50,7 @@ namespace bik::core {
         create_components();
         ui_->set_action_receiver(this);
         renderer_->set_core_info_provider(this);
+        imgui_wrapper_->set_core_info_provider(this);
         settings_.load("settings.json");
         int frame_per_sedond = settings_.get_or_set("/FramePerSedond"_json_pointer, 60);
         int step_per_second = settings_.get_or_set("/StepPerSecond"_json_pointer, 10);
