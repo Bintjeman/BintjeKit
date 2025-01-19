@@ -16,6 +16,10 @@ namespace bik {
         export class BaseWindow;
     }
 
+    namespace playground {
+        export class BasePlayGround;
+    }
+
     namespace common {
         export class BaseCoreInfoProvider;
     }
@@ -28,6 +32,7 @@ namespace bik::imguiwrapper {
         virtual ~BaseImGuiWrapper();
         void set_window(const std::shared_ptr<window::BaseWindow> &window);
         void set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider);
+        void set_playground(const std::shared_ptr<playground::BasePlayGround> &playground);
         void initialize();
         void finalize();
         void update();
@@ -40,5 +45,6 @@ namespace bik::imguiwrapper {
     private:
         sf::Clock clock;
         std::shared_ptr<window::BaseWindow> window_;
+        std::shared_ptr<playground::BasePlayGround> playground_;
     };
 }

@@ -36,6 +36,7 @@ namespace bik::factory {
         build_renderer();
         build_imgui_wrapper();
         imgui_wrapper_->set_window(window_);
+        imgui_wrapper_->set_playground(playground_);
         renderer_->set_playground(playground_);
         renderer_->set_target(window_);
         ui_->set_playground(playground_);

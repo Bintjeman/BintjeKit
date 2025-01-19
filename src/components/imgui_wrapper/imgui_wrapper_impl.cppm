@@ -36,6 +36,11 @@ namespace bik::imguiwrapper {
         core_info_provider_ = core_info_provider;
     }
 
+    void BaseImGuiWrapper::set_playground(
+        const std::shared_ptr<playground::BasePlayGround> &playground) {
+        playground_ = playground;
+    }
+
     void BaseImGuiWrapper::initialize() {
         LOGGER->info("ImGuiWrapper::setup_window()");
         if (ImGui::SFML::Init(*window_)) {
