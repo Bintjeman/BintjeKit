@@ -11,7 +11,6 @@
 module;
 #include <memory>
 #include <SFML/Graphics/View.hpp>
-#include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 export module bik.renderer:interface;
 export import bik.settings;

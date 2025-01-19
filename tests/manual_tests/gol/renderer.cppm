@@ -41,5 +41,6 @@ namespace gol {
 
     private:
         std::shared_ptr<GameOfLife> game_of_life_;
+        sf::Font font_;
     };
 }
