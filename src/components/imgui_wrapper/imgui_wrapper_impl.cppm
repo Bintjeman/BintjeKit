@@ -32,7 +32,11 @@ namespace bik::imguiwrapper {
 
     void BaseImGuiWrapper::initialize() {
         LOGGER->info("ImGuiWrapper::setup_window()");
-        ImGui::SFML::Init(*window_);
+        if (ImGui::SFML::Init(*window_)) {
+            LOGGER->info("ImGuiWrapper::setup_window() - done");
+        }else {
+            LOGGER->error("ImGuiWrapper::setup_window() - failed");
+        }
         clock.restart();
     }
 
@@ -40,7 +44,6 @@ namespace bik::imguiwrapper {
         LOGGER->info("ImGuiWrapper::finalize()");
         LOGGER->flush();
         ImGui::SFML::Shutdown();
-
     }
 
     void BaseImGuiWrapper::update() {
