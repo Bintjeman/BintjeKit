@@ -16,6 +16,7 @@ export module bik.imgui_wrapper:impl;
 import :interface;
 import bik.window;
 import bik.logger;
+import bik.common;
 namespace bik::imguiwrapper {
     BaseImGuiWrapper::BaseImGuiWrapper() {
         LOGGER->info("ImGuiWrapper::ImGuiWrapper()");
