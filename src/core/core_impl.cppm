@@ -56,6 +56,8 @@ namespace bik::core {
         int step_per_second = settings_.get_or_set("/StepPerSecond"_json_pointer, 10);
         playground_pulser_.set_frequency(step_per_second);
         renderer_pulser_.set_frequency(frame_per_sedond);
+        LOGGER->trace("Frame per second: {}", frame_per_sedond);
+        LOGGER->trace("Step per second: {}", step_per_second);
         auto window_settings = settings_.create_child("/Window"_json_pointer);
         window_->configure(window_settings);
         renderer_->configure(settings_.create_child("/Renderer"_json_pointer));

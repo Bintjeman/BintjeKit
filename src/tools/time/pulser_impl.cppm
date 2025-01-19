@@ -12,10 +12,12 @@ module;
 #include <chrono>
 #include <limits>
 #include "using.hpp"
+#include <tools/logger/logger_define.hpp>
 export module bik.time:pulser_impl;
 import :pulser;
 import :clock;
 import :utils;
+import bik.logger;
 namespace bik::time {
     Pulser::Pulser(): interval_(0) {
         this->start();
@@ -38,17 +40,23 @@ namespace bik::time {
     }
 
     void Pulser::set_frequency(double frequency) {
+    LOGGER->trace("set_frequency(): Set frequency to {}", frequency);
         if (frequency <= 0.0) {
             each_ = true;
         }
         interval_ = to_duration<DurationDef>(frequency);
+        LOGGER->trace("Set interval milli to {}", to_milliseconds(interval_));
+        LOGGER->trace("with frequency {}", frequency);
     }
 
     void Pulser::set_interval(DurationDef interval) {
+        LOGGER->trace("set_interval(): Set interval to {}", interval.count());
         if (interval <= DurationDef(0)) {
             each_ = true;
         }
         interval_ = interval;
+        LOGGER->trace("Set interval to {}", interval_.count());
+        LOGGER->trace("with frequency {}", to_frequency(1, interval_));
     }
 
     auto Pulser::interval() const {

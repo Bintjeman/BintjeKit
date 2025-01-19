@@ -14,6 +14,5 @@
 #include <chrono>
 namespace bik::time {
     using DurationDef = std::chrono::milliseconds;
-
 }
 #endif //INCLUDES_HPP
