@@ -32,7 +32,7 @@ namespace bik::imguiwrapper {
         virtual ~BaseImGuiWrapper();
         void set_window(const std::shared_ptr<window::BaseWindow> &window);
         void set_core_info_provider(common::BaseCoreInfoProvider *core_info_provider);
-        void set_playground(const std::shared_ptr<playground::BasePlayGround> &playground);
+        virtual void set_playground(const std::shared_ptr<playground::BasePlayGround> &playground);
         void initialize();
         void finalize();
         void update();
