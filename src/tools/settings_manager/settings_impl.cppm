@@ -19,7 +19,7 @@ module;
 export module bik.settings:impl;
 import :interface;
 import bik.logger;
-namespace bik::config {
+namespace bik::settings {
     Settings::Settings() {
         LOGGER->info("Settings::Settings()");
         json_ = std::make_shared<nlohmann::json>();

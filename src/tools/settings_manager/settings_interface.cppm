@@ -12,7 +12,7 @@ module;
 #include <filesystem>
 export module bik.settings:interface;
 import :node;
-namespace bik::config {
+namespace bik::settings {
     export class Settings : public Node {
     public:
         Settings();

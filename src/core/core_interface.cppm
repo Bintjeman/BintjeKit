@@ -68,7 +68,7 @@ namespace bik::core {
 
         bool run_ = false;
 
-        config::Settings settings_;
+        settings::Settings settings_;
         std::unique_ptr<factory::BaseFactory> factory_;
         std::shared_ptr<window::BaseWindow> window_ = nullptr;
         std::shared_ptr<ui::BaseUI> ui_ = nullptr;

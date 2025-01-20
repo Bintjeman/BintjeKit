@@ -15,7 +15,7 @@ namespace bik::settings {
     public:
         inline virtual ~HasSettings() = default;
 
-        virtual void configure(config::Child settings) {
+        virtual void configure(const Child& settings) {
             settings_ = settings;
         }
 
@@ -23,6 +23,6 @@ namespace bik::settings {
         }
 
     protected:
-        config::Child settings_{};
+        Child settings_{};
     };
 }
