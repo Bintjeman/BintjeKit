@@ -3,5 +3,9 @@ include_guard(GLOBAL)
 message("Actual *.cmake: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
 # Options
+# Modules
+option(BINTJEKIT_BUILD_WINDOW "Build window module" ON)
+# Tests
 option(BINTJEKIT_BUILD_TESTS "Compile tests" ON)
+# Examples
 option(BINTJEKIT_BUILD_EXAMPLES "Compile examples" ON)
