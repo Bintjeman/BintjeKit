@@ -4,7 +4,6 @@ message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 add_library(bintjekit_window STATIC
         main_window.cpp
 )
-
 target_include_directories(bintjekit_window
         PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -12,10 +11,14 @@ target_include_directories(bintjekit_window
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
-
 set_target_properties(bintjekit_window PROPERTIES
         VERSION ${PROJECT_VERSION}
         POSITION_INDEPENDENT_CODE ON
 )
-
+target_link_libraries(bintjekit_window
+        PUBLIC
+        SFML::Window
+        SFML::System
+        SFML::Graphics
+)
 add_library(BintjeKit::Window ALIAS bintjekit_window)

@@ -9,4 +9,5 @@
 int main() {
     std::cout << "Hello World!" << std::endl;
     bnjkit::MainWindow main_window;
+    main_window.open();
 }

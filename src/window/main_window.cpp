@@ -13,5 +13,7 @@ namespace bnjkit {
     MainWindow::~MainWindow() {
         std::cout << "Destructor of MainWindow" << std::endl;
     }
-
+    void MainWindow::open() {
+        this->create(sf::VideoMode(sf::Vector2u(800, 600)), "BintjeKit", sf::Style::Default);
+    }
 }

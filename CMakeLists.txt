@@ -3,6 +3,7 @@ message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
 # Options
 include(cmake/options.cmake)
+include(cmake/dependencies.cmake)
 ################################################################################
 project(Binjekit
         VERSION 0.0.1
