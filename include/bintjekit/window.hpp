@@ -3,7 +3,6 @@
  * @date 10.06.25
  * @name window.hpp
  */
-
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 #pragma once
