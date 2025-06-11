@@ -10,7 +10,7 @@
 #include "bintjekit/core/i_module.hpp"
 
 namespace bnjkit::window {
-    class IMainWindow : public module::IModule, protected sf::RenderWindow {
+    class IMainWindow : public core::IModule, public sf::RenderWindow {
     public:
         IMainWindow();
         ~IMainWindow() override;

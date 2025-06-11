@@ -4,7 +4,8 @@
  * @name i_module.cpp
  */
 #include "bintjekit/core/i_module.hpp"
-void bnjkit::module::IModule::initialise() {
+void bnjkit::core::IModule::initialise() {
 }
-void bnjkit::module::IModule::configure() {
+
+void bnjkit::core::IModule::configure() {
 }

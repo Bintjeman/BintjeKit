@@ -20,7 +20,7 @@ set_target_properties(bintjekit_core PROPERTIES
 target_link_libraries(bintjekit_core
         PUBLIC
         SFML::Window
-        SFML::System
-        SFML::Graphics
+#        SFML::System
+#        SFML::Graphics
 )
 add_library(BintjeKit::Core ALIAS bintjekit_core)

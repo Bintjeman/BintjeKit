@@ -8,11 +8,15 @@ endif ()
 if (BINTJEKIT_BUILD_WINDOW)
     add_subdirectory(window)
 endif ()
+if(BINTJEKIT_BUILD_EVENTMANAGER)
+    add_subdirectory(event_manager)
+endif ()
 # Création de la bibliothèque complète si demandée
 if (BINTJEKIT_BUILD_MONOLITHIC)
     add_library(bintjekit STATIC
             $<TARGET_OBJECTS:bintjekit_core>
             $<TARGET_OBJECTS:bintjekit_window>
+            $<TARGET_OBJECTS:bintjekit_eventmanager>
     )
     target_include_directories(bintjekit
             PUBLIC

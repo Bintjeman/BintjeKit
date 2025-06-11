@@ -7,7 +7,7 @@
 #ifndef I_MODULE_HPP
 #define I_MODULE_HPP
 #pragma once
-namespace bnjkit::module {
+namespace bnjkit::core {
     class IModule {
     public:
         virtual ~IModule() = default;
