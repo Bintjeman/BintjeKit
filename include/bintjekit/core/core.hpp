@@ -7,8 +7,8 @@
 #define CORE_HPP
 #pragma once
 #include <memory>
-#include "bintjekit/window/i_main_window.hpp"
-#include "bintjekit/event_manager/i_event_manager.hpp"
+// #include "bintjekit/window/i_main_window.hpp"
+// #include "bintjekit/event_manager/i_event_manager.hpp"
 namespace bnjkit {
     namespace window {
         class IMainWindow;

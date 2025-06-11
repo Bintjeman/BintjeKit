@@ -13,6 +13,12 @@
 #include "bintjekit/event_manager/default_event_manager.hpp"
 
 namespace bnjkit::core {
+    CoreBuilder::CoreBuilder() {
+    }
+
+    CoreBuilder::~CoreBuilder() {
+    }
+
     CoreBuilder &CoreBuilder::set_window_module(std::unique_ptr<window::IMainWindow> window) {
         m_window = std::move(window);
         return *this;

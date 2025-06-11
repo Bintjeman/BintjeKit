@@ -20,7 +20,8 @@ namespace bnjkit {
 
         class CoreBuilder {
         public:
-            CoreBuilder() = default;
+            CoreBuilder();
+            ~CoreBuilder();
             CoreBuilder &set_window_module(std::unique_ptr<window::IMainWindow> window);
             CoreBuilder &set_event_manager_module(std::unique_ptr<event::IEventManager> event_manager);
             std::unique_ptr<Core> build();
