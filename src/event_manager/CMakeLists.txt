@@ -4,6 +4,8 @@ message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 add_library(bintjekit_eventmanager STATIC
         i_event_manager.cpp
         default_event_manager.cpp
+        i_event.cpp
+        event_listener.cpp
 )
 target_include_directories(bintjekit_eventmanager
         PUBLIC

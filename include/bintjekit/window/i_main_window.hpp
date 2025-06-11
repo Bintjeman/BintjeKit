@@ -8,9 +8,10 @@
 #pragma once
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "bintjekit/core/i_module.hpp"
+#include "bintjekit/event_manager/event_listener.hpp"
 
 namespace bnjkit::window {
-    class IMainWindow : public core::IModule, public sf::RenderWindow {
+    class IMainWindow : public core::IModule, public sf::RenderWindow, public event::IEventListener {
     public:
         IMainWindow();
         ~IMainWindow() override;

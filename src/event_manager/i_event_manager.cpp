@@ -21,5 +21,6 @@ namespace event {
     void IEventManager::configure() {
         IModule::configure();
     }
+
 } // event
 } // bnjkit
