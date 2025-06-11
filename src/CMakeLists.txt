@@ -2,13 +2,16 @@ cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
 # Ajouter chaque sous-module
+if(BINTJEKIT_BUILD_CORE)
+    add_subdirectory(core)
+endif ()
 if (BINTJEKIT_BUILD_WINDOW)
     add_subdirectory(window)
 endif ()
-
 # Création de la bibliothèque complète si demandée
 if (BINTJEKIT_BUILD_MONOLITHIC)
     add_library(bintjekit STATIC
+            $<TARGET_OBJECTS:bintjekit_core>
             $<TARGET_OBJECTS:bintjekit_window>
     )
     target_include_directories(bintjekit

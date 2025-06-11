@@ -4,10 +4,10 @@
  * @name main.cpp
  */
 #include <iostream>
-
-#include <bintjekit/window/main_window.hpp>
+#include <bintjekit/core/core.hpp>
+#include "bintjekit/core/core_builder.hpp"
 int main() {
     std::cout << "Hello World!" << std::endl;
-    bnjkit::MainWindow main_window;
-    main_window.open();
+    auto core = bnjkit::core::CoreBuilder().build();
+    core->run();
 }
