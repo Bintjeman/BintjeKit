@@ -39,6 +39,7 @@ namespace bnjkit::core {
             m_event_manager.reset();
             m_event_manager = std::make_unique<event::DefaultEventManager>();
         }
+        m_event_manager->register_listener(m_window.get());
         core->set_modules(std::move(m_window), std::move(m_event_manager));
         return core;
     }

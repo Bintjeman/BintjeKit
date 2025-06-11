@@ -26,10 +26,8 @@ namespace bnjkit::core {
     void Core::run() {
         std::cout << "Running Core" << std::endl;
         this->m_main_window->show();
-        while (const auto &event = this->m_main_window->pollEvent()) {
-            if (event->is<sf::Event::Closed>()) {
-                m_main_window->close();
-            }
+        while (this->m_main_window->isOpen()) {
+            this->m_event_manager->process_events(*this->m_main_window);
         }
         std::cout << "Core finished" << std::endl;
     }

@@ -31,7 +31,6 @@ namespace bnjkit {
                 }
             }
         }
-
         void DefaultEventManager::unregister_listener(IEventListener *listener) {
             if (listener) {
                 m_listeners.erase(
@@ -40,7 +39,6 @@ namespace bnjkit {
                 );
             }
         }
-
         void DefaultEventManager::process_events(sf::Window &window) {
             while (auto event = window.pollEvent()) {
                 // Dispatch aux listeners
