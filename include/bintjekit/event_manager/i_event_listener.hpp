@@ -4,8 +4,8 @@
  * @name event_listener.hpp
  */
 
-#ifndef EVENT_LISTENER_HPP
-#define EVENT_LISTENER_HPP
+#ifndef I_EVENT_LISTENER_HPP
+#define I_EVENT_LISTENER_HPP
 #pragma once
 namespace sf {
     class Event;
@@ -22,4 +22,4 @@ namespace bnjkit {
     } // event
 } // bnjkit
 
-#endif //EVENT_LISTENER_HPP
+#endif // I_EVENT_LISTENER_HPP

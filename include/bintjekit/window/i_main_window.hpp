@@ -3,12 +3,12 @@
  * @date 10.06.25
  * @name main_window.hpp
  */
-#ifndef MAIN_WINDOW_HPP
-#define MAIN_WINDOW_HPP
+#ifndef I_MAIN_WINDOW_HPP
+#define I_MAIN_WINDOW_HPP
 #pragma once
-#include "SFML/Graphics/RenderWindow.hpp"
+#include <SFML/Graphics/RenderWindow.hpp>
 #include "bintjekit/core/i_module.hpp"
-#include "bintjekit/event_manager/event_listener.hpp"
+#include "bintjekit/event_manager/i_event_listener.hpp"
 
 namespace bnjkit::window {
     class IMainWindow : public core::IModule, public sf::RenderWindow, public event::IEventListener {
@@ -20,4 +20,4 @@ namespace bnjkit::window {
     private:
     };
 } // bnjkit::window
-#endif //MAIN_WINDOW_HPP
+#endif // I_MAIN_WINDOW_HPP

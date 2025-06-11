@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Window.hpp>
-#include "bintjekit/event_manager/event_listener.hpp"
+#include "bintjekit/event_manager/i_event_listener.hpp"
 
 namespace bnjkit {
     namespace event {

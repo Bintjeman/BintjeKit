@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
-add_library(bintjekit_eventmanager STATIC
+add_library(bintjekit_eventmanager OBJECT
         i_event_manager.cpp
         default_event_manager.cpp
         i_event.cpp
-        event_listener.cpp
+        i_event_listener.cpp
 )
 target_include_directories(bintjekit_eventmanager
         PUBLIC
@@ -22,4 +22,11 @@ target_link_libraries(bintjekit_eventmanager
         PUBLIC
         SFML::Window
 )
-add_library(BintjeKit::EventManager ALIAS bintjekit_eventmanager)
+add_library(bintjekit_eventmanager_static STATIC
+        $<TARGET_OBJECTS:bintjekit_eventmanager>
+)
+target_link_libraries(bintjekit_eventmanager_static
+        PUBLIC
+        bintjekit_eventmanager
+)
+add_library(BintjeKit::EventManager ALIAS bintjekit_eventmanager_static)

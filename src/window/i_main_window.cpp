@@ -9,7 +9,7 @@ namespace bnjkit::window {
     IMainWindow::IMainWindow() {
         std::cout << "Constructor of MainWindow" << std::endl;
     }
-    IMainWindow::~IMainWindow() {
+    IMainWindow::~IMainWindow() noexcept {
         std::cout << "Destructor of MainWindow" << std::endl;
     }
     void IMainWindow::show() {

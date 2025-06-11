@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
 # Ajouter chaque sous-module
-if(BINTJEKIT_BUILD_CORE)
+if (BINTJEKIT_BUILD_CORE)
     add_subdirectory(core)
 endif ()
 if (BINTJEKIT_BUILD_WINDOW)
     add_subdirectory(window)
 endif ()
-if(BINTJEKIT_BUILD_EVENTMANAGER)
+if (BINTJEKIT_BUILD_EVENTMANAGER)
     add_subdirectory(event_manager)
 endif ()
 # Création de la bibliothèque complète si demandée
@@ -25,6 +25,9 @@ if (BINTJEKIT_BUILD_MONOLITHIC)
     )
     target_link_libraries(bintjekit
             PUBLIC
+#            BintjeKit::Core
+#            BintjeKit::Window
+#            BintjeKit::EventManager
             SFML::Window
             SFML::System
             SFML::Graphics

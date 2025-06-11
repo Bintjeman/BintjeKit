@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
-add_library(bintjekit_window STATIC
+add_library(bintjekit_window OBJECT
         i_main_window.cpp
         default_main_window.cpp
 )
@@ -18,8 +18,16 @@ set_target_properties(bintjekit_window PROPERTIES
 )
 target_link_libraries(bintjekit_window
         PUBLIC
+        BintjeKit::Core
         SFML::Window
-#        SFML::System
-#        SFML::Graphics
+        SFML::System
+        SFML::Graphics
 )
-add_library(BintjeKit::Window ALIAS bintjekit_window)
+add_library(bintjekit_window_static STATIC
+        $<TARGET_OBJECTS:bintjekit_window>
+)
+target_link_libraries(bintjekit_window_static
+        PUBLIC
+        bintjekit_window
+)
+add_library(BintjeKit::Window ALIAS bintjekit_window_static)
