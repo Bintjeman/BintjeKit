@@ -6,6 +6,8 @@ add_library(bintjekit STATIC)
 add_subdirectory(core)
 add_subdirectory(window)
 add_subdirectory(event_manager)
+add_subdirectory(engine)
+add_subdirectory(renderer)
 target_include_directories(bintjekit
         PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>

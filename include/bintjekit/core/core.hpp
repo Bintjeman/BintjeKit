@@ -7,8 +7,6 @@
 #define CORE_HPP
 #pragma once
 #include <memory>
-// #include "bintjekit/window/i_main_window.hpp"
-// #include "bintjekit/event_manager/i_event_manager.hpp"
 namespace bnjkit {
     namespace window {
         class IMainWindow;
@@ -16,18 +14,28 @@ namespace bnjkit {
     namespace event {
         class IEventManager;
     } // event
+    namespace engine {
+        class IEngine;
+    } // engine
+    namespace renderer {
+        class IRenderer;
+    } // renderer
     namespace core {
         class Core {
         public:
             Core();
             ~Core();
             void set_modules(std::unique_ptr<window::IMainWindow> window,
-                             std::unique_ptr<event::IEventManager> event_manager);
+                             std::unique_ptr<event::IEventManager> event_manager,
+                             std::unique_ptr<engine::IEngine> engine,
+                             std::unique_ptr<renderer::IRenderer> renderer);
             void run();
 
         private:
             std::unique_ptr<window::IMainWindow> m_main_window;
             std::unique_ptr<event::IEventManager> m_event_manager;
+            std::unique_ptr<renderer::IRenderer> m_renderer;
+            std::unique_ptr<engine::IEngine> m_engine;
 
         public:
             Core(const Core &) = delete;

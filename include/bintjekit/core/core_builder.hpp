@@ -15,6 +15,12 @@ namespace bnjkit {
     namespace event {
         class IEventManager;
     } // event
+    namespace engine {
+        class IEngine;
+    } // engine
+    namespace renderer {
+        class IRenderer;
+    } // renderer
     namespace core {
         class Core;
 
@@ -29,6 +35,8 @@ namespace bnjkit {
         private:
             std::unique_ptr<window::IMainWindow> m_window;
             std::unique_ptr<event::IEventManager> m_event_manager;
+            std::unique_ptr<renderer::IRenderer> m_renderer;
+            std::unique_ptr<engine::IEngine> m_engine;
         };
     } // core
 } // bnjkit

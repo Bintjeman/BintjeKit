@@ -8,6 +8,8 @@
 // Interface modules
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/i_event_manager.hpp"
+#include "bintjekit/engine/i_engine.hpp"
+#include "bintjekit/renderer/i_renderer.hpp"
 // defaults modules
 #include "bintjekit/window/default_main_window.hpp"
 #include "bintjekit/event_manager/default_event_manager.hpp"
@@ -40,7 +42,11 @@ namespace bnjkit::core {
             m_event_manager = std::make_unique<event::DefaultEventManager>();
         }
         m_event_manager->register_listener(m_window.get());
-        core->set_modules(std::move(m_window), std::move(m_event_manager));
+        core->set_modules(
+            std::move(m_window),
+            std::move(m_event_manager),
+            std::move(m_engine),
+            std::move(m_renderer));
         return core;
     }
 } // bnjkit::core

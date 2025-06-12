@@ -4,7 +4,7 @@
  * @name i_engine.cpp
  */
 
-#include "i_engine.hpp"
+#include "bintjekit/engine/i_engine.hpp"
 
 namespace bnjkit {
     namespace engine {
