@@ -11,5 +11,6 @@
 int main() {
     auto core = bnjkit::core::CoreBuilder()
             .set_window_module(std::make_unique<usr::MainWindow>()).build();
+    core->run();
     return 0;
 }

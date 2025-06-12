@@ -12,6 +12,7 @@ namespace usr {
     MainWindow::~MainWindow(){}
 
     void MainWindow::show() {
+        this->create(sf::VideoMode(sf::Vector2u(800, 600)), "BintjeKit", sf::Style::Default);
     }
 
     void MainWindow::initialise() {
@@ -23,5 +24,6 @@ namespace usr {
     }
 
     void MainWindow::on_sfml_event(const sf::Event &event) {
+        IMainWindow::on_sfml_event(event);
     }
 } // usr

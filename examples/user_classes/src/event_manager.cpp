@@ -16,6 +16,6 @@ namespace usr {
         IEventManager::configure();
     }
     void EventManager::process_events(sf::Window &window) {
-        process_events(window);
+        IEventManager::process_events(window);
     }
 } // usr
