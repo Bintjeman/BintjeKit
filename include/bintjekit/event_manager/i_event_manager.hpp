@@ -8,6 +8,7 @@
 #pragma once
 #include <vector>
 #include "bintjekit/core/i_module.hpp"
+#include "SFML/Window/Event.hpp"
 
 namespace sf {
     class Window;
@@ -24,11 +25,11 @@ namespace bnjkit {
             ~IEventManager() override;
             void initialise() override;
             void configure() override;
-            virtual void register_listener(IEventListener *listener) =0;
-            virtual void unregister_listener(IEventListener *listener) =0;
-            virtual void process_events(sf::Window &window) =0;
-
+            virtual void process_events(sf::Window &window);
+            void register_listener(IEventListener *listener);
+            void unregister_listener(IEventListener *listener);
         protected:
+            virtual void general_event(const sf::Event &event);
             std::vector<IEventListener *> m_listeners;
         };
     } // event

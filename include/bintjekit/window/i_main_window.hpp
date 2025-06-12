@@ -16,7 +16,7 @@ namespace bnjkit::window {
         IMainWindow();
         ~IMainWindow() override;
         virtual void show() =0;
-
+        void on_sfml_event(const sf::Event &event) override;
     private:
     };
 } // bnjkit::window

@@ -7,8 +7,6 @@
 #define MAIN_WINDOW_HPP
 #pragma once
 #include <bintjekit/window/i_main_window.hpp>
-
-
 namespace usr {
     class MainWindow : public bnjkit::window::IMainWindow {
     public:
@@ -20,5 +18,4 @@ namespace usr {
         void on_sfml_event(const sf::Event &event) override;
     }; // MainWindow
 } // usr
-
 #endif //MAIN_WINDOW_HPP
