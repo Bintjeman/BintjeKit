@@ -2,7 +2,9 @@
  * @author bintjeman
  * @date 10.06.25
  * @name main.cpp
- */
+ * @example minimal_example.cpp
+ * @brief Minimal example showing basic usage of core
+*/
 #include <iostream>
 #include <bintjekit/core/core.hpp>
 #include "bintjekit/core/core_builder.hpp"
