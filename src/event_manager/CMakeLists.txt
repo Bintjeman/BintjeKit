@@ -5,4 +5,5 @@ target_sources(bintjekit PRIVATE
         default_event_manager.cpp
         i_event_manager.cpp
         i_event_listener.cpp
-        i_event.cpp)
+#        i_event.cpp
+)

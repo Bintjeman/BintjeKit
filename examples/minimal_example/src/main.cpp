@@ -2,7 +2,7 @@
  * @author bintjeman
  * @date 10.06.25
  * @name main.cpp
- * @example minimal_example.cpp
+ * @example minimal_example
  * @brief Minimal example showing basic usage of core
 */
 #include <iostream>

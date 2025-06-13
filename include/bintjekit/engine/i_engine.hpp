@@ -6,12 +6,18 @@
 #ifndef I_ENGINE_HPP
 #define I_ENGINE_HPP
 #pragma once
-// #include <vector>
-// #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Window/Event.hpp"
 
 namespace bnjkit {
     namespace engine {
+        /**
+         * @class IEngine
+         * @brief An abstract interface for the engine module within an application system.
+         *
+         * This class defines the core functionalities that an engine module must provide,
+         * including initialization, configuration, event handling, and updating.
+         * Derived classes must implement these pure virtual functions.
+         */
         class IEngine {
         public:
             virtual ~IEngine();

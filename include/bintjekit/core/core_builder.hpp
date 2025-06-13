@@ -25,12 +25,35 @@ namespace bnjkit {
     namespace core {
         class Core;
 
+        /**
+         * @class CoreBuilder
+         * @brief A builder class for constructing a Core instance with configurable modules.
+         *
+         * The CoreBuilder class allows the construction of a Core object by setting
+         * different modules, such as window, event manager, engine, renderer, and engine renderer.
+         * Users can configure the Core instance by using the `set` methods or providing modules
+         * explicitly via setter functions before finalizing the configuration with the `build` method.
+         */
         class CoreBuilder {
         public:
             CoreBuilder();
             ~CoreBuilder();
 
             template<typename T>
+            /**
+             * @brief Sets the module of a specific type for the CoreBuilder.
+             *
+             * Depending on the template type `T`, this method initializes and assigns the corresponding
+             * module to the CoreBuilder. The supported modules are:
+             * - Window (derived from `window::IMainWindow`)
+             * - Event Manager (derived from `event::IEventManager`)
+             * - Engine (derived from `engine::IEngine`)
+             * - Renderer (derived from `renderer::IRenderer`)
+             * - Engine Renderer (derived from `renderer::IEngineRenderer`)
+             *
+             * @tparam T The type of the module to be set. Must derive from one of the supported base module types.
+             * @return A reference to the CoreBuilder instance, allowing method chaining.
+             */
             CoreBuilder &set() {
                 if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
                     m_window = std::make_unique<T>();
@@ -47,6 +70,18 @@ namespace bnjkit {
             }
 
             template<typename T, typename... Args>
+            /**
+             * @brief Sets the module of a specific type with given parameters for the CoreBuilder.
+             *
+             * Allows initializing and assigning a specific module of type `T` with additional
+             * arguments. This method is useful when construction of the module requires custom
+             * parameters. The module must derive from one of the supported base module types.
+             *
+             * @tparam T The type of the module to be set. Must derive from a supported base module type.
+             * @tparam Args The types of additional arguments for constructing the module.
+             * @param args The arguments to be forwarded to the module's constructor.
+             * @return A reference to the CoreBuilder instance, allowing method chaining.
+             */
             CoreBuilder &set(Args &&... args) {
                 if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
                     m_window = std::make_unique<T>(std::forward<Args>(args)...);
@@ -59,6 +94,16 @@ namespace bnjkit {
             CoreBuilder &set_engine_module(std::unique_ptr<engine::IEngine> engine);
             CoreBuilder &set_renderer_module(std::unique_ptr<renderer::IRenderer> renderer);
             CoreBuilder &set_engine_renderer(std::unique_ptr<renderer::IEngineRenderer> engine_renderer);
+            /**
+             * @brief Constructs and returns a fully configured Core instance.
+             *
+             * The `build` method creates a Core object by assembling and configuring its essential
+             * modules, such as the main window, event manager, engine, renderer, and engine renderer.
+             * If any modules are not explicitly set, default implementations are automatically created.
+             * These modules are initialized and linked together appropriately to ensure proper functionality.
+             *
+             * @return A unique pointer to a fully configured Core instance.
+             */
             std::unique_ptr<Core> build();
 
         private:

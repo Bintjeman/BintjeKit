@@ -9,7 +9,13 @@
 #pragma once
 #include "bintjekit/window/i_main_window.hpp"
 namespace bnjkit::window {
-class DefaultMainWindow : public IMainWindow{
+    /**
+     * A concrete implementation of the IMainWindow interface, providing the main
+     * window functionalities. This class is responsible for initializing,
+     * configuring, displaying, and managing SFML-based events for the main
+     * application window.
+     */
+    class DefaultMainWindow : public IMainWindow{
 public:
     DefaultMainWindow();
     ~DefaultMainWindow() override;
