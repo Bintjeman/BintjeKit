@@ -10,6 +10,8 @@
 #include <vector>
 #include <SFML/Graphics/Drawable.hpp>
 
+#include "SFML/Graphics/Rect.hpp"
+
 namespace bnjkit {
     namespace engine {
         class IEngine;
@@ -39,7 +41,7 @@ namespace bnjkit {
              * @param engine A pointer to the `bnjkit::engine::IEngine` instance to be associated.
              *               This allows the renderer to interact with the engine's functionalities.
              */
-            virtual void set_engine(const bnjkit::engine::IEngine * engine);
+            virtual void set_engine(const bnjkit::engine::IEngine *engine);
             /**
              * @brief Retrieves the list of drawable objects associated with the renderer.
              *
@@ -52,6 +54,7 @@ namespace bnjkit {
              *                      The caller can use this list to process or render the objects.
              */
             virtual void get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const;
+            [[nodiscard]] virtual sf::Rect<float> get_bounds() const;
 
         protected:
             const engine::IEngine *m_engine;

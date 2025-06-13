@@ -9,13 +9,12 @@
 
 namespace usr {
     Engine::Engine() {
-        srand(time(NULL));
-        m_window_size = sf::Vector2f(800, 600); // Taille par défaut
+        srand(time(nullptr));
+        m_world_size = sf::Vector2f(1000, 1000); // Taille par défaut
         new_world();
     }
 
-    Engine::~Engine() {
-    }
+    Engine::~Engine() = default;
 
     void Engine::initialise() {
     }
@@ -24,9 +23,6 @@ namespace usr {
     }
 
     void Engine::on_sfml_event(const sf::Event &event) {
-        if (const auto *resized = event.getIf<sf::Event::Resized>()) {
-            m_window_size = sf::Vector2f(resized->size.x, resized->size.y);
-        }
     }
 
     void Engine::update() {
@@ -49,8 +45,8 @@ namespace usr {
         return m_tick_counter;
     }
 
-    sf::Vector2f Engine::get_window_size() const {
-        return m_window_size;
+    sf::Vector2f Engine::get_world_size() const {
+        return m_world_size;
     }
 
     sf::Vector2f Engine::get_circle_position() const {
@@ -94,15 +90,15 @@ namespace usr {
         if (m_circle_position.x - m_circle_radius < 0) {
             m_circle_position.x = m_circle_radius;
             collision = true;
-        } else if (m_circle_position.x + m_circle_radius > m_window_size.x) {
-            m_circle_position.x = m_window_size.x - m_circle_radius;
+        } else if (m_circle_position.x + m_circle_radius > m_world_size.x) {
+            m_circle_position.x = m_world_size.x - m_circle_radius;
             collision = true;
         }
         if (m_circle_position.y - m_circle_radius < 0) {
             m_circle_position.y = m_circle_radius;
             collision = true;
-        } else if (m_circle_position.y + m_circle_radius > m_window_size.y) {
-            m_circle_position.y = m_window_size.y - m_circle_radius;
+        } else if (m_circle_position.y + m_circle_radius > m_world_size.y) {
+            m_circle_position.y = m_world_size.y - m_circle_radius;
             collision = true;
         }
         if (collision) {

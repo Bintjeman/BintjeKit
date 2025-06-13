@@ -34,6 +34,7 @@ namespace bnjkit::core {
     void Core::run() {
         std::cout << "Running Core" << std::endl;
         this->m_main_window->show();
+        m_renderer->initialise();
         while (this->m_main_window->isOpen()) {
             this->m_event_manager->process_events(*this->m_main_window);
             this->m_engine->update();

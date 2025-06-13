@@ -28,4 +28,8 @@ namespace usr {
         IEngineRenderer::set_engine(engine);
         m_usr_engine = dynamic_cast<const Engine *>(engine);
     }
+
+    sf::Rect<float> EngineRenderer::get_bounds() const {
+        return {{0.f, 0.f},m_usr_engine->get_world_size()};
+    }
 } // usr

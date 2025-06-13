@@ -58,6 +58,7 @@ namespace bnjkit::core {
             m_event_manager = std::make_unique<event::DefaultEventManager>();
         }
         m_event_manager->register_listener(m_window.get());
+        m_event_manager->register_listener(m_renderer.get());
         if (m_renderer) {
             m_renderer->set_engine(m_engine.get());
             m_renderer->set_render_window(m_window.get());

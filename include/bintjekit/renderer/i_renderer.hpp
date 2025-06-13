@@ -11,7 +11,7 @@
 
 #include "i_engine_renderer.hpp"
 #include "bintjekit/core/i_module.hpp"
-#include "bintjekit/engine/i_engine.hpp"
+#include "bintjekit/event_manager/i_event_listener.hpp"
 
 namespace bnjkit {
     namespace renderer {
@@ -29,7 +29,7 @@ namespace bnjkit {
          *
          * @note Inherits from core::IModule.
          */
-        class IRenderer : public core::IModule {
+        class IRenderer : public core::IModule, public event::IEventListener {
         public:
             IRenderer();
             ~IRenderer() override;
@@ -92,7 +92,7 @@ namespace bnjkit {
         protected:
             sf::RenderWindow *m_render_window;
             const engine::IEngine *m_engine;
-            const renderer::IEngineRenderer *m_engine_renderer;
+            const IEngineRenderer *m_engine_renderer;
             std::vector<std::reference_wrapper<sf::Drawable> > m_drawables;
         };
     } // renderer
