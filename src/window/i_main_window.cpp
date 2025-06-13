@@ -17,6 +17,7 @@ namespace bnjkit::window {
 
     void IMainWindow::show() {
     }
+
     void IMainWindow::on_sfml_event(const sf::Event &event) {
         if (event.is<sf::Event::Closed>()) {
             close();

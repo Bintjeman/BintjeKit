@@ -8,6 +8,7 @@
 #pragma once
 #include <SFML/Graphics/Color.hpp>
 #include "bintjekit/engine/i_engine.hpp"
+#include "SFML/Graphics/CircleShape.hpp"
 
 namespace usr {
     class Engine : public bnjkit::engine::IEngine {
@@ -34,6 +35,7 @@ namespace usr {
         sf::Color m_circle_outline_color;
         sf::Color m_background_color;
         long int m_tick_counter;
+        mutable sf::CircleShape m_circle;
     };
 } // usr
 #endif //ENGINE_HPP
