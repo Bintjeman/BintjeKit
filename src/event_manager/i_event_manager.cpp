@@ -6,7 +6,8 @@
 
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include <algorithm>
-
+#include <SFML/Window/Window.hpp>
+#include "bintjekit/event_manager/i_event_listener.hpp"
 namespace bnjkit {
     namespace event {
         IEventManager::IEventManager() {
@@ -24,6 +25,12 @@ namespace bnjkit {
         }
 
         void IEventManager::process_events(sf::Window &window) {
+            while (auto event = window.pollEvent()) {
+                for (auto *listener: m_listeners) {
+                    listener->on_sfml_event(*event);
+                }
+                general_event(*event);
+            }
         }
 
         void IEventManager::register_listener(IEventListener *listener) {

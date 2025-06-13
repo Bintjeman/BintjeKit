@@ -25,7 +25,7 @@ namespace bnjkit {
             ~IEventManager() override;
             void initialise() override;
             void configure() override;
-            virtual void process_events(sf::Window &window);
+            void process_events(sf::Window &window);
             void register_listener(IEventListener *listener);
             void unregister_listener(IEventListener *listener);
         protected:

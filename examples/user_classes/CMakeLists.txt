@@ -5,7 +5,8 @@ add_executable(user_classes
         src/main.cpp
         src/event_manager.cpp
         src/main_window.cpp
-
+        src/renderer.cpp
+        src/engine.cpp
 )
 target_include_directories(user_classes PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include

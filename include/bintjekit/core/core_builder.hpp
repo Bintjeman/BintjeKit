@@ -30,6 +30,8 @@ namespace bnjkit {
             ~CoreBuilder();
             CoreBuilder &set_window_module(std::unique_ptr<window::IMainWindow> window);
             CoreBuilder &set_event_manager_module(std::unique_ptr<event::IEventManager> event_manager);
+            CoreBuilder &set_engine_module(std::unique_ptr<engine::IEngine> engine);
+            CoreBuilder &set_renderer_module(std::unique_ptr<renderer::IRenderer> renderer);
             std::unique_ptr<Core> build();
 
         private:

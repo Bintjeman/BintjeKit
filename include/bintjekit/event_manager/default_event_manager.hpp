@@ -16,7 +16,6 @@ namespace bnjkit {
             ~DefaultEventManager() override;
             void initialise() override;
             void configure() override;
-            void process_events(sf::Window &window) override;
         };
     } // event
 } // bnjkit

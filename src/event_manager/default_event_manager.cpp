@@ -23,13 +23,5 @@ namespace bnjkit {
         void DefaultEventManager::configure() {
         }
 
-        void DefaultEventManager::process_events(sf::Window &window) {
-            while (auto event = window.pollEvent()) {
-                for (auto *listener: m_listeners) {
-                    listener->on_sfml_event(*event);
-                }
-                general_event(*event);
-            }
-        }
     } // event
 } // bnjkit

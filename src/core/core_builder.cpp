@@ -31,6 +31,16 @@ namespace bnjkit::core {
         return *this;
     }
 
+    CoreBuilder &CoreBuilder::set_engine_module(std::unique_ptr<engine::IEngine> engine) {
+        m_engine = std::move(engine);
+        return *this;
+    }
+
+    CoreBuilder &CoreBuilder::set_renderer_module(std::unique_ptr<renderer::IRenderer> renderer) {
+        m_renderer = std::move(renderer);
+        return *this;
+    }
+
     std::unique_ptr<Core> CoreBuilder::build() {
         auto core = std::make_unique<Core>();
         if (!m_window) {

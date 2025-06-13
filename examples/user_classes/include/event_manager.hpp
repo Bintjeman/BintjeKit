@@ -15,7 +15,6 @@ namespace usr {
         ~EventManager() override;
         void initialise() override;
         void configure() override;
-        void process_events(sf::Window &window) override;
     };
 } // usr
 #endif //EVENT_MANAGER_HPP
