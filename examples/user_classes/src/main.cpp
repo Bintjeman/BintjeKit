@@ -44,7 +44,6 @@ int main() {
             .set_engine_renderer(std::make_unique<usr::EngineRenderer>())
             .build();
     core->run();
-    auto core2 = bnjkit::core::CoreBuilder().set<usr::Engine>().build();
-    core->run();
+
     return 0;
 }
