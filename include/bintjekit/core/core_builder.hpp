@@ -19,6 +19,7 @@ namespace bnjkit {
         class IEngine;
     } // engine
     namespace renderer {
+        class IEngineRenderer;
         class IRenderer;
     } // renderer
     namespace core {
@@ -28,10 +29,36 @@ namespace bnjkit {
         public:
             CoreBuilder();
             ~CoreBuilder();
+
+            template<typename T>
+            CoreBuilder &set() {
+                if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
+                    m_window = std::make_unique<T>();
+                } else if constexpr (std::is_base_of_v<event::IEventManager, T>) {
+                    m_event_manager = std::make_unique<T>();
+                } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
+                    m_engine = std::make_unique<T>();
+                } else if constexpr (std::is_base_of_v<renderer::IRenderer, T>) {
+                    m_renderer = std::make_unique<T>();
+                } else if constexpr (std::is_base_of_v<renderer::IEngineRenderer, T>) {
+                    m_engine_renderer = std::make_unique<T>();
+                }
+                return *this;
+            }
+
+            template<typename T, typename... Args>
+            CoreBuilder &set(Args &&... args) {
+                if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
+                    m_window = std::make_unique<T>(std::forward<Args>(args)...);
+                }
+                return *this;
+            }
+
             CoreBuilder &set_window_module(std::unique_ptr<window::IMainWindow> window);
             CoreBuilder &set_event_manager_module(std::unique_ptr<event::IEventManager> event_manager);
             CoreBuilder &set_engine_module(std::unique_ptr<engine::IEngine> engine);
             CoreBuilder &set_renderer_module(std::unique_ptr<renderer::IRenderer> renderer);
+            CoreBuilder &set_engine_renderer(std::unique_ptr<renderer::IEngineRenderer> engine_renderer);
             std::unique_ptr<Core> build();
 
         private:
@@ -39,6 +66,7 @@ namespace bnjkit {
             std::unique_ptr<event::IEventManager> m_event_manager;
             std::unique_ptr<renderer::IRenderer> m_renderer;
             std::unique_ptr<engine::IEngine> m_engine;
+            std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;
         };
     } // core
 } // bnjkit

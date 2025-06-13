@@ -9,14 +9,19 @@
 #include "main_window.hpp"
 #include "event_manager.hpp"
 #include "engine.hpp"
+#include "engine_renderer.hpp"
 #include "renderer.hpp"
+
 int main() {
     auto core = bnjkit::core::CoreBuilder()
             .set_window_module(std::make_unique<usr::MainWindow>())
             .set_event_manager_module(std::make_unique<usr::EventManager>())
             .set_engine_module(std::make_unique<usr::Engine>())
             .set_renderer_module(std::make_unique<usr::Renderer>())
+            .set_engine_renderer(std::make_unique<usr::EngineRenderer>())
             .build();
+    core->run();
+    auto core2 = bnjkit::core::CoreBuilder().set<usr::Engine>().build();
     core->run();
     return 0;
 }

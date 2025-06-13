@@ -6,9 +6,8 @@
 #ifndef I_ENGINE_HPP
 #define I_ENGINE_HPP
 #pragma once
-#include <vector>
-
-#include "SFML/Graphics/Drawable.hpp"
+// #include <vector>
+// #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Window/Event.hpp"
 
 namespace bnjkit {
@@ -20,7 +19,6 @@ namespace bnjkit {
             virtual void configure() =0;
             virtual void on_sfml_event(const sf::Event &event) =0;
             virtual void update() = 0;
-            virtual void get_drawable(std::vector<std::reference_wrapper<sf::Drawable>> &drawable_list) const = 0;
         protected:
 
         };

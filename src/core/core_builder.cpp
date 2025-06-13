@@ -13,6 +13,7 @@
 // defaults modules
 #include "bintjekit/window/default_main_window.hpp"
 #include "bintjekit/event_manager/default_event_manager.hpp"
+#include "bintjekit/renderer/i_engine_renderer.hpp"
 
 namespace bnjkit::core {
     CoreBuilder::CoreBuilder() {
@@ -41,6 +42,11 @@ namespace bnjkit::core {
         return *this;
     }
 
+    CoreBuilder &CoreBuilder::set_engine_renderer(std::unique_ptr<renderer::IEngineRenderer> engine_renderer) {
+        m_engine_renderer = std::move(engine_renderer);
+        return *this;
+    }
+
     std::unique_ptr<Core> CoreBuilder::build() {
         auto core = std::make_unique<Core>();
         if (!m_window) {
@@ -55,12 +61,17 @@ namespace bnjkit::core {
         if (m_renderer) {
             m_renderer->set_engine(m_engine.get());
             m_renderer->set_render_window(m_window.get());
+            m_renderer->set_engine_renderer(m_engine_renderer.get());
+        }
+        if (m_engine_renderer) {
+            m_engine_renderer->set_engine(m_engine.get());
         }
         core->set_modules(
             std::move(m_window),
             std::move(m_event_manager),
             std::move(m_engine),
-            std::move(m_renderer));
+            std::move(m_renderer),
+            std::move(m_engine_renderer));
         return core;
     }
 } // bnjkit::core

@@ -7,6 +7,7 @@ add_executable(user_classes
         src/main_window.cpp
         src/renderer.cpp
         src/engine.cpp
+        src/engine_renderer.cpp
 )
 target_include_directories(user_classes PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include

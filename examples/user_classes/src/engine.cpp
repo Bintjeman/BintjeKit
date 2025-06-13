@@ -5,9 +5,6 @@
  */
 
 #include "engine.hpp"
-
-#include "SFML/Graphics/CircleShape.hpp"
-
 namespace usr {
     Engine::Engine() {
         m_window_size = sf::Vector2f(800, 600); // Taille par défaut
@@ -35,16 +32,6 @@ namespace usr {
         collision_detection();
     }
 
-    void Engine::get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const {
-        drawable_list.clear();
-        m_circle.setRadius(m_circle_radius);
-        m_circle.setPosition(m_circle_position);
-        m_circle.setOutlineThickness(m_circle_outline_thickness);
-        m_circle.setOutlineColor(m_circle_outline_color);
-        m_circle.setFillColor(m_circle_color);
-        drawable_list.emplace_back(std::ref(m_circle));
-    }
-
     void Engine::new_world() {
         m_tick_counter = 0;
         m_circle_position = sf::Vector2f(100, 100);
@@ -57,6 +44,34 @@ namespace usr {
 
     long int Engine::get_tick_counter() const {
         return m_tick_counter;
+    }
+
+    sf::Vector2f Engine::get_window_size() const {
+        return m_window_size;
+    }
+
+    sf::Vector2f Engine::get_circle_position() const {
+        return m_circle_position;
+    }
+
+    float Engine::get_circle_radius() const {
+        return m_circle_radius;
+    }
+
+    sf::Color Engine::get_circle_color() const {
+        return m_circle_color;
+    }
+
+    sf::Color Engine::get_circle_outline_color() const {
+        return m_circle_outline_color;
+    }
+
+    sf::Color Engine::get_background_color() const {
+        return m_background_color;
+    }
+
+    sf::Vector2f Engine::get_circle_speed() const {
+        return m_circle_speed;
     }
 
     void Engine::new_speed() {

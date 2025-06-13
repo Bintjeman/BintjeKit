@@ -22,11 +22,13 @@ namespace bnjkit::core {
     void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
                            std::unique_ptr<event::IEventManager> event_manager,
                            std::unique_ptr<engine::IEngine> engine,
-                           std::unique_ptr<renderer::IRenderer> renderer) {
+                           std::unique_ptr<renderer::IRenderer> renderer,
+                           std::unique_ptr<renderer::IEngineRenderer> engine_renderer) {
         this->m_main_window = std::move(window);
         this->m_event_manager = std::move(event_manager);
         this->m_engine = std::move(engine);
         this->m_renderer = std::move(renderer);
+        this->m_engine_renderer = std::move(engine_renderer);
     }
 
     void Core::run() {

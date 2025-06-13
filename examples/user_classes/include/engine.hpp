@@ -19,9 +19,16 @@ namespace usr {
         void configure() override;
         void on_sfml_event(const sf::Event &event) override;
         void update() override;
-        void get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const override;
         void new_world();
-        long int get_tick_counter() const;
+        [[nodiscard]] long int get_tick_counter() const;
+        [[nodiscard]] sf::Vector2f get_window_size() const;
+        [[nodiscard]] sf::Vector2f get_circle_position() const;
+        [[nodiscard]] float get_circle_radius() const;
+        [[nodiscard]] sf::Color get_circle_color() const;
+        [[nodiscard]] sf::Color get_circle_outline_color() const;
+        [[nodiscard]] sf::Color get_background_color() const;
+        [[nodiscard]] sf::Vector2f get_circle_speed() const;
+
     private:
         void new_speed();
         void collision_detection();
@@ -35,7 +42,6 @@ namespace usr {
         sf::Color m_circle_outline_color;
         sf::Color m_background_color;
         long int m_tick_counter;
-        mutable sf::CircleShape m_circle;
     };
 } // usr
 #endif //ENGINE_HPP

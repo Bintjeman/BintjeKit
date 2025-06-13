@@ -7,6 +7,7 @@
 #define CORE_HPP
 #pragma once
 #include <memory>
+
 namespace bnjkit {
     namespace window {
         class IMainWindow;
@@ -18,6 +19,7 @@ namespace bnjkit {
         class IEngine;
     } // engine
     namespace renderer {
+        class IEngineRenderer;
         class IRenderer;
     } // renderer
     namespace core {
@@ -28,7 +30,8 @@ namespace bnjkit {
             void set_modules(std::unique_ptr<window::IMainWindow> window,
                              std::unique_ptr<event::IEventManager> event_manager,
                              std::unique_ptr<engine::IEngine> engine,
-                             std::unique_ptr<renderer::IRenderer> renderer);
+                             std::unique_ptr<renderer::IRenderer> renderer,
+                             std::unique_ptr<renderer::IEngineRenderer> engine_renderer);
             void run();
 
         private:
@@ -36,6 +39,7 @@ namespace bnjkit {
             std::unique_ptr<event::IEventManager> m_event_manager;
             std::unique_ptr<renderer::IRenderer> m_renderer;
             std::unique_ptr<engine::IEngine> m_engine;
+            std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;
 
         public:
             Core(const Core &) = delete;
