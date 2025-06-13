@@ -8,6 +8,8 @@
 #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "engine.hpp"
+
 namespace usr {
     Renderer::Renderer() = default;
 
@@ -31,5 +33,14 @@ namespace usr {
     }
 
     void Renderer::renderGUI() {
+    }
+
+    void Renderer::set_engine(bnjkit::engine::IEngine *engine) {
+        IRenderer::set_engine(engine);
+        m_usr_engine = dynamic_cast<const Engine *>(engine);
+    }
+
+    void Renderer::set_render_window(sf::RenderWindow *window) {
+        IRenderer::set_render_window(window);
     }
 } // usr
