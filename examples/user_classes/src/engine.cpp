@@ -3,10 +3,13 @@
  * @date 13.06.25
  * @name engine.cpp
  */
+#include <ctime>
 
 #include "engine.hpp"
+
 namespace usr {
     Engine::Engine() {
+        srand(time(NULL));
         m_window_size = sf::Vector2f(800, 600); // Taille par défaut
         new_world();
     }
@@ -74,12 +77,15 @@ namespace usr {
         return m_circle_speed;
     }
 
+    float Engine::get_circle_outline_thickness() const {
+        return m_circle_outline_thickness;
+    }
+
     void Engine::new_speed() {
-        // Vitesse plus raisonnable
-        float speed = 0.05f; // pixels par frame
+        float speed = .1f;
         m_circle_speed = sf::Vector2f(
-            (static_cast<float>(rand()) / RAND_MAX * 2.0f - .1f) * speed,
-            (static_cast<float>(rand()) / RAND_MAX * 2.0f - .1f) * speed
+            (static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * 2 - 1.f) * speed,
+            (static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * 2 - 1.f) * speed
         );
     }
 
@@ -87,24 +93,19 @@ namespace usr {
         bool collision = false;
         if (m_circle_position.x - m_circle_radius < 0) {
             m_circle_position.x = m_circle_radius;
-            m_circle_speed.x = -m_circle_speed.x;
             collision = true;
         } else if (m_circle_position.x + m_circle_radius > m_window_size.x) {
             m_circle_position.x = m_window_size.x - m_circle_radius;
-            m_circle_speed.x = -m_circle_speed.x;
             collision = true;
         }
         if (m_circle_position.y - m_circle_radius < 0) {
             m_circle_position.y = m_circle_radius;
-            m_circle_speed.y = -m_circle_speed.y;
             collision = true;
         } else if (m_circle_position.y + m_circle_radius > m_window_size.y) {
             m_circle_position.y = m_window_size.y - m_circle_radius;
-            m_circle_speed.y = -m_circle_speed.y;
             collision = true;
         }
         if (collision) {
-            // Optionnel : changez la couleur lors des collisions
             m_circle_color = sf::Color(
                 rand() % 256, // R
                 rand() % 256, // G
@@ -112,9 +113,5 @@ namespace usr {
             );
             new_speed();
         }
-    }
-
-    void Engine::on_collision() {
-        new_speed();
     }
 } // usr

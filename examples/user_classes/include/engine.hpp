@@ -28,11 +28,11 @@ namespace usr {
         [[nodiscard]] sf::Color get_circle_outline_color() const;
         [[nodiscard]] sf::Color get_background_color() const;
         [[nodiscard]] sf::Vector2f get_circle_speed() const;
+        [[nodiscard]] float get_circle_outline_thickness() const;
 
     private:
         void new_speed();
         void collision_detection();
-        void on_collision();
         sf::Vector2f m_window_size;
         sf::Vector2f m_circle_speed;
         sf::Vector2f m_circle_position;

@@ -11,7 +11,7 @@ namespace bnjkit {
         IEngineRenderer::IEngineRenderer() : m_engine(nullptr) {
         }
 
-        void IEngineRenderer::set_engine(const engine::IEngine *engine) {
+        void IEngineRenderer::set_engine(const bnjkit::engine::IEngine * engine) {
             m_engine = engine;
         }
 
