@@ -10,11 +10,15 @@
 
 #include "SFML/Graphics/CircleShape.hpp"
 #include "engine.hpp""
+#include "SFML/Graphics/RectangleShape.hpp"
 
 namespace usr {
     EngineRenderer::~EngineRenderer() = default;
 
     void EngineRenderer::get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const {
+        static sf::RectangleShape background(m_usr_engine->get_world_size());
+        background.setFillColor(m_usr_engine->get_background_color());
+        drawable_list.emplace_back(std::ref(background));
         static sf::CircleShape circle(100.f);
         circle.setRadius(m_usr_engine->get_circle_radius());
         circle.setFillColor(m_usr_engine->get_circle_color());
@@ -22,6 +26,7 @@ namespace usr {
         circle.setOutlineThickness(m_usr_engine->get_circle_outline_thickness());
         circle.setPosition(m_usr_engine->get_circle_position());
         drawable_list.emplace_back(std::ref(circle));
+
     }
 
     void EngineRenderer::set_engine(const bnjkit::engine::IEngine *engine) {

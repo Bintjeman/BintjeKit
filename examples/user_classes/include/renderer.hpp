@@ -8,6 +8,7 @@
 #define RENDERER_HPP
 #pragma once
 
+#include <SFML/Graphics/Font.hpp>
 #include "bintjekit/renderer/i_renderer.hpp"
 
 namespace usr {
@@ -27,6 +28,7 @@ namespace usr {
 
     private:
         void resize();
+        sf::Font m_font;
         sf::View m_engine_view;
         sf::View m_gui_view;
         const Engine *m_usr_engine;

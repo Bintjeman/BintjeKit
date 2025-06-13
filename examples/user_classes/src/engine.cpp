@@ -37,7 +37,8 @@ namespace usr {
         m_circle_radius = 100;
         m_circle_outline_thickness = 1;
         m_circle_color = sf::Color::Red;
-        m_circle_outline_color = sf::Color::Green;
+        m_circle_outline_color = sf::Color::Black;
+        m_background_color = sf::Color::Green;
         new_speed();
     }
 

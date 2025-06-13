@@ -5,11 +5,11 @@
  */
 
 #include "renderer.hpp"
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "engine.hpp"
-#include "SFML/Graphics/Font.hpp"
 
 namespace usr {
     Renderer::Renderer() = default;
@@ -17,6 +17,7 @@ namespace usr {
     Renderer::~Renderer() = default;
 
     void Renderer::initialise() {
+        m_font.openFromFile("resources/fonts/DejaVuSansMono.ttf");
         resize();
     }
 
@@ -38,8 +39,12 @@ namespace usr {
     }
 
     void Renderer::renderGUI() {
-        static sf::Font font;
-        static sf::Text;
+        static sf::Text text_ticks(m_font);
+        text_ticks.setCharacterSize(10);
+        text_ticks.setFillColor(sf::Color::White);
+        text_ticks.setString("Ticks: " + std::to_string(m_usr_engine->get_tick_counter()));
+        m_render_window->setView(m_gui_view);
+        m_render_window->draw(text_ticks);
     }
 
     void Renderer::set_engine(bnjkit::engine::IEngine *engine) {
