@@ -10,6 +10,8 @@
 
 #include <time/time.hpp>
 
+#include "spdlog/spdlog.h"
+
 namespace bnjkit {
     namespace window {
         class IMainWindow;
@@ -79,7 +81,7 @@ namespace bnjkit {
             std::unique_ptr<renderer::IRenderer> m_renderer;
             std::unique_ptr<engine::IEngine> m_engine;
             std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;
-
+            std::shared_ptr<spdlog::logger> m_logger;
         public:
             Core(const Core &) = delete;
             Core &operator=(const Core &) = delete;

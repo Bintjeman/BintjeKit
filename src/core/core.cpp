@@ -8,15 +8,19 @@
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
-#include "logger.hpp"
+#include "bintjekit/core/logger.hpp"
+#include "bintjekit/core/common.hpp"
 namespace bnjkit::core {
     Core::Core() {
         Logger::initialize();
-        BNJKIT_CORE_INFO("Construcor of Core");
+        m_logger = Logger::get_logger(module_names::CORE);
+        m_logger = Logger::get_logger(module_names::CORE);
+
+        m_logger->info("Constructor of Core");
     }
 
     Core::~Core() {
-        BNJKIT_CORE_INFO("Destructor of Core");
+        m_logger->info("Destructor of Core");
         Logger::shutdown();
     }
 
@@ -33,7 +37,7 @@ namespace bnjkit::core {
     }
 
     void Core::run() {
-        BNJKIT_CORE_INFO("Running Core");
+        m_logger->info("Running Core");
         this->m_main_window->show();
         m_renderer->configure();
         while (this->m_main_window->isOpen()) {
@@ -45,6 +49,6 @@ namespace bnjkit::core {
                 this->m_renderer->render();
             }
         }
-        BNJKIT_CORE_INFO("Core stopped");
+        m_logger->info("Core stopped");
     }
 } // bnjkit
