@@ -59,5 +59,9 @@ namespace bnjkit {
             }
             return false;
         }
+
+        bool Pulser::operator()() {
+            return pulse();
+        }
     } // time
 } // bnjkit

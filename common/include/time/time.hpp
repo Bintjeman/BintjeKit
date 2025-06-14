@@ -27,6 +27,7 @@ namespace bnjkit {
             [[nodiscard]] sf::Time effective_time_per_frame() const;
             [[nodiscard]] float effective_frequency() const;
             bool pulse();
+            bool operator()();
 
         private:
             sf::Clock m_clock;

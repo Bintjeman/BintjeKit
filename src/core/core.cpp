@@ -37,8 +37,12 @@ namespace bnjkit::core {
         m_renderer->initialise();
         while (this->m_main_window->isOpen()) {
             this->m_event_manager->process_events(*this->m_main_window);
-            this->m_engine->update();
-            this->m_renderer->render();
+            if (engine_pulser()) {
+                this->m_engine->update();
+            }
+            if (renderer_pulser()) {
+                this->m_renderer->render();
+            }
         }
         std::cout << "Core finished" << std::endl;
     }
