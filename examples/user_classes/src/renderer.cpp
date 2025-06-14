@@ -42,7 +42,7 @@ namespace usr {
         static sf::Text text_ticks(m_font);
         text_ticks.setCharacterSize(10);
         text_ticks.setFillColor(sf::Color::White);
-        text_ticks.setString("Ticks: " + std::to_string(m_usr_engine->get_tick_counter()));
+        text_ticks.setString("Ticks: " + std::to_string(m_usr_engine->ticks()));
         m_render_window->setView(m_gui_view);
         m_render_window->draw(text_ticks);
     }

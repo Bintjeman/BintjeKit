@@ -3,4 +3,5 @@ message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
 target_sources(bintjekit PRIVATE
         i_engine.cpp
+        play_ground.cpp
 )

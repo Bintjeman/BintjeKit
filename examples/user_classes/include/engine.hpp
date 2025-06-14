@@ -20,21 +20,21 @@ namespace usr {
         void on_sfml_event(const sf::Event &event) override;
         void update() override;
         void new_world();
-
-        [[nodiscard]] long int get_tick_counter() const;
-        [[nodiscard]] sf::Vector2f get_world_size() const;
-        [[nodiscard]] sf::Vector2f get_circle_position() const;
-        [[nodiscard]] float get_circle_radius() const;
-        [[nodiscard]] sf::Color get_circle_color() const;
-        [[nodiscard]] sf::Color get_circle_outline_color() const;
-        [[nodiscard]] sf::Color get_background_color() const;
-        [[nodiscard]] sf::Vector2f get_circle_speed() const;
-        [[nodiscard]] float get_circle_outline_thickness() const;
+        // Playground
+        [[nodiscard]] sf::Vector2f world_size() const;
+        [[nodiscard]] long int ticks() const;
+        // Circle
+        [[nodiscard]] sf::Vector2f circle_position() const;
+        [[nodiscard]] float circle_radius() const;
+        [[nodiscard]] sf::Color circle_color() const;
+        [[nodiscard]] sf::Color circle_outline_color() const;
+        [[nodiscard]] sf::Color background_color() const;
+        [[nodiscard]] sf::Vector2f circle_speed() const;
+        [[nodiscard]] float circle_outline_thickness() const;
 
     private:
         void new_speed();
         void collision_detection();
-        sf::Vector2f m_world_size;
         sf::Vector2f m_circle_speed;
         sf::Vector2f m_circle_position;
         float m_circle_radius{};
@@ -42,7 +42,6 @@ namespace usr {
         sf::Color m_circle_color;
         sf::Color m_circle_outline_color;
         sf::Color m_background_color;
-        long int m_tick_counter{};
     };
 } // usr
 #endif //ENGINE_HPP

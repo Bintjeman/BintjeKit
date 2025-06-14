@@ -6,10 +6,13 @@
 #ifndef I_ENGINE_HPP
 #define I_ENGINE_HPP
 #pragma once
-#include "SFML/Window/Event.hpp"
+#include <memory>
+#include <SFML/Window/Event.hpp>
+#include "bintjekit/core/i_module.hpp"
 
 namespace bnjkit {
     namespace engine {
+        struct PlayGround;
         /**
          * @class IEngine
          * @brief An abstract interface for the engine module within an application system.
@@ -18,15 +21,17 @@ namespace bnjkit {
          * including initialization, configuration, event handling, and updating.
          * Derived classes must implement these pure virtual functions.
          */
-        class IEngine {
+        class IEngine : public bnjkit::core::IModule {
         public:
-            virtual ~IEngine();
-            virtual void initialise() =0;
-            virtual void configure() =0;
-            virtual void on_sfml_event(const sf::Event &event) =0;
-            virtual void update() = 0;
-        protected:
+            IEngine();
+            ~IEngine() override;
+            void initialise() override;
+            void configure() override;
+            virtual void update() =0;
+            virtual void on_sfml_event(const sf::Event &event);
 
+        protected:
+            std::unique_ptr<PlayGround> m_play_ground;
         };
     } // engine
 } // bnjkit
