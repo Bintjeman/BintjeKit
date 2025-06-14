@@ -4,7 +4,6 @@
  * @name core.cpp
  */
 #include "bintjekit/core/core.hpp"
-#include <iostream>
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include "bintjekit/engine/i_engine.hpp"
@@ -12,12 +11,13 @@
 #include "logger.hpp"
 namespace bnjkit::core {
     Core::Core() {
-        std::cout << "Constructor of Core" << std::endl;
+        Logger::initialize();
         BNJKIT_CORE_INFO("Construcor of Core");
     }
 
     Core::~Core() {
-        std::cout << "Destructor of Core" << std::endl;
+        BNJKIT_CORE_INFO("Destructor of Core");
+        Logger::shutdown();
     }
 
     void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
@@ -33,7 +33,7 @@ namespace bnjkit::core {
     }
 
     void Core::run() {
-        std::cout << "Running Core" << std::endl;
+        BNJKIT_CORE_INFO("Running Core");
         this->m_main_window->show();
         m_renderer->configure();
         while (this->m_main_window->isOpen()) {
@@ -45,6 +45,6 @@ namespace bnjkit::core {
                 this->m_renderer->render();
             }
         }
-        std::cout << "Core finished" << std::endl;
+        BNJKIT_CORE_INFO("Core stopped");
     }
 } // bnjkit
