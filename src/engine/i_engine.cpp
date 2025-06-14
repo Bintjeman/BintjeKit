@@ -29,6 +29,8 @@ namespace bnjkit {
         void IEngine::on_sfml_event(const sf::Event &event) {
         }
 
+        PlayGround &IEngine::play_ground() const { return *m_play_ground; }
+
         void IEngine::configure() {
         }
     } // engine

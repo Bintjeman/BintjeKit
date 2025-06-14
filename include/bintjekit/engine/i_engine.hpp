@@ -29,7 +29,7 @@ namespace bnjkit {
             void configure() override;
             virtual void update() =0;
             virtual void on_sfml_event(const sf::Event &event);
-
+            [[nodiscard]] PlayGround& play_ground() const;
         protected:
             std::unique_ptr<PlayGround> m_play_ground;
         };

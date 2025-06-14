@@ -41,6 +41,7 @@ namespace usr {
     }
 
     void Engine::new_world() {
+        m_play_ground->size = {1'000, 1'000};
         m_circle_position = sf::Vector2f(
             randf(m_play_ground->position.x, m_play_ground->position.x + m_play_ground->size.x),
             randf(m_play_ground->position.y, m_play_ground->position.y + m_play_ground->size.y));
