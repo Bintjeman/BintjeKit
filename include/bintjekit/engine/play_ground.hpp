@@ -17,6 +17,8 @@ namespace bnjkit {
         public:
             PlayGround();
             ~PlayGround();
+            void initialise();
+            void configure();
             void update();
             [[nodiscard]] long int ticks() const;
             [[nodiscard]] sf::Rect<float> bounds() const;

@@ -16,14 +16,6 @@ namespace bnjkit {
         IEventManager::~IEventManager() {
         }
 
-        void IEventManager::initialise() {
-            IModule::initialise();
-        }
-
-        void IEventManager::configure() {
-            IModule::configure();
-        }
-
         void IEventManager::process_events(sf::Window &window) {
             while (auto event = window.pollEvent()) {
                 for (auto *listener: m_listeners) {

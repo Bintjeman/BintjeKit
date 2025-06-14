@@ -11,7 +11,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 
 #include "SFML/Graphics/Rect.hpp"
-
+#include "bintjekit/core/i_module.hpp"
 namespace bnjkit {
     namespace engine {
         class IEngine;
@@ -27,7 +27,7 @@ namespace bnjkit {
          * objects that can be rendered. Implementers of this interface are responsible for managing the relationship
          * between a provided engine and drawable entities.
          */
-        class IEngineRenderer {
+        class IEngineRenderer : public core::IModule{
         public:
             explicit IEngineRenderer();
             virtual ~IEngineRenderer();

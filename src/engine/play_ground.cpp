@@ -12,6 +12,12 @@ namespace bnjkit {
 
         PlayGround::~PlayGround() = default;
 
+        void PlayGround::initialise() {
+        }
+
+        void PlayGround::configure() {
+        }
+
         void PlayGround::update() {
             ticks_counter++;
         }

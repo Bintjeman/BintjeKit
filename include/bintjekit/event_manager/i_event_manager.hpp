@@ -16,7 +16,7 @@ namespace sf {
 
 namespace bnjkit {
     namespace event {
-        class IEventListener;
+        class IEventListener ;
         // class IEvent;
 
         /**
@@ -35,8 +35,6 @@ namespace bnjkit {
         public:
             IEventManager();
             ~IEventManager() override;
-            void initialise() override;
-            void configure() override;
             /**
              * @brief Processes incoming events from the SFML window and notifies listeners.
              *
