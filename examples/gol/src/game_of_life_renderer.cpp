@@ -3,11 +3,8 @@
  * @date 14.06.25
  * @name game_of_life_renderer.cpp
  */
-#include <iostream>
 #include "game_of_life_renderer.hpp"
-
 #include "bintjekit/engine/play_ground.hpp"
-
 namespace gol {
     GameOfLifeRenderer::GameOfLifeRenderer() {
         cell_shape.setSize({CELL_SIZE, CELL_SIZE});
@@ -15,7 +12,6 @@ namespace gol {
         cell_shape.setOutlineColor(sf::Color::Black);
         cell_shape.setOutlineThickness(0.5f);
     }
-
     void GameOfLifeRenderer::get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const {
         const auto &grid = m_gol->get_grid();
         static sf::RectangleShape background;
@@ -24,7 +20,6 @@ namespace gol {
         background.setSize(get_bounds().size);
         background.setFillColor(sf::Color::Green);
         drawable_list.emplace_back(std::ref(background));
-
         int cellules_vivantes = 0;
         for (size_t y = 0; y < grid.size(); ++y) {
             for (size_t x = 0; x < grid[y].size(); ++x) {
@@ -37,12 +32,10 @@ namespace gol {
             }
         }
     }
-
     void GameOfLifeRenderer::set_engine(const bnjkit::engine::IEngine *engine) {
         IEngineRenderer::set_engine(engine);
         m_gol = dynamic_cast<const GameOfLife *>(engine);
     }
-
     sf::Rect<float> GameOfLifeRenderer::get_bounds() const {
         return {{0.f, 0.f}, {m_engine->play_ground().size.x * CELL_SIZE, m_engine->play_ground().size.y * CELL_SIZE}};
     }
