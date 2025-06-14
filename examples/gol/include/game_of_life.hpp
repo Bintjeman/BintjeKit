@@ -14,14 +14,14 @@ namespace gol {
         public:
         GameOfLife();
         void update() override;
-        const std::vector<std::vector<bool>>& getGrid() const;
+        const std::vector<std::vector<bool>>& get_grid() const;
     private:
         int count_neighbors(int x, int y);
 
         static constexpr int GRID_WIDTH = 100;
         static constexpr int GRID_HEIGHT = 100;
-        std::vector<std::vector<bool> > grid;
-        std::vector<std::vector<bool> > nextGrid;
+        std::vector<std::vector<bool> > m_grid;
+        std::vector<std::vector<bool> > m_next_grid;
     };
 } // gol
 #endif //GAME_OF_LIFE_HPP

@@ -7,9 +7,12 @@
 #include "renderer.hpp"
 
 namespace gol {
-    Renderer::Renderer() {
-    }
+    // Renderer::Renderer() {
+    // }
 
     void Renderer::on_sfml_event(const sf::Event &event) {
+        if (const auto &resized = event.getIf<sf::Event::Resized>()) {
+            resize_views();
+        }
     }
 } // gol
