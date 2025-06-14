@@ -23,9 +23,11 @@ target_link_libraries(bintjekit
         SFML::Window
         SFML::System
         SFML::Graphics
+        spdlog
 )
 set_target_properties(bintjekit PROPERTIES
         VERSION ${PROJECT_VERSION}
         POSITION_INDEPENDENT_CODE ON
+
 )
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)

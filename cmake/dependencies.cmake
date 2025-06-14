@@ -11,6 +11,11 @@ FetchContent_Declare(SFML
         EXCLUDE_FROM_ALL
         SYSTEM
 )
-FetchContent_MakeAvailable(SFML)
-###############################################################################
-
+################################################################################
+FetchContent_Declare(spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog.git
+        GIT_TAG v1.13.0
+        GIT_SHALLOW ON
+)
+################################################################################
+FetchContent_MakeAvailable(SFML spdlog)

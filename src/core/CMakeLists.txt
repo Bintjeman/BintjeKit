@@ -5,4 +5,5 @@ target_sources(bintjekit PRIVATE
         core.cpp
         core_builder.cpp
         i_module.cpp
+        logger.cpp
 )

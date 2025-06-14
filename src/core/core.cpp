@@ -9,10 +9,11 @@
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
-
+#include "logger.hpp"
 namespace bnjkit::core {
     Core::Core() {
         std::cout << "Constructor of Core" << std::endl;
+        BNJKIT_CORE_INFO("Construcor of Core");
     }
 
     Core::~Core() {
