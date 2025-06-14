@@ -27,10 +27,7 @@ namespace usr {
         void on_sfml_event(const sf::Event &event) override;
 
     private:
-        void resize();
         sf::Font m_font;
-        sf::View m_engine_view;
-        sf::View m_gui_view;
         const Engine *m_usr_engine;
     };
 } // usr

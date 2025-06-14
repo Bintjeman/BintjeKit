@@ -90,10 +90,13 @@ namespace bnjkit {
             virtual void set_engine_renderer(IEngineRenderer *engine_renderer);
 
         protected:
+            void resize_views();
             sf::RenderWindow *m_render_window;
             const engine::IEngine *m_engine;
             const IEngineRenderer *m_engine_renderer;
             std::vector<std::reference_wrapper<sf::Drawable> > m_drawables;
+            sf::View m_engine_view;
+            sf::View m_gui_view;
         };
     } // renderer
 } // bnjkit

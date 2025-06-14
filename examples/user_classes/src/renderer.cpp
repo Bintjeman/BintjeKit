@@ -17,8 +17,10 @@ namespace usr {
     Renderer::~Renderer() = default;
 
     void Renderer::initialise() {
-        m_font.openFromFile("resources/fonts/DejaVuSansMono.ttf");
-        resize();
+        if (!m_font.openFromFile("resources/fonts/DejaVuSansMono.ttf")) {
+            abort();
+        }
+        resize_views();
     }
 
     void Renderer::configure() {
@@ -58,29 +60,7 @@ namespace usr {
 
     void Renderer::on_sfml_event(const sf::Event &event) {
         if (const auto &resized = event.getIf<sf::Event::Resized>()) {
-            resize();
-        }
-    }
-
-    void Renderer::resize() {
-        const sf::Rect<float> world_bounds = m_engine_renderer->get_bounds();
-        const float window_ratio = m_render_window->getSize().x / static_cast<float>(m_render_window->getSize().y);
-        const float world_ratio = world_bounds.size.x / world_bounds.size.y;
-        m_gui_view = m_render_window->getDefaultView();
-        m_engine_view.setCenter({
-            world_bounds.position.x + world_bounds.size.x / 2.0f,
-            world_bounds.position.y + world_bounds.size.y / 2.0f
-        });
-        if (window_ratio > world_ratio) {
-            // La fenêtre est plus large que le monde
-            float view_height = world_bounds.size.y;
-            float view_width = view_height * window_ratio;
-            m_engine_view.setSize({view_width, view_height});
-        } else {
-            // La fenêtre est plus haute que le monde
-            float view_width = world_bounds.size.x;
-            float view_height = view_width / window_ratio;
-            m_engine_view.setSize({view_width, view_height});
+            resize_views();
         }
     }
 } // usr
