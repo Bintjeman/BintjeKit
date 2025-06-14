@@ -7,10 +7,8 @@
 #define CORE_HPP
 #pragma once
 #include <memory>
-
 #include <time/time.hpp>
-
-#include "spdlog/spdlog.h"
+#include <spdlog/fwd.h>
 
 namespace bnjkit {
     namespace window {
@@ -73,15 +71,16 @@ namespace bnjkit {
             void run();
 
         private:
-            bnjkit::time::Pulser engine_pulser;
-            bnjkit::time::Pulser renderer_pulser;
-            bnjkit::time::Pulser window_pulser;
+            time::Pulser engine_pulser;
+            time::Pulser renderer_pulser;
+            time::Pulser window_pulser;
             std::unique_ptr<window::IMainWindow> m_main_window;
             std::unique_ptr<event::IEventManager> m_event_manager;
             std::unique_ptr<renderer::IRenderer> m_renderer;
             std::unique_ptr<engine::IEngine> m_engine;
             std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;
             std::shared_ptr<spdlog::logger> m_logger;
+
         public:
             Core(const Core &) = delete;
             Core &operator=(const Core &) = delete;

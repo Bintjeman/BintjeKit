@@ -5,15 +5,24 @@
  */
 
 #include "bintjekit/renderer/i_renderer.hpp"
+#include "fmt_sfml/fmt_sfml.hpp"
+#include "bintjekit/core/common.hpp"
+#include "bintjekit/core/logger.hpp"
 
 namespace bnjkit {
     namespace renderer {
         IRenderer::IRenderer() : m_engine(nullptr), m_render_window(nullptr) {
+            m_logger = core::Logger::get_logger(core::module_names::RENDERER);
+            m_logger->set_level(spdlog::level::trace);
+            m_logger->info("Constructor of IRenderer");
         }
 
-        IRenderer::~IRenderer() = default;
+        IRenderer::~IRenderer() {
+            m_logger->info("Destructor of IRenderer");
+        }
 
         void IRenderer::configure() {
+            m_logger->info("Configuring IRenderer");
             resize_views();
         }
 
@@ -35,10 +44,12 @@ namespace bnjkit {
         }
 
         void IRenderer::set_engine_renderer(renderer::IEngineRenderer *engine_renderer) {
+            m_logger->info("Setting engine renderer");
             m_engine_renderer = engine_renderer;
         }
 
         void IRenderer::resize_views() {
+            m_logger->info("Resizing views");
             const sf::Rect<float> world_bounds = m_engine_renderer->get_bounds();
             const float window_ratio = static_cast<float>(m_render_window->getSize().x) / static_cast<float>(
                                            m_render_window->getSize().y);
@@ -59,15 +70,20 @@ namespace bnjkit {
                 float view_height = view_width / window_ratio;
                 m_engine_view.setSize({view_width, view_height});
             }
+            m_logger->trace("Engine bounds: {}\nwindow size: {}\nView center: {}\nView size: {}",
+                            m_engine_renderer->get_bounds(), m_render_window->getSize(), m_engine_view.getCenter(),
+                            m_engine_view.getSize());
         }
 
         void IRenderer::set_render_window(sf::RenderWindow *window) {
+            m_logger->info("Setting render window");
             m_render_window = window;
             m_engine_view = window->getDefaultView();
             m_gui_view = window->getDefaultView();
         }
 
         void IRenderer::set_engine(engine::IEngine *engine) {
+            m_logger->info("Setting engine");
             m_engine = engine;
         }
     } // renderer

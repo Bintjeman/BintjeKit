@@ -7,10 +7,11 @@
 #ifndef I_ENGINE_RENDERER_HPP
 #define I_ENGINE_RENDERER_HPP
 #pragma once
+#include <memory>
 #include <vector>
 #include <SFML/Graphics/Drawable.hpp>
-
-#include "SFML/Graphics/Rect.hpp"
+#include <SFML/Graphics/Rect.hpp>
+#include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
 namespace bnjkit {
     namespace engine {
@@ -58,6 +59,7 @@ namespace bnjkit {
 
         protected:
             const engine::IEngine *m_engine;
+            std::shared_ptr<spdlog::logger> m_logger;
         };
     } // renderer
 } // bnjkit

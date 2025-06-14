@@ -4,18 +4,17 @@
  * @name core.cpp
  */
 #include "bintjekit/core/core.hpp"
+#include "bintjekit/core/logger.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
-#include "bintjekit/core/logger.hpp"
 #include "bintjekit/core/common.hpp"
+
 namespace bnjkit::core {
     Core::Core() {
-        Logger::initialize();
         m_logger = Logger::get_logger(module_names::CORE);
         m_logger = Logger::get_logger(module_names::CORE);
-
         m_logger->info("Constructor of Core");
     }
 
@@ -29,6 +28,7 @@ namespace bnjkit::core {
                            std::unique_ptr<engine::IEngine> engine,
                            std::unique_ptr<renderer::IRenderer> renderer,
                            std::unique_ptr<renderer::IEngineRenderer> engine_renderer) {
+        m_logger->info("Setting modules");
         this->m_main_window = std::move(window);
         this->m_event_manager = std::move(event_manager);
         this->m_engine = std::move(engine);

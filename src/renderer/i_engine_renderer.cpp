@@ -3,24 +3,32 @@
  * @date 13.06.25
  * @name i_engine_renderer.cpp
  */
-#include "bintjekit/engine/i_engine.hpp""
+#include "bintjekit/core/common.hpp"
+#include "bintjekit/core/logger.hpp"
+#include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
 
 namespace bnjkit {
     namespace renderer {
         IEngineRenderer::IEngineRenderer() : m_engine(nullptr) {
+            m_logger = core::Logger::get_logger(core::module_names::RENDERER);
+            m_logger->info("Constructor of IEngineRenderer");
         }
 
         void IEngineRenderer::set_engine(const bnjkit::engine::IEngine *engine) {
+            m_logger->info("Setting engine");
             m_engine = engine;
         }
 
-        IEngineRenderer::~IEngineRenderer() = default;
+        IEngineRenderer::~IEngineRenderer() {
+            m_logger->info("Destructor of IEngineRenderer");
+        }
 
         void IEngineRenderer::get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const {
         }
 
         sf::Rect<float> IEngineRenderer::get_bounds() const {
+            m_logger->trace("Getting bounds");
             return {{0.f, 0.f}, {100.f, 100.f}};
         }
     } // renderer

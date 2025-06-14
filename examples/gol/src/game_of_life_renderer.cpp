@@ -6,7 +6,7 @@
 #include "game_of_life_renderer.hpp"
 #include "bintjekit/engine/play_ground.hpp"
 namespace gol {
-    GameOfLifeRenderer::GameOfLifeRenderer() {
+    GameOfLifeRenderer::GameOfLifeRenderer(): IEngineRenderer() {
         cell_shape.setSize({CELL_SIZE, CELL_SIZE});
         cell_shape.setFillColor(sf::Color::White); // ou une autre couleur visible
         cell_shape.setOutlineColor(sf::Color::Black);

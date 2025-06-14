@@ -5,27 +5,32 @@
  */
 
 #include "bintjekit/window/default_main_window.hpp"
-#include <iostream>
-
+#include "fmt_sfml/fmt_sfml.hpp"
+#include "bintjekit/core/logger.hpp"
 namespace bnjkit::window {
-    DefaultMainWindow::DefaultMainWindow() {
-        std::cout << "Constructor of DefaultMainWindow" << std::endl;
+    DefaultMainWindow::DefaultMainWindow(): IMainWindow() {
+        m_logger->info("Constructor of DefaultMainWindow");
     }
 
     DefaultMainWindow::~DefaultMainWindow() {
-        std::cout << "Destructor of DefaultMainWindow" << std::endl;
+        m_logger->info("Destructor of DefaultMainWindow");
     }
 
     void DefaultMainWindow::initialise() {
+        m_logger->info("Initialising DefaultMainWindow");
         IMainWindow::initialise();
     }
 
     void DefaultMainWindow::configure() {
+        m_logger->info("Configuring DefaultMainWindow");
         IMainWindow::configure();
     }
 
     void DefaultMainWindow::show() {
-        this->create(sf::VideoMode(sf::Vector2u(800, 600)), "BintjeKit", sf::Style::Default);
+        m_logger->info("Showing DefaultMainWindow");
+        const char *title = "BintjeKit";
+        this->create(sf::VideoMode(sf::Vector2u(800, 600)), title, sf::Style::Default);
+        m_logger->trace("Showing DefaultMainWindow: size: {}, title: {}", this->getSize(), title);
     }
 
     void DefaultMainWindow::on_sfml_event(const sf::Event &event) {

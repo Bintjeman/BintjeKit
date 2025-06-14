@@ -8,8 +8,11 @@
 #define PLAY_GROUND_HPP
 #pragma once
 
+#include <memory>
+
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Vector2.hpp"
+#include <spdlog/fwd.h>
 
 namespace bnjkit {
     namespace engine {
@@ -24,6 +27,9 @@ namespace bnjkit {
             [[nodiscard]] sf::Rect<float> bounds() const;
             sf::Vector2f size = {0.f, 0.f};
             sf::Vector2f position = {0.f, 0.f};
+
+        protected:
+            std::shared_ptr<spdlog::logger> m_logger;
 
         private:
             long int ticks_counter = 0;

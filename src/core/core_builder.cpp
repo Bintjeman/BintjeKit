@@ -11,49 +11,66 @@
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
 // defaults modules
+#include "bintjekit/core/common.hpp"
+#include "bintjekit/core/logger.hpp"
 #include "bintjekit/window/default_main_window.hpp"
 #include "bintjekit/event_manager/default_event_manager.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
 
 namespace bnjkit::core {
     CoreBuilder::CoreBuilder() {
+        static bool initialized = false;
+        if (!initialized) {
+            Logger::initialize();
+            initialized = true;
+        }
+        m_logger = Logger::get_logger(module_names::CORE);
+        m_logger->info("Constructor of CoreBuilder");
     }
-
     CoreBuilder::~CoreBuilder() {
+        m_logger->info("Destructor of CoreBuilder");
     }
 
     CoreBuilder &CoreBuilder::set_window_module(std::unique_ptr<window::IMainWindow> window) {
+        m_logger->info("Setting window module");
         m_window = std::move(window);
         return *this;
     }
 
     CoreBuilder &CoreBuilder::set_event_manager_module(std::unique_ptr<event::IEventManager> event_manager) {
+        m_logger->info("Setting event manager module");
         m_event_manager = std::move(event_manager);
         return *this;
     }
 
     CoreBuilder &CoreBuilder::set_engine_module(std::unique_ptr<engine::IEngine> engine) {
+        m_logger->info("Setting engine module");
         m_engine = std::move(engine);
         return *this;
     }
 
     CoreBuilder &CoreBuilder::set_renderer_module(std::unique_ptr<renderer::IRenderer> renderer) {
+        m_logger->info("Setting renderer module");
         m_renderer = std::move(renderer);
         return *this;
     }
 
     CoreBuilder &CoreBuilder::set_engine_renderer(std::unique_ptr<renderer::IEngineRenderer> engine_renderer) {
+        m_logger->info("Setting engine renderer module");
         m_engine_renderer = std::move(engine_renderer);
         return *this;
     }
 
     std::unique_ptr<Core> CoreBuilder::build() {
+        m_logger->info("Building Core");
         auto core = std::make_unique<Core>();
         if (!m_window) {
+            m_logger->warn("No window module set. Using default window module");
             m_window.reset();
             m_window = std::make_unique<window::DefaultMainWindow>();
         }
         if (!m_event_manager) {
+            m_logger->warn("No event manager module set. Using default event manager module");
             m_event_manager.reset();
             m_event_manager = std::make_unique<event::DefaultEventManager>();
         }

@@ -7,13 +7,18 @@
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include <algorithm>
 #include <SFML/Window/Window.hpp>
+#include "bintjekit/core/logger.hpp"
+#include "bintjekit/core/common.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
 namespace bnjkit {
     namespace event {
         IEventManager::IEventManager() {
+            m_logger = core::Logger::get_logger(core::module_names::EVENT);
+            m_logger->info("Constructor of IEventManager");
         }
 
         IEventManager::~IEventManager() {
+            m_logger->info("Destructor of IEventManager");
         }
 
         void IEventManager::process_events(sf::Window &window) {
@@ -26,6 +31,7 @@ namespace bnjkit {
         }
 
         void IEventManager::register_listener(IEventListener *listener) {
+            m_logger->info("Registering listener");
             if (listener) {
                 if (std::find(m_listeners.begin(), m_listeners.end(), listener) == m_listeners.end()) {
                     m_listeners.push_back(listener);
@@ -34,6 +40,7 @@ namespace bnjkit {
         }
 
         void IEventManager::unregister_listener(IEventListener *listener) {
+            m_logger->info("Unregistering listener");
             auto it = std::remove(m_listeners.begin(), m_listeners.end(), listener);
             m_listeners.erase(it, m_listeners.end());
         }

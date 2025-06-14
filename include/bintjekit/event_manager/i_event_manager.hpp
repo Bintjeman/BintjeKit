@@ -6,9 +6,11 @@
 #ifndef I_EVENT_MANAGER_HPP
 #define I_EVENT_MANAGER_HPP
 #pragma once
+#include <memory>
 #include <vector>
+#include <SFML/Window/Event.hpp>
+#include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
-#include "SFML/Window/Event.hpp"
 
 namespace sf {
     class Window;
@@ -16,7 +18,7 @@ namespace sf {
 
 namespace bnjkit {
     namespace event {
-        class IEventListener ;
+        class IEventListener;
         // class IEvent;
 
         /**
@@ -88,6 +90,7 @@ namespace bnjkit {
         protected:
             virtual void general_event(const sf::Event &event);
             std::vector<IEventListener *> m_listeners;
+            std::shared_ptr<spdlog::logger> m_logger;
         };
     } // event
 } // bnjkit

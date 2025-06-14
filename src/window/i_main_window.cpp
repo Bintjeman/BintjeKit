@@ -4,15 +4,17 @@
  * @name main_window.cpp
  */
 #include "bintjekit/window/i_main_window.hpp"
-#include <iostream>
+#include "bintjekit/core/common.hpp"
+#include "bintjekit/core/logger.hpp"
 
 namespace bnjkit::window {
     IMainWindow::IMainWindow() {
-        std::cout << "Constructor of MainWindow" << std::endl;
+        m_logger = core::Logger::get_logger(core::module_names::WINDOW);
+        m_logger->info("Constructor of IMainWindow");
     }
 
     IMainWindow::~IMainWindow() noexcept {
-        std::cout << "Destructor of MainWindow" << std::endl;
+        m_logger->info("Destructor of IMainWindow");
     }
 
     void IMainWindow::show() {

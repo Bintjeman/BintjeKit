@@ -8,6 +8,7 @@
 #pragma once
 #include <memory>
 #include <SFML/Window/Event.hpp>
+#include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
 
 namespace bnjkit {
@@ -33,6 +34,7 @@ namespace bnjkit {
 
         protected:
             std::unique_ptr<PlayGround> m_play_ground;
+            std::shared_ptr<spdlog::logger> m_logger;
         };
     } // engine
 } // bnjkit

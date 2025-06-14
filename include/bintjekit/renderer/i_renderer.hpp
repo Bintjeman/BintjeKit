@@ -7,8 +7,9 @@
 #ifndef I_RENDERER_HPP
 #define I_RENDERER_HPP
 #pragma once
+#include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
-
+#include <spdlog/fwd.h>
 #include "i_engine_renderer.hpp"
 #include "bintjekit/core/i_module.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
@@ -103,6 +104,7 @@ namespace bnjkit {
             std::vector<std::reference_wrapper<sf::Drawable> > m_drawables;
             sf::View m_engine_view;
             sf::View m_gui_view;
+            std::shared_ptr<spdlog::logger> m_logger;
         };
     } // renderer
 } // bnjkit
