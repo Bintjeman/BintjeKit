@@ -15,7 +15,7 @@ target_include_directories(bintjekit
         $<INSTALL_INTERFACE:include>
 )
 target_link_libraries(bintjekit
-        PRIVATE
+        PUBLIC
         time
 )
 target_link_libraries(bintjekit

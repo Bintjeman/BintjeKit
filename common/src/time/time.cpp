@@ -3,7 +3,7 @@
  * @date 14.06.25
  * @name time.cpp
  */
-#include "time.hpp"
+#include "time/time.hpp"
 
 namespace bnjkit {
     namespace time {

@@ -8,7 +8,7 @@
 #pragma once
 #include <memory>
 
-#include "time/time.hpp"
+#include <time/time.hpp>
 
 namespace bnjkit {
     namespace window {
