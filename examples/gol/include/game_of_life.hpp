@@ -16,7 +16,7 @@ namespace gol {
         void update() override;
         const std::vector<std::vector<bool>>& getGrid() const;
     private:
-        int countNeighbors(int x, int y);
+        int count_neighbors(int x, int y);
 
         static constexpr int GRID_WIDTH = 50;
         static constexpr int GRID_HEIGHT = 50;

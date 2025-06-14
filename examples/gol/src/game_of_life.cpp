@@ -6,9 +6,12 @@
 
 #include "../include/game_of_life.hpp"
 
+#include "bintjekit/engine/play_ground.hpp"
+
 namespace gol {
     GameOfLife::GameOfLife() {
         // Initialisation des grilles
+        m_play_ground->size={GRID_WIDTH, GRID_HEIGHT};
         grid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
         nextGrid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
 
@@ -23,7 +26,7 @@ namespace gol {
     void GameOfLife::update() {
         for (int y = 0; y < GRID_HEIGHT; ++y) {
             for (int x = 0; x < GRID_WIDTH; ++x) {
-                int neighbors = countNeighbors(x, y);
+                int neighbors = count_neighbors(x, y);
                 bool currentCell = grid[y][x];
 
                 // Règles du Game of Life
@@ -45,7 +48,7 @@ namespace gol {
         return grid;
     }
 
-    int GameOfLife::countNeighbors(int x, int y) {
+    int GameOfLife::count_neighbors(int x, int y) {
         int count = 0;
         for (int dy = -1; dy <= 1; ++dy) {
             for (int dx = -1; dx <= 1; ++dx) {

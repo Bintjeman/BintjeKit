@@ -33,6 +33,7 @@ namespace bnjkit {
         public:
             IRenderer();
             ~IRenderer() override;
+            void configure() override;
             /**
              * @brief Renders the main scene.
              *
@@ -91,6 +92,11 @@ namespace bnjkit {
 
         protected:
             void resize_views();
+
+        public:
+
+
+        protected:
             sf::RenderWindow *m_render_window;
             const engine::IEngine *m_engine;
             const IEngineRenderer *m_engine_renderer;

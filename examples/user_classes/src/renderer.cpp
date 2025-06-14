@@ -17,13 +17,14 @@ namespace usr {
     Renderer::~Renderer() = default;
 
     void Renderer::initialise() {
+
+    }
+
+    void Renderer::configure() {
         if (!m_font.openFromFile("resources/fonts/DejaVuSansMono.ttf")) {
             abort();
         }
         resize_views();
-    }
-
-    void Renderer::configure() {
     }
 
     void Renderer::render() {

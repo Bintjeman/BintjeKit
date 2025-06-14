@@ -12,6 +12,7 @@
 namespace gol {
     class Renderer : public bnjkit::renderer::IRenderer {
     public:
+        Renderer();
         void on_sfml_event(const sf::Event &event) override;
 
     private:

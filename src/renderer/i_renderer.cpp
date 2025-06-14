@@ -13,6 +13,10 @@ namespace bnjkit {
 
         IRenderer::~IRenderer() = default;
 
+        void IRenderer::configure() {
+            resize_views();
+        }
+
         void IRenderer::render() {
         }
 
