@@ -8,6 +8,8 @@
 #pragma once
 #include <memory>
 
+#include "time/time.hpp"
+
 namespace bnjkit {
     namespace window {
         class IMainWindow;
@@ -69,6 +71,9 @@ namespace bnjkit {
             void run();
 
         private:
+            bnjkit::time::Pulser engine_pulser;
+            bnjkit::time::Pulser renderer_pulser;
+            bnjkit::time::Pulser window_pulser;
             std::unique_ptr<window::IMainWindow> m_main_window;
             std::unique_ptr<event::IEventManager> m_event_manager;
             std::unique_ptr<renderer::IRenderer> m_renderer;

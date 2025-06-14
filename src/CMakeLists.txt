@@ -11,7 +11,12 @@ add_subdirectory(renderer)
 target_include_directories(bintjekit
         PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
         $<INSTALL_INTERFACE:include>
+)
+target_link_libraries(bintjekit
+        PRIVATE
+        time
 )
 target_link_libraries(bintjekit
         PUBLIC
