@@ -18,8 +18,8 @@ namespace gol {
     private:
         int count_neighbors(int x, int y);
 
-        static constexpr int GRID_WIDTH = 50;
-        static constexpr int GRID_HEIGHT = 50;
+        static constexpr int GRID_WIDTH = 100;
+        static constexpr int GRID_HEIGHT = 100;
         std::vector<std::vector<bool> > grid;
         std::vector<std::vector<bool> > nextGrid;
     };

@@ -9,7 +9,10 @@
 namespace gol {
     GameOfLifeRenderer::GameOfLifeRenderer() {
         cell_shape.setSize({CELL_SIZE, CELL_SIZE});
-        cell_shape.setFillColor(sf::Color::White);
+        cell_shape.setFillColor(sf::Color::White);  // ou une autre couleur visible
+        cell_shape.setOutlineColor(sf::Color::Black);
+        cell_shape.setOutlineThickness(1.0f);
+
     }
 
     void GameOfLifeRenderer::get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const {

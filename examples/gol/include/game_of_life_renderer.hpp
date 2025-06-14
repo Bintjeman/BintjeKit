@@ -21,7 +21,7 @@ namespace gol {
         void set_engine(const bnjkit::engine::IEngine *engine) override;
 
     private:
-        static constexpr float CELL_SIZE = 10.0f;
+        static constexpr float CELL_SIZE = 1.0f;
         const GameOfLife* m_gol;
         mutable sf::RectangleShape cell_shape;
     };
