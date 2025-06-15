@@ -93,6 +93,16 @@ namespace bnjkit::core {
             m_imgui_renderer.reset();
             m_imgui_renderer = std::make_unique<renderer::IImGuiRenderer>();
         }
+        if (!m_engine) {
+            m_logger->warn("No engine module set. Using interface engine module");
+            m_engine.reset();
+            m_engine = std::make_unique<engine::IEngine>();
+        }
+        if (!m_engine_renderer) {
+            m_logger->warn("No engine renderer module set. Using interface engine renderer module");
+            m_engine_renderer.reset();
+            m_engine_renderer = std::make_unique<renderer::IEngineRenderer>();
+        }
         if (m_event_manager) {
             m_event_manager->register_listener(m_window.get());
             m_event_manager->register_listener(m_renderer.get());

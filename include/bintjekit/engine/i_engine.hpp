@@ -28,7 +28,7 @@ namespace bnjkit {
             ~IEngine() override;
             void initialise() override;
             void configure() override;
-            virtual void update() = 0;
+            virtual void update();
             virtual void on_sfml_event(const sf::Event &event);
             [[nodiscard]] PlayGround &play_ground() const;
 
