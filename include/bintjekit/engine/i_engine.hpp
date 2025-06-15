@@ -10,12 +10,13 @@
 #include <SFML/Window/Event.hpp>
 #include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
+#include "bintjekit/event_manager/i_event_listener.hpp"
 
 namespace bnjkit {
     namespace engine {
         struct PlayGround;
 
-        class IEngine : public bnjkit::core::IModule {
+        class IEngine : public core::IModule, public event::IEventListener {
         public:
             enum State {
                 READY,
@@ -28,7 +29,7 @@ namespace bnjkit {
             void initialise() override;
             void configure() override;
             virtual void update();
-            virtual void on_sfml_event(const sf::Event &event);
+            virtual void on_sfml_event(const sf::Event &event) override;
             [[nodiscard]] PlayGround &play_ground() const;
             [[nodiscard]] State state() const;
 

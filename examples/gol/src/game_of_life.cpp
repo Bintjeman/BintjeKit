@@ -53,6 +53,7 @@ namespace gol {
 
 
     void GameOfLife::on_sfml_event(const sf::Event &event) {
+        m_logger->debug("GOL: on_sfml_event: {}");
         auto shift = []() {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift) || sf::Keyboard::isKeyPressed(
                     sf::Keyboard::Key::LShift)) {
@@ -62,6 +63,7 @@ namespace gol {
         };
         if (const auto &key = event.getIf<sf::Event::KeyPressed>()) {
             if (key->scancode == sf::Keyboard::Scancode::N) {
+                m_logger->debug("GOL: on_sfml_event: N");
                 if (shift()) {
                     new_world();
                 }

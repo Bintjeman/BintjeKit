@@ -109,6 +109,7 @@ namespace bnjkit::core {
             m_event_manager->register_listener(m_renderer.get());
             m_event_manager->register_listener(core.get());
             m_event_manager->set_imgui_renderer(m_imgui_renderer.get());
+            m_event_manager->register_listener(m_engine.get());
             m_logger->debug("Setting event manager");
         }
         if (m_renderer) {

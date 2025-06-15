@@ -88,7 +88,6 @@ namespace bnjkit::core {
                 break;
             default:
 
-
         }
     }
 
