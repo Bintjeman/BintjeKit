@@ -96,7 +96,6 @@ namespace bnjkit {
 
         public:
 
-
         protected:
             sf::RenderWindow *m_render_window;
             const engine::IEngine *m_engine;

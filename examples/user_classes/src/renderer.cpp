@@ -28,6 +28,7 @@ namespace usr {
     }
 
     void Renderer::render() {
+        IRenderer::render();
         if (!m_render_window || !m_engine) return;
         m_render_window->clear();
         m_drawables.clear();

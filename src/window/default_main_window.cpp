@@ -4,6 +4,8 @@
  * @name default_main_window.cpp
  */
 #include "bintjekit/window/default_main_window.hpp"
+
+#include <imgui-SFML.h>
 #include "fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/logger.hpp"
 
@@ -14,6 +16,7 @@ namespace bnjkit::window {
 
     DefaultMainWindow::~DefaultMainWindow() {
         m_logger->warn("Destructor of DefaultMainWindow");
+        ImGui::SFML::Shutdown();
     }
 
     void DefaultMainWindow::initialise() {
@@ -36,9 +39,6 @@ namespace bnjkit::window {
 
     void DefaultMainWindow::on_sfml_event(const sf::Event &event) {
         IMainWindow::on_sfml_event(event);
-        if (event.is<sf::Event::Closed>()) {
-            close();
-        }
         if (const auto *key_pressed = event.getIf<sf::Event::KeyPressed>()) {
             if (key_pressed->scancode == sf::Keyboard::Scancode::Q) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) ||

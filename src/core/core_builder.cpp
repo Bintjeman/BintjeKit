@@ -5,17 +5,19 @@
  */
 #include "bintjekit/core/core_builder.hpp"
 #include "bintjekit/core/core.hpp"
+// Utils
+#include "bintjekit/core/common.hpp"
+#include "bintjekit/core/logger.hpp"
 // Interface modules
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
+#include "bintjekit/renderer/i_engine_renderer.hpp"
 // defaults modules
-#include "bintjekit/core/common.hpp"
-#include "bintjekit/core/logger.hpp"
 #include "bintjekit/window/default_main_window.hpp"
 #include "bintjekit/event_manager/default_event_manager.hpp"
-#include "bintjekit/renderer/i_engine_renderer.hpp"
+#include "bintjekit/renderer/default_renderer.hpp"
 
 namespace bnjkit::core {
     CoreBuilder::CoreBuilder() {
@@ -73,6 +75,11 @@ namespace bnjkit::core {
             m_logger->warn("No event manager module set. Using default event manager module");
             m_event_manager.reset();
             m_event_manager = std::make_unique<event::DefaultEventManager>();
+        }
+        if (!m_renderer) {
+            m_logger->warn("No renderer module set. Using default renderer module");
+            m_renderer.reset();
+            m_renderer = std::make_unique<renderer::DefaultRenderer>();
         }
         m_event_manager->register_listener(m_window.get());
         m_event_manager->register_listener(m_renderer.get());

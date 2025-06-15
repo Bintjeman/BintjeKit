@@ -45,11 +45,11 @@ namespace bnjkit::core {
         m_renderer->configure();
         while (this->m_main_window->isOpen()) {
             this->m_event_manager->process_events(*this->m_main_window);
-            ImGui::SFML::Update(*m_main_window, clock.restart());
             if (engine_pulser()) {
                 this->m_engine->update();
             }
             if (renderer_pulser()) {
+                ImGui::SFML::Update(*m_main_window, clock.restart());
                 this->m_renderer->render();
             }
         }

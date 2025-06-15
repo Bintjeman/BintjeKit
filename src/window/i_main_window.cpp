@@ -36,5 +36,8 @@ namespace bnjkit::window {
 
     void IMainWindow::on_sfml_event(const sf::Event &event) {
         ImGui::SFML::ProcessEvent(*this, event);
+        if (event.is<sf::Event::Closed>()) {
+            close();
+        }
     }
 }

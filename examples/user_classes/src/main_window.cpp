@@ -12,6 +12,7 @@ namespace usr {
     MainWindow::~MainWindow(){}
 
     void MainWindow::show() {
+        IMainWindow::show();
         this->create(sf::VideoMode(sf::Vector2u(800, 600)), "BintjeKit", sf::Style::Default);
     }
 

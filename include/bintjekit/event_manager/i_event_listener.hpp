@@ -9,6 +9,7 @@
 #pragma once
 #include <memory>
 #include <spdlog/fwd.h>
+
 namespace sf {
     class Event;
 } // sf
@@ -34,10 +35,10 @@ namespace bnjkit {
              *
              * @param event The SFML event that needs to be handled.
              */
-            virtual void on_sfml_event(const sf::Event &event) =0;
-            protected:
-            std::shared_ptr<spdlog::logger> m_logger;
+            virtual void on_sfml_event(const sf::Event &event) = 0;
 
+        protected:
+            std::shared_ptr<spdlog::logger> m_logger;
         };
     } // event
 } // bnjkit
