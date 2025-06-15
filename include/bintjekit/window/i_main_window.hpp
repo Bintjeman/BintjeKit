@@ -36,6 +36,8 @@ namespace bnjkit::window {
     public:
         IMainWindow();
         ~IMainWindow() override;
+        void initialise() override;
+        void initialise_imgui();
         /**
          * @brief Displays the main application window.
          *
@@ -62,7 +64,8 @@ namespace bnjkit::window {
          * @param event The SFML event to handle, passed as a constant reference.
          */
         void on_sfml_event(const sf::Event &event) override;
-protected:
+
+    protected:
         std::shared_ptr<spdlog::logger> m_logger;
     private:
     };

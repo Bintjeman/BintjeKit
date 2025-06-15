@@ -23,6 +23,7 @@ target_link_libraries(bintjekit
         SFML::Window
         SFML::System
         SFML::Graphics
+        ImGui-SFML::ImGui-SFML
         spdlog
 )
 set_target_properties(bintjekit PROPERTIES

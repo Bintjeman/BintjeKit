@@ -7,6 +7,7 @@
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include <algorithm>
 #include <SFML/Window/Window.hpp>
+#include <imgui-SFML.h>
 #include "bintjekit/core/logger.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
@@ -23,6 +24,7 @@ namespace bnjkit {
 
         void IEventManager::process_events(sf::Window &window) {
             while (auto event = window.pollEvent()) {
+                ImGui::SFML::ProcessEvent(window, *event);
                 for (auto *listener: m_listeners) {
                     listener->on_sfml_event(*event);
                 }
@@ -46,7 +48,6 @@ namespace bnjkit {
         }
 
         void IEventManager::general_event(const sf::Event &event) {
-
         }
     } // event
 } // bnjkit

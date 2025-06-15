@@ -4,6 +4,8 @@
  * @name core.cpp
  */
 #include "bintjekit/core/core.hpp"
+
+#include "imgui-SFML.h"
 #include "bintjekit/core/logger.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/i_event_manager.hpp"
@@ -37,11 +39,13 @@ namespace bnjkit::core {
     }
 
     void Core::run() {
+        sf::Clock clock;
         m_logger->info("Running Core");
         this->m_main_window->show();
         m_renderer->configure();
         while (this->m_main_window->isOpen()) {
             this->m_event_manager->process_events(*this->m_main_window);
+            ImGui::SFML::Update(*m_main_window, clock.restart());
             if (engine_pulser()) {
                 this->m_engine->update();
             }

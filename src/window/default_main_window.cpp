@@ -6,6 +6,7 @@
 #include "bintjekit/window/default_main_window.hpp"
 #include "fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/logger.hpp"
+
 namespace bnjkit::window {
     DefaultMainWindow::DefaultMainWindow(): IMainWindow() {
         m_logger->warn("Constructor of DefaultMainWindow");
@@ -27,14 +28,24 @@ namespace bnjkit::window {
 
     void DefaultMainWindow::show() {
         m_logger->warn("Showing DefaultMainWindow");
+        IMainWindow::show();
         const char *title = "BintjeKit";
         this->create(sf::VideoMode(sf::Vector2u(800, 600)), title, sf::Style::Default);
         m_logger->trace("Showing DefaultMainWindow: size: {}, title: {}", this->getSize(), title);
     }
 
     void DefaultMainWindow::on_sfml_event(const sf::Event &event) {
+        IMainWindow::on_sfml_event(event);
         if (event.is<sf::Event::Closed>()) {
             close();
+        }
+        if (const auto *key_pressed = event.getIf<sf::Event::KeyPressed>()) {
+            if (key_pressed->scancode == sf::Keyboard::Scancode::Q) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) ||
+                    sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RControl)) {
+                    close();
+                }
+            }
         }
     }
 } // bnjkit::window

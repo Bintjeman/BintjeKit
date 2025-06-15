@@ -5,6 +5,8 @@
  */
 
 #include "bintjekit/renderer/i_renderer.hpp"
+
+#include <imgui-SFML.h>
 #include "fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/logger.hpp"
@@ -37,6 +39,7 @@ namespace bnjkit {
             }
             m_render_window->setView(m_gui_view);
             renderGUI();
+            ImGui::SFML::Render(*m_render_window);
             m_render_window->display();
         }
 
