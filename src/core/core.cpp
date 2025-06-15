@@ -87,7 +87,7 @@ namespace bnjkit::core {
             case State::STOPPED:
                 break;
             default:
-
+                break;
         }
     }
 
