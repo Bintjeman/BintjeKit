@@ -6,18 +6,15 @@
 
 #include "renderer.hpp"
 #include <SFML/Graphics/Text.hpp>
-#include <SFML/Window/Window.hpp>
+// #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-
 #include "engine.hpp"
 
 namespace usr {
     Renderer::Renderer() = default;
-
     Renderer::~Renderer() = default;
 
     void Renderer::initialise() {
-
     }
 
     void Renderer::configure() {
@@ -43,10 +40,12 @@ namespace usr {
         m_render_window->setView(m_gui_view);
         m_render_window->draw(text_ticks);
     }
+
     void Renderer::set_engine(bnjkit::engine::IEngine *engine) {
         IRenderer::set_engine(engine);
         m_usr_engine = dynamic_cast<const Engine *>(engine);
     }
+
     void Renderer::set_render_window(sf::RenderWindow *window) {
         IRenderer::set_render_window(window);
     }
