@@ -10,6 +10,7 @@
 #include "fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/logger.hpp"
+#include "bintjekit/renderer/i_bnjkit_imgui.hpp"
 
 namespace bnjkit {
     namespace renderer {
@@ -39,16 +40,21 @@ namespace bnjkit {
             }
             m_render_window->setView(m_gui_view);
             renderGUI();
-            ImGui::SFML::Render(*m_render_window);
             m_render_window->display();
         }
 
         void IRenderer::renderGUI() {
+            m_imgui_renderer->render();
         }
 
         void IRenderer::set_engine_renderer(renderer::IEngineRenderer *engine_renderer) {
             m_logger->info("Setting engine renderer");
             m_engine_renderer = engine_renderer;
+        }
+
+        void IRenderer::set_imgui_renderer(IImGuiRenderer *imgui_renderer) {
+            m_logger->info("Setting imgui renderer");
+            m_imgui_renderer = imgui_renderer;
         }
 
         void IRenderer::resize_views() {

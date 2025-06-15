@@ -29,6 +29,7 @@ namespace bnjkit::core {
         m_logger = Logger::get_logger(module_names::CORE);
         m_logger->info("Constructor of CoreBuilder");
     }
+
     CoreBuilder::~CoreBuilder() {
         m_logger->info("Destructor of CoreBuilder");
     }
@@ -63,6 +64,12 @@ namespace bnjkit::core {
         return *this;
     }
 
+    CoreBuilder &CoreBuilder::set_imgui_renderer(std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer) {
+        m_logger->info("Setting imgui renderer module");
+        m_imgui_renderer = std::move(imgui_renderer);
+        return *this;
+    }
+
     std::unique_ptr<Core> CoreBuilder::build() {
         m_logger->info("Building Core");
         auto core = std::make_unique<Core>();
@@ -81,22 +88,35 @@ namespace bnjkit::core {
             m_renderer.reset();
             m_renderer = std::make_unique<renderer::DefaultRenderer>();
         }
-        m_event_manager->register_listener(m_window.get());
-        m_event_manager->register_listener(m_renderer.get());
+        if (!m_imgui_renderer) {
+            m_logger->warn("No imgui renderer module set. Using interface imgui renderer module");
+            m_imgui_renderer.reset();
+            m_imgui_renderer = std::make_unique<renderer::IImGuiRenderer>();
+        }
+        if (m_event_manager) {
+            m_event_manager->register_listener(m_window.get());
+            m_event_manager->register_listener(m_renderer.get());
+            m_event_manager->set_imgui_renderer(m_imgui_renderer.get());
+        }
         if (m_renderer) {
             m_renderer->set_engine(m_engine.get());
             m_renderer->set_render_window(m_window.get());
             m_renderer->set_engine_renderer(m_engine_renderer.get());
+            m_renderer->set_imgui_renderer(m_imgui_renderer.get());
         }
         if (m_engine_renderer) {
             m_engine_renderer->set_engine(m_engine.get());
+        }
+        if (m_imgui_renderer) {
+            m_imgui_renderer->set_window(m_window.get());
         }
         core->set_modules(
             std::move(m_window),
             std::move(m_event_manager),
             std::move(m_engine),
             std::move(m_renderer),
-            std::move(m_engine_renderer));
+            std::move(m_engine_renderer),
+            std::move(m_imgui_renderer));
         return core;
     }
 } // bnjkit::core

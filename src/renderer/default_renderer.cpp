@@ -6,7 +6,6 @@
 #include "bintjekit/renderer/default_renderer.hpp"
 #include <imgui-SFML.h>
 #include "bintjekit/renderer/i_renderer.hpp"
-
 namespace bnjkit {
     namespace renderer {
         void DefaultRenderer::on_sfml_event(const sf::Event &event) {

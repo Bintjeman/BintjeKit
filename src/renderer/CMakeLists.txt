@@ -5,4 +5,5 @@ target_sources(bintjekit PRIVATE
         default_renderer.cpp
         i_renderer.cpp
         i_engine_renderer.cpp
+        i_bnjkit_imgui.cpp
 )

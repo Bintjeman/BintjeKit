@@ -8,6 +8,7 @@
 #pragma once
 #include <memory>
 #include <spdlog/fwd.h>
+
 namespace bnjkit {
     namespace window {
         class IMainWindow;
@@ -21,6 +22,7 @@ namespace bnjkit {
     namespace renderer {
         class IEngineRenderer;
         class IRenderer;
+        class IImGuiRenderer;
     } // renderer
     namespace core {
         class Core;
@@ -65,11 +67,13 @@ namespace bnjkit {
                     m_renderer = std::make_unique<T>();
                 } else if constexpr (std::is_base_of_v<renderer::IEngineRenderer, T>) {
                     m_engine_renderer = std::make_unique<T>();
+                } else if constexpr (std::is_base_of_v<renderer::IImGuiRenderer, T>) {
+                    m_imgui_renderer = std::make_unique<T>();
                 }
                 return *this;
             }
 
-            template<typename T, typename... Args>
+            // template<typename T, typename... Args>
             /**
              * @brief Sets the module of a specific type with given parameters for the CoreBuilder.
              *
@@ -82,18 +86,19 @@ namespace bnjkit {
              * @param args The arguments to be forwarded to the module's constructor.
              * @return A reference to the CoreBuilder instance, allowing method chaining.
              */
-            CoreBuilder &set(Args &&... args) {
-                if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
-                    m_window = std::make_unique<T>(std::forward<Args>(args)...);
-                }
-                return *this;
-            }
+            // CoreBuilder &set(Args &&... args) {
+            //     if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
+            //         m_window = std::make_unique<T>(std::forward<Args>(args)...);
+            //     }
+            //     return *this;
+            // }
 
             CoreBuilder &set_window_module(std::unique_ptr<window::IMainWindow> window);
             CoreBuilder &set_event_manager_module(std::unique_ptr<event::IEventManager> event_manager);
             CoreBuilder &set_engine_module(std::unique_ptr<engine::IEngine> engine);
             CoreBuilder &set_renderer_module(std::unique_ptr<renderer::IRenderer> renderer);
             CoreBuilder &set_engine_renderer(std::unique_ptr<renderer::IEngineRenderer> engine_renderer);
+            CoreBuilder &set_imgui_renderer(std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
             /**
              * @brief Constructs and returns a fully configured Core instance.
              *
@@ -113,6 +118,7 @@ namespace bnjkit {
             std::unique_ptr<engine::IEngine> m_engine;
             std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;
             std::shared_ptr<spdlog::logger> m_logger;
+            std::unique_ptr<renderer::IImGuiRenderer> m_imgui_renderer;
         };
     } // core
 } // bnjkit

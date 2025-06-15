@@ -16,7 +16,6 @@ namespace bnjkit::window {
 
     DefaultMainWindow::~DefaultMainWindow() {
         m_logger->warn("Destructor of DefaultMainWindow");
-        ImGui::SFML::Shutdown();
     }
 
     void DefaultMainWindow::initialise() {

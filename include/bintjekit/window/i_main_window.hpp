@@ -12,6 +12,7 @@
 #include "bintjekit/event_manager/i_event_listener.hpp"
 
 namespace bnjkit::window {
+
     /**
      * @class IMainWindow
      * @brief Abstract interface for the main window of the application.
@@ -32,12 +33,10 @@ namespace bnjkit::window {
      * to define specific behavior for displaying the window.
      */
     class IMainWindow : public core::IModule, public sf::RenderWindow, public event::IEventListener {
-
     public:
         IMainWindow();
         ~IMainWindow() override;
         void initialise() override;
-        void initialise_imgui();
         /**
          * @brief Displays the main application window.
          *
@@ -67,6 +66,7 @@ namespace bnjkit::window {
 
     protected:
         std::shared_ptr<spdlog::logger> m_logger;
+
     private:
     };
 } // bnjkit::window

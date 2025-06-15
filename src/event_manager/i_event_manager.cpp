@@ -22,9 +22,14 @@ namespace bnjkit {
             m_logger->info("Destructor of IEventManager");
         }
 
+        void IEventManager::set_imgui_renderer(renderer::IImGuiRenderer *renderer) {
+            m_logger->info("Setting imgui renderer");
+            m_imgui_renderer = renderer;
+        }
+
         void IEventManager::process_events(sf::Window &window) {
             while (auto event = window.pollEvent()) {
-                ImGui::SFML::ProcessEvent(window, *event);
+                m_imgui_renderer->process_events(*event);
                 for (auto *listener: m_listeners) {
                     listener->on_sfml_event(*event);
                 }

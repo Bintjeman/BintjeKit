@@ -23,6 +23,7 @@ namespace bnjkit {
     namespace renderer {
         class IEngineRenderer;
         class IRenderer;
+        class IImGuiRenderer;
     } // renderer
     namespace core {
         /**
@@ -55,7 +56,8 @@ namespace bnjkit {
                              std::unique_ptr<event::IEventManager> event_manager,
                              std::unique_ptr<engine::IEngine> engine,
                              std::unique_ptr<renderer::IRenderer> renderer,
-                             std::unique_ptr<renderer::IEngineRenderer> engine_renderer);
+                             std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
+                             std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
 
             /**
              * @brief Executes the main application loop, managing system modules to ensure continuous functionality.
@@ -79,7 +81,9 @@ namespace bnjkit {
             std::unique_ptr<renderer::IRenderer> m_renderer;
             std::unique_ptr<engine::IEngine> m_engine;
             std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;
+            std::unique_ptr<renderer::IImGuiRenderer> m_imgui_renderer;
             std::shared_ptr<spdlog::logger> m_logger;
+
 
         public:
             Core(const Core &) = delete;

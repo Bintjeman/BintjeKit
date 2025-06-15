@@ -11,12 +11,16 @@
 #include <SFML/Window/Event.hpp>
 #include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
+#include "bintjekit/renderer/i_bnjkit_imgui.hpp"
 
 namespace sf {
     class Window;
 }
 
 namespace bnjkit {
+    namespace renderer {
+        class IImGuiRenderer;
+    }
     namespace event {
         class IEventListener;
         // class IEvent;
@@ -37,6 +41,7 @@ namespace bnjkit {
         public:
             IEventManager();
             ~IEventManager() override;
+            void set_imgui_renderer(renderer::IImGuiRenderer *renderer);
             /**
              * @brief Processes incoming events from the SFML window and notifies listeners.
              *
@@ -90,6 +95,7 @@ namespace bnjkit {
         protected:
             virtual void general_event(const sf::Event &event);
             std::vector<IEventListener *> m_listeners;
+            renderer::IImGuiRenderer *m_imgui_renderer;
             std::shared_ptr<spdlog::logger> m_logger;
         };
     } // event

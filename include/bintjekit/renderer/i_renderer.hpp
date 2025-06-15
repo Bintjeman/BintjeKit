@@ -10,6 +10,8 @@
 #include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <spdlog/fwd.h>
+
+#include "i_bnjkit_imgui.hpp"
 #include "i_engine_renderer.hpp"
 #include "bintjekit/core/i_module.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
@@ -90,6 +92,7 @@ namespace bnjkit {
              *                        to be associated with the IRenderer.
              */
             virtual void set_engine_renderer(IEngineRenderer *engine_renderer);
+            virtual void set_imgui_renderer(IImGuiRenderer *imgui_renderer);
 
         protected:
             void resize_views();
@@ -100,6 +103,7 @@ namespace bnjkit {
             sf::RenderWindow *m_render_window;
             const engine::IEngine *m_engine;
             const IEngineRenderer *m_engine_renderer;
+            IImGuiRenderer *m_imgui_renderer;
             std::vector<std::reference_wrapper<sf::Drawable> > m_drawables;
             sf::View m_engine_view;
             sf::View m_gui_view;

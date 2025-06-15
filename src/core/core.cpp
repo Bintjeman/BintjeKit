@@ -5,7 +5,6 @@
  */
 #include "bintjekit/core/core.hpp"
 
-#include "imgui-SFML.h"
 #include "bintjekit/core/logger.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/i_event_manager.hpp"
@@ -29,28 +28,30 @@ namespace bnjkit::core {
                            std::unique_ptr<event::IEventManager> event_manager,
                            std::unique_ptr<engine::IEngine> engine,
                            std::unique_ptr<renderer::IRenderer> renderer,
-                           std::unique_ptr<renderer::IEngineRenderer> engine_renderer) {
+                           std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
+                           std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer) {
         m_logger->info("Setting modules");
-        this->m_main_window = std::move(window);
-        this->m_event_manager = std::move(event_manager);
-        this->m_engine = std::move(engine);
-        this->m_renderer = std::move(renderer);
-        this->m_engine_renderer = std::move(engine_renderer);
+        m_main_window = std::move(window);
+        m_event_manager = std::move(event_manager);
+        m_engine = std::move(engine);
+        m_renderer = std::move(renderer);
+        m_engine_renderer = std::move(engine_renderer);
+        m_imgui_renderer = std::move(imgui_renderer);
     }
 
     void Core::run() {
-        sf::Clock clock;
         m_logger->info("Running Core");
-        this->m_main_window->show();
+        m_main_window->show();
+        m_imgui_renderer->init();
         m_renderer->configure();
-        while (this->m_main_window->isOpen()) {
-            this->m_event_manager->process_events(*this->m_main_window);
+        while (m_main_window->isOpen()) {
+            this->m_event_manager->process_events(*m_main_window);
             if (engine_pulser()) {
-                this->m_engine->update();
+                m_engine->update();
             }
             if (renderer_pulser()) {
-                ImGui::SFML::Update(*m_main_window, clock.restart());
-                this->m_renderer->render();
+                m_imgui_renderer->update();
+                m_renderer->render();
             }
         }
         m_logger->info("Core stopped");
