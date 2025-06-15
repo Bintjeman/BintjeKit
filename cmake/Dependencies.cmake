@@ -3,6 +3,7 @@ include_guard(GLOBAL)
 message("Actual *.cmake: ${CMAKE_CURRENT_LIST_FILE}")
 ###############################################################################
 include(FetchContent)
+include(cmake/CompilerOption.cmake)
 ###############################################################################
 FetchContent_Declare(SFML
         GIT_REPOSITORY https://github.com/SFML/SFML.git
@@ -47,3 +48,11 @@ FetchContent_Declare(json
         GIT_SHALLOW ON
 )
 FetchContent_MakeAvailable(json)
+################################################################################
+foreach (target IN ITEMS sfml-system sfml-window sfml-graphics)
+    configure_external_library_options(${target})
+endforeach ()
+configure_external_library_options(spdlog)
+configure_external_library_options(imgui)
+configure_external_library_options(ImGui-SFML)
+configure_external_library_options(nlohmann_son)

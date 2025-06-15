@@ -32,4 +32,6 @@ set_target_properties(bintjekit PROPERTIES
         VERSION ${PROJECT_VERSION}
         POSITION_INDEPENDENT_CODE ON
 )
+configure_compiler_options(bintjekit)
+enable_lto(bintjekit)
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)
