@@ -14,22 +14,30 @@ namespace sf {
     class Event;
     class RenderWindow;
 }
+
 namespace bnjkit {
     namespace renderer {
         class IImGuiRenderer {
         public:
             IImGuiRenderer();
             virtual ~IImGuiRenderer();
-            void set_window(sf::RenderWindow *window);
-            void update();
-            void init();
-            void process_events(sf::Event& event);
+            virtual void init();
+            virtual void update();
+            virtual void process_events(sf::Event &event);
+            virtual void draw();
             void render();
+            void set_window(sf::RenderWindow *window);
             static void shutdown();
+
         protected:
             std::shared_ptr<spdlog::logger> m_logger;
+
         private:
             sf::RenderWindow *m_window = nullptr;
+
+        public:
+            IImGuiRenderer(const IImGuiRenderer &) = delete;
+            IImGuiRenderer &operator=(const IImGuiRenderer &) = delete;
         };
     } // renderer
 } // bnjkit

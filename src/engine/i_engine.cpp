@@ -24,7 +24,6 @@ namespace bnjkit {
 
         void IEngine::initialise() {
             m_logger->info("Initialising IEngine");
-            IModule::initialise();
             m_play_ground->size = {100, 100};
             m_play_ground->position = {0, 0};
         }

@@ -45,6 +45,9 @@ namespace bnjkit {
             ImGui::SFML::ProcessEvent(*m_window, event);
         }
 
+        void IImGuiRenderer::draw() {
+        }
+
         void IImGuiRenderer::render() {
             ImGui::SFML::Render(*m_window);
         }
