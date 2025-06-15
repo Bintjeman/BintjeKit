@@ -48,7 +48,7 @@ namespace bnjkit::core {
         m_imgui_renderer->init();
         m_renderer->configure();
         while (m_main_window->isOpen()) {
-            this->m_event_manager->process_events(*m_main_window);
+            m_event_manager->process_events(*m_main_window);
             if (engine_pulser()) {
                 m_engine->update();
             }

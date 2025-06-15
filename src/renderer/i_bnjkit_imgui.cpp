@@ -14,6 +14,16 @@
 
 namespace bnjkit {
     namespace renderer {
+        IImGuiRenderer::ImGuiContext::ImGuiContext(sf::RenderWindow *window) {
+            if (!ImGui::SFML::Init(*window)) {
+                throw std::runtime_error("Failed to initialise ImGui");
+            }
+        }
+
+        IImGuiRenderer::ImGuiContext::~ImGuiContext() {
+            ImGui::SFML::Shutdown();
+        }
+
         IImGuiRenderer::IImGuiRenderer() {
             m_logger = core::Logger::get_logger(core::module_names::RENDERER);
             m_logger->info("Constructor of IImGuiRenderer");
@@ -35,10 +45,7 @@ namespace bnjkit {
 
         void IImGuiRenderer::init() {
             m_logger->info("Initialising ImGui");
-            if (!ImGui::SFML::Init(*m_window)) {
-                m_logger->error("Failed to initialise ImGui");
-                throw std::runtime_error("Failed to initialise ImGui");
-            }
+            m_context = std::make_unique<ImGuiContext>(m_window);
         }
 
         void IImGuiRenderer::process_events(sf::Event &event) {

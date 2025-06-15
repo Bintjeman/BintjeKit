@@ -31,20 +31,33 @@ namespace bnjkit {
 
         void IRenderer::render() {
             if (!m_render_window || !m_engine) return;
-            m_render_window->clear();
+            // m_render_window->clear();
+            // m_drawables.clear();
+            // m_engine_renderer->get_drawable(m_drawables);
+            // for (const auto &drawable: m_drawables) {
+            //     m_render_window->setView(m_engine_view);
+            //     m_render_window->draw(drawable);
+            // }
+            // m_render_window->setView(m_gui_view);
+            // renderGUI();
+            // m_render_window->display();
+            begin_frame();
+            render_scene(); // Virtual pour la partie scène
+            render_gui(); // Virtual pour la partie GUI
+            end_frame();
+        }
+
+        void IRenderer::render_scene() {
             m_drawables.clear();
             m_engine_renderer->get_drawable(m_drawables);
             for (const auto &drawable: m_drawables) {
                 m_render_window->setView(m_engine_view);
                 m_render_window->draw(drawable);
             }
-            m_render_window->setView(m_gui_view);
-            renderGUI();
-            m_render_window->display();
         }
 
-        void IRenderer::renderGUI() {
-            m_imgui_renderer->render();
+        void IRenderer::render_gui() {
+            m_render_window->setView(m_gui_view);
         }
 
         void IRenderer::set_engine_renderer(renderer::IEngineRenderer *engine_renderer) {
@@ -82,6 +95,15 @@ namespace bnjkit {
             m_logger->trace("Engine bounds: {}\nwindow size: {}\nView center: {}\nView size: {}",
                             m_engine_renderer->get_bounds(), m_render_window->getSize(), m_engine_view.getCenter(),
                             m_engine_view.getSize());
+        }
+
+        void IRenderer::begin_frame() {
+            m_render_window->clear();
+        }
+
+        void IRenderer::end_frame() {
+            m_imgui_renderer->render();
+            m_render_window->display();
         }
 
         void IRenderer::set_render_window(sf::RenderWindow *window) {

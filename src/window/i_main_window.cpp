@@ -16,7 +16,6 @@ namespace bnjkit::window {
 
     IMainWindow::~IMainWindow() noexcept {
         m_logger->info("Destructor of IMainWindow");
-        renderer::IImGuiRenderer::shutdown();
     }
 
     void IMainWindow::initialise() {

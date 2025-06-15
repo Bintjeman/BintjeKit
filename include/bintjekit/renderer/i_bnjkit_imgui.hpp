@@ -18,6 +18,12 @@ namespace sf {
 namespace bnjkit {
     namespace renderer {
         class IImGuiRenderer {
+            class ImGuiContext {
+            public:
+                explicit ImGuiContext(sf::RenderWindow *window);
+                ~ImGuiContext();
+            };
+
         public:
             IImGuiRenderer();
             virtual ~IImGuiRenderer();
@@ -27,12 +33,13 @@ namespace bnjkit {
             virtual void draw();
             void render();
             void set_window(sf::RenderWindow *window);
-            static void shutdown();
+            void shutdown();
 
         protected:
             std::shared_ptr<spdlog::logger> m_logger;
 
         private:
+            std::unique_ptr<ImGuiContext> m_context;
             sf::RenderWindow *m_window = nullptr;
 
         public:

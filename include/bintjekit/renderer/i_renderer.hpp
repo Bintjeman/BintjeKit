@@ -37,35 +37,9 @@ namespace bnjkit {
             IRenderer();
             ~IRenderer() override;
             void configure() override;
-            /**
-             * @brief Renders the main scene.
-             *
-             * This virtual method is responsible for rendering the primary scene
-             * visualization. Subclasses of IRenderer should implement the method
-             * to define the specific rendering behavior. Typically invoked in the
-             * main rendering loop to continuously update visuals within the application.
-             */
-            virtual void render();
-            /**
-             * @brief Renders the GUI elements.
-             *
-             * This virtual method is responsible for rendering the graphical user
-             * interface (GUI) components on the screen. It should be implemented
-             * by specific renderer subclasses to define the precise behavior of
-             * GUI rendering. Typically invoked within the rendering loop to update
-             * and display UI components alongside the main scene.
-             */
-            virtual void renderGUI();
-            /**
-             * @brief Sets the render window for the renderer.
-             *
-             * This method assigns the specified render window to the renderer. The render
-             * window serves as the target for all rendering operations performed by the
-             * renderer. It must be called before rendering operations are initiated to
-             * ensure proper display output.
-             *
-             * @param window Pointer to the sf::RenderWindow that serves as the rendering target.
-             */
+            void render();
+            virtual void render_scene();
+            virtual void render_gui();
             virtual void set_render_window(sf::RenderWindow *window);
             /**
              * @brief Sets the engine instance for the renderer.
@@ -100,6 +74,8 @@ namespace bnjkit {
         public:
 
         protected:
+            void begin_frame();
+            void end_frame();
             sf::RenderWindow *m_render_window;
             const engine::IEngine *m_engine;
             const IEngineRenderer *m_engine_renderer;

@@ -66,6 +66,7 @@ namespace bnjkit::core {
 
     CoreBuilder &CoreBuilder::set_imgui_renderer(std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer) {
         m_logger->info("Setting imgui renderer module");
+        m_logger->debug("Setting imgui renderer module");
         m_imgui_renderer = std::move(imgui_renderer);
         return *this;
     }
@@ -107,6 +108,7 @@ namespace bnjkit::core {
             m_event_manager->register_listener(m_window.get());
             m_event_manager->register_listener(m_renderer.get());
             m_event_manager->set_imgui_renderer(m_imgui_renderer.get());
+            m_logger->debug("Setting event manager");
         }
         if (m_renderer) {
             m_renderer->set_engine(m_engine.get());

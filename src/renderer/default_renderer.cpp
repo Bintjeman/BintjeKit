@@ -11,10 +11,8 @@ namespace bnjkit {
         void DefaultRenderer::on_sfml_event(const sf::Event &event) {
         }
 
-        void DefaultRenderer::render() {
-            m_render_window->clear();
-            ImGui::SFML::Render(*m_render_window);
-            m_render_window->display();
+        void DefaultRenderer::render_scene() {
+
         }
     } // renderer
 } // bnjkit

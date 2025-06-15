@@ -13,7 +13,7 @@ namespace bnjkit {
         class DefaultRenderer : public IRenderer {
         public:
             void on_sfml_event(const sf::Event &event) override;
-            void render() override;
+            void render_scene() override ;
         };
     } // renderer
 } // bnjkit
