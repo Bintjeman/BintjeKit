@@ -9,7 +9,6 @@
 #include <memory>
 #include <time/time.hpp>
 #include <spdlog/fwd.h>
-
 namespace bnjkit {
     namespace window {
         class IMainWindow;
@@ -25,6 +24,9 @@ namespace bnjkit {
         class IRenderer;
         class IImGuiRenderer;
     } // renderer
+    namespace conf {
+        class ConfigurationManager;
+    } // conf
     namespace core {
         /**
          * @class Core
@@ -82,6 +84,7 @@ namespace bnjkit {
             std::unique_ptr<engine::IEngine> m_engine;
             std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;
             std::unique_ptr<renderer::IImGuiRenderer> m_imgui_renderer;
+            std::shared_ptr<conf::ConfigurationManager> m_config_manager;
             std::shared_ptr<spdlog::logger> m_logger;
 
 

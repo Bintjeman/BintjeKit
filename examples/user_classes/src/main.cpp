@@ -28,7 +28,8 @@
  */
 #include <memory>
 #include <bintjekit/core/core.hpp>
-#include "bintjekit/core/core_builder.hpp"
+#include <bintjekit/core/core_builder.hpp>
+// #include <bintjekit/configuration/configuration_manager.hpp>
 #include "main_window.hpp"
 #include "event_manager.hpp"
 #include "engine.hpp"

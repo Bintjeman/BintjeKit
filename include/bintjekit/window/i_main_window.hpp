@@ -35,7 +35,7 @@ namespace bnjkit::window {
     class IMainWindow : public core::IModule, public sf::RenderWindow, public event::IEventListener {
     public:
         IMainWindow();
-        ~IMainWindow() override;
+        ~IMainWindow()  noexcept override;
         void initialise() override;
         /**
          * @brief Displays the main application window.

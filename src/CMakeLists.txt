@@ -8,6 +8,7 @@ add_subdirectory(window)
 add_subdirectory(event_manager)
 add_subdirectory(engine)
 add_subdirectory(renderer)
+add_subdirectory(configuration)
 target_include_directories(bintjekit
         PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -24,7 +25,8 @@ target_link_libraries(bintjekit
         SFML::System
         SFML::Graphics
         ImGui-SFML::ImGui-SFML
-        spdlog
+        spdlog::spdlog
+        nlohmann_json::nlohmann_json
 )
 set_target_properties(bintjekit PROPERTIES
         VERSION ${PROJECT_VERSION}
