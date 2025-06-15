@@ -31,7 +31,7 @@ namespace bnjkit {
         class IEngineRenderer : public core::IModule{
         public:
             explicit IEngineRenderer();
-            virtual ~IEngineRenderer();
+            virtual ~IEngineRenderer() override;
             /**
              * @brief Associates an `IEngine` instance with the renderer for managing engine-related drawables.
              *

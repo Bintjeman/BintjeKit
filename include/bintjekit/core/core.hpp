@@ -39,7 +39,7 @@ namespace bnjkit {
             };
 
             Core();
-            ~Core();
+            ~Core() override;
             void set_modules(std::unique_ptr<window::IMainWindow> window,
                              std::unique_ptr<event::IEventManager> event_manager,
                              std::unique_ptr<engine::IEngine> engine,

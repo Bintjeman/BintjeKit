@@ -4,10 +4,9 @@
  * @name logger.cpp
  */
 
-#include "../../include/bintjekit/core/logger.hpp"
+#include "bintjekit/core/logger.hpp"
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>
-
 #include "bintjekit/core/common.hpp"
 
 namespace bnjkit {

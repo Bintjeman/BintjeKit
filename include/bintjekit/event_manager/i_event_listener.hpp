@@ -38,7 +38,7 @@ namespace bnjkit {
             virtual void on_sfml_event(const sf::Event &event) = 0;
 
         protected:
-            std::shared_ptr<spdlog::logger> m_logger;
+            std::shared_ptr<spdlog::logger> m_listener_logger;
         };
     } // event
 } // bnjkit

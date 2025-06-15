@@ -52,7 +52,7 @@ namespace bnjkit {
             m_listeners.erase(it, m_listeners.end());
         }
 
-        void IEventManager::general_event(const sf::Event &event) {
+        void IEventManager::general_event(const sf::Event &event[[maybe_unused]]) {
         }
     } // event
 } // bnjkit

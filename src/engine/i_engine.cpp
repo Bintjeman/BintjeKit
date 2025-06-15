@@ -37,7 +37,7 @@ namespace bnjkit {
             m_play_ground->update();
         }
 
-        void IEngine::on_sfml_event(const sf::Event &event) {
+        void IEngine::on_sfml_event(const sf::Event &event [[maybe_unused]]) {
         }
 
         PlayGround &IEngine::play_ground() const { return *m_play_ground; }

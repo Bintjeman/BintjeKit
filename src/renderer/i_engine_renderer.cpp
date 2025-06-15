@@ -24,7 +24,8 @@ namespace bnjkit {
             m_logger->info("Destructor of IEngineRenderer");
         }
 
-        void IEngineRenderer::get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const {
+        void IEngineRenderer::get_drawable(
+            std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list [[maybe_unused]]) const {
         }
 
         sf::Rect<float> IEngineRenderer::get_bounds() const {

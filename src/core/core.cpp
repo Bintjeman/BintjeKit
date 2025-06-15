@@ -61,7 +61,7 @@ namespace bnjkit::core {
     }
 
     void Core::on_sfml_event(const sf::Event &event) {
-        auto shift = []() {
+        auto shift [[maybe_unused]] = []() {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift) || sf::Keyboard::isKeyPressed(
                     sf::Keyboard::Key::LShift)) {
                 return true;

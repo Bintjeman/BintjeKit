@@ -11,7 +11,7 @@
 #include <nlohmann/json.hpp>
 
 namespace bnjkit {
-    namespace core {
+    namespace conf {
         template<typename T>
         void to_json(nlohmann::json &j, const sf::Vector2<T> &v) {
             j = nlohmann::json{{"x", v.x}, {"y", v.y}};

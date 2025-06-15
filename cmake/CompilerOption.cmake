@@ -15,13 +15,35 @@ function(configure_compiler_options target)
                 $<$<CONFIG:Debug>:/Od>    # Désactive l'optimisation en Debug
         )
     else ()
-        target_compile_options(${target} PRIVATE
+        set(POSITIVE_WARNING
                 -Wall
                 -Wextra
                 -Wpedantic
                 -Werror
                 -Wconversion
                 -Wsign-conversion
+                -Wnon-virtual-dtor
+                -Wold-style-cast
+                -Wcast-align
+                -Wunused
+                -Woverloaded-virtual
+                -Wformat=2
+        )
+        set(NEGATIVE_WARNING
+                -Wno-padded
+                -Wno-exit-time-destructors
+                -Wno-c++98-compat
+                -Wno-c++98-compat-pedantic
+                -Wno-covered-switch-default
+                -Wno-global-constructors
+                -Wno-deprecated-declarations      # Pour fmt/spdlog
+                -Wno-documentation               # Pour les commentaires de documentation
+                -Wno-documentation-unknown-command
+
+        )
+        target_compile_options(${target} PRIVATE
+                ${POSITIVE_WARNING}
+                ${NEGATIVE_WARNING}
                 $<$<CONFIG:Release>:-O3>  # Optimisation aggressive en Release
                 $<$<CONFIG:Debug>:-O0>    # Pas d'optimisation en Debug
                 $<$<CONFIG:Debug>:-g3>    # Informations de debug maximales
@@ -70,33 +92,36 @@ function(configure_external_library_options target)
         message(STATUS "La cible ${target} n'existe pas, ignore la configuration")
         return()
     endif ()
-    # Vérifier le type de cible
+
+    # Marquer la bibliothèque comme SYSTEM pour supprimer les warnings
     get_target_property(target_type ${target} TYPE)
-    if (target_type STREQUAL "INTERFACE_LIBRARY")
-        message(STATUS "La cible ${target} est une bibliothèque d'interface, ignore la configuration")
-        return()
+    if (NOT target_type STREQUAL "INTERFACE_LIBRARY")
+        set_target_properties(${target} PROPERTIES
+                INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${target},INTERFACE_INCLUDE_DIRECTORIES>
+        )
     endif ()
 
     if (MSVC)
         target_compile_options(${target} PRIVATE
-                /W0            # Désactive les warnings
+                /W0
                 $<$<CONFIG:Release>:/O2>
                 $<$<CONFIG:Debug>:/Od>
         )
     else ()
         target_compile_options(${target} PRIVATE
-                -w            # Désactive tous les warnings
+                -w
                 $<$<CONFIG:Release>:-O3>
                 $<$<CONFIG:Debug>:-O0>
                 $<$<CONFIG:Debug>:-g3>
         )
     endif ()
-    # Options C++ communes
+
     target_compile_features(${target} PRIVATE cxx_std_20)
-    # Définitions conditionnelles
+
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${target} PRIVATE DEBUG _DEBUG)
     else ()
         target_compile_definitions(${target} PRIVATE NDEBUG)
     endif ()
+
 endfunction()

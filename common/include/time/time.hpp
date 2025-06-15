@@ -12,8 +12,8 @@
 
 namespace bnjkit {
     namespace time {
-        static sf::Time frequency_to_time(float frequency = 60.0f);
-        static float time_to_frequency(sf::Time time);
+        [[maybe_unused]] static sf::Time frequency_to_time(float frequency = 60.0f);
+        [[maybe_unused]] static float time_to_frequency(sf::Time time [[maybe_unused]]);
 
         class Pulser {
         public:

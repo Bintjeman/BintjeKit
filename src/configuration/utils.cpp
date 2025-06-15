@@ -20,10 +20,10 @@ namespace bnjkit {
                     return {};
                 }
                 return nlohmann::json::parse(file);
-            } catch (const nlohmann::json::parse_error &e) {
+            } catch (const nlohmann::json::parse_error &e[[maybe_unused]]) {
                 // En cas d'erreur de parsing, on garde les données actuelles
                 return {};
-            } catch (const std::exception &e) {
+            } catch (const std::exception &e[[maybe_unused]]) {
                 // Autres erreurs possibles (permissions, etc.)
                 return {};
             }
@@ -44,14 +44,15 @@ namespace bnjkit {
                 // Écriture du JSON formaté avec indentation
                 file << json.dump(4);
                 return true;
-            } catch (const std::filesystem::filesystem_error &e) {
+            } catch (const std::filesystem::filesystem_error &e[[maybe_unused]]) {
                 // Erreur lors de la création des répertoires
                 return false;
-            } catch (const std::exception &e) {
+            } catch (const std::exception &e[[maybe_unused]]) {
                 // Autres erreurs possibles (permissions, etc.)
                 return false;
             }
         }
+
         void merge_json(nlohmann::json &target, const nlohmann::json &source) {
             if (!source.is_object()) {
                 target = source;
