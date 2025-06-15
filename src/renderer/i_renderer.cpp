@@ -31,19 +31,9 @@ namespace bnjkit {
 
         void IRenderer::render() {
             if (!m_render_window || !m_engine) return;
-            // m_render_window->clear();
-            // m_drawables.clear();
-            // m_engine_renderer->get_drawable(m_drawables);
-            // for (const auto &drawable: m_drawables) {
-            //     m_render_window->setView(m_engine_view);
-            //     m_render_window->draw(drawable);
-            // }
-            // m_render_window->setView(m_gui_view);
-            // renderGUI();
-            // m_render_window->display();
             begin_frame();
-            render_scene(); // Virtual pour la partie scène
-            render_gui(); // Virtual pour la partie GUI
+            render_scene();
+            render_gui();
             end_frame();
         }
 

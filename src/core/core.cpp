@@ -49,7 +49,7 @@ namespace bnjkit::core {
         m_renderer->configure();
         while (m_main_window->isOpen()) {
             m_event_manager->process_events(*m_main_window);
-            if (engine_pulser()) {
+            if (m_state == State::RUNNING && engine_pulser()) {
                 m_engine->update();
             }
             if (renderer_pulser()) {
@@ -58,5 +58,50 @@ namespace bnjkit::core {
             }
         }
         m_logger->info("Core stopped");
+    }
+
+    void Core::on_sfml_event(const sf::Event &event) {
+        auto shift = []() {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift) || sf::Keyboard::isKeyPressed(
+                    sf::Keyboard::Key::LShift)) {
+                return true;
+            }
+            return false;
+        };
+        if (const auto &key = event.getIf<sf::Event::KeyPressed>()) {
+            if (key->scancode == sf::Keyboard::Scancode::Space) {
+            }
+        }
+    }
+
+    void Core::pause_button() {
+        switch (m_state) {
+            case State::RUNNING:
+                m_state = State::PAUSED;
+                break;
+            case State::PAUSED:
+                if (m_engine->state() == engine::IEngine::State::READY) {
+                    m_state = State::RUNNING;
+                }
+                break;
+            case State::STOPPED:
+                break;
+            default:
+
+
+        }
+    }
+
+    std::string Core::state_to_string(State state) {
+        switch (state) {
+            case State::RUNNING:
+                return "RUNNING";
+            case State::PAUSED:
+                return "PAUSED";
+            case State::STOPPED:
+                return "STOPPED";
+            default:
+                return "UNKNOWN";
+        }
     }
 } // bnjkit

@@ -5,21 +5,17 @@
  */
 
 #include "game_of_life.hpp"
+#include <spdlog/logger.h>
 #include "bintjekit/engine/play_ground.hpp"
 
 namespace gol {
     GameOfLife::GameOfLife(): IEngine() {
+    }
+    void GameOfLife::initialise() {
         m_play_ground->size = {GRID_WIDTH, GRID_HEIGHT};
         m_grid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
         m_next_grid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
-        for (int y = 0; y < GRID_HEIGHT; ++y) {
-            for (int x = 0; x < GRID_WIDTH; ++x) {
-                m_grid[y][x] = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) > 0.5f;
-                m_next_grid[y][x] = m_grid[y][x];
-            }
-        }
     }
-
     void GameOfLife::update() {
         for (int y = 0; y < GRID_HEIGHT; ++y) {
             for (int x = 0; x < GRID_WIDTH; ++x) {
@@ -52,5 +48,38 @@ namespace gol {
             }
         }
         return count;
+    }
+
+
+
+    void GameOfLife::on_sfml_event(const sf::Event &event) {
+        auto shift = []() {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift) || sf::Keyboard::isKeyPressed(
+                    sf::Keyboard::Key::LShift)) {
+                return true;
+            }
+            return false;
+        };
+        if (const auto &key = event.getIf<sf::Event::KeyPressed>()) {
+            if (key->scancode == sf::Keyboard::Scancode::N) {
+                if (shift()) {
+                    new_world();
+                }
+            }
+        }
+    }
+
+    void GameOfLife::new_world() {
+        m_logger->info("New world");
+        m_play_ground->size = {GRID_WIDTH, GRID_HEIGHT};
+        m_grid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
+        m_next_grid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
+        for (int y = 0; y < GRID_HEIGHT; ++y) {
+            for (int x = 0; x < GRID_WIDTH; ++x) {
+                m_grid[y][x] = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) > 0.5f;
+                m_next_grid[y][x] = m_grid[y][x];
+            }
+        }
+        m_state = READY;
     }
 } // gol

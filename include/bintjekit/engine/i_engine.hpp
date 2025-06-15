@@ -14,16 +14,15 @@
 namespace bnjkit {
     namespace engine {
         struct PlayGround;
-        /**
-         * @class IEngine
-         * @brief An abstract interface for the engine module within an application system.
-         *
-         * This class defines the core functionalities that an engine module must provide,
-         * including initialization, configuration, event handling, and updating.
-         * Derived classes must implement these pure virtual functions.
-         */
+
         class IEngine : public bnjkit::core::IModule {
         public:
+            enum State {
+                READY,
+                FINISH,
+                EMPTY,
+            };
+
             IEngine();
             ~IEngine() override;
             void initialise() override;
@@ -31,10 +30,15 @@ namespace bnjkit {
             virtual void update();
             virtual void on_sfml_event(const sf::Event &event);
             [[nodiscard]] PlayGround &play_ground() const;
+            [[nodiscard]] State state() const;
 
         protected:
+            State m_state{EMPTY};
             std::unique_ptr<PlayGround> m_play_ground;
             std::shared_ptr<spdlog::logger> m_logger;
+
+        public:
+            static std::string state_to_string(State state);
         };
     } // engine
 } // bnjkit

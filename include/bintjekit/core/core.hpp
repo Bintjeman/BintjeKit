@@ -9,6 +9,8 @@
 #include <memory>
 #include <time/time.hpp>
 #include <spdlog/fwd.h>
+#include "bintjekit/event_manager/i_event_listener.hpp"
+
 namespace bnjkit {
     namespace window {
         class IMainWindow;
@@ -28,32 +30,16 @@ namespace bnjkit {
         class ConfigurationManager;
     } // conf
     namespace core {
-        /**
-         * @class Core
-         * @brief Represents the core management class responsible for integrating and managing essential system components.
-         *
-         * The Core class encapsulates functionality to manage the primary components
-         * of the system, including the window, event manager, engine, renderer, and engine renderer.
-         * It operates as the central entity where these modules are initialized, integrated, and executed.
-         * This class ensures that all modules are properly connected and runs the main application loop.
-         */
-        class Core {
+        class Core : public event::IEventListener {
         public:
+            enum class State {
+                RUNNING,
+                PAUSED,
+                STOPPED
+            };
+
             Core();
             ~Core();
-            /**
-             * @brief Sets the core system modules required for the main application to function.
-             *
-             * This method initializes and assigns the essential modules to the core system.
-             * The provided modules include the main window, event manager, engine, renderer,
-             * and engine renderer, all of which will be utilized in the application lifecycle.
-             *
-             * @param window A unique pointer to an instance of IMainWindow representing the main application window.
-             * @param event_manager A unique pointer to an instance of IEventManager responsible for managing events.
-             * @param engine A unique pointer to an instance of IEngine to manage the application engine.
-             * @param renderer A unique pointer to an instance of IRenderer for rendering operations.
-             * @param engine_renderer A unique pointer to an instance of IEngineRenderer for rendering engine-related components.
-             */
             void set_modules(std::unique_ptr<window::IMainWindow> window,
                              std::unique_ptr<event::IEventManager> event_manager,
                              std::unique_ptr<engine::IEngine> engine,
@@ -61,20 +47,12 @@ namespace bnjkit {
                              std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
                              std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
 
-            /**
-             * @brief Executes the main application loop, managing system modules to ensure continuous functionality.
-             *
-             * The `run` method initializes the primary operations of the application by
-             * starting the main loop. It ensures that the application window is displayed,
-             * events are processed, and the engine and renderer operate in tandem until the
-             * window is closed. It facilitates interaction among all integrated core modules.
-             *
-             * This method is essential for coordinating the functionality of the window,
-             * event management, engine updates, and rendering pipeline in a synchronized manner.
-             */
             void run();
+            void on_sfml_event(const sf::Event &event) override;
+            void pause_button();
 
         private:
+            State m_state{State::STOPPED};
             time::Pulser engine_pulser;
             time::Pulser renderer_pulser;
             time::Pulser window_pulser;
@@ -87,10 +65,10 @@ namespace bnjkit {
             std::shared_ptr<conf::ConfigurationManager> m_config_manager;
             std::shared_ptr<spdlog::logger> m_logger;
 
-
         public:
             Core(const Core &) = delete;
             Core &operator=(const Core &) = delete;
+            static std::string state_to_string(State state);
         };
     } // core
 } // bnjkit

@@ -11,15 +11,19 @@
 
 namespace gol {
     class GameOfLife : public bnjkit::engine::IEngine {
-        public:
+    public:
         GameOfLife();
+        void initialise() override;
         void update() override;
-        const std::vector<std::vector<bool>>& get_grid() const;
-    private:
-        int count_neighbors(int x, int y);
+        [[nodiscard]] const std::vector<std::vector<bool> > &get_grid() const;
+        void on_sfml_event(const sf::Event &event) override;
+        void new_world();
 
+    private:
         static constexpr int GRID_WIDTH = 100;
         static constexpr int GRID_HEIGHT = 100;
+        int count_neighbors(int x, int y);
+
         std::vector<std::vector<bool> > m_grid;
         std::vector<std::vector<bool> > m_next_grid;
     };

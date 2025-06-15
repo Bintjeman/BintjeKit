@@ -107,6 +107,7 @@ namespace bnjkit::core {
         if (m_event_manager) {
             m_event_manager->register_listener(m_window.get());
             m_event_manager->register_listener(m_renderer.get());
+            m_event_manager->register_listener(core.get());
             m_event_manager->set_imgui_renderer(m_imgui_renderer.get());
             m_logger->debug("Setting event manager");
         }
@@ -122,6 +123,11 @@ namespace bnjkit::core {
         if (m_imgui_renderer) {
             m_imgui_renderer->set_window(m_window.get());
         }
+        m_engine->initialise();
+        m_renderer->initialise();
+        m_engine_renderer->initialise();
+        m_event_manager->initialise();
+        m_window->initialise();
         core->set_modules(
             std::move(m_window),
             std::move(m_event_manager),
