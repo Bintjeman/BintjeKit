@@ -14,10 +14,12 @@
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
+#include "bintjekit/event_manager/i_core_event_handler.hpp"
 // defaults modules
 #include "bintjekit/window/default_main_window.hpp"
 #include "bintjekit/event_manager/default_event_manager.hpp"
 #include "bintjekit/renderer/default_renderer.hpp"
+#include "bintjekit/event_manager/default_core_event_handler.hpp"
 
 namespace bnjkit::core {
     CoreBuilder::CoreBuilder() {
@@ -71,6 +73,12 @@ namespace bnjkit::core {
         return *this;
     }
 
+    CoreBuilder &CoreBuilder::set_core_event_handler(std::unique_ptr<event::ICoreEventHandler> core_event_handler) {
+        m_logger->info("Setting core event handler");
+        m_event_manager->set_core_event_handler(std::move(core_event_handler));
+        return *this;
+    }
+
     std::unique_ptr<Core> CoreBuilder::build() {
         m_logger->info("Building Core");
         auto core = std::make_unique<Core>();
@@ -104,7 +112,14 @@ namespace bnjkit::core {
             m_engine_renderer.reset();
             m_engine_renderer = std::make_unique<renderer::IEngineRenderer>();
         }
+        if (!m_core_event_handler) {
+            m_logger->warn("No core event handler set. Using interface core event handler module");
+            m_core_event_handler.reset();
+            m_core_event_handler = std::make_unique<event::DefaultCoreEventHandler>();
+        }
         if (m_event_manager) {
+            m_core_event_handler->set_core(core.get());
+            m_event_manager->set_core_event_handler(std::move(m_core_event_handler));
             m_event_manager->register_listener(m_window.get());
             m_event_manager->register_listener(m_renderer.get());
             m_event_manager->register_listener(core.get());

@@ -11,6 +11,8 @@
 #include "bintjekit/core/logger.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
+#include "bintjekit/event_manager/i_core_event_handler.hpp"
+
 namespace bnjkit {
     namespace event {
         IEventManager::IEventManager() {
@@ -25,6 +27,11 @@ namespace bnjkit {
         void IEventManager::set_imgui_renderer(renderer::IImGuiRenderer *renderer) {
             m_logger->info("Setting imgui renderer");
             m_imgui_renderer = renderer;
+        }
+
+        void IEventManager::set_core_event_handler(std::unique_ptr<ICoreEventHandler> core_event_handler) {
+            m_logger->info("Setting core event handler");
+            m_core_event_handler = std::move(core_event_handler);
         }
 
         void IEventManager::process_events(sf::Window &window) {

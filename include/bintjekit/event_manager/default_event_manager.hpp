@@ -10,15 +10,6 @@
 
 namespace bnjkit {
     namespace event {
-        /**
-         * @class DefaultEventManager
-         * @brief Implements the IEventManager interface to handle event management.
-         *
-         * The DefaultEventManager is responsible for managing event listeners
-         * and processing events as part of the system's event-handling mechanism.
-         * It provides initialization and configuration functionalities required
-         * for the event management module.
-         */
         class DefaultEventManager : public IEventManager {
         public:
             DefaultEventManager();
