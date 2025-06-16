@@ -11,6 +11,8 @@
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/logger.hpp"
 #include "bintjekit/renderer/i_bnjkit_imgui.hpp"
+#include "bintjekit/renderer/i_engine_renderer.hpp"
+#include "bintjekit/window/i_main_window.hpp"
 
 namespace bnjkit {
     namespace renderer {
@@ -50,14 +52,31 @@ namespace bnjkit {
             m_render_window->setView(m_gui_view);
         }
 
-        void IRenderer::set_engine_renderer(renderer::IEngineRenderer *engine_renderer) {
-            m_logger->info("Setting engine renderer");
-            m_engine_renderer = engine_renderer;
+        void IRenderer::set_render_window(sf::RenderWindow *window) {
+            m_logger->info("Setting render window");
+            m_render_window = window;
+            m_engine_view = window->getDefaultView();
+            m_gui_view = window->getDefaultView();
         }
 
         void IRenderer::set_imgui_renderer(IImGuiRenderer *imgui_renderer) {
             m_logger->info("Setting imgui renderer");
             m_imgui_renderer = imgui_renderer;
+        }
+
+        void IRenderer::set_engine_renderer(const IEngineRenderer *engine_renderer) {
+            m_logger->info("Setting engine renderer");
+            m_engine_renderer = engine_renderer;
+        }
+
+        void IRenderer::set_core(const core::Core *core) {
+            m_logger->info("Setting core");
+            m_core = core;
+        }
+
+        void IRenderer::set_engine(const engine::IEngine *engine) {
+            m_logger->info("Setting engine");
+            m_engine = engine;
         }
 
         void IRenderer::resize_views() {
@@ -94,18 +113,6 @@ namespace bnjkit {
         void IRenderer::end_frame() {
             m_imgui_renderer->render();
             m_render_window->display();
-        }
-
-        void IRenderer::set_render_window(sf::RenderWindow *window) {
-            m_logger->info("Setting render window");
-            m_render_window = window;
-            m_engine_view = window->getDefaultView();
-            m_gui_view = window->getDefaultView();
-        }
-
-        void IRenderer::set_engine(engine::IEngine *engine) {
-            m_logger->info("Setting engine");
-            m_engine = engine;
         }
     } // renderer
 } // bnjkit

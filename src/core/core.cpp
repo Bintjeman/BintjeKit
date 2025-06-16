@@ -12,7 +12,7 @@
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/configuration/configuration_manager.hpp"
-
+#include "bintjekit/renderer/i_engine_renderer.hpp"
 namespace bnjkit::core {
     Core::Core() {
         m_logger = Logger::get_logger(module_names::CORE);
@@ -89,6 +89,10 @@ namespace bnjkit::core {
             default:
                 break;
         }
+    }
+
+    Core::State Core::state() const {
+        return m_state;
     }
 
     std::string Core::state_to_string(State state) {

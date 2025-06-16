@@ -117,6 +117,7 @@ namespace bnjkit::core {
             m_renderer->set_render_window(m_window.get());
             m_renderer->set_engine_renderer(m_engine_renderer.get());
             m_renderer->set_imgui_renderer(m_imgui_renderer.get());
+            m_renderer->set_core(core.get());
         }
         if (m_engine_renderer) {
             m_engine_renderer->set_engine(m_engine.get());

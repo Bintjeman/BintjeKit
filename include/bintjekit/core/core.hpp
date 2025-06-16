@@ -50,6 +50,7 @@ namespace bnjkit {
             void run();
             void on_sfml_event(const sf::Event &event) override;
             void pause_button();
+            [[nodiscard]] State state() const;
 
         private:
             State m_state{State::STOPPED};

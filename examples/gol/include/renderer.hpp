@@ -14,6 +14,7 @@ namespace gol {
     public:
         Renderer();
         void on_sfml_event(const sf::Event &event) override;
+        void render_gui() override;
 
     private:
     };
