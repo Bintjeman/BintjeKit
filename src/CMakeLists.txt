@@ -63,3 +63,31 @@ install(FILES
         ${PROJECT_BINARY_DIR}/BintjeKitConfigVersion.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BintjeKit
 )
+install(TARGETS
+        bintjekit
+        time
+        spdlog
+        nlohmann_json
+        EXPORT BintjeKitTargets
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(
+        EXPORT BintjeKitTargets
+        FILE BintjeKitTargets.cmake
+        NAMESPACE BintjeKit::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BintjeKit
+)
+install(
+        DIRECTORY
+        ${PROJECT_SOURCE_DIR}/include/bintjekit
+        ${PROJECT_SOURCE_DIR}/common/include/bintjekit
+        DESTINATION
+        ${CMAKE_INSTALL_INCLUDEDIR}
+        FILES_MATCHING
+        PATTERN "*.hpp"
+        PATTERN "*.h"
+)

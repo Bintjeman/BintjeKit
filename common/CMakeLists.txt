@@ -6,9 +6,15 @@ add_library(time OBJECT
 )
 target_include_directories(time
         PUBLIC
-        ${CMAKE_SOURCE_DIR}/common/include    # Changé pour utiliser le chemin absolu depuis la racine
-        PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+
 )
 
 target_link_libraries(time PRIVATE SFML::System)
+
+# Installation des headers de time
+install(
+        DIRECTORY ${PROJECT_SOURCE_DIR}/common/include/time
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
