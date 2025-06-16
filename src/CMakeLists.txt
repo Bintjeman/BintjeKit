@@ -6,6 +6,7 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 add_library(bintjekit STATIC)
 ################################################################################
+add_subdirectory(core)
 add_subdirectory(window)
 add_subdirectory(event_manager)
 add_subdirectory(engine)
