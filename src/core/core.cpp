@@ -61,6 +61,7 @@ namespace bnjkit::core {
     }
 
     void Core::on_sfml_event(const sf::Event &event) {
+        m_logger->debug("Core: on_sfml_event");
         auto shift [[maybe_unused]] = []() {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift) || sf::Keyboard::isKeyPressed(
                     sf::Keyboard::Key::LShift)) {
@@ -70,6 +71,8 @@ namespace bnjkit::core {
         };
         if (const auto &key = event.getIf<sf::Event::KeyPressed>()) {
             if (key->scancode == sf::Keyboard::Scancode::Space) {
+                m_logger->debug("Core: on_sfml_event: Space");
+                pause_button();
             }
         }
     }
@@ -80,11 +83,10 @@ namespace bnjkit::core {
                 m_state = State::PAUSED;
                 break;
             case State::PAUSED:
+            case State::STOPPED:
                 if (m_engine->state() == engine::IEngine::State::READY) {
                     m_state = State::RUNNING;
                 }
-                break;
-            case State::STOPPED:
                 break;
             default:
                 break;

@@ -23,10 +23,15 @@ namespace gol {
     }
 
     void Renderer::render_gui() {
-
         ImGui::Begin("Informations");
         ImGui::Text("Core state: %s", bnjkit::core::Core::state_to_string(m_core->state()).c_str());
-        // ImGui::Text("Gol state: %s", );
+        ImGui::Text("Gol state: %s", GameOfLife::state_to_string(m_gol->state()).c_str());
         ImGui::End();
+    }
+
+    void Renderer::set_engine(const bnjkit::engine::IEngine *engine) {
+        m_logger->info("Setting engine");
+        IRenderer::set_engine(engine);
+        m_gol = dynamic_cast<const GameOfLife *>(engine);
     }
 } // gol
