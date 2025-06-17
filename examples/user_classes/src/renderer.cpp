@@ -8,6 +8,7 @@
 #include <SFML/Graphics/Text.hpp>
 // #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "bintjekit/renderer/i_engine_renderer.hpp""
 #include "engine.hpp"
 
 namespace usr {
@@ -41,7 +42,7 @@ namespace usr {
         m_render_window->draw(text_ticks);
     }
 
-    void Renderer::set_engine(bnjkit::engine::IEngine *engine) {
+    void Renderer::set_engine(const bnjkit::engine::IEngine *engine) {
         IRenderer::set_engine(engine);
         m_usr_engine = dynamic_cast<const Engine *>(engine);
     }
