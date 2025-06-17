@@ -10,7 +10,6 @@
 #include <vector>
 #include <SFML/Window/Event.hpp>
 #include <spdlog/fwd.h>
-#include "bintjekit/core/i_module.hpp"
 #include "bintjekit/renderer/i_bnjkit_imgui.hpp"
 
 
@@ -27,10 +26,10 @@ namespace bnjkit {
         class ICoreEventHandler;
         class IEventListener;
 
-        class IEventManager /*: public core::IModule*/ {
+        class EventManager  {
         public:
-            IEventManager();
-            ~IEventManager() /*override*/;
+            EventManager();
+            ~EventManager();
             void set_imgui_renderer(renderer::IImGuiRenderer *renderer);
             void set_core_event_handler(std::unique_ptr<ICoreEventHandler> core_event_handler);
             void process_events(sf::Window &window);
@@ -38,7 +37,7 @@ namespace bnjkit {
             void unregister_listener(IEventListener *listener);
 
         protected:
-            /*virtual*/ void general_event(const sf::Event &event);
+            void general_event(const sf::Event &event);
             std::unique_ptr<ICoreEventHandler> m_core_event_handler;
             std::vector<IEventListener *> m_listeners;
             renderer::IImGuiRenderer *m_imgui_renderer;

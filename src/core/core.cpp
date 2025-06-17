@@ -29,7 +29,7 @@ namespace bnjkit::core {
     }
 
     void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
-                           std::unique_ptr<event::IEventManager> event_manager,
+                           std::unique_ptr<event::EventManager> event_manager,
                            std::unique_ptr<engine::IEngine> engine,
                            std::unique_ptr<renderer::IRenderer> renderer,
                            std::unique_ptr<renderer::IEngineRenderer> engine_renderer,

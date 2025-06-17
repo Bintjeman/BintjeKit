@@ -14,7 +14,7 @@ namespace bnjkit {
         class IMainWindow;
     } // window
     namespace event {
-        class IEventManager;
+        class EventManager;
         class ICoreEventHandler;
     } // event
     namespace engine {
@@ -37,7 +37,7 @@ namespace bnjkit {
             CoreBuilder &set() {
                 if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
                     m_window = std::make_unique<T>();
-                } else if constexpr (std::is_base_of_v<event::IEventManager, T>) {
+                } else if constexpr (std::is_base_of_v<event::EventManager, T>) {
                     m_event_manager = std::make_unique<T>();
                 } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
                     m_engine = std::make_unique<T>();
@@ -62,7 +62,7 @@ namespace bnjkit {
             // }
 
             CoreBuilder &set_window_module(std::unique_ptr<window::IMainWindow> window);
-            CoreBuilder &set_event_manager_module(std::unique_ptr<event::IEventManager> event_manager);
+            CoreBuilder &set_event_manager_module(std::unique_ptr<event::EventManager> event_manager);
             CoreBuilder &set_engine_module(std::unique_ptr<engine::IEngine> engine);
             CoreBuilder &set_renderer_module(std::unique_ptr<renderer::IRenderer> renderer);
             CoreBuilder &set_engine_renderer(std::unique_ptr<renderer::IEngineRenderer> engine_renderer);
@@ -72,7 +72,7 @@ namespace bnjkit {
 
         private:
             std::unique_ptr<window::IMainWindow> m_window;
-            std::unique_ptr<event::IEventManager> m_event_manager;
+            std::unique_ptr<event::EventManager> m_event_manager;
             std::unique_ptr<renderer::IRenderer> m_renderer;
             std::unique_ptr<engine::IEngine> m_engine;
             std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;

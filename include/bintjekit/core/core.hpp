@@ -15,7 +15,7 @@ namespace bnjkit {
         class IMainWindow;
     } // window
     namespace event {
-        class IEventManager;
+        class EventManager;
     } // event
     namespace engine {
         class IEngine;
@@ -41,7 +41,7 @@ namespace bnjkit {
             Core();
             ~Core();
             void set_modules(std::unique_ptr<window::IMainWindow> window,
-                             std::unique_ptr<event::IEventManager> event_manager,
+                             std::unique_ptr<event::EventManager> event_manager,
                              std::unique_ptr<engine::IEngine> engine,
                              std::unique_ptr<renderer::IRenderer> renderer,
                              std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
@@ -68,7 +68,7 @@ namespace bnjkit {
 
         private:
             std::unique_ptr<window::IMainWindow> m_main_window;
-            std::unique_ptr<event::IEventManager> m_event_manager;
+            std::unique_ptr<event::EventManager> m_event_manager;
             std::unique_ptr<renderer::IRenderer> m_renderer;
             std::unique_ptr<engine::IEngine> m_engine;
             std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;

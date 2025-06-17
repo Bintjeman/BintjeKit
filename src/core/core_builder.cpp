@@ -42,7 +42,7 @@ namespace bnjkit::core {
         return *this;
     }
 
-    CoreBuilder &CoreBuilder::set_event_manager_module(std::unique_ptr<event::IEventManager> event_manager) {
+    CoreBuilder &CoreBuilder::set_event_manager_module(std::unique_ptr<event::EventManager> event_manager) {
         m_logger->info("Setting event manager module");
         m_event_manager = std::move(event_manager);
         return *this;
@@ -90,7 +90,7 @@ namespace bnjkit::core {
         if (!m_event_manager) {
             m_logger->warn("No event manager module set. Using default event manager module");
             m_event_manager.reset();
-            m_event_manager = std::make_unique<event::IEventManager>();
+            m_event_manager = std::make_unique<event::EventManager>();
         }
         if (!m_renderer) {
             m_logger->warn("No renderer module set. Using default renderer module");
