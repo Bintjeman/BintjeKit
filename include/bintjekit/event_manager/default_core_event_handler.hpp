@@ -8,7 +8,7 @@
 #define DEFAULTCOREEVENTHANDLER_HPP
 #pragma once
 #include "bintjekit/event_manager/i_core_event_handler.hpp"
-
+#include <SFML/Window/Event.hpp>
 namespace bnjkit {
     namespace event {
         class DefaultCoreEventHandler : public ICoreEventHandler {

@@ -9,7 +9,6 @@
 #include <memory>
 #include <time/time.hpp>
 #include <spdlog/fwd.h>
-#include "bintjekit/event_manager/i_event_listener.hpp"
 
 namespace bnjkit {
     namespace window {
@@ -30,8 +29,9 @@ namespace bnjkit {
         class ConfigurationManager;
     } // conf
     namespace core {
-        class Core : public event::IEventListener {
+        class Core {
         public:
+
             enum class State {
                 RUNNING,
                 PAUSED,
@@ -39,7 +39,7 @@ namespace bnjkit {
             };
 
             Core();
-            ~Core() override;
+            ~Core();
             void set_modules(std::unique_ptr<window::IMainWindow> window,
                              std::unique_ptr<event::IEventManager> event_manager,
                              std::unique_ptr<engine::IEngine> engine,
@@ -48,15 +48,25 @@ namespace bnjkit {
                              std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
 
             void run();
-            void on_sfml_event(const sf::Event &event) override;
-            void pause_button();
             [[nodiscard]] State state() const;
+            [[nodiscard]] float engine_frequency();
+            [[nodiscard]] float renderer_frequency();
+            [[nodiscard]] float window_frequency();
+            [[nodiscard]] float engine_effective_frequency();
+            [[nodiscard]] float renderer_effective_frequency();
+            [[nodiscard]] float window_effective_frequency();
+            void set_state(const State& state);
+            void set_engine_frequency(float frequency);
+            void set_renderer_frequency(float frequency);
+            void set_window_frequency(float frequency);
 
-        private:
+        protected:
             State m_state{State::STOPPED};
             time::Pulser engine_pulser;
             time::Pulser renderer_pulser;
             time::Pulser window_pulser;
+
+        private:
             std::unique_ptr<window::IMainWindow> m_main_window;
             std::unique_ptr<event::IEventManager> m_event_manager;
             std::unique_ptr<renderer::IRenderer> m_renderer;

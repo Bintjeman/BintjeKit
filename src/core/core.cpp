@@ -13,6 +13,7 @@
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/configuration/configuration_manager.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
+
 namespace bnjkit::core {
     Core::Core() {
         m_logger = Logger::get_logger(module_names::CORE);
@@ -60,41 +61,48 @@ namespace bnjkit::core {
         m_logger->info("Core stopped");
     }
 
-    void Core::on_sfml_event(const sf::Event &event) {
-        m_logger->debug("Core: on_sfml_event");
-        auto shift [[maybe_unused]] = []() {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift) || sf::Keyboard::isKeyPressed(
-                    sf::Keyboard::Key::LShift)) {
-                return true;
-            }
-            return false;
-        };
-        if (const auto &key = event.getIf<sf::Event::KeyPressed>()) {
-            if (key->scancode == sf::Keyboard::Scancode::Space) {
-                m_logger->debug("Core: on_sfml_event: Space");
-                pause_button();
-            }
-        }
-    }
-
-    void Core::pause_button() {
-        switch (m_state) {
-            case State::RUNNING:
-                m_state = State::PAUSED;
-                break;
-            case State::PAUSED:
-            case State::STOPPED:
-                if (m_engine->state() == engine::IEngine::State::READY) {
-                    m_state = State::RUNNING;
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
     Core::State Core::state() const {
         return m_state;
+    }
+
+    float Core::engine_frequency() {
+        return engine_pulser.frequency();
+    }
+
+    float Core::renderer_frequency() {
+        return renderer_pulser.frequency();
+    }
+
+    float Core::window_frequency() {
+        return window_pulser.frequency();
+    }
+
+    float Core::engine_effective_frequency() {
+        return engine_pulser.effective_frequency();
+    }
+
+    float Core::renderer_effective_frequency() {
+        return renderer_pulser.effective_frequency();
+    }
+
+    float Core::window_effective_frequency() {
+        return window_pulser.effective_frequency();
+    }
+
+    void Core::set_state(const State &state) {
+        m_state = state;
+    }
+
+    void Core::set_engine_frequency(float frequency) {
+        engine_pulser.set_frequency(frequency);
+    }
+
+    void Core::set_renderer_frequency(float frequency) {
+        renderer_pulser.set_frequency(frequency);
+    }
+
+    void Core::set_window_frequency(float frequency) {
+        window_pulser.set_frequency(frequency);
     }
 
     std::string Core::state_to_string(State state) {

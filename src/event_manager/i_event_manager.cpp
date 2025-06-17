@@ -17,6 +17,7 @@ namespace bnjkit {
     namespace event {
         IEventManager::IEventManager() {
             m_logger = core::Logger::get_logger(core::module_names::EVENT);
+            m_logger->set_level(spdlog::level::trace);
             m_logger->info("Constructor of IEventManager");
         }
 
@@ -40,6 +41,8 @@ namespace bnjkit {
                 for (auto *listener: m_listeners) {
                     listener->on_sfml_event(*event);
                 }
+                m_logger->trace("Processing events");
+                m_core_event_handler->on_sfml_event(*event);
                 general_event(*event);
             }
         }
@@ -60,6 +63,7 @@ namespace bnjkit {
         }
 
         void IEventManager::general_event(const sf::Event &event[[maybe_unused]]) {
+            m_logger->trace("General event");
         }
     } // event
 } // bnjkit

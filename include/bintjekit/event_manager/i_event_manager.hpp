@@ -27,10 +27,10 @@ namespace bnjkit {
         class ICoreEventHandler;
         class IEventListener;
 
-        class IEventManager : public core::IModule {
+        class IEventManager /*: public core::IModule*/ {
         public:
             IEventManager();
-            ~IEventManager() override;
+            ~IEventManager() /*override*/;
             void set_imgui_renderer(renderer::IImGuiRenderer *renderer);
             void set_core_event_handler(std::unique_ptr<ICoreEventHandler> core_event_handler);
             void process_events(sf::Window &window);
@@ -38,7 +38,7 @@ namespace bnjkit {
             void unregister_listener(IEventListener *listener);
 
         protected:
-            virtual void general_event(const sf::Event &event);
+            /*virtual*/ void general_event(const sf::Event &event);
             std::unique_ptr<ICoreEventHandler> m_core_event_handler;
             std::vector<IEventListener *> m_listeners;
             renderer::IImGuiRenderer *m_imgui_renderer;

@@ -90,7 +90,7 @@ namespace bnjkit::core {
         if (!m_event_manager) {
             m_logger->warn("No event manager module set. Using default event manager module");
             m_event_manager.reset();
-            m_event_manager = std::make_unique<event::DefaultEventManager>();
+            m_event_manager = std::make_unique<event::IEventManager>();
         }
         if (!m_renderer) {
             m_logger->warn("No renderer module set. Using default renderer module");
@@ -122,7 +122,6 @@ namespace bnjkit::core {
             m_event_manager->set_core_event_handler(std::move(m_core_event_handler));
             m_event_manager->register_listener(m_window.get());
             m_event_manager->register_listener(m_renderer.get());
-            m_event_manager->register_listener(core.get());
             m_event_manager->set_imgui_renderer(m_imgui_renderer.get());
             m_event_manager->register_listener(m_engine.get());
             m_logger->debug("Setting event manager");
@@ -143,7 +142,7 @@ namespace bnjkit::core {
         m_engine->initialise();
         m_renderer->initialise();
         m_engine_renderer->initialise();
-        m_event_manager->initialise();
+        // m_event_manager->initialise();
         m_window->initialise();
         core->set_modules(
             std::move(m_window),

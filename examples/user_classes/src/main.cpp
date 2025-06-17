@@ -29,9 +29,7 @@
 #include <memory>
 #include <bintjekit/core/core.hpp>
 #include <bintjekit/core/core_builder.hpp>
-// #include <bintjekit/configuration/configuration_manager.hpp>
 #include "main_window.hpp"
-#include "event_manager.hpp"
 #include "engine.hpp"
 #include "engine_renderer.hpp"
 #include "renderer.hpp"
@@ -39,7 +37,6 @@
 int main() {
     auto core = bnjkit::core::CoreBuilder()
             .set_window_module(std::make_unique<usr::MainWindow>())
-            .set_event_manager_module(std::make_unique<usr::EventManager>())
             .set_engine_module(std::make_unique<usr::Engine>())
             .set_renderer_module(std::make_unique<usr::Renderer>())
             .set_engine_renderer(std::make_unique<usr::EngineRenderer>())

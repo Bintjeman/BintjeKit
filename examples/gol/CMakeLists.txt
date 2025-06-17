@@ -6,6 +6,7 @@ add_executable(gol
         src/game_of_life.cpp
         src/game_of_life_renderer.cpp
         src/renderer.cpp
+        src/core_event_handler.cpp
 )
 target_include_directories(gol PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include

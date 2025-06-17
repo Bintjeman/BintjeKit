@@ -7,7 +7,9 @@
 #define ICOREEVENTHANDLER_HPP
 #pragma once
 #include <memory>
-#include "i_event_listener.hpp"
+#include <spdlog/fwd.h>
+
+#include "SFML/Window/Event.hpp"
 
 namespace bnjkit {
     namespace core {
@@ -15,16 +17,17 @@ namespace bnjkit {
     }
 
     namespace event {
-        class ICoreEventHandler : public IEventListener {
+        class ICoreEventHandler {
         public:
-            virtual ~ICoreEventHandler() override;
+            ICoreEventHandler();
+            virtual ~ICoreEventHandler();
             virtual void set_core(core::Core *core);
+            virtual void on_sfml_event(const sf::Event &event) =0;
 
         protected:
             core::Core *m_core;
             std::shared_ptr<spdlog::logger> m_logger;
         };
-
     } // event
 } // bnjkit
 #endif //ICOREEVENTHANDLER_HPP
