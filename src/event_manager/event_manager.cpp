@@ -4,7 +4,7 @@
  * @name i_event_manager.cpp
  */
 
-#include "bintjekit/event_manager/i_event_manager.hpp"
+#include "bintjekit/event_manager/event_manager.hpp"
 #include <algorithm>
 #include <SFML/Window/Window.hpp>
 #include <imgui-SFML.h>

@@ -5,7 +5,7 @@ target_sources(bintjekit PRIVATE
         default_event_manager.cpp
         default_core_event_handler.cpp
         i_core_event_handler.cpp
-        i_event_manager.cpp
+        event_manager.cpp
         i_event_listener.cpp
 
 )

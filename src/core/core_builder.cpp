@@ -10,7 +10,7 @@
 #include "bintjekit/core/logger.hpp"
 // Interface modules
 #include "bintjekit/window/i_main_window.hpp"
-#include "bintjekit/event_manager/i_event_manager.hpp"
+#include "bintjekit/event_manager/event_manager.hpp"
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
