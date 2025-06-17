@@ -16,3 +16,4 @@ target_link_libraries(gol PRIVATE
         BintjeKit::BintjeKit
         SFML::Graphics
 )
+install(TARGETS gol DESTINATION bin)
