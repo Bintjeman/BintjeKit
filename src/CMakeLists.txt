@@ -38,7 +38,7 @@ set_target_properties(bintjekit PROPERTIES
         POSITION_INDEPENDENT_CODE ON
 )
 configure_compiler_options(bintjekit)
-enable_lto(bintjekit)
+#enable_lto(bintjekit)
 ################################################################################
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)
 ################################################################################

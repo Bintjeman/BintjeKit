@@ -6,6 +6,10 @@ message("Actual *.cmake: ${CMAKE_CURRENT_LIST_FILE}")
 # Modules
 # Tests
 option(BINTJEKIT_BUILD_TESTS "Compile tests" ON)
+option(BINTJEKIT_BUILD_TESTS_TIME "Compile time tests" ON)
+if (NOT BINTJEKIT_BUILD_TESTS)
+    option(BINTJEKIT_BUILD_TESTS_TIME "Forced OFF : Compile time tests" OFF)
+endif()
 # Examples
 option(BINTJEKIT_BUILD_EXAMPLES "Compile examples" ON)
 option(BINTJEKIT_BUILD_EXAMPLE_MINIMAL "Compile minimal example" ON)

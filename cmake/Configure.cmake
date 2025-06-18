@@ -6,3 +6,8 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 ################################################################################
 set(CMAKE_DEBUG_POSTFIX d)
 ################################################################################
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+    message(STATUS "LTO activé (Release)")
+endif()
+################################################################################

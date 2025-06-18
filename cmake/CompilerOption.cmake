@@ -77,19 +77,40 @@ function(enable_lto target)
         message(STATUS "LTO désactivé pour ${target} (actif uniquement en Release)")
         return()
     endif ()
-    include(CheckIPOSupported)
-    check_ipo_supported(RESULT supported OUTPUT error)
-    if (supported)
-        set_target_properties(${target} PROPERTIES
-                INTERPROCEDURAL_OPTIMIZATION TRUE
+        get_target_property(target_type ${target} TYPE)
+    if (target_type STREQUAL "INTERFACE_LIBRARY")
+        message(STATUS "Skip LTO pour ${target} (INTERFACE_LIBRARY)")
+        return()
+    endif ()
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        # Activation directe du LTO pour Clang
+        target_compile_options(${target} PRIVATE -flto=thin)
+        target_link_options(${target} PRIVATE
+                -flto=thin
+                -Wl,--lto-O3
         )
+        message(STATUS "LTO (thin) activé pour ${target} avec Clang")
     else ()
-        message(WARNING "LTO n'est pas supporté: ${error}")
+        # Utilisation de la méthode standard CMake pour les autres compilateurs
+        include(CheckIPOSupported)
+        check_ipo_supported(RESULT supported OUTPUT error)
+        if (supported)
+            set_target_properties(${target} PROPERTIES
+                    INTERPROCEDURAL_OPTIMIZATION TRUE
+            )
+        else ()
+            message(WARNING "LTO n'est pas supporté: ${error}")
+        endif ()
     endif ()
 endfunction()
 function(configure_external_library_options target)
     if (NOT TARGET ${target})
         message(STATUS "La cible ${target} n'existe pas, ignore la configuration")
+        return()
+    endif ()
+    get_target_property(target_type ${target} TYPE)
+    if (target_type STREQUAL "INTERFACE_LIBRARY")
+        message(STATUS "Skip configuration pour ${target} (INTERFACE_LIBRARY)")
         return()
     endif ()
 
@@ -100,7 +121,6 @@ function(configure_external_library_options target)
                 INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${target},INTERFACE_INCLUDE_DIRECTORIES>
         )
     endif ()
-
     if (MSVC)
         target_compile_options(${target} PRIVATE
                 /W0
@@ -124,4 +144,9 @@ function(configure_external_library_options target)
         target_compile_definitions(${target} PRIVATE NDEBUG)
     endif ()
 
+endfunction()
+function(enable_lto_for_dependency dep_target)
+    if (TARGET ${dep_target})
+        enable_lto(${dep_target})
+    endif()
 endfunction()
