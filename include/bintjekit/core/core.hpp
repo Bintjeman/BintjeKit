@@ -10,6 +10,7 @@
 #include <time/time.hpp>
 #include <spdlog/fwd.h>
 
+
 namespace bnjkit {
     namespace window {
         class IMainWindow;
@@ -49,22 +50,22 @@ namespace bnjkit {
 
             void run();
             [[nodiscard]] State state() const;
-            [[nodiscard]] float engine_frequency();
-            [[nodiscard]] float renderer_frequency();
-            [[nodiscard]] float window_frequency();
-            [[nodiscard]] float engine_effective_frequency();
-            [[nodiscard]] float renderer_effective_frequency();
-            [[nodiscard]] float window_effective_frequency();
+            [[nodiscard]] long engine_frequency();
+            [[nodiscard]] long renderer_frequency();
+            [[nodiscard]] long window_frequency();
+            [[nodiscard]] long engine_effective_frequency();
+            [[nodiscard]] long renderer_effective_frequency();
+            [[nodiscard]] long window_effective_frequency();
             void set_state(const State& state);
-            void set_engine_frequency(float frequency);
-            void set_renderer_frequency(float frequency);
-            void set_window_frequency(float frequency);
+            void set_engine_frequency(long frequency);
+            void set_renderer_frequency(long frequency);
+            void set_window_frequency(long frequency);
 
         protected:
             State m_state{State::STOPPED};
-            time::Pulser engine_pulser;
-            time::Pulser renderer_pulser;
-            time::Pulser window_pulser;
+            time::Pulser<> engine_pulser;
+            time::Pulser<> renderer_pulser;
+            time::Pulser<> window_pulser;
 
         private:
             std::unique_ptr<window::IMainWindow> m_main_window;

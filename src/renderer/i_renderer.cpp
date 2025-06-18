@@ -69,7 +69,7 @@ namespace bnjkit {
             m_engine_renderer = engine_renderer;
         }
 
-        void IRenderer::set_core(const core::Core *core) {
+        void IRenderer::set_core(core::Core *core) {
             m_logger->info("Setting core");
             m_core = core;
         }

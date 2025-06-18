@@ -7,33 +7,52 @@
 #ifndef TIME_HPP
 #define TIME_HPP
 #pragma once
-#include <SFML/System/Clock.hpp>
-#include <SFML/System/Time.hpp>
+#include <chrono>
 
 namespace bnjkit {
     namespace time {
-        [[maybe_unused]] static sf::Time frequency_to_time(float frequency = 60.0f);
-        [[maybe_unused]] static float time_to_frequency(sf::Time time [[maybe_unused]]);
+        static constexpr long int LI_MAXIMUM = std::numeric_limits<long int>::max();
 
-        class Pulser {
+        template<typename Duration = std::chrono::milliseconds>
+        class Clock {
+        public:
+            using clock_type = std::chrono::high_resolution_clock;
+            using time_point = typename clock_type::time_point;
+            Clock();
+            void start();
+            void reset();
+            [[nodiscard]] auto get() const -> long int;
+            [[nodiscard]] auto get_frequency() const -> double;
+            static double calculate_frequency(long int duration);
+
+        protected:
+            time_point _start;
+            time_point _last;
+        };
+
+        template<typename Duration = std::chrono::milliseconds>
+        class Pulser : public Clock<Duration> {
         public:
             Pulser();
-            ~Pulser();
-            void start();
-            void set_time_per_frame(sf::Time time);
-            void set_frequency(float frequency);
-            [[nodiscard]] sf::Time time_per_frame() const;
-            [[nodiscard]] float frequency() const;
-            [[nodiscard]] sf::Time effective_time_per_frame() const;
-            [[nodiscard]] float effective_frequency() const;
-            bool pulse();
+            explicit Pulser(long int frequency);
             bool operator()();
+            void set_frequency(long int pulse_per_second);
+            void set_interval(long int pulse_duration);
+            bool pulse();
+            [[nodiscard]] long int effective_interval() const;
+            [[nodiscard]] long int effective_frequency() const;
+            [[nodiscard]] auto target_freqency() const -> long int;
 
         private:
-            sf::Clock m_clock;
-            sf::Time m_time_per_frame;
-            sf::Time m_effective_time_per_frame;
+            void calc_frequency();
+            bool always_{false};
+            bool never_{false};
+            long int target_frequency_{};
+            long int target_interval_{};
+            long int effective_interval_{};
         };
     } // time
 } // bnjkit
+#include "time/time.inl"
+
 #endif //TIME_HPP

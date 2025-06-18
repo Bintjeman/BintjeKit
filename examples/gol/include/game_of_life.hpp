@@ -20,8 +20,8 @@ namespace gol {
         void new_world();
 
     private:
-        static constexpr int GRID_WIDTH = 100;
-        static constexpr int GRID_HEIGHT = 100;
+        static constexpr int GRID_WIDTH = 250;
+        static constexpr int GRID_HEIGHT = 250;
         int count_neighbors(int x, int y);
 
         std::vector<std::vector<bool> > m_grid;
