@@ -8,7 +8,6 @@
 #define TIME_HPP
 #pragma once
 #include <chrono>
-
 namespace bnjkit {
     namespace time {
         static constexpr long int LI_MAXIMUM = std::numeric_limits<long int>::max();
@@ -19,6 +18,7 @@ namespace bnjkit {
             using clock_type = std::chrono::high_resolution_clock;
             using time_point = typename clock_type::time_point;
             Clock();
+            ~Clock();
             void start();
             void reset();
             [[nodiscard]] auto get() const -> long int;
@@ -54,5 +54,4 @@ namespace bnjkit {
     } // time
 } // bnjkit
 #include "time/time.inl"
-
 #endif //TIME_HPP

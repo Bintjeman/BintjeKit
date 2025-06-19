@@ -3,12 +3,17 @@
  * @date 18.06.25
  * @name time.inl.cpp
  */
+#ifndef  TIME_INL
+#define  TIME_INL
+#pragma once
 #include "time/time.hpp"
-
 namespace bnjkit::time {
     template<typename Duration>
     Clock<Duration>::Clock() {
         start();
+    }
+    template<typename Duration>
+    Clock<Duration>::~Clock() {
     }
 
     template<typename Duration>
@@ -37,7 +42,8 @@ namespace bnjkit::time {
         if (duration == 0) {
             return std::numeric_limits<double>::infinity();
         }
-        return 1.0 / std::chrono::duration_cast<std::chrono::duration<double> >(Duration(duration)).count();
+        return 1.0 / std::chrono::duration_cast<std::chrono::duration<double> >(Duration(duration)).
+               count();
     }
 
     // Implémentation de Pulser
@@ -64,8 +70,8 @@ namespace bnjkit::time {
             never_ = true;
             target_frequency_ = 0L;
         } else if (pulse_per_second < 0L) {
-            target_interval_ = -1L;
-            target_frequency_ = -1L;
+            target_interval_ = - 1L;
+            target_frequency_ = - 1L;
             always_ = true;
             never_ = false;
         } else {
@@ -85,8 +91,8 @@ namespace bnjkit::time {
     template<typename Duration>
     void Pulser<Duration>::set_interval(long int pulse_duration) {
         if (pulse_duration <= 0L) {
-            target_interval_ = -1L;
-            target_frequency_ = -1L;
+            target_interval_ = - 1L;
+            target_frequency_ = - 1L;
         } else {
             target_interval_ = pulse_duration;
         }
@@ -127,8 +133,8 @@ namespace bnjkit::time {
     void Pulser<Duration>::calc_frequency() {
         if (target_interval_ != 0L) {
             never_ = false;
-            if (target_interval_ == -1L) {
-                target_frequency_ = -1L;
+            if (target_interval_ == - 1L) {
+                target_frequency_ = - 1L;
                 always_ = true;
             } else {
                 target_frequency_ = Duration::period::den / target_interval_;
@@ -138,10 +144,6 @@ namespace bnjkit::time {
             always_ = false;
             target_frequency_ = 0L;
         }
-
     }
 }
-template class bnjkit::time::Clock<std::chrono::milliseconds>;
-template class bnjkit::time::Clock<std::chrono::microseconds>;
-template class bnjkit::time::Pulser<std::chrono::milliseconds>;
-template class bnjkit::time::Pulser<std::chrono::microseconds>;
+#endif // TIME_INL
