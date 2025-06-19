@@ -7,8 +7,10 @@ message("Actual *.cmake: ${CMAKE_CURRENT_LIST_FILE}")
 # Tests
 option(BINTJEKIT_BUILD_TESTS "Compile tests" ON)
 option(BINTJEKIT_BUILD_TESTS_TIME "Compile time tests" ON)
+option(BINTJEKIT_BUILD_TESTS_CONFIGURATION "Compile configuration tests" ON)
 if (NOT BINTJEKIT_BUILD_TESTS)
     option(BINTJEKIT_BUILD_TESTS_TIME "Forced OFF : Compile time tests" OFF)
+    option(BINTJEKIT_BUILD_TESTS_CONFIGURATION "Forced OFF : Compile configuration tests" OFF)
 endif()
 # Examples
 option(BINTJEKIT_BUILD_EXAMPLES "Compile examples" ON)
