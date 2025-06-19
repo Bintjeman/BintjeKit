@@ -27,7 +27,7 @@ namespace bnjkit {
         class IImGuiRenderer;
     } // renderer
     namespace conf {
-        class ConfigurationManager;
+        class Settings;
     } // conf
     namespace core {
         class Core {
@@ -74,7 +74,7 @@ namespace bnjkit {
             std::unique_ptr<engine::IEngine> m_engine;
             std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;
             std::unique_ptr<renderer::IImGuiRenderer> m_imgui_renderer;
-            std::shared_ptr<conf::ConfigurationManager> m_config_manager;
+            std::shared_ptr<conf::Settings> m_config_manager;
             std::shared_ptr<spdlog::logger> m_logger;
 
         public:

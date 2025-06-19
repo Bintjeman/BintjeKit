@@ -52,19 +52,10 @@ namespace bnjkit {
                 return false;
             }
         }
-
         void merge_json(nlohmann::json &target, const nlohmann::json &source) {
-            if (!source.is_object()) {
-                target = source;
-                return;
-            }
-            for (const auto &[key, value]: source.items()) {
-                if (value.is_object() && target.contains(key) && target[key].is_object()) {
-                    merge_json(target[key], value);
-                } else {
-                    target[key] = value;
-                }
-            }
+            nlohmann::json tmp_json = source;
+            tmp_json.merge_patch(target);
+            target = tmp_json;
         }
     } // conf
 } // bnjkit

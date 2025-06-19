@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
 target_sources(bintjekit PRIVATE
-        configuration_manager.cpp
-        configuration_node.cpp
+        settings.cpp
+        node.cpp
         utils.cpp
         sfml_json_adapter.cpp
 )
