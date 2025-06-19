@@ -25,10 +25,4 @@ namespace bnjkit {
         };
     } // core
 } // bnjkit
-#define BNJKIT_LOG_TRACE(logger, ...)    logger->trace(__VA_ARGS__)
-#define BNJKIT_LOG_INFO(logger, ...)     logger->info(__VA_ARGS__)
-#define BNJKIT_LOG_WARN(logger, ...)     logger->warn(__VA_ARGS__)
-#define BNJKIT_LOG_ERROR(logger, ...)    logger->error(__VA_ARGS__)
-#define BNJKIT_LOG_CRITICAL(logger, ...) logger->critical(__VA_ARGS__)
-
 #endif //LOGGER_HPP
