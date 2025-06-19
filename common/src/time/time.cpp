@@ -37,6 +37,9 @@ namespace bnjkit {
                        Duration(duration)).
                    count();
         }
+        Clock::time_point Clock::now() {
+            return clock_type::now();
+        }
 
         Pulser::Pulser() {
             set_frequency(60L);

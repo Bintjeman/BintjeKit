@@ -22,6 +22,7 @@ namespace bnjkit {
             [[nodiscard]] auto get() const -> long int;
             [[nodiscard]] auto get_frequency() const -> double;
             static double calculate_frequency(long int duration);
+            static time_point now();
 
         protected:
             time_point _start;

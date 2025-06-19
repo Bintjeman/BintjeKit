@@ -8,9 +8,8 @@
 #include <catch2/catch_template_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/generators/catch_generators_random.hpp>
+#include <catch2/generators/catch_generators_adapters.hpp>
 #include "time/time.hpp"
-
-#include "../../cmake-build-release/_deps/catch2-src/src/catch2/generators/catch_generators_adapters.hpp"
 
 TEST_CASE("Clock functionality", "[time][clock]") {
     bnjkit::time::Clock clock;
