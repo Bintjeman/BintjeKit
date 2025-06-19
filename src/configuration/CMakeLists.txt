@@ -5,5 +5,4 @@ target_sources(bintjekit PRIVATE
         settings.cpp
         node.cpp
         utils.cpp
-        sfml_json_adapter.cpp
 )

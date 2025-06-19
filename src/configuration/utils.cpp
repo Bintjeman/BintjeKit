@@ -10,7 +10,7 @@
 
 namespace bnjkit {
     namespace conf {
-        nlohmann::json from_file(const std::filesystem::path &path) {
+        nlohmann::json from_file(const std::filesystem::path& path) {
             try {
                 if (!std::filesystem::exists(path)) {
                     return {};
@@ -20,16 +20,23 @@ namespace bnjkit {
                     return {};
                 }
                 return nlohmann::json::parse(file);
-            } catch (const nlohmann::json::parse_error &e[[maybe_unused]]) {
+            } catch (const nlohmann::json::parse_error& e[[maybe_unused]]) {
                 // En cas d'erreur de parsing, on garde les données actuelles
                 return {};
-            } catch (const std::exception &e[[maybe_unused]]) {
+            } catch (const std::exception& e[[maybe_unused]]) {
                 // Autres erreurs possibles (permissions, etc.)
                 return {};
             }
         }
 
-        bool to_file(const std::filesystem::path &path, const nlohmann::json &json) {
+        nlohmann::json from_string(const std::string& str) {
+            return nlohmann::json::parse(str);
+        }
+        nlohmann::json from_string(const std::string_view& str) {
+            return nlohmann::json::parse(str);
+        }
+
+        bool to_file(const std::filesystem::path& path, const nlohmann::json& json) {
             try {
                 // Création des répertoires parents si nécessaire
                 const auto parent_path = path.parent_path();
@@ -44,15 +51,15 @@ namespace bnjkit {
                 // Écriture du JSON formaté avec indentation
                 file << json.dump(4);
                 return true;
-            } catch (const std::filesystem::filesystem_error &e[[maybe_unused]]) {
+            } catch (const std::filesystem::filesystem_error& e[[maybe_unused]]) {
                 // Erreur lors de la création des répertoires
                 return false;
-            } catch (const std::exception &e[[maybe_unused]]) {
+            } catch (const std::exception& e[[maybe_unused]]) {
                 // Autres erreurs possibles (permissions, etc.)
                 return false;
             }
         }
-        void merge_json(nlohmann::json &target, const nlohmann::json &source) {
+        void merge_json(nlohmann::json& target, const nlohmann::json& source) {
             nlohmann::json tmp_json = source;
             tmp_json.merge_patch(target);
             target = tmp_json;

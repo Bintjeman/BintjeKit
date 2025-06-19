@@ -21,7 +21,6 @@ namespace bnjkit::core {
         m_logger = Logger::get_logger(module_names::CORE);
         m_logger->info("Constructor of Core");
         m_config_manager = std::make_shared<conf::Settings>();
-        m_config_manager->load_from_file("conf.json");
     }
 
     Core::~Core() {
