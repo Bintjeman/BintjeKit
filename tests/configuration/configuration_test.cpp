@@ -21,8 +21,6 @@ TEST_CASE("Configuration Manager", "[configuration_manager]") {
         delete settings;
     }
 
-
-
     SECTION("Get values") {
         const std::string_view test_string = R"({
     "title": "titre",
@@ -125,14 +123,13 @@ TEST_CASE("Configuration Manager", "[configuration_manager]") {
         auto color2 = settings.get<sf::Color>("/root/branch2/color2"_json_pointer);
         REQUIRE(color2 == sf::Color(6, 7, 8,0));
 
-
         settings.reset_to_defaults();
         auto color = settings.get<sf::Color>("/root/branch2/color"_json_pointer);
 
         INFO("Couleur reçue : R=" << (int)color.r <<
-     ", G=" << (int)color.g <<
-     ", B=" << (int)color.b <<
-     ", A=" << (int)color.a);
+            ", G=" << (int)color.g <<
+            ", B=" << (int)color.b <<
+            ", A=" << (int)color.a);
         INFO("Couleur attendue : R=5, G=5, B=5, A=255");
 
         REQUIRE(color == sf::Color(5, 5, 5));
