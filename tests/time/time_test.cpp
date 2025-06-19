@@ -20,12 +20,22 @@ TEST_CASE("Clock functionality", "[time][clock]") {
     }
 
     SECTION("Reset remet bien à zéro") {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        auto start_time = std::chrono::high_resolution_clock::now();
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         auto before = clock.get();
         clock.reset();
-        REQUIRE(clock.get() < before);
-        REQUIRE(clock.get() >= 0);
-        REQUIRE(clock.get() <= 10);
+        auto after = clock.get();
+        auto end_time = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+        INFO("Durée totale du test : " << duration.count() << " µs");
+        INFO("Valeur de clock après reset : " << after << " ms");
+        REQUIRE(after < before);
+        REQUIRE(after >= 0);
+        const auto TOLERANCE = 10;
+        if (after >= TOLERANCE) {
+            WARN("Clock.get() >= " << TOLERANCE << ": " << after << " ms (possible surcharge système)");
+        }
+        REQUIRE(after < TOLERANCE);
     }
 
     SECTION("Le temps s'écoule") {
