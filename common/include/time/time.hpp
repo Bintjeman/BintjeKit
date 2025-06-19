@@ -3,7 +3,6 @@
  * @date 14.06.25
  * @name time.hpp
  */
-
 #ifndef TIME_HPP
 #define TIME_HPP
 #pragma once
@@ -11,8 +10,7 @@
 namespace bnjkit {
     namespace time {
         static constexpr long int LI_MAXIMUM = std::numeric_limits<long int>::max();
-
-        template<typename Duration = std::chrono::milliseconds>
+        using Duration = std::chrono::microseconds;
         class Clock {
         public:
             using clock_type = std::chrono::high_resolution_clock;
@@ -29,9 +27,7 @@ namespace bnjkit {
             time_point _start;
             time_point _last;
         };
-
-        template<typename Duration = std::chrono::milliseconds>
-        class Pulser : public Clock<Duration> {
+        class Pulser : public Clock {
         public:
             Pulser();
             explicit Pulser(long int frequency);
@@ -53,5 +49,4 @@ namespace bnjkit {
         };
     } // time
 } // bnjkit
-#include "time/time.inl"
 #endif //TIME_HPP
