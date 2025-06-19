@@ -9,8 +9,6 @@
 #include <memory>
 #include <time/time.hpp>
 #include <spdlog/fwd.h>
-
-
 namespace bnjkit {
     namespace window {
         class IMainWindow;
