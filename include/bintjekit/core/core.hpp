@@ -47,6 +47,7 @@ namespace bnjkit {
                              std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
 
             void run();
+            [[nodiscard]] conf::Settings& config_manager();
             [[nodiscard]] State state() const;
             [[nodiscard]] long engine_frequency();
             [[nodiscard]] long renderer_frequency();

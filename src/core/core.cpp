@@ -49,7 +49,7 @@ namespace bnjkit::core {
         m_imgui_renderer->init();
         m_renderer->configure();
         while (m_main_window->isOpen()) {
-            m_event_manager->process_events(*m_main_window);
+            m_event_manager->process_events(* m_main_window);
             if (m_state == State::RUNNING && engine_pulser()) {
                 m_engine->update();
             }
@@ -59,6 +59,9 @@ namespace bnjkit::core {
             }
         }
         m_logger->info("Core stopped");
+    }
+    conf::Settings& Core::config_manager() {
+        return * m_config_manager;
     }
 
     Core::State Core::state() const {
@@ -89,7 +92,7 @@ namespace bnjkit::core {
         return window_pulser.effective_frequency();
     }
 
-    void Core::set_state(const State &state) {
+    void Core::set_state(const State& state) {
         m_state = state;
     }
 
