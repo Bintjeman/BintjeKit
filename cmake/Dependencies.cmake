@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.31)
 include_guard(GLOBAL)
 message("Actual *.cmake: ${CMAKE_CURRENT_LIST_FILE}")
 ###############################################################################
+if(NOT CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND NOT PROJECT_IS_TOP_LEVEL)
+    # Si nous sommes en mode installation et ce n'est pas le projet principal,
+    # nous ne voulons pas télécharger les dépendances
+    return()
+endif()
+
 include(FetchContent)
 include(cmake/CompilerOption.cmake)
 ###############################################################################
