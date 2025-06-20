@@ -2,20 +2,23 @@ cmake_minimum_required(VERSION 3.31)
 include_guard(GLOBAL)
 message("Actual *.cmake: ${CMAKE_CURRENT_LIST_FILE}")
 ###############################################################################
-if(NOT CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND NOT PROJECT_IS_TOP_LEVEL)
-    # Si nous sommes en mode installation et ce n'est pas le projet principal,
-    # nous ne voulons pas télécharger les dépendances
-    return()
-endif()
-
 include(FetchContent)
 include(cmake/CompilerOption.cmake)
-###############################################################################
+################################################################################
+# Configuration de SFML
+set(SFML_BUILD_AUDIO FALSE)
+set(SFML_BUILD_NETWORK FALSE)
+set(SFML_BUILD_EXAMPLES FALSE)
+set(SFML_BUILD_DOC FALSE)
+set(SFML_INSTALL_PKGCONFIG_FILES FALSE)
+set(SFML_BUILD_FRAMEWORKS FALSE)
+set(SFML_INSTALL_XCODE_TEMPLATES FALSE)
+set(BUILD_SHARED_LIBS FALSE)
 FetchContent_Declare(SFML
         GIT_REPOSITORY https://github.com/SFML/SFML.git
         GIT_TAG 3.0.1
         GIT_SHALLOW ON
-        EXCLUDE_FROM_ALL
+#        EXCLUDE_FROM_ALL
         SYSTEM
 )
 ################################################################################
@@ -63,6 +66,9 @@ set(IMGUI_SFML_IMGUI_DEMO ON)
 FetchContent_MakeAvailable(imgui-sfml)
 ################################################################################
 # Ajout de nlohmann_json
+set(JSON_Install ON)
+set(JSON_BuildTests OFF)
+set(JSON_MultipleHeaders OFF)
 FetchContent_Declare(json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
         GIT_TAG v3.11.3
@@ -75,13 +81,6 @@ foreach (target IN ITEMS sfml-system sfml-window sfml-graphics)
     configure_external_library_options(${target})
 endforeach ()
 configure_external_library_options(spdlog)
-#configure_external_library_options(ImGui)
+configure_external_library_options(ImGui)
 configure_external_library_options(ImGui-SFML)
 configure_external_library_options(nlohmann_json)
-#enable_lto_for_dependency(sfml-system)
-#enable_lto_for_dependency(sfml-window)
-#enable_lto_for_dependency(sfml-graphics)
-#enable_lto_for_dependency(ImGui-SFML)
-#enable_lto_for_dependency(spdlog)
-#enable_lto_for_dependency(nlohmann_json)
-#enable_lto_for_dependency(imgui)

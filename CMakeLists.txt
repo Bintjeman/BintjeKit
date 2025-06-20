@@ -11,28 +11,121 @@ project(Binjekit
         DESCRIPTION "Bibliothèque utilitaire de Bintjeman"
         LANGUAGES CXX)
 ################################################################################
+# Inclure les helpers CMake nécessaires
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 # Dependencies
 include(cmake/Dependencies.cmake)
 ################################################################################
-# Common
+# Définition de la bibliothèque principale
+add_library(bintjekit STATIC)
 ################################################################################
-# BinjeKit
+# Définition des cibles objets (object libraries)
+add_library(time OBJECT)
+################################################################################
+# Ajout des autres cibles (test, examples) pour l'instant définies dans leurs
+# propres répertoires
+################################################################################
+# Ajout des sous répertoires
 add_subdirectory(common)
 add_subdirectory(src)
 ################################################################################
-# Tests
+target_include_directories(time PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+target_compile_features(time PUBLIC cxx_std_20)
+target_link_libraries(time PUBLIC SFML::System)
 ################################################################################
-# Examples
-if (BINTJEKIT_BUILD_EXAMPLES)
-    message("Build examples")
-    add_subdirectory(examples)
-endif ()
+# Ajout des sous-composants à la bibliothèque principale
+target_sources(bintjekit
+        PRIVATE
+        $<TARGET_OBJECTS:time>
+)
+################################################################################
+# Configuration de la bibliothèque principale
+target_include_directories(bintjekit
+        PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
+        $<INSTALL_INTERFACE:include>
+)
+################################################################################
+target_link_libraries(bintjekit
+        PUBLIC
+        SFML::Graphics
+        SFML::Window
+        SFML::System
+        ImGui-SFML::ImGui-SFML
+        spdlog::spdlog
+        nlohmann_json::nlohmann_json
+)
+################################################################################
+set_target_properties(bintjekit PROPERTIES
+        VERSION ${PROJECT_VERSION}
+        POSITION_INDEPENDENT_CODE ON
+)
+################################################################################
+# Configuration des options de compilation
+configure_compiler_options(bintjekit)
+################################################################################
+# Alias pour la cible
+add_library(BintjeKit::BintjeKit ALIAS bintjekit)
+################################################################################
+# Configuration du package
+configure_package_config_file(
+        ${PROJECT_SOURCE_DIR}/cmake/BintjeKitConfig.cmake.in
+        ${PROJECT_BINARY_DIR}/BintjeKitConfig.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BintjeKit
+)
+write_basic_package_version_file(
+        ${PROJECT_BINARY_DIR}/BintjeKitConfigVersion.cmake
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion
+)
+################################################################################
+# Installation
+install(FILES
+        ${PROJECT_BINARY_DIR}/BintjeKitConfig.cmake
+        ${PROJECT_BINARY_DIR}/BintjeKitConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BintjeKit
+)
+################################################################################
+# Installation des cibles et des dépendances
+install(TARGETS
+        bintjekit
+        time
+        spdlog
+#        nlohmann_json
+#        sfml-graphics
+#        sfml-window
+#        sfml-system
+#        ImGui-SFML
+        EXPORT BintjeKitTargets
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+################################################################################
+install(
+        EXPORT BintjeKitTargets
+        FILE BintjeKitTargets.cmake
+        NAMESPACE BintjeKit::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BintjeKit
+)
+################################################################################
+# Tests, Examples et Benchmarks conditionnels
 if (BINTJEKIT_BUILD_TESTS)
     include(cmake/Testing.cmake)
     add_subdirectory(tests)
-endif ()
+endif()
+
+if (BINTJEKIT_BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
+
 if (BINTJEKIT_BUILD_BENCHMARKS)
     include(cmake/Benchmarks.cmake)
     add_subdirectory(benchmarks)
-endif ()
-################################################################################
+endif()
