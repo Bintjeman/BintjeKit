@@ -20,7 +20,7 @@ namespace bnjkit::core {
         m_logger = Logger::get_logger(module_names::CORE);
         m_logger = Logger::get_logger(module_names::CORE);
         m_logger->info("Constructor of Core");
-        m_config_manager = std::make_shared<conf::Settings>();
+        m_settings = std::make_shared<conf::Settings>();
     }
 
     Core::~Core() {
@@ -60,8 +60,8 @@ namespace bnjkit::core {
         }
         m_logger->info("Core stopped");
     }
-    conf::Settings& Core::config_manager() {
-        return * m_config_manager;
+    conf::Settings& Core::settings() const {
+        return * m_settings;
     }
 
     Core::State Core::state() const {

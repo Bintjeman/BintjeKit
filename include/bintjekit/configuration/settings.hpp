@@ -13,6 +13,15 @@
 
 namespace bnjkit {
     namespace conf {
+        /**
+         * @brief Represents the configuration settings that can be loaded, merged,
+         *        saved, and manipulated through JSON and file paths.
+         *
+         * This class provides an abstraction for managing configuration settings,
+         * allowing interaction with JSON objects, storage in files, and string/stream
+         * representation. The settings can also be initialized with default values and
+         * modified dynamically.
+         */
         class Settings : public Node {
         public:
             explicit Settings();
@@ -27,6 +36,9 @@ namespace bnjkit {
 
         private:
             std::filesystem::path m_path;
+        };
+        class X : public Settings {
+        public:
         };
     } // conf
 } // bnjkit

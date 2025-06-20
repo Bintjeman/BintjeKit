@@ -28,6 +28,9 @@ namespace bnjkit {
         class Settings;
     } // conf
     namespace core {
+        /**
+         *
+         */
         class Core {
         public:
 
@@ -47,7 +50,7 @@ namespace bnjkit {
                              std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
 
             void run();
-            [[nodiscard]] conf::Settings& config_manager();
+            [[nodiscard]] conf::Settings& settings() const;
             [[nodiscard]] State state() const;
             [[nodiscard]] long engine_frequency();
             [[nodiscard]] long renderer_frequency();
@@ -73,7 +76,7 @@ namespace bnjkit {
             std::unique_ptr<engine::IEngine> m_engine;
             std::unique_ptr<renderer::IEngineRenderer> m_engine_renderer;
             std::unique_ptr<renderer::IImGuiRenderer> m_imgui_renderer;
-            std::shared_ptr<conf::Settings> m_config_manager;
+            std::shared_ptr<conf::Settings> m_settings;
             std::shared_ptr<spdlog::logger> m_logger;
 
         public:

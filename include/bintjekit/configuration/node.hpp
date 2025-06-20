@@ -11,10 +11,16 @@
 
 namespace bnjkit {
     namespace conf {
+        /**
+         * @class Node
+         * @brief A class representing a single node in a nlohmann json data structure.
+         *
+         */
         class Node {
         public:
             explicit Node(const std::shared_ptr<nlohmann::json>& json = nullptr,
-                          const nlohmann::json::json_pointer& root = ""_json_pointer,const std::shared_ptr<nlohmann::json>& default_values = nullptr);
+                          const nlohmann::json::json_pointer& root = ""_json_pointer,
+                          const std::shared_ptr<nlohmann::json>& default_values = nullptr);
             template<typename T>
             T get(const nlohmann::json::json_pointer& key, const T& defaultValue) const;
             template<typename T>
