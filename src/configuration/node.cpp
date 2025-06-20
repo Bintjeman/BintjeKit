@@ -10,13 +10,22 @@ namespace bnjkit {
         Node::Node(const std::shared_ptr<nlohmann::json>& json,
                    const nlohmann::json::json_pointer& root,
                    const std::shared_ptr<nlohmann::json>& default_values) {
-            m_branch = root;
-            m_default_values = default_values;
             if (json == nullptr) {
                 m_json = std::make_shared<nlohmann::json>();
                 * m_json = nlohmann::json::parse("{}");
             } else {
                 m_json = json;
+            }
+            if (default_values == nullptr) {
+                m_default_values = std::make_shared<nlohmann::json>();
+                * m_default_values = nlohmann::json::parse("{}");
+            } else {
+                m_default_values = default_values;
+            }
+            if (m_branch.empty()) {
+                m_branch = ""_json_pointer;
+            } else {
+                m_branch = root;
             }
         }
         Node Node::create_child(const nlohmann::json::json_pointer& key) {

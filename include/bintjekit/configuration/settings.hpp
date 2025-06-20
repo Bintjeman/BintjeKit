@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <sstream>
 #include <nlohmann/json.hpp>
+#include <spdlog/fwd.h>
 #include "node.hpp"
 
 namespace bnjkit {
@@ -26,7 +27,7 @@ namespace bnjkit {
         public:
             explicit Settings();
             ~Settings();
-            void load_from_json(const nlohmann::json& json);
+            void load_from_json(const nlohmann::json& json, bool merge_default = true);
             void merge_with_json(const nlohmann::json& json);
             void save_to_file(const std::filesystem::path& path = {}) const;
             [[nodiscard]] std::string to_string() const;
@@ -36,6 +37,7 @@ namespace bnjkit {
 
         private:
             std::filesystem::path m_path;
+            std::shared_ptr<spdlog::logger> m_logger;
         };
         class X : public Settings {
         public:

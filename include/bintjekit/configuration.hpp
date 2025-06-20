@@ -4,8 +4,8 @@
  * @name configuration.hpp
  */
 
-#ifndef CONFIGURATION_HPP
-#define CONFIGURATION_HPP
+#ifndef  BINTJEKIT_CONFIGURATION_INCLUDES_HPP
+#define  BINTJEKIT_CONFIGURATION_INCLUDES_HPP
 #pragma once
 #include "configuration/settings.hpp"
-#endif //CONFIGURATION_HPP
+#endif // BINTJEKIT_CONFIGURATION_INCLUDES_HPP
