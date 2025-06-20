@@ -3,6 +3,7 @@
 include(CMakeFindDependencyMacro)
 
 # Ajoutez ici vos dépendances
+set(SFML_STATIC_LIBRARIES TRUE)
 find_dependency(SFML COMPONENTS Window System Graphics REQUIRED)
 find_dependency(ImGui-SFML REQUIRED)
 find_dependency(spdlog REQUIRED)

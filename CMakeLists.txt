@@ -90,17 +90,24 @@ install(FILES
         ${PROJECT_BINARY_DIR}/BintjeKitConfigVersion.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BintjeKit
 )
+# Installation des headers de la bibliothèque principale
+install(
+        DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl"
+)
+# Installation des headers communs
+install(
+        DIRECTORY ${PROJECT_SOURCE_DIR}/common/include/
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl"
+)
 ################################################################################
 # Installation des cibles et des dépendances
 install(TARGETS
         bintjekit
         time
         spdlog
-#        nlohmann_json
-#        sfml-graphics
-#        sfml-window
-#        sfml-system
-#        ImGui-SFML
         EXPORT BintjeKitTargets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
