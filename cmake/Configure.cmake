@@ -4,10 +4,13 @@ message("Actual *.cmake: ${CMAKE_CURRENT_LIST_FILE}")
 ################################################################################
 set(CMAKE_VERBOSE_MAKEFILE ON)
 ################################################################################
-set(CMAKE_DEBUG_POSTFIX d)
+# Juste après le project()
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+# Pour forcer l'utilisation de Clang
+set(CMAKE_CXX_COMPILER /bin/clang++)
+set(CMAKE_C_COMPILER /bin/clang)
 ################################################################################
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-    message(STATUS "LTO activé (Release)")
-endif()
+
 ################################################################################

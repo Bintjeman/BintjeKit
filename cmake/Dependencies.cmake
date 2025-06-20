@@ -77,10 +77,3 @@ FetchContent_Declare(json
 )
 FetchContent_MakeAvailable(json)
 ################################################################################
-foreach (target IN ITEMS sfml-system sfml-window sfml-graphics)
-    configure_external_library_options(${target})
-endforeach ()
-configure_external_library_options(spdlog)
-configure_external_library_options(ImGui)
-configure_external_library_options(ImGui-SFML)
-configure_external_library_options(nlohmann_json)

@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
-# Options
-include(cmake/Configure.cmake)
-include(cmake/Options.cmake)
-include(cmake/CompilerOption.cmake)
 ################################################################################
 project(Binjekit
         VERSION 0.0.1
         DESCRIPTION "Bibliothèque utilitaire de Bintjeman"
         LANGUAGES CXX)
+################################################################################
+# Options
+include(cmake/Configure.cmake)
+include(cmake/Options.cmake)
+include(cmake/CompilerOption.cmake)
 ################################################################################
 # Inclure les helpers CMake nécessaires
 include(GNUInstallDirs)
@@ -67,7 +68,6 @@ set_target_properties(bintjekit PROPERTIES
 )
 ################################################################################
 # Configuration des options de compilation
-configure_compiler_options(bintjekit)
 ################################################################################
 # Alias pour la cible
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)
