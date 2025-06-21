@@ -17,36 +17,92 @@ namespace bnjkit {
             get_logger()->trace("path: {}", path.string());
             try {
                 if (!std::filesystem::exists(path)) {
-                    get_logger()->warn("Le fichier de configuration n'existe pas: {}", path.string());
-                    return {};
+                    get_logger()->warn("Le fichier de configuration n'existe pas: {}",
+                                       path.string());
+                    return nlohmann::json::object();
                 }
+
                 std::ifstream file(path);
                 if (!file.is_open()) {
                     get_logger()->error("Impossible d'ouvrir le fichier: {}", path.string());
-                    return {};
+                    return nlohmann::json::object();
                 }
+
                 std::string content((std::istreambuf_iterator<char>(file)),
                                     std::istreambuf_iterator<char>());
+
                 if (content.empty()) {
                     get_logger()->warn("Le fichier est vide: {}", path.string());
-                    return {};
+                    return nlohmann::json::object();
                 }
-                get_logger()->trace("content: {}", content);
-                return nlohmann::json::parse(content);
+
+                get_logger()->trace("Raw content: {}", content);
+
+                // Utilisation du parser avec des options de vérification strictes
+                auto json = nlohmann::json::parse(content,
+                                                  nullptr, // callback pour erreurs
+                                                  true, // allow_exceptions
+                                                  true); // ignore_comments
+
+                // Vérification supplémentaire de la structure
+                if (!json.is_object()) {
+                    get_logger()->error("Le contenu n'est pas un objet JSON valide");
+                    return nlohmann::json::object();
+                }
+
+                get_logger()->trace("Parsed JSON: {}", json.dump(2));
+                return json;
             } catch (const nlohmann::json::parse_error& e) {
-                get_logger()->error("Erreur de parsing JSON dans {}: {}", path.string(), e.what());
-                return {};
+                get_logger()->error("Erreur de parsing JSON dans {} à la position {}: {}",
+                                    path.string(), e.byte, e.what());
+                return nlohmann::json::object();
             } catch (const std::exception& e) {
-                get_logger()->error("Erreur lors de la lecture du fichier {}: {}", path.string(),
-                              e.what());
-                return {};
+                get_logger()->error("Erreur lors de la lecture du fichier {}: {}",
+                                    path.string(), e.what());
+                return nlohmann::json::object();
             }
         }
         nlohmann::json from_string(const std::string& str) {
-            return nlohmann::json::parse(str);
+            try {
+                get_logger()->trace("Parsing JSON from string_view: {}", str);
+                // Assurez-vous que le string_view est valide et non vide
+                if (str.empty()) {
+                    get_logger()->warn("Empty string_view provided");
+                    return nlohmann::json::object();
+                }
+
+                // Construction d'une string temporaire à partir du string_view
+                std::string temp_str(str.begin(), str.end());
+
+                // Parse le JSON en vérifiant sa validité
+                auto parsed = nlohmann::json::parse(temp_str, nullptr, true, true);
+                get_logger()->trace("Parsed JSON: {}", parsed.dump(2));
+                return parsed;
+            } catch (const nlohmann::json::parse_error& e) {
+                get_logger()->error("JSON parse error: {}", e.what());
+                return nlohmann::json::object();
+            }
         }
         nlohmann::json from_string(const std::string_view& str) {
-            return nlohmann::json::parse(str);
+            try {
+                get_logger()->trace("Parsing JSON from string_view: {}", str);
+                // Assurez-vous que le string_view est valide et non vide
+                if (str.empty()) {
+                    get_logger()->warn("Empty string_view provided");
+                    return nlohmann::json::object();
+                }
+
+                // Construction d'une string temporaire à partir du string_view
+                std::string temp_str(str.begin(), str.end());
+
+                // Parse le JSON en vérifiant sa validité
+                auto parsed = nlohmann::json::parse(temp_str, nullptr, true, true);
+                get_logger()->trace("Parsed JSON: {}", parsed.dump(2));
+                return parsed;
+            } catch (const nlohmann::json::parse_error& e) {
+                get_logger()->error("JSON parse error: {}", e.what());
+                return nlohmann::json::object();
+            }
         }
         bool to_file(const std::filesystem::path& path, const nlohmann::json& json) {
             get_logger()->debug("Saving json to file");
@@ -78,6 +134,11 @@ namespace bnjkit {
             get_logger()->debug("Merging json");
             get_logger()->trace("target: {}", target.dump());
             get_logger()->trace("source: {}", source.dump());
+            if (target.is_null()) {
+                target = source;
+                get_logger()->debug("Target was null, using source directly");
+                return;
+            }
             nlohmann::json tmp_json = source;
             tmp_json.merge_patch(target);
             target = tmp_json;
