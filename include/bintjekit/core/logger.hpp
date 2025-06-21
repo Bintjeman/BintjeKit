@@ -21,6 +21,7 @@ namespace bnjkit {
                                          spdlog::level::level_enum level);
 
         private:
+            static bool initialized;
             static std::vector<spdlog::sink_ptr> s_sinks;
             static std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > s_loggers;
         };
