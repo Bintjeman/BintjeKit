@@ -2,11 +2,12 @@ cmake_minimum_required(VERSION 3.31)
 include_guard(GLOBAL)
 message("Actual *.cmake: ${CMAKE_CURRENT_LIST_FILE}")
 ################################################################################
-set(CMAKE_VERBOSE_MAKEFILE ON)
+list(PREPEND CMAKE_PREFIX_PATH "$ENV{HOME}/.local")
+message(STATUS "CMAKE_PREFIX_PATH = ${CMAKE_PREFIX_PATH}")
 ################################################################################
-# Juste après le project()
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-################################################################################
+#set(SFML_STATIC_LIBRARIES TRUE)
+#set(BUILD_SHARED_LIBS FALSE)
+#find_package(BintjeKit REQUIRED)
+#find_package(spdlog REQUIRED)
+#find_package(OpenGL REQUIRED)
 ################################################################################

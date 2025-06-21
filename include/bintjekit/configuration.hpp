@@ -8,4 +8,6 @@
 #define  BINTJEKIT_CONFIGURATION_INCLUDES_HPP
 #pragma once
 #include "configuration/settings.hpp"
+#include "configuration/utils.hpp"
 #endif // BINTJEKIT_CONFIGURATION_INCLUDES_HPP
+

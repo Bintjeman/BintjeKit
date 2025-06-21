@@ -22,7 +22,7 @@ namespace bnjkit {
             auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("bnjkit.log", true);
             file_sink->set_pattern("[%T] [%-8l] [%-8n] : %v");
             s_sinks.push_back(file_sink);
-            // Créer les loggers par défaut
+            // // Créer les loggers par défaut
             get_logger(module_names::LOG)->set_level(spdlog::level::trace);
             get_logger(module_names::CORE)->set_level(spdlog::level::trace);
             get_logger(module_names::APP)->set_level(spdlog::level::info);

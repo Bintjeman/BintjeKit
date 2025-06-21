@@ -23,11 +23,6 @@
 
 namespace bnjkit::core {
     CoreBuilder::CoreBuilder() {
-        static bool initialized = false;
-        if (!initialized) {
-            Logger::initialize();
-            initialized = true;
-        }
         m_logger = Logger::get_logger(module_names::CORE);
         m_logger->info("Constructor of CoreBuilder");
     }

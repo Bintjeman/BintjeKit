@@ -16,8 +16,9 @@ namespace bnjkit {
         public:
             static void initialize();
             static void shutdown();
-            static std::shared_ptr<spdlog::logger> get_logger(const std::string &module_name);
-            static void set_module_level(const std::string &module_name, spdlog::level::level_enum level);
+            static std::shared_ptr<spdlog::logger> get_logger(const std::string& module_name);
+            static void set_module_level(const std::string& module_name,
+                                         spdlog::level::level_enum level);
 
         private:
             static std::vector<spdlog::sink_ptr> s_sinks;
