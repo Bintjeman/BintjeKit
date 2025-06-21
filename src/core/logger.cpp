@@ -14,7 +14,6 @@ namespace bnjkit {
         bool Logger::initialized = false;
         std::vector<spdlog::sink_ptr> Logger::s_sinks;
         std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > Logger::s_loggers;
-
         void Logger::initialize() {
             spdlog::enable_backtrace(32);
             auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();

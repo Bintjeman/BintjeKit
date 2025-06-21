@@ -10,7 +10,6 @@ namespace bnjkit {
     namespace conf {
         Settings::Settings(): Node() {
             m_logger = core::Logger::get_logger(core::module_names::CONFIGURATION);
-            m_logger->set_level(spdlog::level::trace);
             m_logger->info("Constructor of Settings");
         }
         Settings::~Settings() = default;

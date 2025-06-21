@@ -17,7 +17,6 @@ namespace bnjkit {
     namespace event {
         EventManager::EventManager() {
             m_logger = core::Logger::get_logger(core::module_names::EVENT);
-            m_logger->set_level(spdlog::level::trace);
             m_logger->info("Constructor of IEventManager");
         }
 

@@ -18,7 +18,6 @@ namespace bnjkit {
     namespace renderer {
         IRenderer::IRenderer() : m_render_window(nullptr), m_engine(nullptr) {
             m_logger = core::Logger::get_logger(core::module_names::RENDERER);
-            m_logger->set_level(spdlog::level::trace);
             m_logger->info("Constructor of IRenderer");
         }
 

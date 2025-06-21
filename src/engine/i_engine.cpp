@@ -18,11 +18,9 @@ namespace bnjkit {
             m_logger->info("Constructor of IEngine");
             m_play_ground = std::make_unique<PlayGround>();
         }
-
         IEngine::~IEngine() {
             m_logger->info("Destructor of IEngine");
         }
-
         void IEngine::initialise() {
             m_logger->info("Initialising IEngine");
             m_play_ground->size = {100, 100};
