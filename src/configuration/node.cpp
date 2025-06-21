@@ -4,12 +4,16 @@
  * @name configuration_node.cpp
  */
 #include "bintjekit/configuration/node.hpp"
+#include "bintjekit/core/common.hpp"
+#include "bintjekit/core/logger.hpp"
 
 namespace bnjkit {
     namespace conf {
         Node::Node(const std::shared_ptr<nlohmann::json>& json,
                    const nlohmann::json::json_pointer& root,
                    const std::shared_ptr<nlohmann::json>& default_values) {
+            m_logger = core::Logger::get_logger(core::module_names::CONFIGURATION);
+            m_logger->info("Constructor of Node");
             if (json == nullptr) {
                 m_json = std::make_shared<nlohmann::json>();
                 * m_json = nlohmann::json::parse("{}");
@@ -27,12 +31,18 @@ namespace bnjkit {
             } else {
                 m_branch = root;
             }
+            m_logger->info("Constructor of Node finished");
+            m_logger->trace("Node: {}", m_json->dump());
+            m_logger->trace("Node: {}", m_default_values->dump());
+            m_logger->trace("Node: {}", m_branch.to_string());
         }
         Node Node::create_child(const nlohmann::json::json_pointer& key) {
+            m_logger->info("Creating child node");
             auto child_root = m_branch / key;
             if (!m_json->contains(child_root)) {
                 (* m_json)[child_root] = nlohmann::json::object();
             }
+            m_logger->trace("child_root: {}", child_root.to_string());
             return Node(m_json, child_root);
         }
         nlohmann::json Node::get_json() const {

@@ -8,7 +8,7 @@
 #define CONFIGURATION_NODE_HPP
 #pragma once
 #include <nlohmann/json.hpp>
-
+#include "spdlog/fwd.h"
 namespace bnjkit {
     namespace conf {
         /**
@@ -34,6 +34,7 @@ namespace bnjkit {
             Node create_child(const nlohmann::json::json_pointer& key);
 
         protected:
+            std::shared_ptr<spdlog::logger> m_logger;
             std::shared_ptr<nlohmann::json> m_json;
             std::shared_ptr<nlohmann::json> m_default_values;
             nlohmann::json::json_pointer m_branch;

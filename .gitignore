@@ -2,7 +2,6 @@
 cmake-build-*/
 
 # third party
-third_party/*
 
 # OS
 
@@ -22,3 +21,4 @@ doc/
 # Users
 ## Bintjeman
 workdir/
+examples/toto/
