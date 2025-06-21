@@ -1,6 +1,9 @@
 # Project
 cmake-build-*/
 
+# third party
+third_party/*
+
 # OS
 
 ## Linux
