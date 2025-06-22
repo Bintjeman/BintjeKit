@@ -31,8 +31,7 @@ namespace bnjkit::window {
     void DefaultMainWindow::show() {
         m_logger->warn("Showing DefaultMainWindow");
         IMainWindow::show();
-        const char *title = "BintjeKit";
-        this->create(sf::VideoMode(sf::Vector2u(800, 600)), title, sf::Style::Default);
+        this->create(sf::VideoMode(getSize()), "", sf::Style::Default);
         m_logger->trace("Showing DefaultMainWindow: size: {}, title: {}", this->getSize(), title);
     }
 

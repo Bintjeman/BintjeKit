@@ -28,7 +28,6 @@ namespace bnjkit {
             explicit Settings();
             ~Settings();
             void load_from_json(const nlohmann::json& json, bool merge_default = true);
-            void merge_with_json(const nlohmann::json& json);
             void save_to_file(const std::filesystem::path& path = {}) const;
             [[nodiscard]] std::string to_string() const;
             [[nodiscard]] std::stringstream to_stream() const;

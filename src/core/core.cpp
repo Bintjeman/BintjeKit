@@ -28,28 +28,23 @@ namespace bnjkit::core {
         Logger::shutdown();
     }
 
-    void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
-                           std::unique_ptr<event::EventManager> event_manager,
-                           std::unique_ptr<engine::IEngine> engine,
-                           std::unique_ptr<renderer::IRenderer> renderer,
-                           std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
-                           std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer) {
-        m_logger->info("Setting modules");
-        m_main_window = std::move(window);
-        m_event_manager = std::move(event_manager);
-        m_engine = std::move(engine);
-        m_renderer = std::move(renderer);
-        m_engine_renderer = std::move(engine_renderer);
-        m_imgui_renderer = std::move(imgui_renderer);
+    void Core::configure() {
+        m_main_window->set_settings(m_settings->create_child("Window"_json_pointer));
+        m_main_window->configure();
     }
 
+    void Core::configure(std::shared_ptr<conf::Settings> settings) {
+        set_settings(settings);
+        configure();
+    }
+    
     void Core::run() {
         m_logger->info("Running Core");
         m_main_window->show();
         m_imgui_renderer->init();
         m_renderer->configure();
         while (m_main_window->isOpen()) {
-            m_event_manager->process_events(* m_main_window);
+            m_event_manager->process_events(*m_main_window);
             if (m_state == State::RUNNING && engine_pulser()) {
                 m_engine->update();
             }
@@ -60,8 +55,9 @@ namespace bnjkit::core {
         }
         m_logger->info("Core stopped");
     }
+
     conf::Settings& Core::settings() const {
-        return * m_settings;
+        return *m_settings;
     }
 
     Core::State Core::state() const {
@@ -96,6 +92,22 @@ namespace bnjkit::core {
         m_state = state;
     }
 
+    void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
+                           std::unique_ptr<event::EventManager> event_manager,
+                           std::unique_ptr<engine::IEngine> engine,
+                           std::unique_ptr<renderer::IRenderer> renderer,
+                           std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
+                           std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer
+    ) {
+        m_logger->info("Setting modules");
+        m_main_window = std::move(window);
+        m_event_manager = std::move(event_manager);
+        m_engine = std::move(engine);
+        m_renderer = std::move(renderer);
+        m_engine_renderer = std::move(engine_renderer);
+        m_imgui_renderer = std::move(imgui_renderer);
+    }
+
     void Core::set_engine_frequency(long frequency) {
         engine_pulser.set_frequency(frequency);
     }
@@ -107,17 +119,15 @@ namespace bnjkit::core {
     void Core::set_window_frequency(long frequency) {
         window_pulser.set_frequency(frequency);
     }
-
+    void Core::set_settings(std::shared_ptr<conf::Settings> settings) {
+        m_settings = settings;
+    }
     std::string Core::state_to_string(State state) {
         switch (state) {
-            case State::RUNNING:
-                return "RUNNING";
-            case State::PAUSED:
-                return "PAUSED";
-            case State::STOPPED:
-                return "STOPPED";
-            default:
-                return "UNKNOWN";
+            case State::RUNNING: return "RUNNING";
+            case State::PAUSED: return "PAUSED";
+            case State::STOPPED: return "STOPPED";
+            default: return "UNKNOWN";
         }
     }
 } // bnjkit

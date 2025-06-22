@@ -72,6 +72,8 @@ set_target_properties(bintjekit PROPERTIES
 # Alias pour la cible
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)
 ################################################################################
+set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.local")
+################################################################################
 # Configuration du package
 configure_package_config_file(
         ${PROJECT_SOURCE_DIR}/cmake/BintjeKitConfig.cmake.in
@@ -126,13 +128,13 @@ install(
 if (BINTJEKIT_BUILD_TESTS)
     include(cmake/Testing.cmake)
     add_subdirectory(tests)
-endif()
+endif ()
 
 if (BINTJEKIT_BUILD_EXAMPLES)
     add_subdirectory(examples)
-endif()
+endif ()
 
 if (BINTJEKIT_BUILD_BENCHMARKS)
     include(cmake/Benchmarks.cmake)
     add_subdirectory(benchmarks)
-endif()
+endif ()

@@ -21,6 +21,8 @@ namespace bnjkit {
             explicit Node(const std::shared_ptr<nlohmann::json>& json = nullptr,
                           const nlohmann::json::json_pointer& root = ""_json_pointer,
                           const std::shared_ptr<nlohmann::json>& default_values = nullptr);
+            virtual ~Node();
+            void merge_with_json(const nlohmann::json& json);
             template<typename T>
             T get(const nlohmann::json::json_pointer& key, const T& defaultValue) const;
             template<typename T>

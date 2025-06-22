@@ -9,6 +9,7 @@
 #include <memory>
 #include <time/time.hpp>
 #include <spdlog/fwd.h>
+
 namespace bnjkit {
     namespace window {
         class IMainWindow;
@@ -28,12 +29,8 @@ namespace bnjkit {
         class Settings;
     } // conf
     namespace core {
-        /**
-         *
-         */
         class Core {
         public:
-
             enum class State {
                 RUNNING,
                 PAUSED,
@@ -42,13 +39,8 @@ namespace bnjkit {
 
             Core();
             ~Core();
-            void set_modules(std::unique_ptr<window::IMainWindow> window,
-                             std::unique_ptr<event::EventManager> event_manager,
-                             std::unique_ptr<engine::IEngine> engine,
-                             std::unique_ptr<renderer::IRenderer> renderer,
-                             std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
-                             std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
-
+            void configure();
+            void configure(std::shared_ptr<conf::Settings> settings);
             void run();
             [[nodiscard]] conf::Settings& settings() const;
             [[nodiscard]] State state() const;
@@ -59,9 +51,17 @@ namespace bnjkit {
             [[nodiscard]] long renderer_effective_frequency();
             [[nodiscard]] long window_effective_frequency();
             void set_state(const State& state);
+            void set_modules(std::unique_ptr<window::IMainWindow> window,
+                             std::unique_ptr<event::EventManager> event_manager,
+                             std::unique_ptr<engine::IEngine> engine,
+                             std::unique_ptr<renderer::IRenderer> renderer,
+                             std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
+                             std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer
+            );
             void set_engine_frequency(long frequency);
             void set_renderer_frequency(long frequency);
             void set_window_frequency(long frequency);
+            void set_settings(std::shared_ptr<conf::Settings> settings);
 
         protected:
             State m_state{State::STOPPED};
@@ -80,8 +80,8 @@ namespace bnjkit {
             std::shared_ptr<spdlog::logger> m_logger;
 
         public:
-            Core(const Core &) = delete;
-            Core &operator=(const Core &) = delete;
+            Core(const Core&) = delete;
+            Core& operator=(const Core&) = delete;
             static std::string state_to_string(State state);
         };
     } // core

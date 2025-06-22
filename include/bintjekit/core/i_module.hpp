@@ -4,25 +4,21 @@
  * @name i_module.hpp
  */
 
-#ifndef I_MODULE_HPP
-#define I_MODULE_HPP
+#ifndef BINTJEKIT_CORE_I_MODULE_HPP
+#define BINTJEKIT_CORE_I_MODULE_HPP
 #pragma once
-namespace bnjkit::core {
-    /**
-     * @class IModule
-     * @brief Abstract base class for modules within the system.
-     *
-     * The IModule class provides a common interface for all system modules,
-     * requiring them to implement initialization and configuration methods.
-     * It serves as the base for more specialized module classes.
-     *
-     * Subclasses of IModule must define functionality for the core module behavior.
-     */
-    class IModule {
-    public:
-        virtual ~IModule() = default;
-        virtual void initialise();
-        virtual void configure();
-    };
-} // bnjkit::module
-#endif //I_MODULE_HPP
+#include "bintjekit/configuration/node.hpp"
+namespace bnjkit {
+    namespace core {
+        class IModule {
+        public:
+            virtual ~IModule();
+            virtual void initialise();
+            virtual void configure();
+            void set_settings(const conf::Node& settings);
+        protected:
+            conf::Node m_settings;
+        };
+    } // core
+} // bnjkit
+#endif // BINTJEKIT_CORE_I_MODULE_HPP

@@ -7,7 +7,7 @@
 
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include "bintjekit/core/common.hpp""
+#include "bintjekit/core/common.hpp"
 #include "bintjekit/core/logger.hpp"
 
 namespace bnjkit {

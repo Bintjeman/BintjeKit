@@ -6,23 +6,25 @@
 #include "bintjekit/configuration/node.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/logger.hpp"
+#include "bintjekit/configuration/utils.hpp"
 
 namespace bnjkit {
     namespace conf {
         Node::Node(const std::shared_ptr<nlohmann::json>& json,
                    const nlohmann::json::json_pointer& root,
-                   const std::shared_ptr<nlohmann::json>& default_values) {
+                   const std::shared_ptr<nlohmann::json>& default_values
+        ) {
             m_logger = core::Logger::get_logger(core::module_names::CONFIGURATION);
             m_logger->info("Constructor of Node");
             if (json == nullptr) {
                 m_json = std::make_shared<nlohmann::json>();
-                * m_json = nlohmann::json::parse("{}");
+                *m_json = nlohmann::json::parse("{}");
             } else {
                 m_json = json;
             }
             if (default_values == nullptr) {
                 m_default_values = std::make_shared<nlohmann::json>();
-                * m_default_values = nlohmann::json::parse("{}");
+                *m_default_values = nlohmann::json::parse("{}");
             } else {
                 m_default_values = default_values;
             }
@@ -36,18 +38,28 @@ namespace bnjkit {
             m_logger->trace("Node: {}", m_default_values->dump());
             m_logger->trace("Node: {}", m_branch.to_string());
         }
+
+        Node::~Node() = default;
+
+        void Node::merge_with_json(const nlohmann::json& json) {
+            m_logger->info("Merging settings with json");
+            merge_json(*m_json, json);
+        }
+
         Node Node::create_child(const nlohmann::json::json_pointer& key) {
             m_logger->info("Creating child node");
             auto child_root = m_branch / key;
             if (!m_json->contains(child_root)) {
-                (* m_json)[child_root] = nlohmann::json::object();
+                (*m_json)[child_root] = nlohmann::json::object();
             }
             m_logger->trace("child_root: {}", child_root.to_string());
             return Node(m_json, child_root);
         }
+
         nlohmann::json Node::get_json() const {
             return m_json->get<nlohmann::json>().at(m_branch);
         }
+
         void Node::reset_to_defaults() {
             if (!m_default_values) {
                 throw std::runtime_error("Default values not initialized");

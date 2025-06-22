@@ -13,13 +13,17 @@
 #include <nlohmann/json.hpp>
 namespace nlohmann {
     template<typename T>
-    void to_json(nlohmann::json& j, const sf::Vector2<T>& v) {
-        j = nlohmann::json{{"x", v.x}, {"y", v.y}};
-    }
-    template<typename T>
-    sf::Vector2<T> from_json(const nlohmann::json& j) {
-        return {j["x"], j["y"]};
-    }
+    struct adl_serializer<sf::Vector2<T>> {
+        static void to_json(json& j, const sf::Vector2<T>& v) {
+            j = json{{"x", v.x}, {"y", v.y}};
+        }
+
+        static void from_json(const json& j, sf::Vector2<T>& v) {
+            v.x = j.at("x").get<T>();
+            v.y = j.at("y").get<T>();
+        }
+    };
+
     template<>
     struct adl_serializer<sf::Color> {
         static void from_json(const nlohmann::json& j, sf::Color& c) {
