@@ -21,10 +21,10 @@ namespace bnjkit {
             void configure() override;
             virtual void show() = 0;
             void on_sfml_event(const sf::Event& event) override;
+            void close() override;
 
         protected:
             std::shared_ptr<spdlog::logger> m_logger;
-
         private:
         };
     } // bnjkit

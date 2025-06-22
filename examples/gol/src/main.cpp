@@ -10,13 +10,12 @@
 #include "game_of_life_renderer.hpp"
 #include "renderer.hpp"
 #include "core_event_handler.hpp"
-#include "bintjekit/configuration.hpp"
+// #include "bintjekit/configuration.hpp"
 #include "default_json.inl"
-// #include "bintjekit/configuration/utils.hpp"
 int main() {
-    bnjkit::core::Logger::initialize();  // Vérifiez si cette étape est présente
-
     auto logger = bnjkit::core::Logger::get_logger(bnjkit::core::module_names::APP);
+    bnjkit::core::Logger::get_logger(bnjkit::core::module_names::CONFIGURATION)->set_level(
+        spdlog::level::trace);
     logger->info("Starting toto app");
     auto core = bnjkit::core::CoreBuilder()
             .set<gol::GameOfLife>()

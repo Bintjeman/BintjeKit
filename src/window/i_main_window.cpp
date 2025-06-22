@@ -6,7 +6,6 @@
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/logger.hpp"
-// #include "bintjekit/renderer/i_bnjkit_imgui.hpp"
 #include "bintjekit/configuration/sfml_json_adapter.hpp"
 
 namespace bnjkit::window {
@@ -25,12 +24,6 @@ namespace bnjkit::window {
 
     void IMainWindow::configure() {
         m_logger->info("Configure IMainWindow");
-        sf::Vector2i position = m_settings.get("/Position"_json_pointer, sf::Vector2i{200, 200});
-        sf::Vector2u size = m_settings.get("/Size"_json_pointer, sf::Vector2u{1000, 1000});
-        std::string title = m_settings.get("/Title"_json_pointer, std::string("GOL"));
-        setPosition(position);
-        setSize(size);
-        setTitle(title);
     }
 
     void IMainWindow::show() {
@@ -41,5 +34,13 @@ namespace bnjkit::window {
         if (event.is<sf::Event::Closed>()) {
             close();
         }
+    }
+    void IMainWindow::close() {
+        m_logger->info("Closing IMainWindow");
+        sf::Vector2u size = getSize();
+        sf::Vector2i pos = getPosition();
+        m_settings.set("/Size"_json_pointer, size);
+        m_settings.set("/Position"_json_pointer, pos);
+        RenderWindow::close();
     }
 }
