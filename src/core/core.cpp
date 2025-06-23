@@ -20,7 +20,6 @@ namespace bnjkit::core {
         m_logger = Logger::get_logger(module_names::CORE);
         m_logger = Logger::get_logger(module_names::CORE);
         m_logger->info("Constructor of Core");
-        m_settings = std::make_shared<conf::Settings>();
     }
 
     Core::~Core() {
@@ -29,22 +28,26 @@ namespace bnjkit::core {
     }
 
     void Core::configure() {
+        if (!m_settings) {
+            m_logger->warn("No settings set. Using default settings");
+            m_settings = std::make_shared<conf::Settings>();
+        }
         m_main_window->set_settings(m_settings->create_child("/Window"_json_pointer));
         m_main_window->configure();
     }
 
-    void Core::configure(std::shared_ptr<conf::Settings> settings) {
+    void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
         set_settings(settings);
         configure();
     }
-    
+
     void Core::run() {
         m_logger->info("Running Core");
         m_main_window->show();
         m_imgui_renderer->init();
         m_renderer->configure();
         while (m_main_window->isOpen()) {
-            m_event_manager->process_events(*m_main_window);
+            m_event_manager->process_events(* m_main_window);
             if (m_state == State::RUNNING && engine_pulser()) {
                 m_engine->update();
             }
@@ -57,7 +60,7 @@ namespace bnjkit::core {
     }
 
     conf::Settings& Core::settings() const {
-        return *m_settings;
+        return * m_settings;
     }
 
     Core::State Core::state() const {
@@ -119,7 +122,7 @@ namespace bnjkit::core {
     void Core::set_window_frequency(long frequency) {
         window_pulser.set_frequency(frequency);
     }
-    void Core::set_settings(std::shared_ptr<conf::Settings> settings) {
+    void Core::set_settings(const std::shared_ptr<conf::Settings>& settings) {
         m_settings = settings;
     }
     std::string Core::state_to_string(State state) {

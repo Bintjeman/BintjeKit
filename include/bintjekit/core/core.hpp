@@ -40,7 +40,7 @@ namespace bnjkit {
             Core();
             ~Core();
             void configure();
-            void configure(std::shared_ptr<conf::Settings> settings);
+            void configure(const std::shared_ptr<conf::Settings>& settings);
             void run();
             [[nodiscard]] conf::Settings& settings() const;
             [[nodiscard]] State state() const;
@@ -61,7 +61,7 @@ namespace bnjkit {
             void set_engine_frequency(long frequency);
             void set_renderer_frequency(long frequency);
             void set_window_frequency(long frequency);
-            void set_settings(std::shared_ptr<conf::Settings> settings);
+            void set_settings(const std::shared_ptr<conf::Settings>& settings);
 
         protected:
             State m_state{State::STOPPED};
