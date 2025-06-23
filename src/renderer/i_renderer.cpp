@@ -117,5 +117,8 @@ namespace bnjkit {
             m_imgui_renderer->render();
             m_render_window->display();
         }
+        std::string IRenderer::name() const {
+            return "IRenderer";
+        }
     } // renderer
 } // bnjkit

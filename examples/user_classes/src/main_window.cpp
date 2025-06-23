@@ -27,4 +27,7 @@ namespace usr {
     void MainWindow::on_sfml_event(const sf::Event &event) {
         IMainWindow::on_sfml_event(event);
     }
+    std::string MainWindow::name() const {
+        return "MainWindow";
+    }
 } // usr

@@ -48,6 +48,11 @@ namespace bnjkit {
             void resize_views();
             void begin_frame();
             void end_frame();
+
+        public:
+            [[nodiscard]] std::string name() const override;
+
+        protected:
             sf::RenderWindow *m_render_window;
             IImGuiRenderer *m_imgui_renderer;
             const engine::IEngine *m_engine;

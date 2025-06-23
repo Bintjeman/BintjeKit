@@ -23,6 +23,7 @@ public:
     void configure() override;
     void show() override;
     void on_sfml_event(const sf::Event &event) override;
-};
+    [[nodiscard]] std::string name() const override;
+    };
 } // bnjkit::window
 #endif // BNJKIT_WINDOW_DEFAULT_MAIN_WINDOW_HPP

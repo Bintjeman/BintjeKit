@@ -35,9 +35,6 @@ namespace bnjkit {
             m_play_ground->update();
         }
 
-        void IEngine::on_sfml_event(const sf::Event &event [[maybe_unused]]) {
-        }
-
         PlayGround &IEngine::play_ground() const { return *m_play_ground; }
 
         IEngine::State IEngine::state() const {
@@ -55,6 +52,11 @@ namespace bnjkit {
                 default:
                     return "UNKNOWN";
             }
+        }
+        std::string IEngine::name() const {
+            return "IEngine";
+        }
+        void IEngine::on_sfml_event(const sf::Event& event) {
         }
     } // engine
 } // bnjkit

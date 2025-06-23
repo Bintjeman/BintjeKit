@@ -16,6 +16,7 @@ namespace usr {
         void initialise() override;
         void configure() override;
         void on_sfml_event(const sf::Event &event) override;
+        [[nodiscard]] std::string name() const override;
     }; // MainWindow
 } // usr
 #endif //MAIN_WINDOW_HPP

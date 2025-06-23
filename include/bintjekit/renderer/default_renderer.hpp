@@ -14,6 +14,7 @@ namespace bnjkit {
         public:
             void on_sfml_event(const sf::Event &event) override;
             void render_scene() override ;
+            [[nodiscard]] std::string name() const override;
         };
     } // renderer
 } // bnjkit

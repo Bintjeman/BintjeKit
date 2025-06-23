@@ -26,6 +26,7 @@ namespace bnjkit {
             virtual void set_engine(const bnjkit::engine::IEngine *engine);
             virtual void get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const;
             [[nodiscard]] virtual sf::Rect<float> get_bounds() const;
+            [[nodiscard]] std::string name() const override;
 
         protected:
             const engine::IEngine *m_engine;

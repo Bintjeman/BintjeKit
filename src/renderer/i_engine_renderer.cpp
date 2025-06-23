@@ -32,5 +32,8 @@ namespace bnjkit {
             m_logger->trace("Getting bounds");
             return {{0.f, 0.f}, {100.f, 100.f}};
         }
+        std::string IEngineRenderer::name() const {
+            return "IEngineRenderer";
+        }
     } // renderer
 } // bnjkit

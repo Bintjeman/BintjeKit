@@ -29,7 +29,6 @@ namespace bnjkit {
             void initialise() override;
             void configure() override;
             virtual void update();
-            virtual void on_sfml_event(const sf::Event &event) override;
             [[nodiscard]] PlayGround &play_ground() const;
             [[nodiscard]] State state() const;
 
@@ -40,6 +39,8 @@ namespace bnjkit {
 
         public:
             static std::string state_to_string(State state);
+            [[nodiscard]] std::string name() const override;
+            void on_sfml_event(const sf::Event& event) override;
         };
     } // engine
 } // bnjkit

@@ -36,6 +36,11 @@ namespace bnjkit::core {
         }
         m_main_window->set_settings(m_settings->create_child("/Window"_json_pointer));
         m_main_window->configure();
+        m_engine->set_settings(m_settings->create_child("/Engine"_json_pointer));
+        m_engine->set_custom(
+            m_settings->create_child(
+                nlohmann::json::json_pointer(std::string("/" + m_engine->name()))));
+        m_engine->configure();
     }
 
     void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
