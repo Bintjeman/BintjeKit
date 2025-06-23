@@ -11,7 +11,7 @@
 namespace bnjkit {
     namespace conf {
         Node::Node(const std::shared_ptr<nlohmann::json>& json,
-                   const nlohmann::json::json_pointer& root,
+                   const nlohmann::json::json_pointer& branch,
                    const std::shared_ptr<nlohmann::json>& default_values
         ) {
             m_logger = core::Logger::get_logger(core::module_names::CONFIGURATION);
@@ -28,15 +28,17 @@ namespace bnjkit {
             } else {
                 m_default_values = default_values;
             }
-            if (m_branch.empty()) {
+            m_logger->trace("Branch: {}", branch.to_string());
+            if (branch.empty()) {
                 m_branch = ""_json_pointer;
             } else {
-                m_branch = root;
+                m_branch = branch;
             }
             m_logger->info("Constructor of Node finished");
-            m_logger->trace("Node: {}", m_json->dump());
-            m_logger->trace("Node: {}", m_default_values->dump());
-            m_logger->trace("Node: {}", m_branch.to_string());
+            m_logger->trace("Node json: {}", m_json->dump());
+            m_logger->trace("Node default json: {}", m_default_values->dump());
+            m_logger->trace("Node branch: {}", m_branch.to_string());
+            m_logger->trace("Nodes count: {}", node_count());
         }
 
         Node::~Node() = default;
@@ -48,14 +50,24 @@ namespace bnjkit {
 
         Node Node::create_child(const nlohmann::json::json_pointer& key) {
             m_logger->info("Creating child node");
-            auto child_root = m_branch / key;
-            if (!m_json->contains(child_root)) {
-                (*m_json)[child_root] = nlohmann::json::object();
+            m_logger->trace("Nodes count: {}", node_count());
+            auto child_branch = m_branch / key;
+            if (!m_json->contains(child_branch)) {
+                (*m_json)[child_branch] = nlohmann::json::object();
             }
-            m_logger->trace("child_root: {}", child_root.to_string());
-            return Node(m_json, child_root);
+            m_logger->trace("Child branch: {}", child_branch.to_string());
+            return Node(m_json, child_branch);
+        }
+        unsigned int Node::node_count() const {
+            return m_json.use_count();
         }
 
+        nlohmann::json::json_pointer Node::branch() {
+            return m_branch;
+        }
+        std::string Node::branch_str() const {
+            return m_branch.to_string();
+        }
         nlohmann::json Node::get_json() const {
             return m_json->get<nlohmann::json>().at(m_branch);
         }

@@ -43,6 +43,7 @@ namespace bnjkit::window {
         m_settings.set("/Position"_json_pointer, pos);
         auto settings_json = m_settings.get_json();
         m_logger->trace("Window settings: {}", settings_json.dump(2));
+        m_logger->trace("Window settings root: {}", m_settings.branch_str());
         RenderWindow::close();
     }
 }
