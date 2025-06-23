@@ -17,7 +17,6 @@
 #include "bintjekit/event_manager/i_core_event_handler.hpp"
 // defaults modules
 #include "bintjekit/window/default_main_window.hpp"
-#include "bintjekit/event_manager/default_event_manager.hpp"
 #include "bintjekit/renderer/default_renderer.hpp"
 #include "bintjekit/event_manager/default_core_event_handler.hpp"
 

@@ -3,7 +3,6 @@
  * @date 20.06.25
  * @name logger.hpp
  */
-
 #ifndef  BINTJEKIT_LOGGER_INCLUDES_HPP
 #define  BINTJEKIT_LOGGER_INCLUDES_HPP
 #pragma once
