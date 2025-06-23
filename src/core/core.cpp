@@ -12,6 +12,7 @@
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/configuration/settings.hpp"
+#include "bintjekit/configuration/utils.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
 #include "time/time.hpp"
 
@@ -28,6 +29,7 @@ namespace bnjkit::core {
     }
 
     void Core::configure() {
+        m_logger->info("Configuring Core");
         if (!m_settings) {
             m_logger->warn("No settings set. Using default settings");
             m_settings = std::make_shared<conf::Settings>();
@@ -37,10 +39,17 @@ namespace bnjkit::core {
     }
 
     void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
+        m_logger->info("Configuring Core from settings");
         set_settings(settings);
         configure();
     }
-
+    void Core::configure(const std::filesystem::path& conf_file_path) {
+        m_logger->info("Configuring Core from file: {}", conf_file_path.string());
+        std::shared_ptr<conf::Settings> settings = std::make_shared<conf::Settings>();
+        settings->load_from_json(conf::from_file(conf_file_path));
+        settings->set_path(conf_file_path);
+        configure(settings);
+    }
     void Core::run() {
         m_logger->info("Running Core");
         m_main_window->show();

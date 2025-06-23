@@ -49,6 +49,7 @@ namespace bnjkit {
 
         void IRenderer::render_gui() {
             m_render_window->setView(m_gui_view);
+            m_imgui_renderer->draw();
         }
 
         void IRenderer::set_render_window(sf::RenderWindow* window) {

@@ -6,6 +6,7 @@
 #ifndef BNJKIT_CORE_CORE_HPP
 #define BNJKIT_CORE_CORE_HPP
 #pragma once
+#include <filesystem>
 #include <memory>
 #include <time/time.hpp>
 #include <spdlog/fwd.h>
@@ -41,6 +42,7 @@ namespace bnjkit {
             ~Core();
             void configure();
             void configure(const std::shared_ptr<conf::Settings>& settings);
+            void configure(const std::filesystem::path& conf_file_path);
             void run();
             [[nodiscard]] conf::Settings& settings() const;
             [[nodiscard]] State state() const;
