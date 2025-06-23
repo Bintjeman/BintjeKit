@@ -4,8 +4,8 @@
  * @name logger.hpp
  */
 
-#ifndef LOGGER_HPP
-#define LOGGER_HPP
+#ifndef BNJKIT_CORE_LOGGER_HPP
+#define BNJKIT_CORE_LOGGER_HPP
 #pragma once
 #include <memory>
 #include <spdlog/spdlog.h>
@@ -27,4 +27,4 @@ namespace bnjkit {
         };
     } // core
 } // bnjkit
-#endif //LOGGER_HPP
+#endif // BNJKIT_CORE_LOGGER_HPP

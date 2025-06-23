@@ -4,8 +4,8 @@
  * @name sfml_json_adapter.hpp
  */
 
-#ifndef SFML_JSON_ADAPTER_HPP
-#define SFML_JSON_ADAPTER_HPP
+#ifndef BNJKIT_CONFIGURATION_SFML_JSON_ADAPTER_HPP
+#define BNJKIT_CONFIGURATION_SFML_JSON_ADAPTER_HPP
 #pragma once
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -69,4 +69,4 @@ namespace nlohmann {
         return r;
     }
 }
-#endif //SFML_JSON_ADAPTER_HPP
+#endif // BNJKIT_CONFIGURATION_SFML_JSON_ADAPTER_HPP

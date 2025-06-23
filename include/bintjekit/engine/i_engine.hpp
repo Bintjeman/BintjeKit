@@ -3,8 +3,8 @@
  * @date 12.06.25
  * @name i_engine.hpp
  */
-#ifndef I_ENGINE_HPP
-#define I_ENGINE_HPP
+#ifndef BNJKIT_ENGINE_I_ENGINE_HPP
+#define BNJKIT_ENGINE_I_ENGINE_HPP
 #pragma once
 #include <memory>
 #include <SFML/Window/Event.hpp>
@@ -44,4 +44,4 @@ namespace bnjkit {
     } // engine
 } // bnjkit
 
-#endif //I_ENGINE_HPP
+#endif // BNJKIT_ENGINE_I_ENGINE_HPP

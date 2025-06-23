@@ -3,8 +3,8 @@
  * @date 11.06.25
  * @name core_builder.hpp
  */
-#ifndef CORE_BUILDER_HPP
-#define CORE_BUILDER_HPP
+#ifndef BNJKIT_CORE_CORE_BUILDER_HPP
+#define BNJKIT_CORE_CORE_BUILDER_HPP
 #pragma once
 #include <memory>
 #include <spdlog/fwd.h>
@@ -82,4 +82,4 @@ namespace bnjkit {
         };
     } // core
 } // bnjkit
-#endif //CORE_BUILDER_HPP
+#endif // BNJKIT_CORE_CORE_BUILDER_HPP

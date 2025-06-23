@@ -4,8 +4,8 @@
  * @name default_main_window.hpp
  */
 
-#ifndef DEFAULT_MAIN_WINDOW_HPP
-#define DEFAULT_MAIN_WINDOW_HPP
+#ifndef BNJKIT_WINDOW_DEFAULT_MAIN_WINDOW_HPP
+#define BNJKIT_WINDOW_DEFAULT_MAIN_WINDOW_HPP
 #pragma once
 #include "bintjekit/window/i_main_window.hpp"
 namespace bnjkit::window {
@@ -25,4 +25,4 @@ public:
     void on_sfml_event(const sf::Event &event) override;
 };
 } // bnjkit::window
-#endif //DEFAULT_MAIN_WINDOW_HPP
+#endif // BNJKIT_WINDOW_DEFAULT_MAIN_WINDOW_HPP

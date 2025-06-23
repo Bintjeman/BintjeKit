@@ -4,8 +4,8 @@
  * @name event_listener.hpp
  */
 
-#ifndef I_EVENT_LISTENER_HPP
-#define I_EVENT_LISTENER_HPP
+#ifndef BNJKIT_EVENT_I_EVENT_LISTENER_HPP
+#define BNJKIT_EVENT_I_EVENT_LISTENER_HPP
 #pragma once
 #include <memory>
 #include <spdlog/fwd.h>
@@ -26,4 +26,4 @@ namespace bnjkit {
     } // event
 } // bnjkit
 
-#endif // I_EVENT_LISTENER_HPP
+#endif // BNJKIT_EVENT_I_EVENT_LISTENER_HPP

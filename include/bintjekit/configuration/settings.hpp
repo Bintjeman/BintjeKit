@@ -3,8 +3,8 @@
  * @date 15.06.25
  * @name configuration_manager.hpp
  */
-#ifndef CONFIGURATION_MANAGER_HPP
-#define CONFIGURATION_MANAGER_HPP
+#ifndef BNJKIT_CONFIGURATION_SETTINGS_HPP
+#define BNJKIT_CONFIGURATION_SETTINGS_HPP
 #pragma once
 #include <filesystem>
 #include <sstream>
@@ -43,4 +43,4 @@ namespace bnjkit {
         };
     } // conf
 } // bnjkit
-#endif //CONFIGURATION_MANAGER_HPP
+#endif // BNJKIT_CONFIGURATION_SETTINGS_HPP

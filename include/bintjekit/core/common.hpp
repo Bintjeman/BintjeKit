@@ -4,8 +4,8 @@
  * @name common.hpp
  */
 
-#ifndef COMMON_HPP
-#define COMMON_HPP
+#ifndef BNJKIT_CORE_COMMON_HPP
+#define BNJKIT_CORE_COMMON_HPP
 #pragma once
 namespace bnjkit {
     namespace core {
@@ -22,4 +22,4 @@ namespace bnjkit {
         }
     } // core
 } // bnjkit
-#endif //COMMON_HPP
+#endif // BNJKIT_CORE_COMMON_HPP

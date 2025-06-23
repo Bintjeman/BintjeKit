@@ -3,8 +3,10 @@
  * @date 14.06.25
  * @name time.hpp
  */
-#ifndef TIME_HPP
-#define TIME_HPP
+#ifndef
+BNJTIK_COMMON_TIME_HPP
+#define
+BNJTIK_COMMON_TIME_HPP
 #pragma once
 #include <chrono>
 namespace bnjkit {
@@ -50,4 +52,5 @@ namespace bnjkit {
         };
     } // time
 } // bnjkit
-#endif //TIME_HPP
+#endif //
+// BNJTIK_COMMON_TIME_HPP

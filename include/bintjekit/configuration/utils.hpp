@@ -4,8 +4,8 @@
  * @name util.hpp
  */
 
-#ifndef UTIL_HPP
-#define UTIL_HPP
+#ifndef BNJKIT_CONFIGURATION_UTIL_HPP
+#define BNJKIT_CONFIGURATION_UTIL_HPP
 #pragma once
 #include <filesystem>
 #include <nlohmann/json_fwd.hpp>
@@ -21,4 +21,4 @@ namespace bnjkit {
         std::shared_ptr<spdlog::logger>& get_logger();
     }
 }
-#endif //UTIL_HPP
+#endif // BNJKIT_CONFIGURATION_UTIL_HPP

@@ -4,15 +4,13 @@
  * @name i_renderer.hpp
  */
 
-#ifndef I_RENDERER_HPP
-#define I_RENDERER_HPP
+#ifndef BNJKIT_RENDERER_I_RENDERER_HPP
+#define BNJKIT_RENDERER_I_RENDERER_HPP
 #pragma once
 #include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <spdlog/fwd.h>
-
 #include "i_bnjkit_imgui.hpp"
-// #include "i_engine_renderer.hpp"
 #include "bintjekit/core/i_module.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
 
@@ -62,4 +60,4 @@ namespace bnjkit {
         };
     } // renderer
 } // bnjkit
-#endif //I_RENDERER_HPP
+#endif // BNJKIT_RENDERER_I_RENDERER_HPP

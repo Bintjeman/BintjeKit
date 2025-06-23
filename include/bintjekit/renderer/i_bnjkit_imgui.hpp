@@ -3,11 +3,10 @@
  * @date 15.06.25
  * @name imgui.hpp
  */
-#ifndef BNJKIT_IMGUI_HPP
-#define BNJKIT_IMGUI_HPP
+#ifndef BNJKIT_RENDERER_BNJKIT_IMGUI_HPP
+#define BNJKIT_RENDERER_BNJKIT_IMGUI_HPP
 #pragma once
 #include <memory>
-
 #include "spdlog/fwd.h"
 
 namespace sf {
@@ -48,4 +47,4 @@ namespace bnjkit {
         };
     } // renderer
 } // bnjkit
-#endif // BNJKIT_IMGUI_HPP
+#endif // BNJKIT_RENDERER_BNJKIT_IMGUI_HPP

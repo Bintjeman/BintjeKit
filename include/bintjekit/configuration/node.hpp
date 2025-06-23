@@ -4,8 +4,8 @@
  * @name configuration_node.hpp
  */
 
-#ifndef CONFIGURATION_NODE_HPP
-#define CONFIGURATION_NODE_HPP
+#ifndef BNJKIT_CONFIGURATION_NODE_HPP
+#define BNJKIT_CONFIGURATION_NODE_HPP
 #pragma once
 #include <nlohmann/json.hpp>
 #include "spdlog/fwd.h"
@@ -47,4 +47,4 @@ namespace bnjkit {
     } // conf
 } // bnjkit
 #include "node.inl"
-#endif //CONFIGURATION_NODE_HPP
+#endif // BNJKIT_CONFIGURATION_NODE_HPP

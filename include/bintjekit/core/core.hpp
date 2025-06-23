@@ -3,8 +3,8 @@
  * @date 11.06.25
  * @name core.hpp
  */
-#ifndef CORE_HPP
-#define CORE_HPP
+#ifndef BNJKIT_CORE_CORE_HPP
+#define BNJKIT_CORE_CORE_HPP
 #pragma once
 #include <memory>
 #include <time/time.hpp>
@@ -86,4 +86,4 @@ namespace bnjkit {
         };
     } // core
 } // bnjkit
-#endif //CORE_HPP
+#endif //BNJKIT_CORE_CORE_HPP

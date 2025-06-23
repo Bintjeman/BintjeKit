@@ -4,8 +4,8 @@
  * @name play_ground.hpp
  */
 
-#ifndef PLAY_GROUND_HPP
-#define PLAY_GROUND_HPP
+#ifndef BNJKIT_ENGINE_PLAY_GROUND_HPP
+#define BNJKIT_ENGINE_PLAY_GROUND_HPP
 #pragma once
 
 #include <memory>
@@ -37,4 +37,4 @@ namespace bnjkit {
     } // engine
 } // bnjkit
 
-#endif //PLAY_GROUND_HPP
+#endif // BNJKIT_ENGINE_PLAY_GROUND_HPP

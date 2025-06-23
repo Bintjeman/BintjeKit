@@ -4,14 +4,13 @@
  * @name i_engine_renderer.hpp
  */
 
-#ifndef I_ENGINE_RENDERER_HPP
-#define I_ENGINE_RENDERER_HPP
+#ifndef BNJKIT_RENDERER_I_ENGINE_RENDERER_HPP
+#define BNJKIT_RENDERER_I_ENGINE_RENDERER_HPP
 #pragma once
 #include <memory>
 #include <vector>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Rect.hpp>
-#include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
 namespace bnjkit {
     namespace engine {
@@ -63,4 +62,4 @@ namespace bnjkit {
         };
     } // renderer
 } // bnjkit
-#endif //I_ENGINE_RENDERER_HPP
+#endif // BNJKIT_RENDERER_I_ENGINE_RENDERER_HPP

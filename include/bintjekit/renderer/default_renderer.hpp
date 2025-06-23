@@ -4,8 +4,8 @@
  * @name default_renderer.hpp
  */
 
-#ifndef DEFAULT_RENDERER_HPP
-#define DEFAULT_RENDERER_HPP
+#ifndef BNJKIT_RENDERER_DEFAULT_RENDERER_HPP
+#define BNJKIT_RENDERER_DEFAULT_RENDERER_HPP
 #pragma once
 #include "i_renderer.hpp"
 namespace bnjkit {
@@ -17,4 +17,4 @@ namespace bnjkit {
         };
     } // renderer
 } // bnjkit
-#endif //DEFAULT_RENDERER_HPP
+#endif // BNJKIT_RENDERER_DEFAULT_RENDERER_HPP

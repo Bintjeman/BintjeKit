@@ -3,8 +3,8 @@
  * @date 19.06.25
  * @name node.inl
  */
-#ifndef NODE_INL
-#define NODE_INL
+#ifndef BNJKIT_CONFIGURATION_NODE_INL
+#define BNJKIT_CONFIGURATION_NODE_INL
 #pragma once
 namespace bnjkit {
     namespace conf {
@@ -42,4 +42,4 @@ namespace bnjkit {
         }
     } // conf
 } // bnjkit
-#endif //NODE_INL
+#endif // BNJKIT_CONFIGURATION_NODE_INL

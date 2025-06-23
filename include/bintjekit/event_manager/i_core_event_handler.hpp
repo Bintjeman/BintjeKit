@@ -3,12 +3,11 @@
  * @date 16.06.25
  * @name ICoreEventHandler.hpp
  */
-#ifndef ICOREEVENTHANDLER_HPP
-#define ICOREEVENTHANDLER_HPP
+#ifndef BNJKIT_EVENT_ICOREEVENTHANDLER_HPP
+#define BNJKIT_EVENT_ICOREEVENTHANDLER_HPP
 #pragma once
 #include <memory>
 #include <spdlog/fwd.h>
-
 #include "SFML/Window/Event.hpp"
 
 namespace bnjkit {
@@ -30,4 +29,4 @@ namespace bnjkit {
         };
     } // event
 } // bnjkit
-#endif //ICOREEVENTHANDLER_HPP
+#endif // BNJKIT_EVENT_ICOREEVENTHANDLER_HPP

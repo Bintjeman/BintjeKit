@@ -4,8 +4,8 @@
  * @name DefaultCoreEventHandler.hpp
  */
 
-#ifndef DEFAULTCOREEVENTHANDLER_HPP
-#define DEFAULTCOREEVENTHANDLER_HPP
+#ifndef BNJKIT_EVENT_DEFAULTCOREEVENTHANDLER_HPP
+#define BNJKIT_EVENT_DEFAULTCOREEVENTHANDLER_HPP
 #pragma once
 #include "bintjekit/event_manager/i_core_event_handler.hpp"
 #include <SFML/Window/Event.hpp>
@@ -18,4 +18,4 @@ namespace bnjkit {
         ;
     } // event
 } // bnjkit
-#endif //DEFAULTCOREEVENTHANDLER_HPP
+#endif // BNJKIT_EVENT_DEFAULTCOREEVENTHANDLER_HPP

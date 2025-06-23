@@ -4,35 +4,35 @@
  * @name fmt_sfml.hpp
  */
 
-#ifndef FMT_SFML_HPP
-#define FMT_SFML_HPP
+#ifndef BNJKIT_COMMONFMT_SFML_HPPFMT_SFML_HPP
+#define BNJKIT_COMMONFMT_SFML_HPPFMT_SFML_HPP
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <spdlog/fmt/fmt.h>
 
 template<typename T>
 struct fmt::formatter<sf::Vector2<T> > {
-    constexpr auto parse(format_parse_context &ctx) -> decltype(ctx.begin()) {
+    constexpr auto parse(format_parse_context& ctx) -> decltype(ctx.begin()) {
         return ctx.begin();
     }
 
     template<typename FormatContext>
-    auto format(const sf::Vector2<T> &vec, FormatContext &ctx) -> decltype(ctx.out()) {
+    auto format(const sf::Vector2<T>& vec, FormatContext& ctx) -> decltype(ctx.out()) {
         return fmt::format_to(ctx.out(), "({}, {})", vec.x, vec.y);
     }
 };
 
 template<typename T>
 struct fmt::formatter<sf::Rect<T> > {
-    constexpr auto parse(format_parse_context &ctx) -> decltype(ctx.begin()) {
+    constexpr auto parse(format_parse_context& ctx) -> decltype(ctx.begin()) {
         return ctx.begin();
     }
 
     template<typename FormatContext>
-    auto format(const sf::Rect<T> &rect, FormatContext &ctx) -> decltype(ctx.out()) {
+    auto format(const sf::Rect<T>& rect, FormatContext& ctx) -> decltype(ctx.out()) {
         return fmt::format_to(ctx.out(), "pos:({}, {}), size:({}, {})",
                               rect.position.x, rect.position.y, rect.size.x, rect.size.y);
     }
 };
 
-#endif //FMT_SFML_HPP
+#endif // BNJKIT_COMMONFMT_SFML_HPPFMT_SFML_HPP
