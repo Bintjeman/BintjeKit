@@ -134,6 +134,9 @@ namespace bnjkit::core {
     void Core::set_settings(const std::shared_ptr<conf::Settings>& settings) {
         m_settings = settings;
     }
+    void Core::save_settings() {
+        m_settings->save_to_file();
+    }
     std::string Core::state_to_string(State state) {
         switch (state) {
             case State::RUNNING: return "RUNNING";

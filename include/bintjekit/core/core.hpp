@@ -64,6 +64,7 @@ namespace bnjkit {
             void set_renderer_frequency(long frequency);
             void set_window_frequency(long frequency);
             void set_settings(const std::shared_ptr<conf::Settings>& settings);
+            void save_settings();
 
         protected:
             State m_state{State::STOPPED};
