@@ -18,15 +18,15 @@ namespace bnjkit {
     namespace renderer {
         IRenderer::IRenderer() : m_render_window(nullptr), m_engine(nullptr) {
             m_logger = core::Logger::get_logger(core::module_names::RENDERER);
-            m_logger->info("Constructor of IRenderer");
+            m_logger->info("IRenderer: Constructor of IRenderer");
         }
 
         IRenderer::~IRenderer() {
-            m_logger->info("Destructor of IRenderer");
+            m_logger->info("IRenderer: Destructor of IRenderer");
         }
 
         void IRenderer::configure() {
-            m_logger->info("Configuring IRenderer");
+            m_logger->info("IRenderer: Configuring IRenderer");
             resize_views();
         }
 
@@ -41,7 +41,7 @@ namespace bnjkit {
         void IRenderer::render_scene() {
             m_drawables.clear();
             m_engine_renderer->get_drawable(m_drawables);
-            for (const auto &drawable: m_drawables) {
+            for (const auto& drawable: m_drawables) {
                 m_render_window->setView(m_engine_view);
                 m_render_window->draw(drawable);
             }
@@ -51,37 +51,38 @@ namespace bnjkit {
             m_render_window->setView(m_gui_view);
         }
 
-        void IRenderer::set_render_window(sf::RenderWindow *window) {
-            m_logger->info("Setting render window");
+        void IRenderer::set_render_window(sf::RenderWindow* window) {
+            m_logger->info("IRenderer: Setting render window");
             m_render_window = window;
             m_engine_view = window->getDefaultView();
             m_gui_view = window->getDefaultView();
         }
 
-        void IRenderer::set_imgui_renderer(IImGuiRenderer *imgui_renderer) {
-            m_logger->info("Setting imgui renderer");
+        void IRenderer::set_imgui_renderer(IImGuiRenderer* imgui_renderer) {
+            m_logger->info("IRenderer: Setting imgui renderer");
             m_imgui_renderer = imgui_renderer;
         }
 
-        void IRenderer::set_engine_renderer(const IEngineRenderer *engine_renderer) {
-            m_logger->info("Setting engine renderer");
+        void IRenderer::set_engine_renderer(const IEngineRenderer* engine_renderer) {
+            m_logger->info("IRenderer: Setting engine renderer");
             m_engine_renderer = engine_renderer;
         }
 
-        void IRenderer::set_core(core::Core *core) {
-            m_logger->info("Setting core");
+        void IRenderer::set_core(core::Core* core) {
+            m_logger->info("IRenderer: Setting core");
             m_core = core;
         }
 
-        void IRenderer::set_engine(const engine::IEngine *engine) {
-            m_logger->info("Setting engine");
+        void IRenderer::set_engine(const engine::IEngine* engine) {
+            m_logger->info("IRenderer: Setting engine");
             m_engine = engine;
         }
 
         void IRenderer::resize_views() {
-            m_logger->info("Resizing views");
+            m_logger->info("IRenderer: Resizing views");
             const sf::Rect<float> world_bounds = m_engine_renderer->get_bounds();
-            const float window_ratio = static_cast<float>(m_render_window->getSize().x) / static_cast<float>(
+            const float window_ratio = static_cast<float>(m_render_window->getSize().x) /
+                                       static_cast<float>(
                                            m_render_window->getSize().y);
             const float world_ratio = world_bounds.size.x / world_bounds.size.y;
             m_gui_view = m_render_window->getDefaultView();
@@ -100,9 +101,11 @@ namespace bnjkit {
                 float view_height = view_width / window_ratio;
                 m_engine_view.setSize({view_width, view_height});
             }
-            m_logger->trace("Engine bounds: {}\nwindow size: {}\nView center: {}\nView size: {}",
-                            m_engine_renderer->get_bounds(), m_render_window->getSize(), m_engine_view.getCenter(),
-                            m_engine_view.getSize());
+            m_logger->trace(
+                "IRenderer: Engine bounds: {}\nwindow size: {}\nView center: {}\nView size: {}",
+                m_engine_renderer->get_bounds(), m_render_window->getSize(),
+                m_engine_view.getCenter(),
+                m_engine_view.getSize());
         }
 
         void IRenderer::begin_frame() {

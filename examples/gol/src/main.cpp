@@ -26,15 +26,14 @@ int main() {
             .set<gol::Renderer>()
             .set<gol::CoreEventHandler>()
             .build();
-
-    auto& settings = core->settings();
-    settings.set_default_values(default_json);
-    settings.load_from_json(bnjkit::conf::from_file("conf.json"), true);
-    settings.set_path("conf.json");
+    auto settings = std::make_shared<bnjkit::conf::Settings>();
+    settings->set_default_values(default_json);
+    settings->load_from_json(bnjkit::conf::from_file("conf.json"), true);
+    core->configure(settings);
     core->configure();
-    logger->trace("Settings before run:  {}", settings.to_string());
+    logger->trace("Settings before run:  {}", settings->to_string());
     core->run();
-    logger->trace("Settings after run:  {}", settings.to_string());
-    settings.save_to_file();
+    logger->trace("Settings after run:  {}", settings->to_string());
+    settings->save_to_file();
     return 0;
 }

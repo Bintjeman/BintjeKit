@@ -14,9 +14,9 @@
 
 namespace bnjkit {
     namespace renderer {
-        IImGuiRenderer::ImGuiContext::ImGuiContext(sf::RenderWindow *window) {
-            if (!ImGui::SFML::Init(*window)) {
-                throw std::runtime_error("Failed to initialise ImGui");
+        IImGuiRenderer::ImGuiContext::ImGuiContext(sf::RenderWindow* window) {
+            if (!ImGui::SFML::Init(* window)) {
+                throw std::runtime_error("IImGuiRenderer: Failed to initialise ImGui");
             }
         }
 
@@ -33,30 +33,38 @@ namespace bnjkit {
             m_logger->info("Destructor of IImGuiRenderer");
         }
 
-        void IImGuiRenderer::set_window(sf::RenderWindow *window) {
-            m_logger->info("Setting window");
+        void IImGuiRenderer::set_window(sf::RenderWindow* window) {
+            m_logger->info("IImGuiRenderer: Setting window");
             m_window = window;
+        }
+        void IImGuiRenderer::set_engine(engine::IEngine* engine) {
+            m_logger->info("IImGuiRenderer: Setting engine");
+            m_engine = engine;
+        }
+        void IImGuiRenderer::set_core(core::Core* core) {
+            m_logger->info("IImGuiRenderer: Setting core");
+            m_core = core;
         }
 
         void IImGuiRenderer::update() {
             static sf::Clock clock;
-            ImGui::SFML::Update(*m_window, clock.restart());
+            ImGui::SFML::Update(* m_window, clock.restart());
         }
 
         void IImGuiRenderer::init() {
-            m_logger->info("Initialising ImGui");
+            m_logger->info("IImGuiRenderer: Initialising ImGui");
             m_context = std::make_unique<ImGuiContext>(m_window);
         }
 
-        void IImGuiRenderer::process_events(sf::Event &event) {
-            ImGui::SFML::ProcessEvent(*m_window, event);
+        void IImGuiRenderer::process_events(sf::Event& event) {
+            ImGui::SFML::ProcessEvent(* m_window, event);
         }
 
         void IImGuiRenderer::draw() {
         }
 
         void IImGuiRenderer::render() {
-            ImGui::SFML::Render(*m_window);
+            ImGui::SFML::Render(* m_window);
         }
 
         void IImGuiRenderer::shutdown() {
