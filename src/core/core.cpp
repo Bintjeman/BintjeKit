@@ -29,7 +29,7 @@ namespace bnjkit::core {
     }
 
     void Core::configure() {
-        m_main_window->set_settings(m_settings->create_child("Window"_json_pointer));
+        m_main_window->set_settings(m_settings->create_child("/Window"_json_pointer));
         m_main_window->configure();
     }
 

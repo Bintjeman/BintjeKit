@@ -41,6 +41,8 @@ namespace bnjkit::window {
         sf::Vector2i pos = getPosition();
         m_settings.set("/Size"_json_pointer, size);
         m_settings.set("/Position"_json_pointer, pos);
+        auto settings_json = m_settings.get_json();
+        m_logger->trace("Window settings: {}", settings_json.dump(2));
         RenderWindow::close();
     }
 }
