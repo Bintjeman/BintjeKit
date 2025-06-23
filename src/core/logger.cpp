@@ -3,8 +3,8 @@
  * @date 14.06.25
  * @name logger.cpp
  */
-
 #include "bintjekit/core/logger.hpp"
+#include <format>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include "bintjekit/core/common.hpp"
@@ -23,11 +23,6 @@ namespace bnjkit {
                 spdlog::sinks::basic_file_sink_mt>("bnjkit.log", true);
             file_sink->set_pattern("[%T] [%-8l] [%-8n] : %v");
             s_sinks.push_back(file_sink);
-            // // Créer les loggers par défaut
-            // get_logger(module_names::LOG)->set_level(spdlog::level::trace);
-            // get_logger(module_names::CORE)->set_level(spdlog::level::trace);
-            // get_logger(module_names::APP)->set_level(spdlog::level::info);
-            // get_logger(module_names::CORE)->info("Logger initialised");
         }
 
         std::shared_ptr<spdlog::logger> Logger::get_logger(const std::string& module_name) {

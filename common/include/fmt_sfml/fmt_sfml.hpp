@@ -3,13 +3,14 @@
  * @date 14.06.25
  * @name fmt_sfml.hpp
  */
-
 #ifndef BNJKIT_COMMONFMT_SFML_HPPFMT_SFML_HPP
 #define BNJKIT_COMMONFMT_SFML_HPPFMT_SFML_HPP
 #pragma once
 #include <SFML/Graphics.hpp>
+#if SPDLOG_USE_STD_FORMAT
+#include <format>
+#else
 #include <spdlog/fmt/fmt.h>
-
 template<typename T>
 struct fmt::formatter<sf::Vector2<T> > {
     constexpr auto parse(format_parse_context& ctx) -> decltype(ctx.begin()) {
@@ -34,5 +35,5 @@ struct fmt::formatter<sf::Rect<T> > {
                               rect.position.x, rect.position.y, rect.size.x, rect.size.y);
     }
 };
-
+#endif
 #endif // BNJKIT_COMMONFMT_SFML_HPPFMT_SFML_HPP
