@@ -10,7 +10,7 @@
 #include <vector>
 #include <SFML/Window/Event.hpp>
 #include <spdlog/fwd.h>
-#include "bintjekit/renderer/i_bnjkit_imgui.hpp"
+// #include "bintjekit/renderer/i_bnjkit_imgui.hpp"
 
 namespace sf {
     class Window;
