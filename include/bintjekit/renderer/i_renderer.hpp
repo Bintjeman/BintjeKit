@@ -36,6 +36,7 @@ namespace bnjkit {
             ~IRenderer() override;
             void configure() override;
             void render();
+            void resize_views();
             virtual void render_scene();
             virtual void render_gui();
             virtual void set_render_window(sf::RenderWindow *window);
@@ -45,7 +46,6 @@ namespace bnjkit {
             virtual void set_core(core::Core *core);
 
         protected:
-            void resize_views();
             void begin_frame();
             void end_frame();
 

@@ -5,13 +5,12 @@
  */
 #include "bintjekit/renderer/i_bnjkit_imgui.hpp"
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Window/Event.hpp>
+// #include <SFML/Window/Event.hpp>
 #include <imgui.h>
 #include <imgui-SFML.h>
-
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/logger.hpp"
-
+#include "bintjekit/renderer/i_renderer.hpp"
 namespace bnjkit {
     namespace renderer {
         IImGuiRenderer::ImGuiContext::ImGuiContext(sf::RenderWindow* window) {
@@ -19,6 +18,7 @@ namespace bnjkit {
                 throw std::runtime_error("IImGuiRenderer: Failed to initialise ImGui");
             }
         }
+
 
         IImGuiRenderer::ImGuiContext::~ImGuiContext() {
             ImGui::SFML::Shutdown();
@@ -45,6 +45,10 @@ namespace bnjkit {
             m_logger->info("IImGuiRenderer: Setting core");
             m_core = core;
         }
+        void IImGuiRenderer::set_renderer(IRenderer* renderer) {
+            m_logger->info("IImGuiRenderer: Setting renderer");
+            m_renderer = renderer;
+        }
 
         void IImGuiRenderer::update() {
             static sf::Clock clock;
@@ -69,6 +73,9 @@ namespace bnjkit {
 
         void IImGuiRenderer::shutdown() {
             ImGui::SFML::Shutdown();
+        }
+        std::string IImGuiRenderer::name() const {
+            return "IImGuiRenderer";
         }
     } // renderer
 } // bnjkit

@@ -7,7 +7,8 @@
 #define BNJKIT_RENDERER_BNJKIT_IMGUI_HPP
 #pragma once
 #include <memory>
-#include "spdlog/fwd.h"
+#include <spdlog/fwd.h>
+#include "bintjekit/core/i_module.hpp"
 
 namespace sf {
     class Event;
@@ -18,41 +19,49 @@ namespace bnjkit {
     namespace engine {
         class IEngine;
     };
+
     namespace core {
         class Core;
     };
+
     namespace renderer {
-        class IImGuiRenderer {
+        class IRenderer;
+        class IImGuiRenderer : public core::IModule {
             class ImGuiContext {
             public:
-                explicit ImGuiContext(sf::RenderWindow *window);
+                explicit ImGuiContext(sf::RenderWindow* window);
                 ~ImGuiContext();
             };
 
         public:
             IImGuiRenderer();
-            virtual ~IImGuiRenderer();
+            ~IImGuiRenderer() override;
             virtual void init();
             virtual void update();
-            virtual void process_events(sf::Event &event);
+            virtual void process_events(sf::Event& event);
             virtual void draw();
             void render();
-            void set_window(sf::RenderWindow *window);
-            virtual void set_engine(engine::IEngine *engine);
-            virtual void set_core(core::Core *core);
+            void set_window(sf::RenderWindow* window);
+            virtual void set_engine(engine::IEngine* engine);
+            virtual void set_core(core::Core* core);
+            virtual void set_renderer(IRenderer* renderer);
             void shutdown();
 
         protected:
             std::shared_ptr<spdlog::logger> m_logger;
-            engine::IEngine *m_engine;
-            core::Core *m_core;
+            engine::IEngine* m_engine;
+            core::Core* m_core;
+            renderer::IRenderer* m_renderer;
+
         private:
             std::unique_ptr<ImGuiContext> m_context;
-            sf::RenderWindow *m_window = nullptr;
+            sf::RenderWindow* m_window = nullptr;
+
 
         public:
-            IImGuiRenderer(const IImGuiRenderer &) = delete;
-            IImGuiRenderer &operator=(const IImGuiRenderer &) = delete;
+            IImGuiRenderer(const IImGuiRenderer&) = delete;
+            IImGuiRenderer& operator=(const IImGuiRenderer&) = delete;
+            [[nodiscard]] std::string name() const override;
         };
     } // renderer
 } // bnjkit

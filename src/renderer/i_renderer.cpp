@@ -37,7 +37,35 @@ namespace bnjkit {
             render_gui();
             end_frame();
         }
-
+        void IRenderer::resize_views() {
+            m_logger->info("IRenderer: Resizing views");
+            const sf::Rect<float> world_bounds = m_engine_renderer->get_bounds();
+            const float window_ratio = static_cast<float>(m_render_window->getSize().x) /
+                                       static_cast<float>(
+                                           m_render_window->getSize().y);
+            const float world_ratio = world_bounds.size.x / world_bounds.size.y;
+            m_gui_view = m_render_window->getDefaultView();
+            m_engine_view.setCenter({
+                world_bounds.position.x + world_bounds.size.x / 2.0f,
+                world_bounds.position.y + world_bounds.size.y / 2.0f
+            });
+            if (window_ratio > world_ratio) {
+                // La fenêtre est plus large que le monde
+                float view_height = world_bounds.size.y;
+                float view_width = view_height * window_ratio;
+                m_engine_view.setSize({view_width, view_height});
+            } else {
+                // La fenêtre est plus haute que le monde
+                float view_width = world_bounds.size.x;
+                float view_height = view_width / window_ratio;
+                m_engine_view.setSize({view_width, view_height});
+            }
+            m_logger->trace(
+                "IRenderer: Engine bounds: {}\nwindow size: {}\nView center: {}\nView size: {}",
+                m_engine_renderer->get_bounds(), m_render_window->getSize(),
+                m_engine_view.getCenter(),
+                m_engine_view.getSize());
+        }
         void IRenderer::render_scene() {
             m_drawables.clear();
             m_engine_renderer->get_drawable(m_drawables);
@@ -77,36 +105,6 @@ namespace bnjkit {
         void IRenderer::set_engine(const engine::IEngine* engine) {
             m_logger->info("IRenderer: Setting engine");
             m_engine = engine;
-        }
-
-        void IRenderer::resize_views() {
-            m_logger->info("IRenderer: Resizing views");
-            const sf::Rect<float> world_bounds = m_engine_renderer->get_bounds();
-            const float window_ratio = static_cast<float>(m_render_window->getSize().x) /
-                                       static_cast<float>(
-                                           m_render_window->getSize().y);
-            const float world_ratio = world_bounds.size.x / world_bounds.size.y;
-            m_gui_view = m_render_window->getDefaultView();
-            m_engine_view.setCenter({
-                world_bounds.position.x + world_bounds.size.x / 2.0f,
-                world_bounds.position.y + world_bounds.size.y / 2.0f
-            });
-            if (window_ratio > world_ratio) {
-                // La fenêtre est plus large que le monde
-                float view_height = world_bounds.size.y;
-                float view_width = view_height * window_ratio;
-                m_engine_view.setSize({view_width, view_height});
-            } else {
-                // La fenêtre est plus haute que le monde
-                float view_width = world_bounds.size.x;
-                float view_height = view_width / window_ratio;
-                m_engine_view.setSize({view_width, view_height});
-            }
-            m_logger->trace(
-                "IRenderer: Engine bounds: {}\nwindow size: {}\nView center: {}\nView size: {}",
-                m_engine_renderer->get_bounds(), m_render_window->getSize(),
-                m_engine_view.getCenter(),
-                m_engine_view.getSize());
         }
 
         void IRenderer::begin_frame() {

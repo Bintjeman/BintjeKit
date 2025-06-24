@@ -134,6 +134,7 @@ namespace bnjkit::core {
             m_imgui_renderer->set_window(m_window.get());
             m_imgui_renderer->set_engine(m_engine.get());
             m_imgui_renderer->set_core(core.get());
+            m_imgui_renderer->set_renderer(m_renderer.get());
         }
         m_engine->initialise();
         m_renderer->initialise();
