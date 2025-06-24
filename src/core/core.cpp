@@ -34,6 +34,9 @@ namespace bnjkit::core {
             m_logger->warn("No settings set. Using default settings");
             m_settings = std::make_shared<conf::Settings>();
         }
+        m_engine_renderer->set_settings(m_settings->create_child("/Renderer/Engine"_json_pointer));
+        m_engine_renderer->set_custom(m_settings->create_child(
+            nlohmann::json::json_pointer(std::string("/Renderer/" + m_engine_renderer->name()))));
         m_renderer->set_settings(m_settings->create_child("/Renderer"_json_pointer));
         m_imgui_renderer->set_settings(m_settings->create_child("/Renderer/ImGui"_json_pointer));
         m_main_window->set_settings(m_settings->create_child("/Window"_json_pointer));
@@ -41,7 +44,9 @@ namespace bnjkit::core {
         m_engine->set_custom(
             m_settings->create_child(
                 nlohmann::json::json_pointer(std::string("/" + m_engine->name()))));
+        // Configure modules
         m_engine->configure();
+        m_engine_renderer->configure();
         m_main_window->configure();
         m_renderer->configure();
         m_imgui_renderer->configure();
