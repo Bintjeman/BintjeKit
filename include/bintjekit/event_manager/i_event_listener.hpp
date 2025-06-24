@@ -23,9 +23,7 @@ namespace bnjkit {
 
         protected:
             std::shared_ptr<spdlog::logger> m_listener_logger;
-            static bool shift();
-            static bool ctrl();
-            static bool alt();
+
         };
     } // event
 } // bnjkit
