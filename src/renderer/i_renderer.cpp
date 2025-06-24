@@ -31,7 +31,11 @@ namespace bnjkit {
         }
 
         void IRenderer::render() {
-            if (!m_render_window || !m_engine) return;
+            if (!m_render_window || !m_engine) {
+                m_logger->warn("Render skipped: m_render_window={}, m_engine={}",
+                    (void*)m_render_window, (void*)m_engine);
+                return;
+            }
             begin_frame();
             render_scene();
             render_gui();

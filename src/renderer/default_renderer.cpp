@@ -13,6 +13,7 @@ namespace bnjkit {
         }
 
         void DefaultRenderer::render_scene() {
+            IRenderer::render_scene();
         }
         std::string DefaultRenderer::name() const {
             return "DefaultRenderer";
