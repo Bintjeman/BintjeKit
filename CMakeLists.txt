@@ -62,6 +62,13 @@ target_link_libraries(bintjekit
         nlohmann_json::nlohmann_json
 )
 ################################################################################
+# Configuration des suffixes
+set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Suffixe pour les builds debug")
+# Appliquer le suffixe à votre bibliothèque
+set_target_properties(bintjekit PROPERTIES
+        DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
+)
+################################################################################
 set_target_properties(bintjekit PROPERTIES
         VERSION ${PROJECT_VERSION}
         POSITION_INDEPENDENT_CODE ON

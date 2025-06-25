@@ -16,7 +16,7 @@ struct fmt::formatter<sf::Color> {
     }
 
     template<typename FormatContext>
-    auto format(const sf::Color& clr, FormatContext& ctx) -> decltype(ctx.out()) {
+    auto format(const sf::Color& clr, FormatContext& ctx) const -> decltype(ctx.out()) {  // Ajout du mot-clé const ici
         if (clr.a != 255) {
             return fmt::format_to(ctx.out(), "({}, {}, {}, {})", clr.r, clr.g, clr.b, clr.a);
         } else {
@@ -24,6 +24,7 @@ struct fmt::formatter<sf::Color> {
         }
     }
 };
+
 template<typename T>
 struct fmt::formatter<sf::Vector2<T> > {
     constexpr auto parse(format_parse_context& ctx) -> decltype(ctx.begin()) {
@@ -35,7 +36,6 @@ struct fmt::formatter<sf::Vector2<T> > {
         return fmt::format_to(ctx.out(), "({}, {})", vec.x, vec.y);
     }
 };
-
 template<typename T>
 struct fmt::formatter<sf::Rect<T> > {
     constexpr auto parse(format_parse_context& ctx) -> decltype(ctx.begin()) {

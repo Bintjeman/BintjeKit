@@ -19,8 +19,10 @@
 namespace bnjkit::core {
     Core::Core() {
         m_logger = Logger::get_logger(module_names::CORE);
-        m_logger = Logger::get_logger(module_names::CORE);
         m_logger->info("Constructor of Core");
+#ifndef NDEBUG
+        m_logger->critical("Running in debug mode");
+#endif
     }
 
     Core::~Core() {
