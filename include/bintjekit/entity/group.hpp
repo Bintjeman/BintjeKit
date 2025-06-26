@@ -34,13 +34,55 @@ namespace bnjkit {
             EntityCollection m_collection;
             EntityRegystry m_registry;
         }; // IGRoup
-
+        template<typename T>
+        using TypedEntityCollection = std::vector<std::shared_ptr<T> >;
         template<typename EntityTypeParent>
         class HeterogeneousGroup : public IGroup {
-        }; // HeterogeneousGroup
+        public:
+            void add_entity(EntityPtr entity) override {
+                // Vérifie si l'entité est du bon type ou hérite du type parent
+                if (auto derived = std::dynamic_pointer_cast<EntityTypeParent>(entity)) {
+                    IGroup::add_entity(entity);
+                } else {
+                    throw std::invalid_argument("Entity type mismatch");
+                }
+            }
+            std::shared_ptr<EntityTypeParent> get(EntityId id) {
+                if (auto entity = get_entity(id)) {
+                    return std::static_pointer_cast<EntityTypeParent>(entity);
+                    // On peut utiliser static_cast car on est sûr du type
+                }
+                return nullptr;
+            }
+            template<typename T = EntityTypeParent>
+            TypedEntityCollection<T>& get_collection() {
+                return reinterpret_cast<TypedEntityCollection<T>&>(m_collection);
+            }
+        };
+        // Group homogène : accepte uniquement EntityType
         template<typename EntityType>
         class HomogeneousGroup : public IGroup {
-        }; // HomogeneousGroup
+        public:
+            void add_entity(EntityPtr entity) override {
+                // Vérifie si l'entité est exactement du type demandé
+                if (std::dynamic_pointer_cast<EntityType>(entity) &&
+                    typeid(* entity) == typeid(EntityType)) {
+                    IGroup::add_entity(entity);
+                } else {
+                    throw std::invalid_argument("Entity type mismatch");
+                }
+            }
+            std::shared_ptr<EntityType> get(EntityId id) {
+                if (auto entity = get_entity(id)) {
+                    return std::static_pointer_cast<EntityType>(entity);
+                    // On peut utiliser static_cast car on est sûr du type
+                }
+                return nullptr;
+            }
+            TypedEntityCollection<EntityType>& get_collection() override {
+                return reinterpret_cast<TypedEntityCollection<EntityType>&>(m_collection);
+            }
+        };
     } // entity
 } // bnjkit
 
