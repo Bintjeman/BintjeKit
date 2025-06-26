@@ -4,7 +4,7 @@
  * @name i_core_event_handler.cpp
  */
 #include "bintjekit/event_manager/i_core_event_handler.hpp"
-#include "bintjekit/core/logger.hpp"
+#include "../../include/bintjekit/logger/logger.hpp"
 bnjkit::event::ICoreEventHandler::ICoreEventHandler() {
     m_logger = core::Logger::get_logger("EVENT");
 }

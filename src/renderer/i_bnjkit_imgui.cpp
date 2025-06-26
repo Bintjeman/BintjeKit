@@ -9,7 +9,7 @@
 #include <imgui.h>
 #include <imgui-SFML.h>
 #include "bintjekit/core/common.hpp"
-#include "bintjekit/core/logger.hpp"
+#include "../../include/bintjekit/logger/logger.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
 namespace bnjkit {
     namespace renderer {

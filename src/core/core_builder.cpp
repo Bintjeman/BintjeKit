@@ -7,7 +7,7 @@
 #include "bintjekit/core/core.hpp"
 // Utils
 #include "bintjekit/core/common.hpp"
-#include "bintjekit/core/logger.hpp"
+#include "../../include/bintjekit/logger/logger.hpp"
 // Interface modules
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/event_manager.hpp"

@@ -8,4 +8,5 @@ add_subdirectory(engine)
 add_subdirectory(renderer)
 add_subdirectory(configuration)
 add_subdirectory(entity_manager)
+add_subdirectory(logger)
 ################################################################################

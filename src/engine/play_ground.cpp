@@ -7,7 +7,7 @@
 #include "bintjekit/engine/play_ground.hpp"
 #include "fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/common.hpp"
-#include "bintjekit/core/logger.hpp"
+#include "../../include/bintjekit/logger/logger.hpp"
 
 namespace bnjkit {
     namespace engine {

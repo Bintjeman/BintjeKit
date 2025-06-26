@@ -7,7 +7,7 @@
 
 #include <imgui-SFML.h>
 #include "fmt_sfml/fmt_sfml.hpp"
-#include "bintjekit/core/logger.hpp"
+#include "../../include/bintjekit/logger/logger.hpp"
 #include "bintjekit/configuration/sfml_json_adapter.hpp"
 
 namespace bnjkit::window {

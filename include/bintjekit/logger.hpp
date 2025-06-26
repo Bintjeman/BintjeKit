@@ -17,6 +17,6 @@
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
-#include "bintjekit/core/logger.hpp"
+#include "logger/logger.hpp"
 #include "bintjekit/core/common.hpp"
 #endif // BINTJEKIT_LOGGER_INCLUDES_HPP

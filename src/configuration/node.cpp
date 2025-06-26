@@ -5,7 +5,7 @@
  */
 #include "bintjekit/configuration/node.hpp"
 #include "bintjekit/core/common.hpp"
-#include "bintjekit/core/logger.hpp"
+#include "../../include/bintjekit/logger/logger.hpp"
 #include "bintjekit/configuration/utils.hpp"
 
 namespace bnjkit {

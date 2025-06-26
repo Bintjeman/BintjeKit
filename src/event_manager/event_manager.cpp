@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <SFML/Window/Window.hpp>
 #include <imgui-SFML.h>
-#include "bintjekit/core/logger.hpp"
+#include "../../include/bintjekit/logger/logger.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
 #include "bintjekit/event_manager/i_core_event_handler.hpp"

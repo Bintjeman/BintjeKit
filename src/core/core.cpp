@@ -5,7 +5,7 @@
  */
 #include "bintjekit/core/core.hpp"
 
-#include "bintjekit/core/logger.hpp"
+#include "../../include/bintjekit/logger/logger.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/event_manager.hpp"
 #include "bintjekit/engine/i_engine.hpp"

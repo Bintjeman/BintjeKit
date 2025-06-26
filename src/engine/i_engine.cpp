@@ -8,7 +8,7 @@
 
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/core.hpp"
-#include "bintjekit/core/logger.hpp"
+#include "../../include/bintjekit/logger/logger.hpp"
 #include "bintjekit/entity/entitymanager.hpp"
 #include "bintjekit/engine/play_ground.hpp"
 
