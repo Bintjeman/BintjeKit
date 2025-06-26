@@ -51,6 +51,8 @@ target_include_directories(bintjekit
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
         $<INSTALL_INTERFACE:include>
 )
+target_include_directories(bintjekit SYSTEM PUBLIC ${SPDLOG_INCLUDES})
+
 ################################################################################
 target_link_libraries(bintjekit
         PUBLIC
@@ -75,6 +77,7 @@ set_target_properties(bintjekit PROPERTIES
 )
 ################################################################################
 # Configuration des options de compilation
+configure_target_options(bintjekit)
 ################################################################################
 # Alias pour la cible
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)
@@ -115,6 +118,8 @@ install(
 # Installation des cibles et des dépendances
 install(TARGETS
         bintjekit
+#        bintjekit_compiler_options
+
         time
         spdlog
         EXPORT BintjeKitTargets

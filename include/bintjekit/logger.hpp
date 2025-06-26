@@ -6,7 +6,17 @@
 #ifndef  BINTJEKIT_LOGGER_INCLUDES_HPP
 #define  BINTJEKIT_LOGGER_INCLUDES_HPP
 #pragma once
-#include <spdlog/logger.h>
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wunused-parameter"
+#endif
+#include <spdlog/spdlog.h>
+// #include <spdlog/sinks/stdout_color_sinks.h>
+// #include <spdlog/sinks/basic_file_sink.h>
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 #include "bintjekit/core/logger.hpp"
 #include "bintjekit/core/common.hpp"
 #endif // BINTJEKIT_LOGGER_INCLUDES_HPP

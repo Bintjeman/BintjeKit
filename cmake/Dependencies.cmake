@@ -18,7 +18,7 @@ FetchContent_Declare(SFML
         GIT_REPOSITORY https://github.com/SFML/SFML.git
         GIT_TAG 3.0.1
         GIT_SHALLOW ON
-#        EXCLUDE_FROM_ALL
+        #        EXCLUDE_FROM_ALL
         SYSTEM
 )
 ################################################################################
@@ -41,16 +41,10 @@ FetchContent_Declare(imgui
 )
 ################################################################################
 FetchContent_MakeAvailable(SFML spdlog imgui)
-# Ajoutez ces lignes pour configurer fmt intégré à spdlog
-if(TARGET spdlog::spdlog)
-    get_target_property(fmt_target spdlog::spdlog INTERFACE_LINK_LIBRARIES)
-    if(TARGET fmt::fmt)
-        set_target_properties(fmt::fmt PROPERTIES
-                INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:fmt::fmt,INTERFACE_INCLUDE_DIRECTORIES>
-        )
-        configure_external_library_options(fmt::fmt)
-    endif()
-endif()
+configure_target_options(imgui EXTERNAL)
+configure_target_options(SFML EXTERNAL)
+configure_target_options(spdlog EXTERNAL)
+get_target_property(SPDLOG_INCLUDES spdlog INTERFACE_INCLUDE_DIRECTORIES)
 ################################################################################
 # Ajout de SFML-ImGui
 FetchContent_Declare(imgui-sfml

@@ -37,7 +37,7 @@ namespace bnjkit {
             [[nodiscard]] nlohmann::json get_json() const;
             void reset_to_defaults();
             Node create_child(const nlohmann::json::json_pointer& key);
-            unsigned int node_count() const;
+            long node_count() const;
         protected:
             std::shared_ptr<spdlog::logger> m_logger;
             std::shared_ptr<nlohmann::json> m_json;

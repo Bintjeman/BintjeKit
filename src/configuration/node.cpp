@@ -58,7 +58,7 @@ namespace bnjkit {
             m_logger->trace("Child branch: {}", child_branch.to_string());
             return Node(m_json, child_branch);
         }
-        unsigned int Node::node_count() const {
+        long Node::node_count() const {
             return m_json.use_count();
         }
 

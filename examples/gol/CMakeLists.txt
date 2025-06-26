@@ -18,3 +18,4 @@ target_link_libraries(gol PRIVATE
         SFML::Graphics
 )
 install(TARGETS gol DESTINATION bin)
+#configure_target_options(gol)
