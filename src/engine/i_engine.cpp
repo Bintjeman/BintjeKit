@@ -8,7 +8,7 @@
 
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/core.hpp"
-#include "../../include/bintjekit/logger/logger.hpp"
+#include "bintjekit/logger/logger.hpp"
 #include "bintjekit/entity/entitymanager.hpp"
 #include "bintjekit/engine/play_ground.hpp"
 
@@ -24,13 +24,13 @@ namespace bnjkit {
             m_logger->info("Destructor of IEngine");
         }
         void IEngine::initialise() {
-            m_logger->info("Initialising IEngine");
+            m_logger->debug("Initialising IEngine");
             m_play_ground->size = {100, 100};
             m_play_ground->position = {0, 0};
         }
 
         void IEngine::configure() {
-            m_logger->info("Configuring IEngine");
+            m_logger->debug("Configuring IEngine");
         }
 
         void IEngine::update() {

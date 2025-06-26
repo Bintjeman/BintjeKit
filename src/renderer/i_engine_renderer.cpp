@@ -4,7 +4,7 @@
  * @name i_engine_renderer.cpp
  */
 #include "bintjekit/core/common.hpp"
-#include "../../include/bintjekit/logger/logger.hpp"
+#include "bintjekit/logger/logger.hpp"
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
 
@@ -16,7 +16,7 @@ namespace bnjkit {
         }
 
         void IEngineRenderer::set_engine(const bnjkit::engine::IEngine *engine) {
-            m_logger->info("Setting engine");
+            m_logger->debug("Setting engine");
             m_engine = engine;
         }
 

@@ -17,7 +17,7 @@ namespace bnjkit {
         Settings::~Settings() = default;
 
         void Settings::load_from_json(const nlohmann::json& json, bool merge_default) {
-            m_logger->info("Loading settings from json");
+            m_logger->debug("Loading settings from json");
             if (json.empty()) {
                 m_logger->warn("Le JSON reçu est vide");
             }
@@ -29,13 +29,13 @@ namespace bnjkit {
         }
 
         void Settings::save_to_file(const std::filesystem::path& path) const {
-            m_logger->info("Saving settings to file");
+            m_logger->debug("Saving settings to file");
             std::filesystem::path p = path;
             if (path.empty()) {
                 p = m_path;
             } else { p = path; }
             std::string str = m_json->dump();
-            m_logger->info("Saving settings to file: {}", p.string());
+            m_logger->trace("Saving settings to file: {}", p.string());
             m_logger->trace("Settings: {}", str);
             to_file(p, *m_json);
         }

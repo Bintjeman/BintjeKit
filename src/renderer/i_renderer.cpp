@@ -9,7 +9,7 @@
 #include <imgui-SFML.h>
 #include "fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/common.hpp"
-#include "../../include/bintjekit/logger/logger.hpp"
+#include "bintjekit/logger/logger.hpp"
 #include "bintjekit/renderer/i_bnjkit_imgui.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
 #include "bintjekit/window/i_main_window.hpp"
@@ -26,7 +26,7 @@ namespace bnjkit {
         }
 
         void IRenderer::configure() {
-            m_logger->info("IRenderer: Configuring IRenderer");
+            m_logger->debug("IRenderer: Configuring IRenderer");
             resize_views();
         }
 
@@ -44,7 +44,7 @@ namespace bnjkit {
             end_frame();
         }
         void IRenderer::resize_views() {
-            m_logger->info("IRenderer: Resizing views");
+            m_logger->trace("IRenderer: Resizing views");
             const sf::Rect<float> world_bounds = m_engine_renderer->get_bounds();
             const float window_ratio = static_cast<float>(m_render_window->getSize().x) /
                                        static_cast<float>(
@@ -87,29 +87,29 @@ namespace bnjkit {
         }
 
         void IRenderer::set_render_window(sf::RenderWindow* window) {
-            m_logger->info("IRenderer: Setting render window");
+            m_logger->debug("IRenderer: Setting render window");
             m_render_window = window;
             m_engine_view = window->getDefaultView();
             m_gui_view = window->getDefaultView();
         }
 
         void IRenderer::set_imgui_renderer(IImGuiRenderer* imgui_renderer) {
-            m_logger->info("IRenderer: Setting imgui renderer");
+            m_logger->debug("IRenderer: Setting imgui renderer");
             m_imgui_renderer = imgui_renderer;
         }
 
         void IRenderer::set_engine_renderer(const IEngineRenderer* engine_renderer) {
-            m_logger->info("IRenderer: Setting engine renderer");
+            m_logger->debug("IRenderer: Setting engine renderer");
             m_engine_renderer = engine_renderer;
         }
 
         void IRenderer::set_core(core::Core* core) {
-            m_logger->info("IRenderer: Setting core");
+            m_logger->debug("IRenderer: Setting core");
             m_core = core;
         }
 
         void IRenderer::set_engine(const engine::IEngine* engine) {
-            m_logger->info("IRenderer: Setting engine");
+            m_logger->debug("IRenderer: Setting engine");
             m_engine = engine;
         }
 

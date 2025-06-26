@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <SFML/Window/Window.hpp>
 #include <imgui-SFML.h>
-#include "../../include/bintjekit/logger/logger.hpp"
+#include "bintjekit/logger/logger.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
 #include "bintjekit/event_manager/i_core_event_handler.hpp"
@@ -26,12 +26,12 @@ namespace bnjkit {
         }
 
         void EventManager::set_imgui_renderer(renderer::IImGuiRenderer *renderer) {
-            m_logger->info("Setting imgui renderer");
+            m_logger->debug("Setting imgui renderer");
             m_imgui_renderer = renderer;
         }
 
         void EventManager::set_core_event_handler(std::unique_ptr<ICoreEventHandler> core_event_handler) {
-            m_logger->info("Setting core event handler");
+            m_logger->debug("Setting core event handler");
             m_core_event_handler = std::move(core_event_handler);
         }
 
@@ -48,7 +48,7 @@ namespace bnjkit {
         }
 
         void EventManager::register_listener(IEventListener *listener) {
-            m_logger->info("Registering listener");
+            m_logger->debug("Registering listener");
             if (listener) {
                 if (std::find(m_listeners.begin(), m_listeners.end(), listener) == m_listeners.end()) {
                     m_listeners.push_back(listener);
@@ -57,7 +57,7 @@ namespace bnjkit {
         }
 
         void EventManager::unregister_listener(IEventListener *listener) {
-            m_logger->info("Unregistering listener");
+            m_logger->debug("Unregistering listener");
             auto it = std::remove(m_listeners.begin(), m_listeners.end(), listener);
             m_listeners.erase(it, m_listeners.end());
         }

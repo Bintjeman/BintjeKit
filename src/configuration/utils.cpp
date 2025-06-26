@@ -8,12 +8,12 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include "bintjekit/core/common.hpp"
-#include "../../include/bintjekit/logger/logger.hpp"
+#include "bintjekit/logger/logger.hpp"
 
 namespace bnjkit {
     namespace conf {
         nlohmann::json from_file(const std::filesystem::path& path) {
-            get_logger()->debug("Loading json from file");
+            get_logger()->trace("Loading json from file");
             get_logger()->trace("path: {}", path.string());
             try {
                 if (!std::filesystem::exists(path)) {
@@ -105,7 +105,7 @@ namespace bnjkit {
             }
         }
         bool to_file(const std::filesystem::path& path, const nlohmann::json& json) {
-            get_logger()->debug("Saving json to file");
+            get_logger()->trace("Saving json to file");
             get_logger()->trace("path: {}", path.string());
             get_logger()->trace("json: {}", json.dump());
             try {
@@ -131,7 +131,7 @@ namespace bnjkit {
             }
         }
         void merge_json(nlohmann::json& target, const nlohmann::json& source) {
-            get_logger()->debug("Merging json");
+            get_logger()->trace("Merging json");
             get_logger()->trace("target: {}", target.dump());
             get_logger()->trace("source: {}", source.dump());
             if (target.is_null()) {

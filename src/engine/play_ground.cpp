@@ -7,7 +7,7 @@
 #include "bintjekit/engine/play_ground.hpp"
 #include "fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/common.hpp"
-#include "../../include/bintjekit/logger/logger.hpp"
+#include "bintjekit/logger/logger.hpp"
 
 namespace bnjkit {
     namespace engine {
@@ -21,11 +21,11 @@ namespace bnjkit {
         }
 
         void PlayGround::initialise() {
-            m_logger->info("Initialising PlayGround");
+            m_logger->debug("Initialising PlayGround");
         }
 
         void PlayGround::configure() {
-            m_logger->info("Configuring PlayGround");
+            m_logger->debug("Configuring PlayGround");
         }
 
         void PlayGround::update() {

@@ -19,15 +19,15 @@ namespace bnjkit::window {
     }
 
     void IMainWindow::initialise() {
-        m_logger->info("Initialising IMainWindow");
+        m_logger->debug("Initialising IMainWindow");
     }
 
     void IMainWindow::configure() {
-        m_logger->info("Configure IMainWindow");
+        m_logger->debug("Configure IMainWindow");
     }
 
     void IMainWindow::show() {
-        m_logger->info("Showing IMainWindow");
+        m_logger->debug("Showing IMainWindow");
     }
 
     void IMainWindow::on_sfml_event(const sf::Event& event) {

@@ -15,7 +15,7 @@ namespace bnjkit {
                    const std::shared_ptr<nlohmann::json>& default_values
         ) {
             m_logger = core::Logger::get_logger(core::module_names::CONFIGURATION);
-            m_logger->info("Constructor of Node");
+            m_logger->debug("Constructor of Node");
             if (json == nullptr) {
                 m_json = std::make_shared<nlohmann::json>();
                 *m_json = nlohmann::json::parse("{}");
@@ -34,7 +34,7 @@ namespace bnjkit {
             } else {
                 m_branch = branch;
             }
-            m_logger->info("Constructor of Node finished");
+            m_logger->trace("Constructor of Node finished");
             m_logger->trace("Node json: {}", m_json->dump());
             m_logger->trace("Node default json: {}", m_default_values->dump());
             m_logger->trace("Node branch: {}", m_branch.to_string());
@@ -44,12 +44,12 @@ namespace bnjkit {
         Node::~Node() = default;
 
         void Node::merge_with_json(const nlohmann::json& json) {
-            m_logger->info("Merging settings with json");
+            m_logger->trace("Merging settings with json");
             merge_json(*m_json, json);
         }
 
         Node Node::create_child(const nlohmann::json::json_pointer& key) {
-            m_logger->info("Creating child node");
+            m_logger->trace("Creating child node");
             m_logger->trace("Nodes count: {}", node_count());
             auto child_branch = m_branch / key;
             if (!m_json->contains(child_branch)) {
