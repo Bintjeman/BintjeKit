@@ -13,6 +13,9 @@
 #include "bintjekit/event_manager/i_event_listener.hpp"
 
 namespace bnjkit {
+    namespace entity {
+        class EntityManager;
+    }
     namespace engine {
         struct PlayGround;
 
@@ -35,6 +38,7 @@ namespace bnjkit {
         protected:
             State m_state{EMPTY};
             std::unique_ptr<PlayGround> m_play_ground;
+            std::unique_ptr<entity::EntityManager> m_entity_manager;
             std::shared_ptr<spdlog::logger> m_logger;
 
         public:

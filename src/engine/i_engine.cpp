@@ -9,6 +9,7 @@
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/core.hpp"
 #include "bintjekit/core/logger.hpp"
+#include "bintjekit/entity/entitymanager.hpp"
 #include "bintjekit/engine/play_ground.hpp"
 
 namespace bnjkit {
@@ -17,6 +18,7 @@ namespace bnjkit {
             m_logger = core::Logger::get_logger(core::module_names::ENGINE);
             m_logger->info("Constructor of IEngine");
             m_play_ground = std::make_unique<PlayGround>();
+            m_entity_manager = std::make_unique<entity::EntityManager>();
         }
         IEngine::~IEngine() {
             m_logger->info("Destructor of IEngine");
