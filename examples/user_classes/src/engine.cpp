@@ -8,22 +8,13 @@
 
 #include "bintjekit/engine/play_ground.hpp"
 
-float randf(float min, float max) {
-    return min + (max - min) * (rand() / (RAND_MAX + 1.0f));
-}
-
-int randi(int min, int max) {
-    return min + rand() % (max - min + 1);
-}
-
 namespace usr {
     Engine::Engine() {
-        srand(time(nullptr));
+        srand(static_cast<unsigned int>(time(nullptr)));
         new_world();
     }
 
     Engine::~Engine() = default;
-
 
     void Engine::configure() {
     }
@@ -31,7 +22,7 @@ namespace usr {
     void Engine::initialise() {
     }
 
-    void Engine::on_sfml_event(const sf::Event &event) {
+    void Engine::on_sfml_event(const sf::Event& event[[maybe_unused]]) {
     }
 
     void Engine::update() {
@@ -92,8 +83,8 @@ namespace usr {
     void Engine::new_speed() {
         float speed = .1f;
         m_circle_speed = sf::Vector2f(
-            (static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * 2 - 1.f) * speed,
-            (static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * 2 - 1.f) * speed
+            (randf() * 2.f - 1.f) * speed,
+            (randf() * 2.f - 1.f) * speed
         );
     }
 
@@ -115,11 +106,20 @@ namespace usr {
         }
         if (collision) {
             m_circle_color = sf::Color(
-                rand() % 256, // R
-                rand() % 256, // G
-                rand() % 256 // B
+                static_cast<unsigned char>(rand() % 256), // R
+                static_cast<unsigned char>(rand() % 256), // G
+                static_cast<unsigned char>(rand() % 256) // B
             );
             new_speed();
         }
+    }
+    int Engine::randi(int min, int max) {
+        return rand() * (max + min) - min;
+    }
+    float Engine::randf() {
+        return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+    }
+    float Engine::randf(float min, float max) {
+        return randf() * (max + min) - min;
     }
 } // usr

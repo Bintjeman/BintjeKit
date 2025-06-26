@@ -27,8 +27,8 @@ namespace gol {
         ImGui::Text("Core state: %s", bnjkit::core::Core::state_to_string(m_core->state()).c_str());
         ImGui::Text("Gol state: %s", GameOfLife::state_to_string(m_gol->state()).c_str());
         ImGui::Text("Effective frequency: %ld", m_core->engine_frequency());
-        static float frequency = 60.f;
-        if (ImGui::SliderFloat("frequency", &frequency,0.f, 1000.f)) {
+        static int frequency = 60.f;
+        if (ImGui::SliderInt("frequency", &frequency,0.f, 1000.f)) {
             m_core->set_engine_frequency(frequency);
         }
         ImGui::End();

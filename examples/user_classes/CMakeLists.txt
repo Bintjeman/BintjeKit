@@ -22,3 +22,4 @@ target_link_libraries(user_classes PUBLIC
         SFML::System
         SFML::Graphics
 )
+configure_target_options(user_classes)

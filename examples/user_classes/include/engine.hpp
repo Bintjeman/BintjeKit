@@ -17,7 +17,7 @@ namespace usr {
         ~Engine() override;
         void initialise() override;
         void configure() override;
-        void on_sfml_event(const sf::Event &event) override;
+        void on_sfml_event(const sf::Event& event) override;
         void update() override;
         void new_world();
         // Playground
@@ -35,6 +35,9 @@ namespace usr {
     private:
         void new_speed();
         void collision_detection();
+        static int randi(int min, int max);
+        static float randf();
+        static float randf(float min, float max);
         sf::Vector2f m_circle_speed;
         sf::Vector2f m_circle_position;
         float m_circle_radius{};
