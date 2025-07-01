@@ -13,8 +13,8 @@ namespace bnjkit {
         class Entity {
         public:
             Entity();
-            ~Entity();
-            EntityId id() const;
+            virtual ~Entity();
+            [[nodiscard]] EntityId id() const;
             EntityId next_id();
             EntityId total_entities();
 

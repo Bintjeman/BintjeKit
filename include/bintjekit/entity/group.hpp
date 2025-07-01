@@ -12,6 +12,8 @@
 
 namespace bnjkit {
     namespace entity {
+        template<typename T>
+        using TypedEntityCollection = std::vector<std::shared_ptr<T> >;
         class IGroup {
         public:
             IGroup();
@@ -19,7 +21,7 @@ namespace bnjkit {
             virtual void add_entity(EntityPtr entity);
             virtual void remove_entity(EntityPtr entity);
             virtual void clear();
-            virtual EntityCollection& get_collection();
+            EntityCollection& get_collection();
             virtual EntityRegystry& get_registry();
             virtual EntityPtr get_entity(EntityId id);
             virtual EntityIndex get_entity_index(EntityId id);
@@ -29,13 +31,15 @@ namespace bnjkit {
                            ? std::optional<EntityIndex>(it->second)
                            : std::nullopt;
             }
+            template<typename T>
+            TypedEntityCollection<T>& get_typed_collection() {
+                return reinterpret_cast<TypedEntityCollection<T>&>(m_collection);
+            }
 
         protected:
             EntityCollection m_collection;
             EntityRegystry m_registry;
         }; // IGRoup
-        template<typename T>
-        using TypedEntityCollection = std::vector<std::shared_ptr<T> >;
         template<typename EntityTypeParent>
         class HeterogeneousGroup : public IGroup {
         public:
@@ -65,8 +69,7 @@ namespace bnjkit {
         public:
             void add_entity(EntityPtr entity) override {
                 // Vérifie si l'entité est exactement du type demandé
-                if (std::dynamic_pointer_cast<EntityType>(entity) &&
-                    typeid(* entity) == typeid(EntityType)) {
+                if (std::dynamic_pointer_cast<EntityType>(entity)) {
                     IGroup::add_entity(entity);
                 } else {
                     throw std::invalid_argument("Entity type mismatch");
@@ -79,7 +82,7 @@ namespace bnjkit {
                 }
                 return nullptr;
             }
-            TypedEntityCollection<EntityType>& get_collection() override {
+            TypedEntityCollection<EntityType>& get_collection() {
                 return reinterpret_cast<TypedEntityCollection<EntityType>&>(m_collection);
             }
         };
