@@ -33,7 +33,7 @@ struct fmt::formatter<sf::Vector2<T> > {
     }
 
     template<typename FormatContext>
-    auto format(const sf::Vector2<T>& vec, FormatContext& ctx) -> decltype(ctx.out()) {
+    auto format(const sf::Vector2<T>& vec, FormatContext& ctx) const -> decltype(ctx.out()) {
         return fmt::format_to(ctx.out(), "({}, {})", vec.x, vec.y);
     }
 };
@@ -44,7 +44,7 @@ struct fmt::formatter<sf::Rect<T> > {
     }
 
     template<typename FormatContext>
-    auto format(const sf::Rect<T>& rect, FormatContext& ctx) -> decltype(ctx.out()) {
+    auto format(const sf::Rect<T>& rect, FormatContext& ctx) const -> decltype(ctx.out()) {
         return fmt::format_to(ctx.out(), "pos:({}, {}), size:({}, {})",
                               rect.position.x, rect.position.y, rect.size.x, rect.size.y);
     }

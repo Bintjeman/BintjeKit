@@ -41,6 +41,8 @@ FetchContent_Declare(spdlog
         GIT_SHALLOW ON
         SYSTEM
 )
+FetchContent_MakeAvailable( spdlog)
+
 ################################################################################
 # Ajout de ImGui
 FetchContent_Declare(imgui
@@ -50,7 +52,7 @@ FetchContent_Declare(imgui
         SYSTEM
 )
 ################################################################################
-FetchContent_MakeAvailable(SFML spdlog imgui)
+FetchContent_MakeAvailable(SFML imgui)
 configure_target_options(imgui EXTERNAL)
 configure_target_options(SFML EXTERNAL)
 configure_target_options(spdlog EXTERNAL)
