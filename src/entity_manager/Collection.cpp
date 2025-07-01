@@ -3,23 +3,32 @@
  * @date 26.06.25
  * @name collection.cpp
  */
+#include "bintjekit/core/common.hpp"
 #include "bintjekit/entity/collection.hpp"
+#include "bintjekit/logger/logger.hpp"
 
 namespace bnjkit {
     namespace entity {
         Collection::Collection() {
+            m_logger = core::Logger::get_logger(core::module_names::ENTITY);
         }
         Collection::~Collection() {
         }
-        void Collection::add_entity(Entity&& entity) {
+        void Collection::add_entity(const std::shared_ptr<Entity>& entity) {
+            if (!entity || !entity->valid()) {
+                m_logger->error("Cannot add invalid entity");
+                throw std::invalid_argument("Cannot add invalid entity");
+            }
             auto index = m_collection.size();
-            m_collection.push_back(std::move(entity));
-            m_registry.emplace(entity.id(), index);
-        }
-        void Collection::remove_entity(EntityRef entity) {
-            remove_entity(entity.get().id());
+            m_collection.push_back(entity);
+            m_registry.emplace(entity->id(), index);
+
         }
         void Collection::remove_entity(const EntityPtr& entity) {
+            if (!entity || !entity->valid()) {
+                m_logger->error("Cannot remove invalid entity");
+                throw std::invalid_argument("Cannot remove invalid entity");
+            }
             remove_entity(entity->id());
         }
         void Collection::remove_entity(EntityId id) {
@@ -43,11 +52,12 @@ namespace bnjkit {
         EntityRegystry& Collection::get_registry() {
             return m_registry;
         }
-        EntityRef Collection::get_entity(EntityId id) {
+        std::shared_ptr<Entity> Collection::get_entity(EntityId id) {
             auto it = m_registry.find(id);
             if (it != m_registry.end()) {
-                return std::ref(m_collection[it->second]);
+                return m_collection[it->second];
             }
+            m_logger->error("Entity not found");
             throw std::runtime_error("Entity not found");
         }
         EntityIndex Collection::get_entity_index(EntityId id) {

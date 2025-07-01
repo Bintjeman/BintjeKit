@@ -17,12 +17,12 @@ namespace bnjkit {
         public:
             EntityManager();
             ~EntityManager();
-            EntityRef create_entity();
-            void add(Entity entity);
-            void remove(Entity entity);
+            std::shared_ptr<Entity> create_entity();
+            std::shared_ptr<Entity> get_entity(EntityId id);
+            void remove(std::shared_ptr<Entity> entity);
             [[nodiscard]] EntityCollection& get_collection();
             [[nodiscard]] const EntityCollection& get_collection() const ;
-
+            void clear();
 
         private:
             std::shared_ptr<spdlog::logger> m_logger;

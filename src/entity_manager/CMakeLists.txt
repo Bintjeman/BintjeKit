@@ -4,7 +4,6 @@ message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 target_sources(bintjekit PRIVATE
         entity.cpp
         entitymanager.cpp
-        group.cpp
         Collection.cpp
 )
 ################################################################################

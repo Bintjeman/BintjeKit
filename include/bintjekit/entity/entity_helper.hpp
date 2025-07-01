@@ -15,15 +15,9 @@
 namespace bnjkit {
     namespace entity {
         using EntityPtr = std::shared_ptr<Entity>;
-        using EntityCollection = std::vector<Entity>;
+        using EntityCollection = std::vector<std::shared_ptr<Entity> >;
         using EntityIndex = std::size_t;
         using EntityRegystry = std::unordered_map<EntityId, EntityIndex>;
-        using EntityRef = std::reference_wrapper<Entity>;
-        using EntityWeakPtr = std::weak_ptr<Entity>;
-        class SecondaryGroup {
-        public:
-            std::vector<EntityWeakPtr> entities;
-        };
     } // entity
 } // bnjkit
 #endif //ENTITY_HELPER_HPP
