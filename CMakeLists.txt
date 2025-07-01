@@ -118,7 +118,6 @@ install(
 # Installation des cibles et des dépendances
 install(TARGETS
         bintjekit
-#        bintjekit_compiler_options
         time
         spdlog
         EXPORT BintjeKitTargets
