@@ -49,8 +49,6 @@ namespace bnjkit {
 
         void Logger::set_module_level(const std::string& module_name,
                                       spdlog::level::level_enum level) {
-            get_logger(module_names::LOG)->info("Setting module \"{}\" level to {}", module_name,
-                                                level);
             get_logger(module_name)->set_level(level);
         }
 
