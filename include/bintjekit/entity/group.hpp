@@ -23,7 +23,7 @@ namespace bnjkit {
             virtual void clear();
             SecondaryGroup& get_groupe();
             virtual EntityRegystry& get_registry();
-            virtual EntityPtr get_entity(EntityId id);
+            virtual std::weak_ptr<Entity> get_entity(EntityId id);
             virtual EntityIndex get_entity_index(EntityId id);
             virtual std::optional<EntityIndex> get_entity_index_opt(EntityId id) {
                 auto it = m_registry.find(id);

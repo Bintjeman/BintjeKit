@@ -11,9 +11,9 @@ namespace bnjkit {
         }
         ICollection::~ICollection() {
         }
-        void ICollection::add_entity(Entity entity) {
+        void ICollection::add_entity(Entity&& entity) {
             auto index = m_collection.size();
-            m_collection.push_back(entity);
+            m_collection.push_back(std::move(entity));
             m_registry.emplace(entity.id(), index);
         }
         void ICollection::remove_entity(EntityRef entity) {
@@ -25,7 +25,7 @@ namespace bnjkit {
         void ICollection::remove_entity(EntityId id) {
             auto it = m_registry.find(id);
             if (it != m_registry.end()) {
-                m_collection[it->second] = m_collection.back();
+                m_collection[it->second] = std::move(m_collection.back());
                 m_collection.pop_back();
                 m_registry.erase(id);
             }

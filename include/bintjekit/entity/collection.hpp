@@ -20,7 +20,7 @@ namespace bnjkit {
         public:
             ICollection();
             virtual ~ICollection();
-            virtual void add_entity(Entity entity);
+            virtual void add_entity(Entity&& entity);
             virtual void remove_entity(EntityRef entity);
             virtual void remove_entity(const EntityPtr& entity);
             virtual void remove_entity(EntityId id);
@@ -47,9 +47,9 @@ namespace bnjkit {
         template<typename EntityTypeParent>
         class HeterogeneousGroup : public ICollection {
         public:
-            void add_entity(Entity entity) override {
+            void add_entity(Entity&& entity) override {
                 if (auto derived = std::dynamic_pointer_cast<EntityTypeParent>(entity)) {
-                    ICollection::add_entity(entity);
+                    ICollection::add_entity(std::move(entity));
                 } else {
                     throw std::invalid_argument("Entity type mismatch");
                 }
@@ -66,9 +66,9 @@ namespace bnjkit {
         template<typename EntityType>
         class HomogeneousGroup : public ICollection {
         public:
-            void add_entity(Entity entity) override {
+            void add_entity(Entity&& entity) override {
                 if (std::dynamic_pointer_cast<EntityType>(entity)) {
-                    ICollection::add_entity(entity);
+                    ICollection::add_entity(std::move(entity));
                 } else {
                     throw std::invalid_argument("Entity type mismatch");
                 }

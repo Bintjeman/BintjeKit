@@ -21,10 +21,9 @@ namespace bnjkit {
         using EntityRef = std::reference_wrapper<Entity>;
         using EntityWeakPtr = std::weak_ptr<Entity>;
         class SecondaryGroup {
-        private:
-            std::vector<EntityWeakPtr> m_entities;
+        public:
+            std::vector<EntityWeakPtr> entities;
         };
-
     } // entity
 } // bnjkit
 #endif //ENTITY_HELPER_HPP

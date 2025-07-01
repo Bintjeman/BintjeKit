@@ -22,19 +22,18 @@ FetchContent_Declare(SFML
         SYSTEM
 )
 ################################################################################
-FetchContent_Declare(
-        fmt
-        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-        GIT_TAG 10.1.1
-)
-FetchContent_MakeAvailable(fmt)
+#FetchContent_Declare(
+#        fmt
+#        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+#        GIT_TAG 11.2.1
+#)
+#FetchContent_MakeAvailable(fmt)
 ################################################################################
 set(SPDLOG_FMT_EXTERNAL OFF)
 set(SPDLOG_COMPILED_LIB ON)
-set(SPDLOG_USE_STD_FORMAT ON)
+set(SPDLOG_USE_STD_FORMAT OFF)
 #set(SPDLOG_FMT_EXTERNAL_HO ON)
 #set(SPDLOG_ENABLE_PCH OFF)  # Désactive le precompiled header qui peut causer des problèmes
-
 FetchContent_Declare(spdlog
         GIT_REPOSITORY https://github.com/gabime/spdlog.git
         GIT_TAG v1.15.3
@@ -42,7 +41,6 @@ FetchContent_Declare(spdlog
         SYSTEM
 )
 FetchContent_MakeAvailable( spdlog)
-
 ################################################################################
 # Ajout de ImGui
 FetchContent_Declare(imgui
