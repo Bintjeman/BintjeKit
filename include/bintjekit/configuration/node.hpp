@@ -32,12 +32,21 @@ namespace bnjkit {
             T get_or_set(const nlohmann::json::json_pointer& key, const T& defaultValue);
             template<typename T>
             void set(const nlohmann::json::json_pointer& key, const T& value);
+            template<typename T>
+            T get(const std::string& key, const T& defaultValue) const;
+            template<typename T>
+            T get(const std::string& key) const;
+            template<typename T>
+            T get_or_set(const std::string& key, const T& defaultValue);
+            template<typename T>
+            void set(const std::string& key, const T& value);
             [[nodiscard]] nlohmann::json::json_pointer branch();
             [[nodiscard]] std::string branch_str() const;
             [[nodiscard]] nlohmann::json get_json() const;
             void reset_to_defaults();
             Node create_child(const nlohmann::json::json_pointer& key);
-            long node_count() const;
+            [[nodiscard]] long node_count() const;
+
         protected:
             std::shared_ptr<spdlog::logger> m_logger;
             std::shared_ptr<nlohmann::json> m_json;
