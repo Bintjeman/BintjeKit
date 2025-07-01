@@ -8,6 +8,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
+#ifndef SPDLOG_USE_STD_FORMAT
 #include <spdlog/fmt/fmt.h>
 template<>
 struct fmt::formatter<sf::Color> {
@@ -48,4 +49,5 @@ struct fmt::formatter<sf::Rect<T> > {
                               rect.position.x, rect.position.y, rect.size.x, rect.size.y);
     }
 };
+#endif
 #endif // BNJKIT_COMMONFMT_SFML_HPPFMT_SFML_HPP

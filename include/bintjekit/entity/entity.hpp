@@ -15,8 +15,8 @@ namespace bnjkit {
             Entity();
             virtual ~Entity();
             [[nodiscard]] EntityId id() const;
-            EntityId next_id();
-            EntityId total_entities();
+            static EntityId next_id();
+            static EntityId total_entities();
 
         private:
             EntityId m_id;
