@@ -19,6 +19,7 @@ namespace bnjkit {
             constexpr const char* WINDOW = "WINDOW";
             constexpr const char* EVENT = "EVENT";
             constexpr const char* CONFIGURATION = "CONF";
+            constexpr const char* ENTITY = "ENTITY";
         }
     } // core
 } // bnjkit

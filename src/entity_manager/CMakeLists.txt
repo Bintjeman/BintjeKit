@@ -5,6 +5,6 @@ target_sources(bintjekit PRIVATE
         entity.cpp
         entitymanager.cpp
         group.cpp
-        collection.cpp
+        Collection.cpp
 )
 ################################################################################

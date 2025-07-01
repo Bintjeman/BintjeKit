@@ -16,16 +16,17 @@ namespace bnjkit {
     namespace entity {
         template<typename T>
         using TypedEntityCollection = std::vector<T>;
-        class ICollection {
+        class Collection {
         public:
-            ICollection();
-            virtual ~ICollection();
+            Collection();
+            virtual ~Collection();
             virtual void add_entity(Entity&& entity);
             virtual void remove_entity(EntityRef entity);
             virtual void remove_entity(const EntityPtr& entity);
             virtual void remove_entity(EntityId id);
             virtual void clear();
-            EntityCollection& get_collection();
+            virtual EntityCollection& get_collection();
+            virtual const EntityCollection& get_collection() const;
             virtual EntityRegystry& get_registry();
             virtual EntityRef get_entity(EntityId id);
             virtual EntityIndex get_entity_index(EntityId id);
@@ -45,11 +46,11 @@ namespace bnjkit {
             EntityRegystry m_registry;
         }; // ICollection
         template<typename EntityTypeParent>
-        class HeterogeneousGroup : public ICollection {
+        class HeterogeneousGroup : public Collection {
         public:
             void add_entity(Entity&& entity) override {
                 if (auto derived = std::dynamic_pointer_cast<EntityTypeParent>(entity)) {
-                    ICollection::add_entity(std::move(entity));
+                    Collection::add_entity(std::move(entity));
                 } else {
                     throw std::invalid_argument("Entity type mismatch");
                 }
@@ -64,11 +65,11 @@ namespace bnjkit {
         };
         // Group homogène : accepte uniquement EntityType
         template<typename EntityType>
-        class HomogeneousGroup : public ICollection {
+        class HomogeneousGroup : public Collection {
         public:
             void add_entity(Entity&& entity) override {
                 if (std::dynamic_pointer_cast<EntityType>(entity)) {
-                    ICollection::add_entity(std::move(entity));
+                    Collection::add_entity(std::move(entity));
                 } else {
                     throw std::invalid_argument("Entity type mismatch");
                 }

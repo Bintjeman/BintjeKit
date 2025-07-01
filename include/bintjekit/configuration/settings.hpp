@@ -38,9 +38,6 @@ namespace bnjkit {
             std::filesystem::path m_path;
             std::shared_ptr<spdlog::logger> m_logger;
         };
-        class X : public Settings {
-        public:
-        };
     } // conf
 } // bnjkit
 #endif // BNJKIT_CONFIGURATION_SETTINGS_HPP

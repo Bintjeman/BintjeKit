@@ -31,21 +31,28 @@ namespace bnjkit::core {
     }
 
     void Core::configure() {
+        static_assert(!std::is_abstract_v<decltype(*m_engine)>, "Engine class must implement all pure virtual methods");
+        static_assert(!std::is_abstract_v<decltype(*m_engine_renderer)>, "EngineRenderer class must implement all pure virtual methods");
+        static_assert(!std::is_abstract_v<decltype(*m_renderer)>, "Renderer class must implement all pure virtual methods");
+        static_assert(!std::is_abstract_v<decltype(*m_imgui_renderer)>, "ImGuiRenderer class must implement all pure virtual methods");
+
         m_logger->debug("Configuring Core");
         if (!m_settings) {
             m_logger->warn("No settings set. Using default settings");
             m_settings = std::make_shared<conf::Settings>();
         }
+        // Settings
         m_engine_renderer->set_settings(m_settings->create_child("/Renderer/Engine"_json_pointer));
-        m_engine_renderer->set_custom(m_settings->create_child(
-            nlohmann::json::json_pointer(std::string("/Renderer/" + m_engine_renderer->name()))));
         m_renderer->set_settings(m_settings->create_child("/Renderer"_json_pointer));
         m_imgui_renderer->set_settings(m_settings->create_child("/Renderer/ImGui"_json_pointer));
         m_main_window->set_settings(m_settings->create_child("/Window"_json_pointer));
         m_engine->set_settings(m_settings->create_child("/Engine"_json_pointer));
+        // Custom settings
         m_engine->set_custom(
             m_settings->create_child(
                 nlohmann::json::json_pointer(std::string("/" + m_engine->name()))));
+        m_engine_renderer->set_custom(m_settings->create_child(
+            nlohmann::json::json_pointer(std::string("/Renderer/" + m_engine_renderer->name()))));
         // Configure modules
         m_engine->configure();
         m_engine_renderer->configure();
