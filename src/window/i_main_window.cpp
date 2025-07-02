@@ -46,4 +46,7 @@ namespace bnjkit::window {
         m_logger->trace("Window settings root: {}", m_settings.branch_str());
         RenderWindow::close();
     }
+    std::string IMainWindow::name() const {
+        return "IMainWindow";
+    }
 }

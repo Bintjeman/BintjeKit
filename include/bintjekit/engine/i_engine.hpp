@@ -44,8 +44,8 @@ namespace bnjkit {
 
         public:
             static std::string state_to_string(State state);
-            [[nodiscard]] std::string name() const override = 0;
             void on_sfml_event(const sf::Event& event) override;
+            [[nodiscard]] std::string name() const override;
         };
     } // engine
 } // bnjkit

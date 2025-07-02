@@ -19,6 +19,8 @@ namespace usr {
         void get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const override;
         void set_engine(const bnjkit::engine::IEngine *engine) override;
         [[nodiscard]] sf::Rect<float> get_bounds() const override;
+        [[nodiscard]] std::string name() const override;
+
     private:
         const Engine *m_usr_engine = nullptr;
     };

@@ -39,4 +39,7 @@ namespace usr {
     sf::Rect<float> EngineRenderer::get_bounds() const {
         return {m_engine->play_ground().bounds()};
     }
+    std::string EngineRenderer::name() const {
+        return "EngineRenderer";
+    }
 } // usr

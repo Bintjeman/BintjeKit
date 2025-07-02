@@ -39,4 +39,7 @@ namespace gol {
         IRenderer::set_engine(engine);
         m_gol = dynamic_cast<const GameOfLife *>(engine);
     }
+    std::string Renderer::name() const {
+        return "Renderer";
+    }
 } // gol

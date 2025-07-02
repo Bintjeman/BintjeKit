@@ -25,6 +25,7 @@ namespace usr {
         void set_engine(const bnjkit::engine::IEngine *engine) override;
         void set_render_window(sf::RenderWindow *window) override;
         void on_sfml_event(const sf::Event &event) override;
+        [[nodiscard]] std::string name() const override;
 
     private:
         sf::Font m_font;

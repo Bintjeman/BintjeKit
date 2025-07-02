@@ -56,4 +56,7 @@ namespace usr {
             resize_views();
         }
     }
+    std::string Renderer::name() const {
+        return "Renderer";
+    }
 } // usr

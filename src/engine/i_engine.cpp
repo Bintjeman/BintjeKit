@@ -55,10 +55,10 @@ namespace bnjkit {
                     return "UNKNOWN";
             }
         }
+        void IEngine::on_sfml_event(const sf::Event& event[[maybe_unused]]) {
+        }
         std::string IEngine::name() const {
             return "IEngine";
-        }
-        void IEngine::on_sfml_event(const sf::Event& event[[maybe_unused]]) {
         }
     } // engine
 } // bnjkit

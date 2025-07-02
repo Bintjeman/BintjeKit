@@ -13,3 +13,6 @@ void bnjkit::event::ICoreEventHandler::set_core(core::Core *core) {
     m_logger->debug("ICoreEventHandler: Setting core");
     m_core = core;
 }
+std::string bnjkit::event::ICoreEventHandler::name() const {
+    return "ICoreEventHandler";
+}

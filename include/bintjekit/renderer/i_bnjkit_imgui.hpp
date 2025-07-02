@@ -51,13 +51,11 @@ namespace bnjkit {
             std::shared_ptr<spdlog::logger> m_logger;
             engine::IEngine* m_engine;
             core::Core* m_core;
-            renderer::IRenderer* m_renderer;
+            IRenderer* m_renderer;
 
         private:
             std::unique_ptr<ImGuiContext> m_context;
             sf::RenderWindow* m_window = nullptr;
-
-
         public:
             IImGuiRenderer(const IImGuiRenderer&) = delete;
             IImGuiRenderer& operator=(const IImGuiRenderer&) = delete;

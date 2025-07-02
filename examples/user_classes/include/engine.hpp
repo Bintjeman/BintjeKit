@@ -38,6 +38,11 @@ namespace usr {
         static int randi(int min, int max);
         static float randf();
         static float randf(float min, float max);
+
+    public:
+        [[nodiscard]] std::string name() const override;
+
+    private:
         sf::Vector2f m_circle_speed;
         sf::Vector2f m_circle_position;
         float m_circle_radius{};

@@ -17,6 +17,7 @@ namespace gol {
         void on_sfml_event(const sf::Event &event) override;
         void render_gui() override;
         void set_engine(const bnjkit::engine::IEngine *engine) override;
+        [[nodiscard]] std::string name() const override;
 
     private:
         const GameOfLife *m_gol;

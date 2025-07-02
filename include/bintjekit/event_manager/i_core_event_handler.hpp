@@ -23,6 +23,7 @@ namespace bnjkit {
             ~ICoreEventHandler() override;
             virtual void set_core(core::Core *core);
             virtual void on_sfml_event(const sf::Event &event) =0;
+            [[nodiscard]] std::string name() const override;
 
         protected:
             core::Core *m_core;

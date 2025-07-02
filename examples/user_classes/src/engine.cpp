@@ -122,4 +122,7 @@ namespace usr {
     float Engine::randf(float min, float max) {
         return randf() * (max + min) - min;
     }
+    std::string Engine::name() const {
+        return "Engine";
+    }
 } // usr

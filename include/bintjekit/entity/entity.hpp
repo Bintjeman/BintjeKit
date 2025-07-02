@@ -6,7 +6,6 @@
 #ifndef BINJTJEKIT_ENTITY_ENTITY_HPP
 #define BINJTJEKIT_ENTITY_ENTITY_HPP
 #pragma once
-// #include <cstddef>
 #include <limits>
 #include <memory>
 #include <spdlog/fwd.h>
