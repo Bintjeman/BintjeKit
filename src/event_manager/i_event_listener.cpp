@@ -8,5 +8,7 @@ namespace bnjkit {
     namespace event {
         IEventListener::~IEventListener() = default;
 
+        void IEventListener::on_sfml_event(const sf::Event& event[[maybe_unused]]) {
+        }
     } // event
 } // bnjkit
