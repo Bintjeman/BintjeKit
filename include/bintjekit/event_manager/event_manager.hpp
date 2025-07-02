@@ -11,11 +11,16 @@
 #include <SFML/Window/Event.hpp>
 #include <spdlog/fwd.h>
 
+#include "bintjekit/configuration/node.hpp"
+
 namespace sf {
     class Window;
 }
 
 namespace bnjkit {
+    namespace conf {
+        class Node;
+    }
     namespace renderer {
         class IImGuiRenderer;
     }
@@ -33,7 +38,9 @@ namespace bnjkit {
             void process_events(sf::Window& window);
             void register_listener(IEventListener* listener);
             void unregister_listener(IEventListener* listener);
-
+            void set_core_event_handler_settings(const conf::Node& settings);
+            void set_core_event_handler_custom_settings(const conf::Node& settings);
+            void configure();
         protected:
             void general_event(const sf::Event& event);
             std::unique_ptr<ICoreEventHandler> m_core_event_handler;

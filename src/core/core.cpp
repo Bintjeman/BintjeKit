@@ -14,6 +14,7 @@
 #include "bintjekit/configuration/utils.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
 #include "time/time.hpp"
+
 namespace bnjkit::core {
     Core::Core() {
         m_logger = Logger::get_logger(module_names::CORE);
@@ -42,6 +43,8 @@ namespace bnjkit::core {
             m_settings = std::make_shared<conf::Settings>();
         }
         // Settings
+        m_event_manager->set_core_event_handler_settings(
+            m_settings->create_child("/Event"_json_pointer));
         m_engine_renderer->set_settings(m_settings->create_child("/Renderer/Engine"_json_pointer));
         m_renderer->set_settings(m_settings->create_child("/Renderer"_json_pointer));
         m_imgui_renderer->set_settings(m_settings->create_child("/Renderer/ImGui"_json_pointer));
@@ -54,6 +57,7 @@ namespace bnjkit::core {
         m_engine_renderer->set_custom(m_settings->create_child(
             nlohmann::json::json_pointer(std::string("/Renderer/" + m_engine_renderer->name()))));
         // Configure modules
+        m_event_manager->configure();
         m_engine->configure();
         m_engine_renderer->configure();
         m_main_window->configure();

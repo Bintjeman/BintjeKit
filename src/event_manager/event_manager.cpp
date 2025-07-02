@@ -25,44 +25,58 @@ namespace bnjkit {
             m_logger->info("Destructor of IEventManager");
         }
 
-        void EventManager::set_imgui_renderer(renderer::IImGuiRenderer *renderer) {
+        void EventManager::set_imgui_renderer(renderer::IImGuiRenderer* renderer) {
             m_logger->debug("Setting imgui renderer");
             m_imgui_renderer = renderer;
         }
 
-        void EventManager::set_core_event_handler(std::unique_ptr<ICoreEventHandler> core_event_handler) {
+        void EventManager::set_core_event_handler(
+            std::unique_ptr<ICoreEventHandler> core_event_handler) {
             m_logger->debug("Setting core event handler");
             m_core_event_handler = std::move(core_event_handler);
         }
 
-        void EventManager::process_events(sf::Window &window) {
+        void EventManager::process_events(sf::Window& window) {
             while (auto event = window.pollEvent()) {
-                m_imgui_renderer->process_events(*event);
-                for (auto *listener: m_listeners) {
-                    listener->on_sfml_event(*event);
+                m_imgui_renderer->process_events(* event);
+                for (auto* listener: m_listeners) {
+                    listener->on_sfml_event(* event);
                 }
                 m_logger->trace("Processing events");
-                m_core_event_handler->on_sfml_event(*event);
-                general_event(*event);
+                m_core_event_handler->on_sfml_event(* event);
+                general_event(* event);
             }
         }
 
-        void EventManager::register_listener(IEventListener *listener) {
+        void EventManager::register_listener(IEventListener* listener) {
             m_logger->debug("Registering listener");
             if (listener) {
-                if (std::find(m_listeners.begin(), m_listeners.end(), listener) == m_listeners.end()) {
+                if (std::find(m_listeners.begin(), m_listeners.end(), listener) == m_listeners.
+                    end()) {
                     m_listeners.push_back(listener);
                 }
             }
         }
 
-        void EventManager::unregister_listener(IEventListener *listener) {
+        void EventManager::unregister_listener(IEventListener* listener) {
             m_logger->debug("Unregistering listener");
             auto it = std::remove(m_listeners.begin(), m_listeners.end(), listener);
             m_listeners.erase(it, m_listeners.end());
         }
+        void EventManager::set_core_event_handler_settings(const conf::Node& settings) {
+            m_logger->debug("Setting core event handler settings");
+            m_core_event_handler->set_settings(settings);
+        }
+        void EventManager::set_core_event_handler_custom_settings(const conf::Node& settings) {
+            m_logger->debug("Setting core event handler custom settings");
+            m_core_event_handler->set_custom(settings);
+        }
+        void EventManager::configure() {
+            m_logger->debug("Configuring event manager");
+            m_core_event_handler->configure();
+        }
 
-        void EventManager::general_event(const sf::Event &event[[maybe_unused]]) {
+        void EventManager::general_event(const sf::Event& event[[maybe_unused]]) {
             m_logger->trace("General event");
         }
     } // event
