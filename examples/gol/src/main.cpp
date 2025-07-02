@@ -10,7 +10,6 @@
 #include "game_of_life_renderer.hpp"
 #include "renderer.hpp"
 #include "core_event_handler.hpp"
-// #include "bintjekit/configuration.hpp"
 #include "default_json.inl"
 int main() {
     auto logger = bnjkit::core::Logger::get_logger(bnjkit::core::module_names::APP);

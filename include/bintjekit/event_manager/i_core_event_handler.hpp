@@ -9,6 +9,7 @@
 #include <memory>
 #include <spdlog/fwd.h>
 #include "SFML/Window/Event.hpp"
+#include "bintjekit/core/i_module.hpp"
 
 namespace bnjkit {
     namespace core {
@@ -16,10 +17,10 @@ namespace bnjkit {
     }
 
     namespace event {
-        class ICoreEventHandler {
+        class ICoreEventHandler: public core::IModule{
         public:
             ICoreEventHandler();
-            virtual ~ICoreEventHandler();
+            ~ICoreEventHandler() override;
             virtual void set_core(core::Core *core);
             virtual void on_sfml_event(const sf::Event &event) =0;
 

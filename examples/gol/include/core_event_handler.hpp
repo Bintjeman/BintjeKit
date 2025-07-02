@@ -14,10 +14,13 @@ namespace gol {
     public:
         CoreEventHandler();
         ~CoreEventHandler() override;
-        void on_sfml_event(const sf::Event &event) override;
+        void on_sfml_event(const sf::Event& event) override;
 
-        private:
+    private:
         void pause_button();
+
+    public:
+        [[nodiscard]] std::string name() const override;
     };
 } // gol
 

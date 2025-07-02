@@ -36,4 +36,7 @@ namespace gol {
                 break;
         }
     }
+    std::string CoreEventHandler::name() const {
+        return "CoreEventHandler";
+    }
 } // gol

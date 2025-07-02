@@ -5,5 +5,8 @@
  */
 #include "bintjekit/event_manager/default_core_event_handler.hpp"
 
-void bnjkit::event::DefaultCoreEventHandler::on_sfml_event(const sf::Event &event[[maybe_unused]]) {
+void bnjkit::event::DefaultCoreEventHandler::on_sfml_event(const sf::Event& event[[maybe_unused]]) {
+}
+std::string bnjkit::event::DefaultCoreEventHandler::name() const {
+    return "DefaultCoreEventHandler";
 }

@@ -4,7 +4,6 @@
  * @name core.cpp
  */
 #include "bintjekit/core/core.hpp"
-
 #include "bintjekit/logger/logger.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/event_manager.hpp"
@@ -15,7 +14,6 @@
 #include "bintjekit/configuration/utils.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
 #include "time/time.hpp"
-
 namespace bnjkit::core {
     Core::Core() {
         m_logger = Logger::get_logger(module_names::CORE);
@@ -24,17 +22,19 @@ namespace bnjkit::core {
         m_logger->critical("Running in debug mode");
 #endif
     }
-
     Core::~Core() {
         m_logger->info("Destructor of Core");
         Logger::shutdown();
     }
-
     void Core::configure() {
-        static_assert(!std::is_abstract_v<decltype(*m_engine)>, "Engine class must implement all pure virtual methods");
-        static_assert(!std::is_abstract_v<decltype(*m_engine_renderer)>, "EngineRenderer class must implement all pure virtual methods");
-        static_assert(!std::is_abstract_v<decltype(*m_renderer)>, "Renderer class must implement all pure virtual methods");
-        static_assert(!std::is_abstract_v<decltype(*m_imgui_renderer)>, "ImGuiRenderer class must implement all pure virtual methods");
+        static_assert(!std::is_abstract_v<decltype(* m_engine)>,
+                      "Engine class must implement all pure virtual methods");
+        static_assert(!std::is_abstract_v<decltype(* m_engine_renderer)>,
+                      "EngineRenderer class must implement all pure virtual methods");
+        static_assert(!std::is_abstract_v<decltype(* m_renderer)>,
+                      "Renderer class must implement all pure virtual methods");
+        static_assert(!std::is_abstract_v<decltype(* m_imgui_renderer)>,
+                      "ImGuiRenderer class must implement all pure virtual methods");
 
         m_logger->debug("Configuring Core");
         if (!m_settings) {
@@ -60,7 +60,6 @@ namespace bnjkit::core {
         m_renderer->configure();
         m_imgui_renderer->configure();
     }
-
     void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
         m_logger->debug("Configuring Core from settings");
         set_settings(settings);
@@ -90,43 +89,51 @@ namespace bnjkit::core {
         }
         m_logger->info("Core stopped");
     }
-
     conf::Settings& Core::settings() const {
         return * m_settings;
     }
-
     Core::State Core::state() const {
         return m_state;
     }
-
+    engine::IEngine& Core::engine() {
+        return * m_engine;
+    }
+    renderer::IRenderer& Core::renderer() {
+        return * m_renderer;
+    }
+    renderer::IEngineRenderer& Core::engine_renderer() {
+        return * m_engine_renderer;
+    }
+    renderer::IImGuiRenderer& Core::imgui_renderer() {
+        return * m_imgui_renderer;
+    }
+    window::IMainWindow& Core::main_window() {
+        return * m_main_window;
+    }
+    event::EventManager& Core::event_manager() {
+        return * m_event_manager;
+    }
     long Core::engine_frequency() {
         return engine_pulser.target_freqency();
     }
-
     long Core::renderer_frequency() {
         return renderer_pulser.target_freqency();
     }
-
     long Core::window_frequency() {
         return window_pulser.target_freqency();
     }
-
     long Core::engine_effective_frequency() {
         return engine_pulser.effective_frequency();
     }
-
     long Core::renderer_effective_frequency() {
         return renderer_pulser.effective_frequency();
     }
-
     long Core::window_effective_frequency() {
         return window_pulser.effective_frequency();
     }
-
     void Core::set_state(const State& state) {
         m_state = state;
     }
-
     void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
                            std::unique_ptr<event::EventManager> event_manager,
                            std::unique_ptr<engine::IEngine> engine,
@@ -142,15 +149,12 @@ namespace bnjkit::core {
         m_engine_renderer = std::move(engine_renderer);
         m_imgui_renderer = std::move(imgui_renderer);
     }
-
     void Core::set_engine_frequency(long frequency) {
         engine_pulser.set_frequency(frequency);
     }
-
     void Core::set_renderer_frequency(long frequency) {
         renderer_pulser.set_frequency(frequency);
     }
-
     void Core::set_window_frequency(long frequency) {
         window_pulser.set_frequency(frequency);
     }

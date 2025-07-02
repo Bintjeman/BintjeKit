@@ -46,6 +46,16 @@ namespace bnjkit {
             void run();
             [[nodiscard]] conf::Settings& settings() const;
             [[nodiscard]] State state() const;
+            [[nodiscard]] bnjkit::engine::IEngine& engine();
+            [[nodiscard]] bnjkit::renderer::IRenderer& renderer();
+            [[nodiscard]] bnjkit::renderer::IEngineRenderer& engine_renderer();
+            [[nodiscard]] bnjkit::renderer::IImGuiRenderer& imgui_renderer();
+            [[nodiscard]] bnjkit::window::IMainWindow& main_window();
+            [[nodiscard]] bnjkit::event::EventManager& event_manager();
+            void pause();
+            void resume();
+            void stop();
+            void update();
             [[nodiscard]] long engine_frequency();
             [[nodiscard]] long renderer_frequency();
             [[nodiscard]] long window_frequency();
