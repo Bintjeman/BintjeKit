@@ -10,10 +10,12 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include "spdlog/spdlog.h"
 #include <nlohmann/json.hpp>
+
 namespace nlohmann {
     template<typename T>
-    struct adl_serializer<sf::Vector2<T>> {
+    struct adl_serializer<sf::Vector2<T> > {
         static void to_json(json& j, const sf::Vector2<T>& v) {
             j = json{{"x", v.x}, {"y", v.y}};
         }
@@ -23,7 +25,6 @@ namespace nlohmann {
             v.y = j.at("y").get<T>();
         }
     };
-
     template<>
     struct adl_serializer<sf::Color> {
         static void from_json(const nlohmann::json& j, sf::Color& c) {
@@ -34,7 +35,6 @@ namespace nlohmann {
                 j.contains("a") ? j.at("a").get<uint8_t>() : 255
             );
         }
-
         static void to_json(nlohmann::json& j, const sf::Color& color) {
             if (color.a != 255) {
                 j = {
@@ -68,5 +68,17 @@ namespace nlohmann {
         r.size.y = j["size"]["y"].get<T>();
         return r;
     }
+}
+
+namespace spdlog::level {
+    NLOHMANN_JSON_SERIALIZE_ENUM(spdlog::level::level_enum, {
+                                 {spdlog::level::level_enum::trace, "trace"},
+                                 {spdlog::level::level_enum::debug, "debug"},
+                                 {spdlog::level::level_enum::info, "info"},
+                                 {spdlog::level::level_enum::warn, "warn"},
+                                 {spdlog::level::level_enum::err, "err"},
+                                 {spdlog::level::level_enum::critical, "critical"},
+                                 {spdlog::level::level_enum::off, "off"}
+                                 })
 }
 #endif // BNJKIT_CONFIGURATION_SFML_JSON_ADAPTER_HPP
