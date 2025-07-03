@@ -16,9 +16,10 @@ namespace bnjkit {
             virtual ~IModule();
             virtual void initialise();
             virtual void configure();
+            virtual void on_quit();
             void set_settings(const conf::Node& settings);
             void set_custom(const conf::Node& settings);
-            [[nodiscard]] virtual std::string name() const = 0;
+            [[nodiscard]] virtual std::string name() const;
         protected:
             conf::Node m_settings;
             conf::Node m_custom_settings;

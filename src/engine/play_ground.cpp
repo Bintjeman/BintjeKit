@@ -37,7 +37,6 @@ namespace bnjkit {
         }
 
         sf::Rect<float> PlayGround::bounds() const {
-            m_logger->trace("Getting bounds of PlayGround: ({};{})", position, size);
             return {{position}, {size}};
         }
     } // engine

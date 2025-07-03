@@ -75,7 +75,10 @@ namespace bnjkit {
             m_logger->debug("Configuring event manager");
             m_core_event_handler->configure();
         }
-
+        void EventManager::on_quit() {
+            m_logger->debug("Quitting event manager");
+            m_core_event_handler->on_quit();
+        }
         void EventManager::general_event(const sf::Event& event[[maybe_unused]]) {
             m_logger->trace("General event");
         }

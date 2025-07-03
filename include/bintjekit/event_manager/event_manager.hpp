@@ -41,6 +41,7 @@ namespace bnjkit {
             void set_core_event_handler_settings(const conf::Node& settings);
             void set_core_event_handler_custom_settings(const conf::Node& settings);
             void configure();
+            void on_quit();
         protected:
             void general_event(const sf::Event& event);
             std::unique_ptr<ICoreEventHandler> m_core_event_handler;

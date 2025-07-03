@@ -13,7 +13,8 @@ void bnjkit::core::IModule::initialise() {
 
 void bnjkit::core::IModule::configure() {
 }
-
+void bnjkit::core::IModule::on_quit() {
+}
 void bnjkit::core::IModule::set_settings(const conf::Node& settings) {
     nlohmann::json tmp_json;
     conf::Node tmp_json_arg = settings;

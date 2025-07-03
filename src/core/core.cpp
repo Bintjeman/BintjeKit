@@ -92,6 +92,12 @@ namespace bnjkit::core {
             }
         }
         m_logger->info("Core stopped");
+        m_main_window->on_quit();
+        m_event_manager->on_quit();
+        m_renderer->on_quit();
+        m_engine->on_quit();
+        m_engine_renderer->on_quit();
+        m_imgui_renderer->on_quit();
     }
     conf::Settings& Core::settings() const {
         return * m_settings;
