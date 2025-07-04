@@ -50,7 +50,6 @@ target_sources(bintjekit
         PRIVATE
         $<TARGET_OBJECTS:time>
         $<TARGET_OBJECTS:random>
-
 )
 ################################################################################
 # Configuration de la bibliothèque principale
@@ -61,7 +60,6 @@ target_include_directories(bintjekit
         $<INSTALL_INTERFACE:include>
 )
 target_include_directories(bintjekit SYSTEM PUBLIC ${SPDLOG_INCLUDES})
-
 ################################################################################
 target_link_libraries(bintjekit
         PUBLIC
@@ -87,6 +85,8 @@ set_target_properties(bintjekit PROPERTIES
 ################################################################################
 # Configuration des options de compilation
 configure_target_options(bintjekit)
+configure_target_options(time)
+configure_target_options(random)
 ################################################################################
 # Alias pour la cible
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)
