@@ -10,7 +10,7 @@
 #include <vector>
 #include <memory>
 #include <unordered_map>
-#include "bintjekit/entity/IEntity.hpp"
+#include "bintjekit/entity/ientity.hpp"
 
 namespace bnjkit {
     namespace entity {

@@ -5,7 +5,7 @@
  */
 #include <utility>
 #include <spdlog/spdlog.h>
-#include "bintjekit/entity/IEntity.hpp"
+#include "bintjekit/entity/ientity.hpp"
 
 namespace bnjkit {
     namespace entity {
