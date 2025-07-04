@@ -8,9 +8,8 @@
 #pragma once
 #include <filesystem>
 #include <memory>
-#include <time/time.hpp>
 #include <spdlog/fwd.h>
-
+#include "bintjekit/utils/time/time.hpp"
 namespace bnjkit {
     namespace window {
         class IMainWindow;

@@ -7,7 +7,7 @@
 #include "bintjekit/renderer/i_renderer.hpp"
 
 #include <imgui-SFML.h>
-#include "fmt_sfml/fmt_sfml.hpp"
+#include "bintjekit/utils/fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/logger/logger.hpp"
 #include "bintjekit/renderer/i_bnjkit_imgui.hpp"

@@ -13,7 +13,7 @@
 #include "bintjekit/configuration/settings.hpp"
 #include "bintjekit/configuration/utils.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
-#include "time/time.hpp"
+#include "bintjekit/utils/time/time.hpp"
 
 namespace bnjkit::core {
     Core::Core() {

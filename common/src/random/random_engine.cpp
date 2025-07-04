@@ -3,7 +3,7 @@
  * @date 04.07.25
  * @name random_engine.cpp
  */
-#include "random/random_engine.hpp"
+#include "bintjekit/utils/random/random_engine.hpp"
 #include <chrono>
 namespace bnjkit::utils::random {
     std::mt19937 RandomEngine::s_generator{

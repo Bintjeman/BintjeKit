@@ -9,7 +9,7 @@
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/generators/catch_generators_random.hpp>
 #include <catch2/generators/catch_generators_adapters.hpp>
-#include "time/time.hpp"
+#include "bintjekit/utils/time/time.hpp"
 
 TEST_CASE("Clock functionality", "[time][clock]") {
     bnjkit::utils::time::Clock clock;

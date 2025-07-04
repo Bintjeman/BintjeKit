@@ -6,7 +6,6 @@
 #ifndef BINTJEKIT_D2_HPP
 #define BINTJEKIT_D2_HPP
 #pragma once
-#include <SFML/System/Angle.hpp>
 #include <SFML/System/Vector2.hpp>
 
 namespace bnjkit::utils::d2 {

@@ -15,8 +15,8 @@ target_compile_features(time PUBLIC cxx_std_20)
 target_link_libraries(time PUBLIC SFML::System)
 # Installation des headers de time
 install(
-        DIRECTORY ${PROJECT_SOURCE_DIR}/common/include/time
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        DIRECTORY include/bintjekit/utils/time
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/bintjekit/utils
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl"
 )
 ################################################################################
@@ -33,8 +33,8 @@ target_compile_features(random PUBLIC cxx_std_20)
 #target_link_libraries(time PUBLIC SFML::System)
 # Installation des headers de time
 install(
-        DIRECTORY ${PROJECT_SOURCE_DIR}/common/include/random
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        DIRECTORY include/bintjekit/utils/random
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/bintjekit/utils
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl"
 )
 ################################################################################
@@ -51,7 +51,7 @@ target_compile_features(d2 PUBLIC cxx_std_20)
 #target_link_libraries(time PUBLIC SFML::System)
 # Installation des headers de time
 install(
-        DIRECTORY ${PROJECT_SOURCE_DIR}/common/include/d2
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        DIRECTORY include/bintjekit/utils/d2
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/bintjekit/utils
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl"
 )

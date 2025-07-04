@@ -5,7 +5,7 @@
  */
 
 #include "bintjekit/engine/play_ground.hpp"
-#include "fmt_sfml/fmt_sfml.hpp"
+#include "bintjekit/utils/fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/logger/logger.hpp"
 

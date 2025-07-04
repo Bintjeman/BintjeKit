@@ -3,7 +3,7 @@
  * @date 19.06.25
  * @name time.cpp
  */
-#include "time/time.hpp"
+#include "bintjekit/utils/time/time.hpp"
 
 namespace bnjkit::utils::time {
     Clock::Clock() {
