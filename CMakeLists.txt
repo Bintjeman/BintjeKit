@@ -23,6 +23,7 @@ add_library(bintjekit STATIC)
 ################################################################################
 # Définition des cibles objets (object libraries)
 add_library(time OBJECT)
+add_library(random OBJECT)
 ################################################################################
 # Ajout des autres cibles (test, examples) pour l'instant définies dans leurs
 # propres répertoires
@@ -31,17 +32,25 @@ add_library(time OBJECT)
 add_subdirectory(common)
 add_subdirectory(src)
 ################################################################################
-target_include_directories(time PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-target_compile_features(time PUBLIC cxx_std_20)
-target_link_libraries(time PUBLIC SFML::System)
+#target_include_directories(time PUBLIC
+#        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
+#        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+#)
+#target_compile_features(time PUBLIC cxx_std_20)
+#target_link_libraries(time PUBLIC SFML::System)
+#target_include_directories(random PUBLIC
+#        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
+#        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+#)
+#target_compile_features(random PUBLIC cxx_std_20)
+##target_link_libraries(random PUBLIC SFML::System)
 ################################################################################
 # Ajout des sous-composants à la bibliothèque principale
 target_sources(bintjekit
         PRIVATE
         $<TARGET_OBJECTS:time>
+        $<TARGET_OBJECTS:random>
+
 )
 ################################################################################
 # Configuration de la bibliothèque principale

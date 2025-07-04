@@ -12,7 +12,7 @@
 #include "time/time.hpp"
 
 TEST_CASE("Clock functionality", "[time][clock]") {
-    bnjkit::time::Clock clock;
+    bnjkit::utils::time::Clock clock;
 
     SECTION("Nouvelle horloge démarre proche de zéro") {
         REQUIRE(clock.get() <= 10);
@@ -47,7 +47,7 @@ TEST_CASE("Clock functionality", "[time][clock]") {
 }
 
 TEST_CASE("Pulser functionality", "[time][pulser]") {
-    bnjkit::time::Pulser pulser;
+    bnjkit::utils::time::Pulser pulser;
 
     SECTION("Fréquence par défaut est 60Hz") {
         REQUIRE(pulser.target_freqency() == 60);
@@ -92,7 +92,7 @@ TEST_CASE("Pulser functionality", "[time][pulser]") {
 }
 
 TEST_CASE("Cas particuliers du Pulser", "[time][pulser][edge]") {
-    bnjkit::time::Pulser pulser;
+    bnjkit::utils::time::Pulser pulser;
 
         SECTION("Fréquence normale") {
         pulser.set_frequency(60); // 60Hz
