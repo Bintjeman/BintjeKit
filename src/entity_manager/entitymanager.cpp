@@ -16,15 +16,13 @@ namespace bnjkit {
         EntityManager::~EntityManager() {
             m_logger->info("Destructor of EntityManager");
         }
-        std::shared_ptr<Entity> EntityManager::create_entity() {
-            std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+        void EntityManager::add_entity(const std::shared_ptr<Entity>& entity) {
             m_collection.add_entity(entity);
-            return entity;
         }
         std::shared_ptr<Entity> EntityManager::get_entity(EntityId id) {
             return m_collection.get_entity(id);
         }
-        void EntityManager::remove(const std::shared_ptr<Entity> entity) {
+        void EntityManager::remove(const std::shared_ptr<Entity>& entity) {
             m_collection.remove_entity(entity);
         }
         EntityCollection& EntityManager::get_collection() {
@@ -35,6 +33,11 @@ namespace bnjkit {
         }
         void EntityManager::clear() {
             m_collection.clear();
+        }
+        std::shared_ptr<Entity> EntityManager::create_entity() {
+            std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+            m_collection.add_entity(entity);
+            return entity;
         }
     } // entity
 } // bnjkit
