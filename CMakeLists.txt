@@ -24,6 +24,7 @@ add_library(bintjekit STATIC)
 # Définition des cibles objets (object libraries)
 add_library(time OBJECT)
 add_library(random OBJECT)
+add_library(d2 OBJECT)
 ################################################################################
 # Ajout des autres cibles (test, examples) pour l'instant définies dans leurs
 # propres répertoires
@@ -50,6 +51,7 @@ target_sources(bintjekit
         PRIVATE
         $<TARGET_OBJECTS:time>
         $<TARGET_OBJECTS:random>
+        $<TARGET_OBJECTS:d2>
 )
 ################################################################################
 # Configuration de la bibliothèque principale
@@ -87,6 +89,7 @@ set_target_properties(bintjekit PROPERTIES
 configure_target_options(bintjekit)
 configure_target_options(time)
 configure_target_options(random)
+configure_target_options(d2)
 ################################################################################
 # Alias pour la cible
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)

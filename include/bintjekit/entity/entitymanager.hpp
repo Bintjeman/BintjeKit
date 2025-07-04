@@ -29,7 +29,6 @@ namespace bnjkit {
                 add_entity(entity);
                 return entity;
             }
-
         private:
             std::shared_ptr<Entity> create_entity();
             std::shared_ptr<spdlog::logger> m_logger;
@@ -37,5 +36,4 @@ namespace bnjkit {
         };
     } // entity
 } // bnjkit
-
 #endif // BINTJEKIT_ENTITY_ENTITYMANAGER_HPP
