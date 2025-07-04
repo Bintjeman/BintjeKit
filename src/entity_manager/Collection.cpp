@@ -14,7 +14,7 @@ namespace bnjkit {
         }
         Collection::~Collection() {
         }
-        void Collection::add_entity(const std::shared_ptr<Entity>& entity) {
+        void Collection::add_entity(const std::shared_ptr<IEntity>& entity) {
             if (!entity || !entity->valid()) {
                 m_logger->error("Cannot add invalid entity");
                 throw std::invalid_argument("Cannot add invalid entity");
@@ -52,7 +52,7 @@ namespace bnjkit {
         EntityRegystry& Collection::get_registry() {
             return m_registry;
         }
-        std::shared_ptr<Entity> Collection::get_entity(EntityId id) {
+        std::shared_ptr<IEntity> Collection::get_entity(EntityId id) {
             auto it = m_registry.find(id);
             if (it != m_registry.end()) {
                 return m_collection[it->second];

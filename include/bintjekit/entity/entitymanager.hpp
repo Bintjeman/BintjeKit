@@ -17,9 +17,9 @@ namespace bnjkit {
         public:
             EntityManager();
             ~EntityManager();
-            void add_entity(const std::shared_ptr<Entity>& entity);
-            std::shared_ptr<Entity> get_entity(EntityId id);
-            void remove(const std::shared_ptr<Entity>& entity);
+            void add_entity(const std::shared_ptr<IEntity>& entity);
+            std::shared_ptr<IEntity> get_entity(EntityId id);
+            void remove(const std::shared_ptr<IEntity>& entity);
             [[nodiscard]] EntityCollection& get_collection();
             [[nodiscard]] const EntityCollection& get_collection() const;
             void clear();
@@ -30,7 +30,7 @@ namespace bnjkit {
                 return entity;
             }
         private:
-            std::shared_ptr<Entity> create_entity();
+            std::shared_ptr<IEntity> create_entity();
             std::shared_ptr<spdlog::logger> m_logger;
             Collection m_collection;
         };

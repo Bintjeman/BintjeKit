@@ -12,14 +12,14 @@
 namespace bnjkit {
     namespace entity {
         using EntityId = std::size_t;
-        class Entity {
+        class IEntity {
         public:
-            Entity();
-            virtual ~Entity();
-            Entity(const Entity&);
-            Entity& operator=(const Entity& other) noexcept;
-            Entity(Entity&& other) noexcept;
-            Entity& operator=(Entity&& other) noexcept;
+            IEntity();
+            virtual ~IEntity();
+            IEntity(const IEntity&);
+            IEntity& operator=(const IEntity& other) noexcept;
+            IEntity(IEntity&& other) noexcept;
+            IEntity& operator=(IEntity&& other) noexcept;
             [[nodiscard]] EntityId id() const;
             [[nodiscard]] bool valid() const;
             static EntityId total_entities();

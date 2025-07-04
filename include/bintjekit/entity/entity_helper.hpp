@@ -10,12 +10,12 @@
 #include <vector>
 #include <memory>
 #include <unordered_map>
-#include "bintjekit/entity/entity.hpp"
+#include "bintjekit/entity/IEntity.hpp"
 
 namespace bnjkit {
     namespace entity {
-        using EntityPtr = std::shared_ptr<Entity>;
-        using EntityCollection = std::vector<std::shared_ptr<Entity> >;
+        using EntityPtr = std::shared_ptr<IEntity>;
+        using EntityCollection = std::vector<std::shared_ptr<IEntity> >;
         using EntityIndex = std::size_t;
         using EntityRegystry = std::unordered_map<EntityId, EntityIndex>;
     } // entity

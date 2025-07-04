@@ -21,14 +21,14 @@ namespace bnjkit {
         public:
             Collection();
             virtual ~Collection();
-            virtual void add_entity(const std::shared_ptr<Entity>& entity);
+            virtual void add_entity(const std::shared_ptr<IEntity>& entity);
             virtual void remove_entity(const EntityPtr& entity);
             virtual void remove_entity(EntityId id);
             virtual void clear();
             virtual EntityCollection& get_collection();
             virtual const EntityCollection& get_collection() const;
             virtual EntityRegystry& get_registry();
-            virtual std::shared_ptr<Entity> get_entity(EntityId id);
+            virtual std::shared_ptr<IEntity> get_entity(EntityId id);
             virtual EntityIndex get_entity_index(EntityId id);
             virtual std::optional<EntityIndex> get_entity_index_opt(EntityId id) {
                 auto it = m_registry.find(id);
@@ -49,7 +49,7 @@ namespace bnjkit {
         template<typename EntityTypeParent>
         class HeterogeneousGroup : public Collection {
         public:
-            void add_entity(const std::shared_ptr<Entity>& entity) override {
+            void add_entity(const std::shared_ptr<IEntity>& entity) override {
                 if (!entity || !entity->valid()) {
                     m_logger->warn("Cannot add invalid entity");
                     throw std::invalid_argument("Cannot add invalid entity");
@@ -73,7 +73,7 @@ namespace bnjkit {
         template<typename EntityType>
         class HomogeneousGroup : public Collection {
         public:
-            void add_entity(const std::shared_ptr<Entity>& entity) override {
+            void add_entity(const std::shared_ptr<IEntity>& entity) override {
                 if (!entity || !entity->valid()) {
                     m_logger->warn("Cannot add invalid entity");
                     throw std::invalid_argument("Cannot add invalid entity");
