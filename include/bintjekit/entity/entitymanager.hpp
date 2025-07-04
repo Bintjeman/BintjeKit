@@ -25,7 +25,9 @@ namespace bnjkit {
             void clear();
             template<class EntityType>
             std::shared_ptr<EntityType> create_entity() {
-                return std::static_pointer_cast<EntityType>(create_entity());
+                std::shared_ptr<EntityType> entity = std::make_shared<EntityType>();
+                add_entity(entity);
+                return entity;
             }
 
         private:
