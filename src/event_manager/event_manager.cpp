@@ -31,7 +31,7 @@ namespace bnjkit {
         }
 
         void EventManager::set_core_event_handler(
-            std::unique_ptr<ICoreEventHandler> core_event_handler) {
+            std::shared_ptr<ICoreEventHandler> core_event_handler) {
             m_logger->debug("Setting core event handler");
             m_core_event_handler = std::move(core_event_handler);
         }
@@ -70,6 +70,9 @@ namespace bnjkit {
         void EventManager::set_core_event_handler_custom_settings(const conf::Node& settings) {
             m_logger->debug("Setting core event handler custom settings");
             m_core_event_handler->set_custom(settings);
+        }
+        ICoreEventHandler* EventManager::get_core_event_handler() {
+            return m_core_event_handler.get();
         }
         void EventManager::configure() {
             m_logger->debug("Configuring event manager");

@@ -82,17 +82,18 @@ namespace bnjkit::core {
         m_imgui_renderer->init();
         m_renderer->configure();
         while (m_main_window->isOpen()) {
-            m_event_manager->process_events(* m_main_window);
-            if (m_state == State::RUNNING && engine_pulser()) {
-                m_engine->update();
-            }
-            if (renderer_pulser()) {
-                m_imgui_renderer->update();
-                m_renderer->render();
+            if (window_pulser()) {
+                m_event_manager->process_events(* m_main_window);
+                if (m_state == State::RUNNING && engine_pulser()) {
+                    m_engine->update();
+                }
+                if (renderer_pulser()) {
+                    m_imgui_renderer->update();
+                    m_renderer->render();
+                }
             }
         }
         m_logger->info("Core stopped");
-        m_main_window->on_quit();
         m_event_manager->on_quit();
         m_renderer->on_quit();
         m_engine->on_quit();

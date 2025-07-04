@@ -5,7 +5,7 @@
  */
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/core/common.hpp"
-#include "../../include/bintjekit/logger/logger.hpp"
+#include "bintjekit/logger/logger.hpp"
 #include "bintjekit/configuration/sfml_json_adapter.hpp"
 
 namespace bnjkit::window {
@@ -37,16 +37,12 @@ namespace bnjkit::window {
     }
     void IMainWindow::close() {
         m_logger->info("Closing IMainWindow");
-        sf::Vector2u size = getSize();
-        sf::Vector2i pos = getPosition();
-        m_settings.set("/Size"_json_pointer, size);
-        m_settings.set("/Position"_json_pointer, pos);
-        auto settings_json = m_settings.get_json();
-        m_logger->trace("Window settings: {}", settings_json.dump(2));
-        m_logger->trace("Window settings root: {}", m_settings.branch_str());
         RenderWindow::close();
     }
     std::string IMainWindow::name() const {
         return "IMainWindow";
+    }
+    void IMainWindow::on_quit() {
+        IModule::on_quit();
     }
 }

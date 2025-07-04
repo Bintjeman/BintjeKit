@@ -10,9 +10,11 @@
 #include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
+
 namespace bnjkit {
     namespace window {
-        class IMainWindow : public core::IModule, public sf::RenderWindow, public event::IEventListener {
+        class IMainWindow : public core::IModule, public sf::RenderWindow,
+                            public event::IEventListener {
         public:
             IMainWindow();
             ~IMainWindow() noexcept override;
@@ -25,6 +27,9 @@ namespace bnjkit {
 
         protected:
             std::shared_ptr<spdlog::logger> m_logger;
+
+        private:
+            void on_quit() override;
         };
     } // bnjkit
 } // window

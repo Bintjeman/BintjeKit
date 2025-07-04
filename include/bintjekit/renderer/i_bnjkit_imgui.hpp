@@ -7,6 +7,7 @@
 #define BNJKIT_RENDERER_BNJKIT_IMGUI_HPP
 #pragma once
 #include <memory>
+#include <oneapi/tbb/profiling.h>
 #include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
 
@@ -24,6 +25,9 @@ namespace bnjkit {
         class Core;
     };
 
+    namespace event {
+        class ICoreEventHandler;
+    }
     namespace renderer {
         class IRenderer;
         class IImGuiRenderer : public core::IModule {
@@ -44,6 +48,7 @@ namespace bnjkit {
             void set_window(sf::RenderWindow* window);
             virtual void set_engine(engine::IEngine* engine);
             virtual void set_core(core::Core* core);
+            virtual void set_core_event_handler(event::ICoreEventHandler* core_event_handler);
             virtual void set_renderer(IRenderer* renderer);
             void shutdown();
             [[nodiscard]] std::string name() const override;
@@ -52,6 +57,7 @@ namespace bnjkit {
             std::shared_ptr<spdlog::logger> m_logger;
             engine::IEngine* m_engine;
             core::Core* m_core;
+            event::ICoreEventHandler* m_core_event_handler;
             IRenderer* m_renderer;
 
         private:

@@ -10,6 +10,7 @@
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/logger/logger.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
+
 namespace bnjkit {
     namespace renderer {
         IImGuiRenderer::ImGuiContext::ImGuiContext(sf::RenderWindow* window) {
@@ -17,7 +18,6 @@ namespace bnjkit {
                 throw std::runtime_error("IImGuiRenderer: Failed to initialise ImGui");
             }
         }
-
 
         IImGuiRenderer::ImGuiContext::~ImGuiContext() {
             ImGui::SFML::Shutdown();
@@ -43,6 +43,10 @@ namespace bnjkit {
         void IImGuiRenderer::set_core(core::Core* core) {
             m_logger->debug("IImGuiRenderer: Setting core");
             m_core = core;
+        }
+        void IImGuiRenderer::set_core_event_handler(event::ICoreEventHandler* core_event_handler) {
+            m_logger->debug("IImGuiRenderer: Setting core event handler");
+            m_core_event_handler = core_event_handler;
         }
         void IImGuiRenderer::set_renderer(IRenderer* renderer) {
             m_logger->debug("IImGuiRenderer: Setting renderer");
