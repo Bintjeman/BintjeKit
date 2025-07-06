@@ -37,5 +37,4 @@ namespace bnjkit {
         };
     } // entity
 } // bnjkit
-
 #endif // BINTJEKIT_ENTITY_CUSTOMGROUP_HPP

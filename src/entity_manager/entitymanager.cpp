@@ -16,6 +16,31 @@ namespace bnjkit {
         EntityManager::~EntityManager() {
             m_logger->info("Destructor of EntityManager");
         }
+        std::shared_ptr<IEntity> EntityManager::get_entity(EntityId id) {
+            auto it = m_globalRegistry.find(id);
+            if (it == m_globalRegistry.end()) {
+                m_logger->error("Entity not found");
+                throw std::runtime_error("Entity not found");
+            }
+            if (auto entity = it->second.second.lock()) {
+                return entity;
+            }
+            // Si le weak_ptr est expiré, nettoyer le registre
+            m_globalRegistry.erase(it);
+            m_logger->error("Entity expired");
+            throw std::runtime_error("Entity expired");
+        }
+        void EntityManager::remove_entity(EntityId id) {
+            auto it = m_globalRegistry.find(id);
+            if (it != m_globalRegistry.end()) {
+                auto& [typeIndex, weakPtr] = it->second;
+                if (auto collection = m_collections.find(typeIndex);
+                    collection != m_collections.end()) {
+                    collection->second->remove_entity(id);
+                }
+                m_globalRegistry.erase(it);
+            }
+        }
         std::vector<std::reference_wrapper<EntityCollection> >
         EntityManager::get_all_collections() {
             {
@@ -27,6 +52,16 @@ namespace bnjkit {
                 }
                 return collections;
             }
+        }
+        CustomGroup& EntityManager::create_group(const CustomGroup::GroupId& groupId) {
+            return m_customGroups.emplace(
+                groupId,
+                CustomGroup(* this, groupId)
+            ).first->second;
+        }
+        CustomGroup* EntityManager::get_group(const CustomGroup::GroupId& groupId) {
+            auto it = m_customGroups.find(groupId);
+            return it != m_customGroups.end() ? & it->second : nullptr;
         }
     } // entity
 } // bnjkit
