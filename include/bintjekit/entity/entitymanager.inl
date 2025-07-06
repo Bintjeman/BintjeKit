@@ -27,7 +27,7 @@ namespace bnjkit {
                 m_collections[typeIndex] = std::make_unique<HomogeneousGroup<EntityType> >();
             }
             m_collections[typeIndex]->add_entity(entity);
-            m_globalRegistry[entity->id()] = std::make_pair(typeIndex, entity);
+            m_global_registry[entity->id()] = std::make_pair(typeIndex, entity);
         }
         template<typename EntityType>
         std::shared_ptr<EntityType> EntityManager::create_entity() {

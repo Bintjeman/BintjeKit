@@ -35,14 +35,16 @@ namespace bnjkit {
             std::tuple<std::reference_wrapper<TypedEntityCollection<Types>>...>
             get_typed_collections();
 
+            void clear();
+
             CustomGroup& create_group(const CustomGroup::GroupId& groupId);
             CustomGroup* get_group(const CustomGroup::GroupId& groupId);
         private:
             std::unordered_map<std::type_index, std::unique_ptr<Collection>> m_collections;
-            std::unordered_map<EntityId, std::pair<std::type_index, std::weak_ptr<IEntity>>> m_globalRegistry;
-            std::unordered_map<CustomGroup::GroupId, CustomGroup> m_customGroups;
+            std::unordered_map<EntityId, std::pair<std::type_index, std::weak_ptr<IEntity>>> m_global_registry;
+            std::unordered_map<CustomGroup::GroupId, CustomGroup> m_custom_groups;
             std::shared_ptr<spdlog::logger> m_logger;
-            Collection m_collection;
+            // Collection m_collection;
         };
     }
 }

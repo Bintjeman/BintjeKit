@@ -17,8 +17,8 @@ namespace bnjkit {
             m_logger->info("Destructor of EntityManager");
         }
         std::shared_ptr<IEntity> EntityManager::get_entity(EntityId id) {
-            auto it = m_globalRegistry.find(id);
-            if (it == m_globalRegistry.end()) {
+            auto it = m_global_registry.find(id);
+            if (it == m_global_registry.end()) {
                 m_logger->error("Entity not found");
                 throw std::runtime_error("Entity not found");
             }
@@ -26,19 +26,19 @@ namespace bnjkit {
                 return entity;
             }
             // Si le weak_ptr est expiré, nettoyer le registre
-            m_globalRegistry.erase(it);
+            m_global_registry.erase(it);
             m_logger->error("Entity expired");
             throw std::runtime_error("Entity expired");
         }
         void EntityManager::remove_entity(EntityId id) {
-            auto it = m_globalRegistry.find(id);
-            if (it != m_globalRegistry.end()) {
+            auto it = m_global_registry.find(id);
+            if (it != m_global_registry.end()) {
                 auto& [typeIndex, weakPtr] = it->second;
                 if (auto collection = m_collections.find(typeIndex);
                     collection != m_collections.end()) {
                     collection->second->remove_entity(id);
                 }
-                m_globalRegistry.erase(it);
+                m_global_registry.erase(it);
             }
         }
         std::vector<std::reference_wrapper<EntityCollection> >
@@ -53,15 +53,20 @@ namespace bnjkit {
                 return collections;
             }
         }
+        void EntityManager::clear() {
+            m_global_registry.clear();
+            m_collections.clear();
+            m_custom_groups.clear();
+        }
         CustomGroup& EntityManager::create_group(const CustomGroup::GroupId& groupId) {
-            return m_customGroups.emplace(
+            return m_custom_groups.emplace(
                 groupId,
                 CustomGroup(* this, groupId)
             ).first->second;
         }
         CustomGroup* EntityManager::get_group(const CustomGroup::GroupId& groupId) {
-            auto it = m_customGroups.find(groupId);
-            return it != m_customGroups.end() ? & it->second : nullptr;
+            auto it = m_custom_groups.find(groupId);
+            return it != m_custom_groups.end() ? & it->second : nullptr;
         }
     } // entity
 } // bnjkit
