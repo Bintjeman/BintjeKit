@@ -22,6 +22,7 @@ namespace bnjkit {
             IEntity& operator=(IEntity&& other) noexcept;
             [[nodiscard]] EntityId id() const;
             [[nodiscard]] bool valid() const;
+            virtual void update();
             static EntityId total_entities();
             static void set_logger(const std::shared_ptr<spdlog::logger>& logger);
         protected:

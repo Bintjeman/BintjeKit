@@ -1,52 +1,106 @@
+/*!
+* @author bintjeman
+ * @date 26.06.25
+ * @name entitymanager.hpp
+ */
 // entitymanager.hpp
 #ifndef BINTJEKIT_ENTITY_ENTITYMANAGER_HPP
 #define BINTJEKIT_ENTITY_ENTITYMANAGER_HPP
 #pragma once
+
 #include <memory>
 #include <typeindex>
+#include <spdlog/fwd.h>
+#include "bintjekit/entity/entity_helper.hpp"
 #include "bintjekit/entity/collection.hpp"
 #include "bintjekit/entity/customgroup.hpp"
-namespace bnjkit {
-    namespace entity {
-        class EntityManager {
+
+namespace bnjkit::entity {
+    template<typename BaseEntity>
+        requires std::derived_from<BaseEntity, IEntity>
+    class EntityManager {
+    public:
+        using CustomGroupType = CustomGroup<BaseEntity>;
+
+        EntityManager();
+        ~EntityManager();
+        void update();
+
+        template<typename T> requires std::derived_from<T, BaseEntity>
+        void register_entity_type();
+
+        template<typename T> requires std::derived_from<T, BaseEntity>
+        void add_entity(std::shared_ptr<T> entity);
+
+        template<typename T> requires std::derived_from<T, BaseEntity>
+        std::shared_ptr<T> create_entity();
+
+        std::shared_ptr<BaseEntity> get_entity(EntityId id);
+
+        template<typename T> requires std::derived_from<T, BaseEntity>
+        std::shared_ptr<T> get(EntityId id);
+
+        const std::unordered_map<std::type_index, std::unique_ptr<Collection> >&
+        get_collections() const {
+            return m_collections;
+        }
+
+        [[nodiscard]] std::vector<std::shared_ptr<BaseEntity> > get_entities() const {
+            std::vector<std::shared_ptr<BaseEntity> > all_entities;
+            all_entities.reserve(m_global_registry.size()); // Pré-allouer pour les performances
+
+            for (const auto& [_, collection]: m_collections) {
+                const auto& entities = collection->get_collection();
+                all_entities.insert(
+                    all_entities.end(),
+                    entities.begin(),
+                    entities.end()
+                );
+            }
+
+            return all_entities;
+        }
+
+        template<typename... Types>
+            requires (std::derived_from<Types, BaseEntity> && ...)
+        auto get_typed_collections() {
+            return std::make_tuple(TypedCollection<Types>(* this)...);
+        }
+
+        void remove_entity(EntityId id);
+        void clear();
+
+        CustomGroupType& create_group(const typename CustomGroupType::GroupId& groupId);
+        CustomGroupType* get_group(const typename CustomGroupType::GroupId& groupId);
+
+    private:
+        template<typename T>
+        class TypedCollection {
         public:
-            EntityManager();
-            ~EntityManager();
+            explicit TypedCollection(EntityManager& manager) : m_manager(manager) {
+            }
 
-            template<typename T>
-            void register_entity_type();
+            auto& get() {
+                auto typeIndex = std::type_index(typeid(T));
+                auto it = m_manager.m_collections.find(typeIndex);
+                if (it == m_manager.m_collections.end()) {
+                    m_manager.m_logger->error("Collection not found for type {}", typeid(T).name());
+                    throw std::runtime_error("Collection not found");
+                }
+                return it->second->get_collection();
+            }
 
-            template<typename EntityType>
-            void add_entity(std::shared_ptr<EntityType> entity);
-
-            template<typename EntityType>
-            std::shared_ptr<EntityType> create_entity();
-
-            std::shared_ptr<IEntity> get_entity(EntityId id);
-
-
-            template<typename T>
-            std::shared_ptr<T> get(EntityId id);
-
-            void remove_entity(EntityId id);
-            std::vector<std::reference_wrapper<EntityCollection>> get_all_collections();
-
-            template<typename... Types>
-            std::tuple<std::reference_wrapper<TypedEntityCollection<Types>>...>
-            get_typed_collections();
-
-            void clear();
-
-            CustomGroup& create_group(const CustomGroup::GroupId& groupId);
-            CustomGroup* get_group(const CustomGroup::GroupId& groupId);
         private:
-            std::unordered_map<std::type_index, std::unique_ptr<Collection>> m_collections;
-            std::unordered_map<EntityId, std::pair<std::type_index, std::weak_ptr<IEntity>>> m_global_registry;
-            std::unordered_map<CustomGroup::GroupId, CustomGroup> m_custom_groups;
-            std::shared_ptr<spdlog::logger> m_logger;
-            // Collection m_collection;
+            EntityManager& m_manager;
         };
-    }
+
+        std::unordered_map<std::type_index, std::unique_ptr<Collection> > m_collections;
+        std::unordered_map<EntityId, std::pair<std::type_index, std::weak_ptr<BaseEntity> > >
+        m_global_registry;
+        std::unordered_map<typename CustomGroupType::GroupId, CustomGroupType> m_custom_groups;
+        std::shared_ptr<spdlog::logger> m_logger;
+    };
 }
-#include "bintjekit/entity/entitymanager.inl"
+
+#include "entitymanager.inl"
 #endif

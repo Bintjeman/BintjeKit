@@ -55,6 +55,8 @@ namespace bnjkit {
         bool IEntity::valid() const {
             return m_id != INVALID_ID;
         }
+        void IEntity::update() {
+        }
         std::size_t IEntity::next_id() {
             return s_next_id++;
         }

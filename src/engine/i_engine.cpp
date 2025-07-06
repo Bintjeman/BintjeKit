@@ -18,7 +18,7 @@ namespace bnjkit {
             m_logger = core::Logger::get_logger(core::module_names::ENGINE);
             m_logger->info("Constructor of IEngine");
             m_play_ground = std::make_unique<PlayGround>();
-            m_entity_manager = std::make_unique<entity::EntityManager>();
+            m_entity_manager = std::make_unique<entity::EntityManager<BaseEntity>>();
         }
         IEngine::~IEngine() {
             m_logger->info("Destructor of IEngine");

@@ -45,6 +45,9 @@ add_subdirectory(src)
 #)
 #target_compile_features(random PUBLIC cxx_std_20)
 ##target_link_libraries(random PUBLIC SFML::System)
+set_target_properties(bintjekit PROPERTIES
+        PUBLIC_HEADER_FILE_SET HEADERS
+)
 ################################################################################
 # Ajout des sous-composants à la bibliothèque principale
 target_sources(bintjekit
@@ -137,6 +140,7 @@ install(TARGETS
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 ################################################################################
 install(
