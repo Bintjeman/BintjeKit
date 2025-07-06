@@ -12,18 +12,29 @@ namespace bnjkit {
         public:
             EntityManager();
             ~EntityManager();
+
             template<typename T>
             void register_entity_type();
+
             template<typename EntityType>
             void add_entity(std::shared_ptr<EntityType> entity);
+
+            template<typename EntityType>
+            std::shared_ptr<EntityType> create_entity();
+
             std::shared_ptr<IEntity> get_entity(EntityId id);
+
+
             template<typename T>
             std::shared_ptr<T> get(EntityId id);
+
             void remove_entity(EntityId id);
             std::vector<std::reference_wrapper<EntityCollection>> get_all_collections();
+
             template<typename... Types>
             std::tuple<std::reference_wrapper<TypedEntityCollection<Types>>...>
             get_typed_collections();
+
             CustomGroup& create_group(const CustomGroup::GroupId& groupId);
             CustomGroup* get_group(const CustomGroup::GroupId& groupId);
         private:

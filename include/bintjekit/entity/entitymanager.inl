@@ -29,6 +29,12 @@ namespace bnjkit {
             m_collections[typeIndex]->add_entity(entity);
             m_globalRegistry[entity->id()] = std::make_pair(typeIndex, entity);
         }
+        template<typename EntityType>
+        std::shared_ptr<EntityType> EntityManager::create_entity() {
+            auto entity = std::make_shared<EntityType>();
+            add_entity(entity);
+            return entity;
+        }
         template<typename T>
         std::shared_ptr<T> EntityManager::get(EntityId id) {
             auto baseEntity = get_entity(id);
