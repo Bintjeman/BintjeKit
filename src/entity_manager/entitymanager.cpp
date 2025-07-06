@@ -16,28 +16,17 @@ namespace bnjkit {
         EntityManager::~EntityManager() {
             m_logger->info("Destructor of EntityManager");
         }
-        void EntityManager::add_entity(const std::shared_ptr<IEntity>& entity) {
-            m_collection.add_entity(entity);
-        }
-        std::shared_ptr<IEntity> EntityManager::get_entity(EntityId id) {
-            return m_collection.get_entity(id);
-        }
-        void EntityManager::remove(const std::shared_ptr<IEntity>& entity) {
-            m_collection.remove_entity(entity);
-        }
-        EntityCollection& EntityManager::get_collection() {
-            return m_collection.get_collection();
-        }
-        const EntityCollection& EntityManager::get_collection() const {
-            return m_collection.get_collection();
-        }
-        void EntityManager::clear() {
-            m_collection.clear();
-        }
-        std::shared_ptr<IEntity> EntityManager::create_entity() {
-            std::shared_ptr<IEntity> entity = std::make_shared<IEntity>();
-            m_collection.add_entity(entity);
-            return entity;
+        std::vector<std::reference_wrapper<EntityCollection> >
+        EntityManager::get_all_collections() {
+            {
+                std::vector<std::reference_wrapper<EntityCollection> > collections;
+                collections.reserve(m_collections.size());
+
+                for (auto& [type, collection]: m_collections) {
+                    collections.emplace_back(collection->get_collection());
+                }
+                return collections;
+            }
         }
     } // entity
 } // bnjkit

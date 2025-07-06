@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
 target_sources(bintjekit PRIVATE
-        ientity.cpp
+
         entitymanager.cpp
-        Collection.cpp
+        customgroup.cpp
+        collection.cpp
+        ientity.cpp
+
 )
 ################################################################################
