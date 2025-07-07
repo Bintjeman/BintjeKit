@@ -21,7 +21,7 @@ namespace bnjkit::entity {
     template<typename BaseEntity>
         requires std::derived_from<BaseEntity, IEntity>
     void EntityManager<BaseEntity>::update() {
-        for (auto& [type, collection]: m_collections) {
+        for (const auto& collection: m_collections | std::views::values) {
             for (auto& entity: collection->get_collection()) {
                 if (entity) {
                     entity->update();
@@ -35,9 +35,8 @@ namespace bnjkit::entity {
     template<typename T>
         requires std::derived_from<T, BaseEntity>
     void EntityManager<BaseEntity>::register_entity_type() {
-        auto typeIndex = std::type_index(typeid(T));
-        if (!m_collections.contains(typeIndex)) {
-            m_collections[typeIndex] = std::make_unique<HomogeneousGroup<T> >();
+        if (const auto type_index = std::type_index(typeid(T)); !m_collections.contains(type_index)) {
+            m_collections[type_index] = std::make_unique<HomogeneousGroup<T> >();
         }
     }
 
@@ -50,15 +49,15 @@ namespace bnjkit::entity {
             m_logger->error("Entity is invalid");
             throw std::invalid_argument("Entity is invalid");
         }
-        auto typeIndex = std::type_index(typeid(T));
-        if (!m_collections.contains(typeIndex)) {
-            m_collections[typeIndex] = std::make_unique<HomogeneousGroup<T> >();
+        auto type_index = std::type_index(typeid(T));
+        if (!m_collections.contains(type_index)) {
+            m_collections[type_index] = std::make_unique<HomogeneousGroup<T> >();
         }
-        m_collections[typeIndex]->add_entity(entity);
+        m_collections[type_index]->add_entity(entity);
         m_global_registry.emplace(
             entity->id(),
             std::pair<std::type_index, std::weak_ptr<BaseEntity> >{
-                typeIndex,
+                type_index,
                 std::weak_ptr<BaseEntity>(entity)
             }
         );
@@ -78,9 +77,9 @@ namespace bnjkit::entity {
         requires std::derived_from<BaseEntity, IEntity>
     template<typename T>
         requires std::derived_from<T, BaseEntity>
-    std::shared_ptr<T> EntityManager<BaseEntity>::get(EntityId id) {
-        auto baseEntity = get_entity(id);
-        auto result = std::dynamic_pointer_cast<T>(baseEntity);
+    std::shared_ptr<T> EntityManager<BaseEntity>::get(const EntityId id) {
+        auto base_entity = get_entity(id);
+        auto result = std::dynamic_pointer_cast<T>(base_entity);
         if (!result) {
             m_logger->error("Incorrect entity type");
             throw std::runtime_error("Incorrect entity type");
@@ -128,15 +127,15 @@ namespace bnjkit::entity {
     template<typename BaseEntity>
         requires std::derived_from<BaseEntity, IEntity>
     typename EntityManager<BaseEntity>::CustomGroupType&
-    EntityManager<BaseEntity>::create_group(const typename CustomGroupType::GroupId& groupId) {
-        return m_custom_groups.emplace(groupId, CustomGroupType(* this, groupId)).first->second;
+    EntityManager<BaseEntity>::create_group(const typename CustomGroupType::GroupId& group_id) {
+        return m_custom_groups.emplace(group_id, CustomGroupType(* this, group_id)).first->second;
     }
 
     template<typename BaseEntity>
         requires std::derived_from<BaseEntity, IEntity>
     typename EntityManager<BaseEntity>::CustomGroupType*
-    EntityManager<BaseEntity>::get_group(const typename CustomGroupType::GroupId& groupId) {
-        auto it = m_custom_groups.find(groupId);
+    EntityManager<BaseEntity>::get_group(const typename CustomGroupType::GroupId& group_id) {
+        auto it = m_custom_groups.find(group_id);
         return it != m_custom_groups.end() ? & it->second : nullptr;
     }
 }

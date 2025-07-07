@@ -10,7 +10,7 @@
 
 #include <string>
 #include <unordered_set>
-
+#include <spdlog/fwd.h>
 namespace bnjkit::entity {
     template<typename BaseEntity>
     requires std::derived_from<BaseEntity, IEntity>
@@ -22,10 +22,11 @@ namespace bnjkit::entity {
     public:
         using GroupId = std::string;
 
+        // static std::shared_ptr<spdlog::logger> m_logger;
         CustomGroup(EntityManager<BaseEntity>& manager, const GroupId& id);
 
-        void add(EntityId entityId);
-        void remove(EntityId entityId);
+        void add(EntityId entity_id);
+        void remove(EntityId entity_id);
         [[nodiscard]] const GroupId& id() const;
         [[nodiscard]] size_t size() const;
         [[nodiscard]] bool empty() const;
@@ -58,9 +59,10 @@ namespace bnjkit::entity {
         Iterator<T> end();
 
     private:
-        EntityManager<BaseEntity>& m_entityManager;
+        EntityManager<BaseEntity>& m_entity_manager;
         GroupId m_group_id;
         std::unordered_set<EntityId> m_entity_ids;
+        static std::shared_ptr<spdlog::logger> m_logger;
     };
 }
 

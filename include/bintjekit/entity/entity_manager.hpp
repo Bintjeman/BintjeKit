@@ -49,7 +49,7 @@ namespace bnjkit::entity {
             std::vector<std::shared_ptr<BaseEntity> > all_entities;
             all_entities.reserve(m_global_registry.size()); // Pré-allouer pour les performances
 
-            for (const auto& [_, collection]: m_collections) {
+            for (const auto& collection: m_collections | std::views::values) {
                 const auto& entities = collection->get_collection();
                 all_entities.insert(
                     all_entities.end(),
@@ -70,18 +70,17 @@ namespace bnjkit::entity {
         void remove_entity(EntityId id);
         void clear();
 
-        CustomGroupType& create_group(const typename CustomGroupType::GroupId& groupId);
-        CustomGroupType* get_group(const typename CustomGroupType::GroupId& groupId);
+        CustomGroupType& create_group(const typename CustomGroupType::GroupId& group_id);
+        CustomGroupType* get_group(const typename CustomGroupType::GroupId& group_id);
 
     private:
         template<typename T>
         class TypedCollection {
         public:
-            explicit TypedCollection(EntityManager& manager) : m_manager(manager) {
-            }
+            explicit TypedCollection(EntityManager& manager) : m_manager(manager) {}
 
             auto& get() {
-                auto typeIndex = std::type_index(typeid(T));
+                const auto typeIndex = std::type_index(typeid(T));
                 auto it = m_manager.m_collections.find(typeIndex);
                 if (it == m_manager.m_collections.end()) {
                     m_manager.m_logger->error("Collection not found for type {}", typeid(T).name());
@@ -101,5 +100,6 @@ namespace bnjkit::entity {
         std::shared_ptr<spdlog::logger> m_logger;
     };
 }
+
 #include "entity_manager.inl"
 #endif
