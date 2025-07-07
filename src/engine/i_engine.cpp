@@ -44,11 +44,11 @@ namespace bnjkit::engine {
 
     std::string IEngine::state_to_string(State state) {
         switch (state) {
-            case EMPTY:
+            case State::EMPTY:
                 return "EMPTY";
-            case FINISH:
+            case State::FINISH:
                 return "FINNISH";
-            case READY:
+            case State::READY:
                 return "READY";
             default:
                 return "UNKNOWN";

@@ -83,6 +83,6 @@ namespace gol {
                 m_next_grid[y][x] = m_grid[y][x];
             }
         }
-        m_state = READY;
+        m_state = State::READY;
     }
 } // gol

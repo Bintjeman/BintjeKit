@@ -27,7 +27,7 @@ namespace bnjkit {
         public:
             using BaseEntity = entity::IEntity;
 
-            enum State {
+            enum class State {
                 READY,
                 FINISH,
                 EMPTY,
@@ -42,7 +42,7 @@ namespace bnjkit {
             [[nodiscard]] State state() const;
 
         protected:
-            State m_state{EMPTY};
+            State m_state{State::EMPTY};
             std::unique_ptr<PlayGround> m_play_ground;
             std::unique_ptr<entity::EntityManager<BaseEntity> > m_entity_manager;
             std::shared_ptr<spdlog::logger> m_logger;
