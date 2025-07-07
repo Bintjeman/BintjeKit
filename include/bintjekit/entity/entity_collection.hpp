@@ -17,20 +17,27 @@ namespace bnjkit::entity {
         requires std::is_base_of_v<BaseEntity, IEntity>
     class EntityCollectionManager {
     public:
-        void add(EntityPtr entity);
+        EntityCollectionManager();
+        ~EntityCollectionManager() = default;
+
+        void add(const EntityPtr& entity);
         EntityPtr create(EntityId id);
         EntityPtr get(EntityId id);
         void remove(EntityId id);
         void clear();
         [[nodiscard]] std::size_t size() const;
-        [[nodiscard]] const EntityCollection get_entities() const;
-        [[nodiscard]] const EntityRegistry get_registry() const;
+        [[nodiscard]] EntityCollection get_entities() const;
+        [[nodiscard]] EntityCollection get_entities();
+        [[nodiscard]] EntityRegistry get_registry() const;
+        [[nodiscard]] EntityRegistry get_registry();
 
     private:
-        EntityCollectionManager m_entities;
+        EntityCollection m_entities;
         EntityRegistry m_registry;
         static std::shared_ptr<spdlog::logger> m_logger;
     };
-#include "entity_collection.inl"
 }
+
+#include "entity_collection.inl"
+
 #endif //ENTITY_COLLECTION_HPP

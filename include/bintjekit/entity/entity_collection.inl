@@ -8,19 +8,22 @@
 #define ENTITY_COLLECTION_INL
 #pragma once
 
-#include "entity_collection.hpp"
+#include "bintjekit/entity/entity_collection.hpp"
+#include "bintjekit/entity/entity_helper.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/logger/logger.hpp"
 
 namespace bnjkit::entity {
-    template<typename BaseEntity>
-        requires std::is_base_of_v<BaseEntity, IEntity>
-    std::shared_ptr<spdlog::logger> EntityCollectionManager<BaseEntity>::m_logger =
-            core::get_logger(core::module_names::ENTITY);
+    template<typename BaseEntity> requires std::is_base_of_v<BaseEntity, IEntity>
+    std::shared_ptr<spdlog::logger> EntityCollectionManager<BaseEntity>::m_logger = core::Logger::get_logger(
+        core::module_names::ENTITY);
+
+    template<typename BaseEntity> requires std::is_base_of_v<BaseEntity, IEntity>
+    EntityCollectionManager<BaseEntity>::EntityCollectionManager() = default;
 
     template<typename BaseEntity>
         requires std::is_base_of_v<BaseEntity, IEntity>
-    void EntityCollectionManager<BaseEntity>::add(EntityPtr entity) {
+    void EntityCollectionManager<BaseEntity>::add(const EntityPtr& entity) {
         if (!entity) {
             m_logger->error("Tentative d'ajout d'une entité nulle");
             return;
@@ -35,34 +38,33 @@ namespace bnjkit::entity {
         }
     }
 
-    template<typename BaseEntity>
-        requires std::is_base_of_v<BaseEntity, IEntity>
-    typename EntityCollectionManager<BaseEntity>::EntityPtr
-    EntityCollectionManager<BaseEntity>::create(EntityId id) {
+    template<typename BaseEntity> requires std::is_base_of_v<BaseEntity, IEntity>
+    EntityPtr EntityCollectionManager<BaseEntity>::create(EntityId id) {
         auto entity = std::make_shared<BaseEntity>(id);
         add(entity);
         return entity;
     }
 
-    template<typename BaseEntity>
-        requires std::is_base_of_v<BaseEntity, IEntity>
-    typename EntityCollectionManager<BaseEntity>::EntityPtr
-    EntityCollectionManager<BaseEntity>::get(EntityId id) {
+    template<typename BaseEntity> requires std::is_base_of_v<BaseEntity, IEntity>
+    EntityPtr EntityCollectionManager<BaseEntity>::get(EntityId id) {
         auto it = m_registry.find(id);
         return (it != m_registry.end()) ? it->second : nullptr;
     }
-
-    template<typename BaseEntity>
-        requires std::is_base_of_v<BaseEntity, IEntity>
+    template<typename BaseEntity> requires std::is_base_of_v<BaseEntity, IEntity>
     void EntityCollectionManager<BaseEntity>::remove(EntityId id) {
-        auto it = m_registry.find(id);
-        if (it != m_registry.end()) {
-            auto entity = it->second;
-            m_registry.erase(it);
-            m_entities.erase(
-                std::remove(m_entities.begin(), m_entities.end(), entity),
-                m_entities.end()
-            );
+        auto registry_it = m_registry.find(id);
+        if (registry_it != m_registry.end()) {
+            auto entity_it = std::find_if(m_entities.begin(), m_entities.end(),
+                                          [id](const EntityPtr& e) { return e && e->id() == id; });
+
+            if (entity_it != m_entities.end()) {
+                if (entity_it != m_entities.end() - 1) {
+                    * entity_it = std::move(m_entities.back());
+                }
+                m_entities.pop_back();
+            }
+
+            m_registry.erase(registry_it);
         }
     }
 
@@ -78,18 +80,20 @@ namespace bnjkit::entity {
     std::size_t EntityCollectionManager<BaseEntity>::size() const {
         return m_entities.size();
     }
-
-    template<typename BaseEntity>
-        requires std::is_base_of_v<BaseEntity, IEntity>
-    const typename EntityCollectionManager<BaseEntity>::EntityCollection&
-    EntityCollectionManager<BaseEntity>::get_entities() const {
+    template<typename BaseEntity> requires std::is_base_of_v<BaseEntity, IEntity>
+    EntityCollection EntityCollectionManager<BaseEntity>::get_entities() const {
         return m_entities;
     }
-
-    template<typename BaseEntity>
-        requires std::is_base_of_v<BaseEntity, IEntity>
-    const typename EntityCollectionManager<BaseEntity>::EntityRegistry&
-    EntityCollectionManager<BaseEntity>::get_registry() const {
+    template<typename BaseEntity> requires std::is_base_of_v<BaseEntity, IEntity>
+    EntityCollection EntityCollectionManager<BaseEntity>::get_entities() {
+        return m_entities;
+    }
+    template<typename BaseEntity> requires std::is_base_of_v<BaseEntity, IEntity>
+    EntityRegistry EntityCollectionManager<BaseEntity>::get_registry() const {
+        return m_registry;
+    }
+    template<typename BaseEntity> requires std::is_base_of_v<BaseEntity, IEntity>
+    EntityRegistry EntityCollectionManager<BaseEntity>::get_registry() {
         return m_registry;
     }
 }

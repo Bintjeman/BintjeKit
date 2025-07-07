@@ -8,7 +8,6 @@ target_sources(bintjekit
         FILES
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.inl
-        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_helper.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_manager.hpp
 )
 target_sources(bintjekit PRIVATE
