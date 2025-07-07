@@ -61,4 +61,7 @@ namespace bnjkit::entity {
         const auto it = m_registry.find(id);
         return it->second;
     }
+    std::size_t Collection::size() const {
+        return m_collection.size();
+    }
 }

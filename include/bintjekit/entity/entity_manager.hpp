@@ -65,6 +65,8 @@ namespace bnjkit::entity {
         CustomGroupType& create_group(const typename CustomGroupType::GroupId& group_id);
         CustomGroupType* get_group(const typename CustomGroupType::GroupId& group_id);
 
+        spdlog::logger& logger() const;
+
     private:
         template<typename T>
         class TypedCollection {
@@ -74,22 +76,23 @@ namespace bnjkit::entity {
 
             auto& get() {
                 const auto typeIndex = std::type_index(typeid(T));
-                auto it = m_manager.m_collections.find(typeIndex);
-                if (it == m_manager.m_collections.end()) {
-                    m_manager.m_logger->error("Collection not found for type {}", typeid(T).name());
+                auto it = m_manager.get().get_collections().find(typeIndex);
+                if (it == m_manager.get().get_collections().end()) {
+                    m_manager.get().logger().error("Collection not found for type {}", typeid(T).name());
                     throw std::runtime_error("Collection not found");
                 }
-                return it->second->get_collection();
+                return reinterpret_cast<TypedEntityCollection<std::shared_ptr<T> >&>(it->second->get_collection());
             }
 
             const auto& get() const {
                 const auto typeIndex = std::type_index(typeid(T));
-                auto it = m_manager.m_collections.find(typeIndex);
-                if (it == m_manager.m_collections.end()) {
-                    m_manager.m_logger->error("Collection not found for type {}", typeid(T).name());
+                auto it = m_manager.get().get_collections().find(typeIndex);
+                if (it == m_manager.get().get_collections().end()) {
+                    m_manager.get().logger().error("Collection not found for type {}", typeid(T).name());
                     throw std::runtime_error("Collection not found");
                 }
-                return it->second->get_collection();
+                return reinterpret_cast<const TypedEntityCollection<std::shared_ptr<T> >&>(it->second->
+                    get_collection());
             }
 
         private:

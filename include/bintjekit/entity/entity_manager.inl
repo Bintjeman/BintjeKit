@@ -36,7 +36,7 @@ namespace bnjkit::entity {
         requires std::derived_from<T, BaseEntity>
     void EntityManager<BaseEntity>::register_entity_type() {
         if (const auto type_index = std::type_index(typeid(T)); !m_collections.contains(type_index)) {
-            m_collections[type_index] = std::make_unique<HomogeneousGroup<T> >();
+            m_collections[type_index] = std::make_unique<Collection>();
         }
     }
 
@@ -51,7 +51,11 @@ namespace bnjkit::entity {
         }
         auto type_index = std::type_index(typeid(T));
         if (!m_collections.contains(type_index)) {
-            m_collections[type_index] = std::make_unique<HomogeneousGroup<T> >();
+            m_collections[type_index] = std::make_unique<Collection>();
+        }
+        if (!m_collections[type_index]->template is_valid_type<T>(entity)) {
+            m_logger->error("Type mismatch for entity");
+            throw std::invalid_argument("Type mismatch for entity");
         }
         m_collections[type_index]->add_entity(entity);
         m_global_registry.emplace(
@@ -152,6 +156,10 @@ namespace bnjkit::entity {
     EntityManager<BaseEntity>::get_group(const typename CustomGroupType::GroupId& group_id) {
         auto it = m_custom_groups.find(group_id);
         return it != m_custom_groups.end() ? & it->second : nullptr;
+    }
+    template<typename BaseEntity> requires std::derived_from<BaseEntity, IEntity>
+    spdlog::logger& EntityManager<BaseEntity>::logger() const {
+        return * m_logger;
     }
 }
 #endif
