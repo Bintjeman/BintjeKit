@@ -86,6 +86,21 @@ namespace bnjkit::entity {
         }
         return result;
     }
+    template<typename BaseEntity> requires std::derived_from<BaseEntity, IEntity>
+    std::vector<std::shared_ptr<BaseEntity> > EntityManager<BaseEntity>::get_entities() const {
+        std::vector<std::shared_ptr<BaseEntity> > all_entities;
+        all_entities.reserve(m_global_registry.size()); // Pré-allouer pour les performances
+        for (const auto& collection: m_collections | std::views::values) {
+            const auto& entities = collection->get_collection();
+            all_entities.insert(
+                all_entities.end(),
+                entities.begin(),
+                entities.end()
+            );
+        }
+
+        return all_entities;
+    }
 
     template<typename BaseEntity>
         requires std::derived_from<BaseEntity, IEntity>
