@@ -9,6 +9,7 @@ target_sources(bintjekit
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.inl
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_manager.hpp
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_manager.inl
 )
 target_sources(bintjekit PRIVATE
         ientity.cpp

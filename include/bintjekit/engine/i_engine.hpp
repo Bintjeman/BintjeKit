@@ -12,10 +12,11 @@
 #include "bintjekit/core/i_module.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
 #include "bintjekit/entity/ientity.hpp"
+
 namespace bnjkit {
     namespace entity {
         template<typename BaseEntity>
-        requires std::derived_from<BaseEntity, IEntity>
+            requires std::is_base_of_v<IEntity, BaseEntity>
         class EntityManager;
     }
 
