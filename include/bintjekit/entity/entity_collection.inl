@@ -51,6 +51,11 @@ namespace bnjkit::entity {
         return (it != m_registry.end()) ? it->second : nullptr;
     }
     template<typename BaseEntity> requires std::is_base_of_v<IEntity, BaseEntity>
+    const EntityPtr EntityCollectionManager<BaseEntity>::get(EntityId id) const {
+        auto it = m_registry.find(id);
+        return (it != m_registry.end()) ? it->second : nullptr;
+    }
+    template<typename BaseEntity> requires std::is_base_of_v<IEntity, BaseEntity>
     void EntityCollectionManager<BaseEntity>::remove(EntityId id) {
         auto registry_it = m_registry.find(id);
         if (registry_it != m_registry.end()) {

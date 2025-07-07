@@ -23,27 +23,35 @@ namespace bnjkit::entity {
 
         // Méthodes pour enregistrer un nouveau type d'entité
         template<typename T>
-            requires std::is_base_of_v<BaseEntity, T>        void register_type();
+            requires std::is_base_of_v<BaseEntity, T>
+        void register_type();
 
         // Méthodes pour ajouter/créer des entités
         template<typename T>
-            requires std::is_base_of_v<BaseEntity, T>        void add(const std::shared_ptr<T>& entity);
+            requires std::is_base_of_v<BaseEntity, T>
+        void add(const std::shared_ptr<T>& entity);
 
         template<typename T>
-            requires std::is_base_of_v<BaseEntity, T>        std::shared_ptr<T> create(EntityId id);
+            requires std::is_base_of_v<BaseEntity, T>
+        std::shared_ptr<T> create(EntityId id);
 
         // Obtenir une collection typée spécifique
         template<typename T>
-            requires std::is_base_of_v<BaseEntity, T>        EntityCollectionManager<T>& get_collection();
+            requires std::is_base_of_v<BaseEntity, T>
+        EntityCollectionManager<T>& get_collection();
+        template<typename T>
+            requires std::is_base_of_v<BaseEntity, T>
+        const EntityCollectionManager<T>& get_collection() const;
 
         // Obtenir plusieurs collections typées
         template<typename... Types>
-            requires (std::is_base_of_v<Types, BaseEntity> && ...)
+            requires (std::is_base_of_v<BaseEntity, Types> && ...)
         auto get_typed_collections() {
             return std::make_tuple(std::ref(get_collection<Types>())...);
         }
+
         template<typename... Types>
-            requires (std::is_base_of_v<Types, BaseEntity> && ...)
+            requires (std::is_base_of_v<BaseEntity, Types> && ...)
         auto get_typed_collections() const {
             return std::make_tuple(std::ref(get_collection<Types>())...);
         }
