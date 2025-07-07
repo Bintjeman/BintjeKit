@@ -39,8 +39,8 @@ namespace bnjkit::entity {
     }
 
     template<typename BaseEntity> requires std::is_base_of_v<IEntity, BaseEntity>
-    EntityPtr EntityCollectionManager<BaseEntity>::create(EntityId id) {
-        auto entity = std::make_shared<BaseEntity>(id);
+    EntityPtr EntityCollectionManager<BaseEntity>::create() {
+        auto entity = std::make_shared<BaseEntity>();
         add(entity);
         return entity;
     }

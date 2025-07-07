@@ -11,24 +11,24 @@
 #include <spdlog/fwd.h>
 #include "bintjekit/entity/entity_helper.hpp"
 #include "bintjekit/entity/ientity.hpp"
-
+#include "bintjekit/entity/i_entity_collection_manager.hpp"
 namespace bnjkit::entity {
-    template<typename BaseEntity>
-        requires std::is_base_of_v<IEntity, BaseEntity>
-    class EntityCollectionManager {
+    template<typename T>
+        requires std::is_base_of_v<IEntity, T>
+    class EntityCollectionManager : public IEntityCollectionManager {
     public:
         EntityCollectionManager();
-        ~EntityCollectionManager() = default;
+        ~EntityCollectionManager() override = default;
 
         void add(const EntityPtr& entity);
-        EntityPtr create(EntityId id);
+        EntityPtr create();
         EntityPtr get(EntityId id);
         const EntityPtr get(EntityId id) const;
-        void remove(EntityId id);
-        void clear();
+        void remove(EntityId id) override;
+        void clear() override;
         [[nodiscard]] std::size_t size() const;
         [[nodiscard]] EntityCollection get_entities() const;
-        [[nodiscard]] EntityCollection get_entities();
+        [[nodiscard]] EntityCollection get_entities() override;
         [[nodiscard]] EntityRegistry get_registry() const;
         [[nodiscard]] EntityRegistry get_registry();
 

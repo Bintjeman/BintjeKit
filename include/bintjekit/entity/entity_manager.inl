@@ -43,12 +43,9 @@ namespace bnjkit::entity {
         requires std::is_base_of_v<IEntity, BaseEntity>
     template<typename T>
         requires std::is_base_of_v<BaseEntity, T>
-    std::shared_ptr<T> EntityManager<BaseEntity>::create(EntityId id) {
-        auto type_index = std::type_index(typeid(T));
-        if (!m_collections.contains(type_index)) {
-            register_type<T>();
-        }
-        return get_collection<T>().create(id);
+    std::shared_ptr<T> EntityManager<BaseEntity>::create() {
+        auto& collection = get_collection<T>();
+        return std::dynamic_pointer_cast<T>(collection.create());
     }
 
     template<typename BaseEntity>
@@ -60,10 +57,9 @@ namespace bnjkit::entity {
         if (!m_collections.contains(type_index)) {
             register_type<T>();
         }
-        return * static_cast<EntityCollectionManager<T>*>(
-            m_collections[type_index].get()
-        );
+        return * dynamic_cast<EntityCollectionManager<T>*>(m_collections[type_index].get());
     }
+
     template<typename BaseEntity>
         requires std::is_base_of_v<IEntity, BaseEntity>
     template<typename T>
@@ -71,11 +67,9 @@ namespace bnjkit::entity {
     const EntityCollectionManager<T>& EntityManager<BaseEntity>::get_collection() const {
         auto type_index = std::type_index(typeid(T));
         if (!m_collections.contains(type_index)) {
-            register_type<T>();
+            m_logger->error("Typed {} collection not found", type_index.name());
         }
-        return * static_cast<EntityCollectionManager<T>*>(
-            m_collections[type_index].get()
-        );
+        return * dynamic_cast<EntityCollectionManager<T>*>(m_collections.at(type_index).get());
     }
 
     template<typename BaseEntity>

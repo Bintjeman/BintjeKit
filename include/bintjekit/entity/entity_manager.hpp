@@ -14,6 +14,7 @@
 #include "entity_collection.hpp"
 
 namespace bnjkit::entity {
+    class IEntityCollectionManager;
     template<typename BaseEntity>
         requires std::is_base_of_v<IEntity, BaseEntity>
     class EntityManager {
@@ -33,12 +34,13 @@ namespace bnjkit::entity {
 
         template<typename T>
             requires std::is_base_of_v<BaseEntity, T>
-        std::shared_ptr<T> create(EntityId id);
+        std::shared_ptr<T> create();
 
         // Obtenir une collection typée spécifique
         template<typename T>
             requires std::is_base_of_v<BaseEntity, T>
         EntityCollectionManager<T>& get_collection();
+
         template<typename T>
             requires std::is_base_of_v<BaseEntity, T>
         const EntityCollectionManager<T>& get_collection() const;
@@ -65,7 +67,7 @@ namespace bnjkit::entity {
     private:
         std::unordered_map<
             std::type_index,
-            std::unique_ptr<EntityCollectionManager<BaseEntity> >
+            std::unique_ptr<IEntityCollectionManager>
         > m_collections;
 
         std::shared_ptr<spdlog::logger> m_logger;
