@@ -13,7 +13,7 @@
 #include <spdlog/fwd.h>
 #include "bintjekit/entity/entity_helper.hpp"
 #include "bintjekit/entity/collection.hpp"
-#include "bintjekit/entity/customgroup.hpp"
+#include "bintjekit/entity/custom_group.hpp"
 
 namespace bnjkit::entity {
     template<typename BaseEntity>
@@ -102,5 +102,5 @@ namespace bnjkit::entity {
     };
 }
 
-#include "entitymanager.inl"
+#include "entity_manager.inl"
 #endif

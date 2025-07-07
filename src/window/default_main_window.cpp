@@ -31,8 +31,8 @@ namespace bnjkit::window {
 
     void DefaultMainWindow::show() {
         m_logger->warn("Showing DefaultMainWindow");
-        sf::Vector2u size = m_settings.get("/Size"_json_pointer, sf::Vector2u{200, 200});
-        sf::Vector2i position = m_settings.get("/Position"_json_pointer, sf::Vector2i{0, 0});
+        const sf::Vector2u size = m_settings.get("/Size"_json_pointer, sf::Vector2u{200, 200});
+        const sf::Vector2i position = m_settings.get("/Position"_json_pointer, sf::Vector2i{0, 0});
         std::string title = m_settings.get("/Title"_json_pointer, std::string{"DefaultMainWindow"});
         this->create(sf::VideoMode(size), title, sf::Style::Default);
         this->setPosition(position);

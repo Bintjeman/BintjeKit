@@ -8,7 +8,7 @@
 #define BINTJEKIT_ENTITY_CUSTOMGROUP_INL
 #pragma once
 
-#include "bintjekit/entity/entitymanager.hpp"
+#include "bintjekit/entity/entity_manager.hpp"
 
 namespace bnjkit::entity {
     template<typename BaseEntity>

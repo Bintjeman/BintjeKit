@@ -84,7 +84,7 @@ namespace bnjkit::core {
 
     void Core::configure(const std::filesystem::path& conf_file_path) {
         m_logger->debug("Configuring Core from file: {}", conf_file_path.string());
-        std::shared_ptr<conf::Settings> settings = std::make_shared<conf::Settings>();
+        const auto settings = std::make_shared<conf::Settings>();
         settings->load_from_json(conf::from_file(conf_file_path));
         settings->set_path(conf_file_path);
         configure(settings);

@@ -10,21 +10,19 @@
 #include <memory>
 #include <spdlog/spdlog.h>
 
-namespace bnjkit {
-    namespace core {
-        class Logger {
-        public:
-            static void initialize();
-            static void shutdown();
-            static std::shared_ptr<spdlog::logger> get_logger(const std::string& module_name);
-            static void set_module_level(const std::string& module_name,
-                                         spdlog::level::level_enum level);
+namespace bnjkit::core {
+    class Logger {
+    public:
+        static void initialize();
+        static void shutdown();
+        static std::shared_ptr<spdlog::logger> get_logger(const std::string& module_name);
+        static void set_module_level(const std::string& module_name,
+                                     spdlog::level::level_enum level);
 
-        private:
-            static bool initialized;
-            static std::vector<spdlog::sink_ptr> s_sinks;
-            static std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > s_loggers;
-        };
-    } // core
-} // bnjkit
+    private:
+        static bool initialized;
+        static std::vector<spdlog::sink_ptr> s_sinks;
+        static std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > s_loggers;
+    };
+}
 #endif // BNJKIT_CORE_LOGGER_HPP

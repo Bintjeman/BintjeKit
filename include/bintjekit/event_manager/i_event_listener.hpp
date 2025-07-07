@@ -13,19 +13,17 @@
 namespace sf {
     class Event;
 } // sf
-namespace bnjkit {
-    namespace event {
-        class IEvent;
-        class IEventListener {
-        public:
-            virtual ~IEventListener();
-            virtual void on_sfml_event(const sf::Event& event);
+namespace bnjkit::event {
+    class IEvent;
+    class IEventListener {
+    public:
+        virtual ~IEventListener();
+        virtual void on_sfml_event(const sf::Event& event);
 
-        protected:
-            std::shared_ptr<spdlog::logger> m_listener_logger;
+    protected:
+        std::shared_ptr<spdlog::logger> m_listener_logger;
 
-        };
-    } // event
-} // bnjkit
+    };
+}
 
 #endif // BNJKIT_EVENT_I_EVENT_LISTENER_HPP

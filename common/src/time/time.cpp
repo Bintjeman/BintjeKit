@@ -9,7 +9,7 @@ namespace bnjkit::utils::time {
     Clock::Clock() {
         start();
     }
-    Clock::~Clock() = default;
+
 
     void Clock::start() {
         _start = clock_type::now();

@@ -65,5 +65,5 @@ namespace bnjkit::entity {
     };
 }
 
-#include "customgroup.inl"
+#include "custom_group.inl"
 #endif

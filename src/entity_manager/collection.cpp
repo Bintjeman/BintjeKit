@@ -60,7 +60,7 @@ namespace bnjkit::entity {
         throw std::runtime_error("Entity not found");
     }
     EntityIndex Collection::get_entity_index(EntityId id) {
-        auto it = m_registry.find(id);
+        const auto it = m_registry.find(id);
         return it->second;
     }
 }

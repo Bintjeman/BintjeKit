@@ -131,16 +131,21 @@ install(
 )
 ################################################################################
 # Installation des cibles et des dépendances
-install(TARGETS
-        bintjekit
-        time
-        spdlog
+install(TARGETS bintjekit time spdlog
         EXPORT BintjeKitTargets
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-        FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        LIBRARY
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        COMPONENT Runtime
+        ARCHIVE
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        COMPONENT Development
+        RUNTIME
+        DESTINATION ${CMAKE_INSTALL_BINDIR}
+        COMPONENT Runtime
+        FILE_SET HEADERS
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        COMPONENT Development
+
 )
 ################################################################################
 install(
