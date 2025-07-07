@@ -12,12 +12,12 @@
 #include "bintjekit/core/core.hpp"
 
 namespace gol {
-    Renderer::Renderer() : IRenderer() {
+    Renderer::Renderer(): m_gol(nullptr) {
         m_logger->info("Constructor of Renderer");
     }
 
-    void Renderer::on_sfml_event(const sf::Event &event) {
-        if (const auto &resized = event.getIf<sf::Event::Resized>()) {
+    void Renderer::on_sfml_event(const sf::Event& event) {
+        if (event.is<sf::Event::Resized>()) {
             resize_views();
         }
     }
@@ -28,16 +28,16 @@ namespace gol {
         ImGui::Text("Gol state: %s", GameOfLife::state_to_string(m_gol->state()).c_str());
         ImGui::Text("Effective frequency: %ld", m_core->engine_frequency());
         static int frequency = 60.f;
-        if (ImGui::SliderInt("frequency", &frequency,0.f, 1000.f)) {
+        if (ImGui::SliderInt("frequency", & frequency, 0.f, 1000.f)) {
             m_core->set_engine_frequency(frequency);
         }
         ImGui::End();
     }
 
-    void Renderer::set_engine(const bnjkit::engine::IEngine *engine) {
+    void Renderer::set_engine(const bnjkit::engine::IEngine* engine) {
         m_logger->info("Setting engine");
         IRenderer::set_engine(engine);
-        m_gol = dynamic_cast<const GameOfLife *>(engine);
+        m_gol = dynamic_cast<const GameOfLife*>(engine);
     }
     std::string Renderer::name() const {
         return "Renderer";

@@ -27,7 +27,7 @@ namespace bnjkit::conf {
                 return nlohmann::json::object();
             }
 
-            std::string content((std::istreambuf_iterator<char>(file)),
+            std::string content((std::istreambuf_iterator(file)),
                                 std::istreambuf_iterator<char>());
 
             if (content.empty()) {

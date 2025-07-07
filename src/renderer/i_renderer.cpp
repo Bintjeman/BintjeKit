@@ -15,7 +15,8 @@
 #include "bintjekit/window/i_main_window.hpp"
 
 namespace bnjkit::renderer {
-    IRenderer::IRenderer() : m_render_window(nullptr), m_engine(nullptr) {
+    IRenderer::IRenderer() : m_render_window(nullptr), m_imgui_renderer(nullptr), m_engine(nullptr),
+                             m_engine_renderer(nullptr), m_core(nullptr) {
         m_logger = core::Logger::get_logger(core::module_names::RENDERER);
         m_logger->info("IRenderer: Constructor of IRenderer");
     }

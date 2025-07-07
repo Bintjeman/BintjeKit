@@ -22,7 +22,8 @@ namespace bnjkit::renderer {
         ImGui::SFML::Shutdown();
     }
 
-    IImGuiRenderer::IImGuiRenderer() {
+    IImGuiRenderer::IImGuiRenderer(): m_engine(nullptr), m_core(nullptr), m_core_event_handler(nullptr),
+                                      m_renderer(nullptr) {
         m_logger = core::Logger::get_logger(core::module_names::RENDERER);
         m_logger->info("Constructor of IImGuiRenderer");
     }

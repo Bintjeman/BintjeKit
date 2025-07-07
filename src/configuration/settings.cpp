@@ -8,7 +8,7 @@
 #include "bintjekit/logger.hpp"
 
 namespace bnjkit::conf {
-    Settings::Settings(): Node() {
+    Settings::Settings() {
         m_logger = core::Logger::get_logger(core::module_names::CONFIGURATION);
         m_logger->info("Constructor of Settings");
     }

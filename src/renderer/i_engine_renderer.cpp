@@ -14,7 +14,7 @@ namespace bnjkit::renderer {
         m_logger->info("Constructor of IEngineRenderer");
     }
 
-    void IEngineRenderer::set_engine(const bnjkit::engine::IEngine *engine) {
+    void IEngineRenderer::set_engine(const engine::IEngine *engine) {
         m_logger->debug("Setting engine");
         m_engine = engine;
     }

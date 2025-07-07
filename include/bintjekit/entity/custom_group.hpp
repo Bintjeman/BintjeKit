@@ -10,7 +10,6 @@
 
 #include <string>
 #include <unordered_set>
-#include "bintjekit/entity/entity_helper.hpp"
 
 namespace bnjkit::entity {
     template<typename BaseEntity>

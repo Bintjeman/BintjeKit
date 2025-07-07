@@ -12,18 +12,16 @@ namespace bnjkit::conf {
         auto ptr = m_branch / key;
         if (!m_json->contains(ptr)) {
             return defaultValue;
-        } else {
-            return m_json->at(ptr).get<T>();
         }
+        return m_json->at(ptr).get<T>();
     }
     template<typename T>
     T Node::get(const nlohmann::json::json_pointer& key) const {
         auto ptr = m_branch / key;
         if (!m_json->contains(ptr)) {
             return T{};
-        } else {
-            return m_json->at(ptr).get<T>();
         }
+        return m_json->at(ptr).get<T>();
     }
     template<typename T>
     T Node::get_or_set(const nlohmann::json::json_pointer& key, const T& defaultValue) {
@@ -31,9 +29,8 @@ namespace bnjkit::conf {
         if (!m_json->contains(ptr)) {
             (* m_json)[m_branch / key] = defaultValue;
             return defaultValue;
-        } else {
-            return m_json->at(ptr).get<T>();
         }
+        return m_json->at(ptr).get<T>();
     }
     template<typename T>
     void Node::set(const nlohmann::json::json_pointer& key, const T& value) {

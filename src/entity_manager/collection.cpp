@@ -11,8 +11,7 @@ namespace bnjkit::entity {
     Collection::Collection() {
         m_logger = core::Logger::get_logger(core::module_names::ENTITY);
     }
-    Collection::~Collection() {
-    }
+    Collection::~Collection() = default;
     void Collection::add_entity(const std::shared_ptr<IEntity>& entity) {
         if (!entity || !entity->valid()) {
             m_logger->error("Cannot add invalid entity");
@@ -21,7 +20,6 @@ namespace bnjkit::entity {
         auto index = m_collection.size();
         m_collection.push_back(entity);
         m_registry.emplace(entity->id(), index);
-
     }
     void Collection::remove_entity(const EntityPtr& entity) {
         if (!entity || !entity->valid()) {

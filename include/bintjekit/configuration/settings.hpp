@@ -22,7 +22,7 @@ namespace bnjkit::conf {
          * representation. The settings can also be initialized with default values and
          * modified dynamically.
          */
-    class Settings : public Node {
+    class Settings final : public Node {
     public:
         explicit Settings();
         ~Settings() override;

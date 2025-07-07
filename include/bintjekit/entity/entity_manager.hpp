@@ -101,6 +101,5 @@ namespace bnjkit::entity {
         std::shared_ptr<spdlog::logger> m_logger;
     };
 }
-
 #include "entity_manager.inl"
 #endif

@@ -5,7 +5,7 @@
  */
 #include "bintjekit/event_manager/i_core_event_handler.hpp"
 #include "bintjekit/logger/logger.hpp"
-bnjkit::event::ICoreEventHandler::ICoreEventHandler() {
+bnjkit::event::ICoreEventHandler::ICoreEventHandler(): m_core(nullptr) {
     m_logger = core::Logger::get_logger("EVENT");
 }
 bnjkit::event::ICoreEventHandler::~ICoreEventHandler() = default;

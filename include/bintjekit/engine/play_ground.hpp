@@ -16,7 +16,6 @@
 
 namespace bnjkit::engine {
     struct PlayGround {
-    public:
         PlayGround();
         ~PlayGround();
         void initialise();

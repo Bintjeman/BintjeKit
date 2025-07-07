@@ -31,7 +31,7 @@ namespace bnjkit::entity {
         virtual EntityIndex get_entity_index(EntityId id);
         virtual std::optional<EntityIndex> get_entity_index_opt(EntityId id) {
             auto it = m_registry.find(id);
-            return (it != m_registry.end())
+            return it != m_registry.end()
                        ? std::optional(it->second)
                        : std::nullopt;
         }
@@ -53,7 +53,7 @@ namespace bnjkit::entity {
                 m_logger->warn("Cannot add invalid entity");
                 throw std::invalid_argument("Cannot add invalid entity");
             }
-            if (auto derived = std::dynamic_pointer_cast<EntityTypeParent>(entity)) {
+            if (auto derived[[maybe_unused]] = std::dynamic_pointer_cast<EntityTypeParent>(entity)) {
                 Collection::add_entity(entity);
             } else {
                 m_logger->warn("Entity type mismatch");

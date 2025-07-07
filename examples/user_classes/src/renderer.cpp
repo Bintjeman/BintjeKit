@@ -12,7 +12,7 @@
 #include "engine.hpp"
 
 namespace usr {
-    Renderer::Renderer() = default;
+    Renderer::Renderer(): m_usr_engine(nullptr) {};
     Renderer::~Renderer() = default;
 
     void Renderer::initialise() {
@@ -52,7 +52,7 @@ namespace usr {
     }
 
     void Renderer::on_sfml_event(const sf::Event &event) {
-        if (const auto &resized = event.getIf<sf::Event::Resized>()) {
+        if (event.is<sf::Event::Resized>()) {
             resize_views();
         }
     }

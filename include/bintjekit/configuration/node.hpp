@@ -11,7 +11,7 @@
 #include "spdlog/fwd.h"
 
 namespace bnjkit::conf {
-    /**
+        /*!
          * @class Node
          * @brief A class representing a single node in a nlohmann json data structure.
          *

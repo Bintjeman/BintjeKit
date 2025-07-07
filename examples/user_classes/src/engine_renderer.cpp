@@ -3,11 +3,7 @@
  * @date 13.06.25
  * @name engine_renderer.cpp
  */
-
 #include "engine_renderer.hpp"
-
-#include <memory>
-
 #include "SFML/Graphics/CircleShape.hpp"
 #include "engine.hpp"
 #include "bintjekit/engine/play_ground.hpp"
