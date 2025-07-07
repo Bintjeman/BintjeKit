@@ -45,11 +45,17 @@ namespace bnjkit::entity {
             return m_collections;
         }
 
-        [[nodiscard]] std::vector<std::shared_ptr<BaseEntity> > get_entities() const ;
+        [[nodiscard]] std::vector<std::shared_ptr<BaseEntity> > get_entities() const;
 
         template<typename... Types>
             requires (std::derived_from<Types, BaseEntity> && ...)
         auto get_typed_collections() {
+            return std::make_tuple(TypedCollection<Types>(* this)...);
+        }
+
+        template<typename... Types>
+            requires (std::derived_from<Types, BaseEntity> && ...)
+        auto get_typed_collections() const {
             return std::make_tuple(TypedCollection<Types>(* this)...);
         }
 
@@ -64,6 +70,7 @@ namespace bnjkit::entity {
         class TypedCollection {
         public:
             explicit TypedCollection(EntityManager& manager) : m_manager(manager) {}
+            explicit TypedCollection(const EntityManager& manager) : m_manager(manager) {}
 
             auto& get() {
                 const auto typeIndex = std::type_index(typeid(T));
@@ -75,8 +82,18 @@ namespace bnjkit::entity {
                 return it->second->get_collection();
             }
 
+            const auto& get() const {
+                const auto typeIndex = std::type_index(typeid(T));
+                auto it = m_manager.m_collections.find(typeIndex);
+                if (it == m_manager.m_collections.end()) {
+                    m_manager.m_logger->error("Collection not found for type {}", typeid(T).name());
+                    throw std::runtime_error("Collection not found");
+                }
+                return it->second->get_collection();
+            }
+
         private:
-            EntityManager& m_manager;
+            std::reference_wrapper<const EntityManager> m_manager;
         };
 
         std::unordered_map<std::type_index, std::unique_ptr<Collection> > m_collections;
