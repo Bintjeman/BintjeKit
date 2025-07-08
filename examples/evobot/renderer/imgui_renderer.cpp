@@ -39,7 +39,7 @@ namespace evo::renderer {
         if (m_draw_evobot_window) {
             if (m_evobot_engine && m_evobot_engine->state() == bnjkit::engine::IEngine::State::READY) {
                 auto [evobots, globs] =
-                        m_evobot_engine->entity_manager().get_typed_collections<engine::Evobot, engine::Glob>();
+                        m_evobot_engine->entity_manager().get_all<engine::Evobot, engine::Glob>();
                 ImGui::Begin("Evobot", & m_draw_evobot_window);
                 auto state = m_engine->state();
                 ImGui::Text("Evobot state: %s",

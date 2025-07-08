@@ -42,8 +42,6 @@ namespace evo::engine {
     void EvobotEngine::new_world() {
         m_logger->info("EvobotEngine: new world");
         m_entity_manager->clear();
-        m_entity_manager->register_type<Evobot>();
-        m_entity_manager->register_type<Glob>();
         // Configuration
         unsigned int start_bot = m_custom_settings.
                 get_or_set("/Rules/Generation/Start bot", 100u);
@@ -133,7 +131,7 @@ namespace evo::engine {
     }
     void EvobotEngine::update() {
         m_play_ground->update();
-        auto [evobots, globs] = m_entity_manager->get_typed_collections<Evobot, Glob>();
+        auto [evobots, globs] = m_entity_manager->get<Evobot, Glob>();
         for (auto& evobot: evobots.get_entities()) {
             evobot->update();
         }
@@ -142,8 +140,8 @@ namespace evo::engine {
         }
     }
 
-    bnjkit::entity::EntityCollection EvobotEngine::entities() const {
-        return m_entity_manager->get_all_entities();
+    auto EvobotEngine::entities() const {
+        return entity_manager->get_all();
     }
     bnjkit::entity::EntityManager<EvobotEngine::Entity>& EvobotEngine::entity_manager() {
         return * m_entity_manager;

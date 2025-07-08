@@ -21,9 +21,9 @@ namespace evo::engine {
         void new_world();
         void clear();
         void update() override;
-        bnjkit::entity::EntityCollection entities() const;
+        [[nodiscard]] auto entities() const;
         bnjkit::entity::EntityManager<Entity>& entity_manager();
-        const bnjkit::entity::EntityManager<Entity>& entity_manager() const;
+        [[nodiscard]] const bnjkit::entity::EntityManager<Entity>& entity_manager() const;
         [[nodiscard]] std::string name() const override;
         void on_sfml_event(const sf::Event& event) override;
 

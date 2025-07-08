@@ -15,8 +15,7 @@
 
 namespace bnjkit {
     namespace entity {
-        template<typename BaseEntity>
-            requires std::is_base_of_v<IEntity, BaseEntity>
+        template<typename... Groups>
         class EntityManager;
     }
 

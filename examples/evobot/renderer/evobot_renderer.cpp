@@ -33,7 +33,8 @@ namespace evo {
                 bg.setFillColor(m_back_ground_color);
                 drawable_list.emplace_back(bg);
             }
-            circles.reserve(m_evobot_engine->entities().size());
+            auto & all = m_evobot_engine->entities();
+            circles.reserve(all.size());
             if (m_draw_evobots) {
                 circle.setFillColor(m_evobot_color);
                 circle.setFillColor(m_evobot_color_2);
