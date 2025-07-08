@@ -23,7 +23,7 @@ namespace bnjkit::entity {
         void add(const EntityPtr& entity);
         EntityPtr create();
         EntityPtr get(EntityId id);
-        const EntityPtr get(EntityId id) const;
+        EntityPtr get(EntityId id) const;
         void remove(EntityId id) override;
         void clear() override;
         [[nodiscard]] std::size_t size() const;

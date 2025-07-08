@@ -24,16 +24,16 @@ namespace bnjkit::entity {
         requires std::is_base_of_v<IEntity, BaseEntity>
     void EntityCollectionManager<BaseEntity>::add(const EntityPtr& entity) {
         if (!entity) {
-            m_logger->error("Tentative d'ajout d'une entité nulle");
+            m_logger->error("Attempt to add a null entity");
             return;
         }
 
         auto id = entity->id();
-        if (m_registry.find(id) == m_registry.end()) {
+        if (!m_registry.contains(id)) {
             m_registry[id] = entity;
             m_entities.push_back(entity);
         } else {
-            m_logger->error("L'entité avec l'id {} existe déjà", id);
+            m_logger->error("Entity with id {} already exists", id);
         }
     }
 
@@ -45,19 +45,18 @@ namespace bnjkit::entity {
     }
 
     template<typename BaseEntity> requires std::is_base_of_v<IEntity, BaseEntity>
-    EntityPtr EntityCollectionManager<BaseEntity>::get(EntityId id) {
+    EntityPtr EntityCollectionManager<BaseEntity>::get(const EntityId id) {
         auto it = m_registry.find(id);
         return (it != m_registry.end()) ? it->second : nullptr;
     }
     template<typename BaseEntity> requires std::is_base_of_v<IEntity, BaseEntity>
-    const EntityPtr EntityCollectionManager<BaseEntity>::get(EntityId id) const {
+    EntityPtr EntityCollectionManager<BaseEntity>::get(const EntityId id) const {
         auto it = m_registry.find(id);
         return (it != m_registry.end()) ? it->second : nullptr;
     }
     template<typename BaseEntity> requires std::is_base_of_v<IEntity, BaseEntity>
     void EntityCollectionManager<BaseEntity>::remove(EntityId id) {
-        auto registry_it = m_registry.find(id);
-        if (registry_it != m_registry.end()) {
+        if (const auto registry_it = m_registry.find(id); registry_it != m_registry.end()) {
             auto entity_it = std::find_if(m_entities.begin(), m_entities.end(),
                                           [id](const EntityPtr& e) { return e && e->id() == id; });
 
