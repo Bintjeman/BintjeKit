@@ -15,8 +15,7 @@
 
 namespace bnjkit::entity {
     template<typename BaseEntity> requires std::is_base_of_v<IEntity, BaseEntity>
-    std::shared_ptr<spdlog::logger> EntityCollectionManager<BaseEntity>::m_logger = core::Logger::get_logger(
-        core::module_names::ENTITY);
+    std::shared_ptr<spdlog::logger> EntityCollectionManager<BaseEntity>::m_logger;
 
     template<typename BaseEntity> requires std::is_base_of_v<IEntity, BaseEntity>
     EntityCollectionManager<BaseEntity>::EntityCollectionManager() = default;
@@ -100,6 +99,10 @@ namespace bnjkit::entity {
     template<typename BaseEntity> requires std::is_base_of_v<IEntity, BaseEntity>
     EntityRegistry EntityCollectionManager<BaseEntity>::get_registry() {
         return m_registry;
+    }
+    template<typename T> requires std::is_base_of_v<IEntity, T>
+    void EntityCollectionManager<T>::set_logger(const std::shared_ptr<spdlog::logger>& logger) {
+        m_logger = logger;
     }
 }
 #endif //ENTITY_COLLECTION_INL

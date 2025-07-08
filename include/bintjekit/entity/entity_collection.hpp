@@ -31,7 +31,7 @@ namespace bnjkit::entity {
         [[nodiscard]] EntityCollection get_entities() override;
         [[nodiscard]] EntityRegistry get_registry() const;
         [[nodiscard]] EntityRegistry get_registry();
-
+        static void set_logger(const std::shared_ptr<spdlog::logger>& logger);
     private:
         EntityCollection m_entities;
         EntityRegistry m_registry;

@@ -1,0 +1,42 @@
+/*!
+ * @author bintjeman
+ * @date 04.07.25
+ * @name entity.cpp
+ */
+
+#include "entity.hpp"
+
+namespace evo {
+namespace engine {
+    Entity::Entity() {
+    }
+
+    Entity::~Entity() {
+    }
+
+    void Entity::update() {
+        m_movable.update();
+    }
+    D2::Position Entity::get_position() const {
+        return m_movable.position;
+    }
+    float Entity::get_radius() const {
+        return m_movable.radius;
+    }
+    D2::Bounds Entity::bounds() const {
+        return m_movable.bounds();
+    }
+    Movable::Velocity Entity::get_velocity() {
+        return m_movable.velocity;
+    }
+    void Entity::set_position(D2::Position position) {
+        m_movable.position = position;
+    }
+    void Entity::set_radius(float size) {
+        m_movable.radius = size;
+    }
+    void Entity::set_velocity(Movable::Velocity velocity) {
+        m_movable.velocity = velocity;
+    }
+} // engine
+} // evo
