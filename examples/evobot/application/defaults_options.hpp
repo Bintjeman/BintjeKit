@@ -21,6 +21,7 @@ namespace evo {
         constexpr auto DEFAULT_EVENT_LOGGER_LEVEL = spdlog::level::warn;
         constexpr auto DEFAULT_WINDOW_LOGGER_LEVEL = spdlog::level::warn;
         constexpr auto DEFAULT_RENDERER_LOGGER_LEVEL = spdlog::level::warn;
+        constexpr auto DEFAULT_ENTITY_LOGGER_LEVEL = spdlog::level::warn;
 #else
         // DEBUG OPTIONS
         constexpr auto DEFAULT_LOGGER_LEVEL = spdlog::level::info;

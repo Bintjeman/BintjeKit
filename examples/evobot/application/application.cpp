@@ -65,7 +65,7 @@ namespace evo {
             Logger::get_logger(module_names::RENDERER)->set_level(
                 settings.get_or_set("/Application/Logger/Renderer logger level",
                                     DEFAULT_LOGGER_LEVEL));
-            Logger::get_logger(module_names::ENTITY)->set_level(DEFAULT_ENTITY_LOGGER_LEVEL);
+            Logger::get_logger(module_names::ENTITY)->set_level(DEF);
             m_core->set_engine_frequency(settings.get_or_set("/Application/Engine/Frequency", 60u));
             m_core->set_renderer_frequency(
                 settings.get_or_set("/Application/Renderer/Frequency", 60u));
