@@ -13,6 +13,18 @@ namespace bnjkit::entity {
         m_logger = core::Logger::get_logger(bnjkit::core::module_names::ENTITY);
     }
     EntityManager::~EntityManager() {}
+    void EntityManager::remove(const EntityId id){
+        if (m_entity_types.contains(id)) {
+            const auto entity_type = m_entity_types.find(id)->second;
+            if (m_collections.contains(entity_type)) {
+                auto& collection = * static_cast<TypedCollection<IEntity>*>(m_collections.at(entity_type)
+                    .get());
+                collection.remove(id);
+            }
+            m_logger->warn("Collection {} does not exist", entity_type.name());
+        }
+        m_logger->warn("Entity {} does not exist", id);
+    }
     void EntityManager::clear() {
         m_collections.clear();
         m_entity_types.clear();

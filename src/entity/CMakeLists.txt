@@ -7,6 +7,7 @@ target_sources(bintjekit
         BASE_DIRS ${PROJECT_SOURCE_DIR}/include
         FILES
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_manager.hpp
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_manager.inl
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.inl

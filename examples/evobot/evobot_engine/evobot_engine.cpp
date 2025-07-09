@@ -133,7 +133,7 @@ namespace evo::engine {
     }
     void EvobotEngine::update() {
         m_play_ground->update();
-        auto [evobots, globs] = m_entity_manager->get<Evobot, Glob>();
+        auto [evobots, globs] = m_entity_manager->get_collections<Evobot, Glob>();
         for (auto& evobot: evobots.get().entities()) {
             evobot->update();
         }
