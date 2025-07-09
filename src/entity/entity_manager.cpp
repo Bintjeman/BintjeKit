@@ -12,6 +12,7 @@ namespace bnjkit::entity {
     EntityManager::EntityManager() {
         m_logger = core::Logger::get_logger(bnjkit::core::module_names::ENTITY);
     }
+
     EntityManager::~EntityManager() {}
     void EntityManager::remove(const EntityId id){
         if (m_entity_types.contains(id)) {

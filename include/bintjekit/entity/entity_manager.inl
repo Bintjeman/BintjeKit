@@ -59,6 +59,14 @@ namespace bnjkit::entity {
         );
     }
 
+    template<typename... EntityTypes>
+        requires (std::is_base_of_v<IEntity, EntityTypes> && ...)
+    std::tuple<std::reference_wrapper<TypedCollection<EntityTypes> >...>
+    EntityManager::get_collections() const {
+        return std::make_tuple(std::reference_wrapper<TypedCollection<EntityTypes> >(
+            const_cast<TypedCollection<EntityTypes>&>(get_collection<EntityTypes>()))...);
+    }
+
     template<typename EntityType>
         requires std::is_base_of_v<IEntity, EntityType>
     void EntityManager::add(const std::shared_ptr<EntityType>& entity) {
@@ -92,5 +100,4 @@ namespace bnjkit::entity {
         m_logger->warn("Entity {} does not exist", id);
     }
 }
-
 #endif // BINTJEKIT_ENTITY_ENTITY_MANAGER_INL

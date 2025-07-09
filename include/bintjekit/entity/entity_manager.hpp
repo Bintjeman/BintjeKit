@@ -34,6 +34,10 @@ namespace bnjkit::entity {
             requires (std::is_base_of_v<IEntity, EntityTypes> && ...)
         std::tuple<std::reference_wrapper<TypedCollection<EntityTypes> >...> get_collections();
 
+        template<typename... EntityTypes>
+            requires (std::is_base_of_v<IEntity, EntityTypes> && ...)
+        std::tuple<std::reference_wrapper<TypedCollection<EntityTypes> >...> get_collections() const;
+
         template<typename EntityType=IEntity>
             requires std::is_base_of_v<IEntity, EntityType>
         void add(const std::shared_ptr<EntityType>& entity);
@@ -56,5 +60,6 @@ namespace bnjkit::entity {
         std::shared_ptr<spdlog::logger> m_logger;
     };
 }
+
 #include "bintjekit/entity/entity_manager.inl"
 #endif //ENTITY_MANAGER_HPP
