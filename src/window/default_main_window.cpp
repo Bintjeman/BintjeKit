@@ -50,6 +50,7 @@ namespace bnjkit::window {
             }
         }
     }
+
     std::string DefaultMainWindow::name() const {
         return "DefaultMainWindow";
     }
