@@ -65,7 +65,7 @@ namespace bnjkit::entity {
             static_assert(!std::is_void<EntityType>::value, "EntityType must be a complete type");
             auto& collection = get_collection<EntityType>();
             auto type_index = std::type_index(typeid(EntityType));
-            m_entity_types[entity->id()] = type_index;
+            m_entity_types.emplace(entity->id(), type_index);
             collection.add(entity);
         }
         template<typename EntytyType=IEntity>
