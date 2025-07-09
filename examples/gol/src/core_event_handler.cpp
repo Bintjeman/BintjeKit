@@ -8,15 +8,14 @@
 #include <spdlog/logger.h>
 #include <bintjekit/core/core.hpp>
 
-
 namespace gol {
-    CoreEventHandler::CoreEventHandler() : bnjkit::event::ICoreEventHandler() {
+    CoreEventHandler::CoreEventHandler() {
         m_logger->info("Constructor of CoreEventHandler");
     }
 
     CoreEventHandler::~CoreEventHandler() = default;
 
-    void CoreEventHandler::on_sfml_event(const sf::Event &event) {
+    void CoreEventHandler::on_sfml_event(const sf::Event& event) {
         m_logger->debug("CoreEventHandler: on_sfml_event");
         if (const auto keypressed = event.getIf<sf::Event::KeyPressed>()) {
             if (keypressed->code == sf::Keyboard::Key::Space) {

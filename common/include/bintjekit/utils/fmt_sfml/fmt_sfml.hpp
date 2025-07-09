@@ -20,9 +20,8 @@ struct fmt::formatter<sf::Color> {
         // Ajout du mot-clé const ici
         if (clr.a != 255) {
             return fmt::format_to(ctx.out(), "({}, {}, {}, {})", clr.r, clr.g, clr.b, clr.a);
-        } else {
-            return fmt::format_to(ctx.out(), "({}, {}, {})", clr.r, clr.g, clr.b);
         }
+        return fmt::format_to(ctx.out(), "({}, {}, {})", clr.r, clr.g, clr.b);
     }
 };
 

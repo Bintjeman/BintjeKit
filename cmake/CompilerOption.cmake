@@ -39,7 +39,7 @@ set(DEBUG_OPTIONS
         -g                     # Informations de debug
         -O0                   # Pas d'optimisation pour un meilleur debugging
 #        -fno-omit-frame-pointer # Garde la frame pointer pour un meilleur debugging
-#        -fno-inline          # Désactive l'inlining pour un meilleur debugging
+#        -fno-inline          # Désactive l' inlining pour un meilleur debugging
 #        -D_GLIBCXX_DEBUG     # Active les vérifications de la STL en debug
 )
 set(RELEASE_OPTIONS

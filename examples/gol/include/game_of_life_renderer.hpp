@@ -8,7 +8,6 @@
 #define GAME_OF_LIFE_RENDERER_HPP
 #pragma once
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
 #include <bintjekit/renderer/i_engine_renderer.hpp>
 
 #include "game_of_life.hpp"

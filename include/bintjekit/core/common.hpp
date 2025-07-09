@@ -7,20 +7,16 @@
 #ifndef BNJKIT_CORE_COMMON_HPP
 #define BNJKIT_CORE_COMMON_HPP
 #pragma once
-namespace bnjkit {
-    namespace core {
-        namespace module_names {
-            constexpr const char* NONE = "";
-            constexpr const char* APP = "APP";
-            constexpr const char* LOG = "LOG";
-            constexpr const char* CORE = "CORE";
-            constexpr const char* ENGINE = "ENGINE";
-            constexpr const char* RENDERER = "RENDERER";
-            constexpr const char* WINDOW = "WINDOW";
-            constexpr const char* EVENT = "EVENT";
-            constexpr const char* CONFIGURATION = "CONF";
-            constexpr const char* ENTITY = "ENTITY";
-        }
-    } // core
-} // bnjkit
+namespace bnjkit::core::module_names {
+    constexpr auto NONE = "";
+    constexpr auto APP = "APP";
+    constexpr auto LOG = "LOG";
+    constexpr auto CORE = "CORE";
+    constexpr auto ENGINE = "ENGINE";
+    constexpr auto RENDERER = "RENDERER";
+    constexpr auto WINDOW = "WINDOW";
+    constexpr auto EVENT = "EVENT";
+    constexpr auto CONFIGURATION = "CONF";
+    constexpr auto ENTITY = "ENTITY";
+}
 #endif // BNJKIT_CORE_COMMON_HPP

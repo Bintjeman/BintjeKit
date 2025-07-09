@@ -11,9 +11,11 @@
 #include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
+#include "bintjekit/entity/ientity.hpp"
 
 namespace bnjkit {
     namespace entity {
+        template<typename... Groups>
         class EntityManager;
     }
 
@@ -22,7 +24,9 @@ namespace bnjkit {
 
         class IEngine : public core::IModule, public event::IEventListener {
         public:
-            enum State {
+            using BaseEntity = entity::IEntity;
+
+            enum class State {
                 READY,
                 FINISH,
                 EMPTY,
@@ -37,9 +41,9 @@ namespace bnjkit {
             [[nodiscard]] State state() const;
 
         protected:
-            State m_state{EMPTY};
+            State m_state{State::EMPTY};
             std::unique_ptr<PlayGround> m_play_ground;
-            std::unique_ptr<entity::EntityManager> m_entity_manager;
+            std::unique_ptr<entity::EntityManager<BaseEntity> > m_entity_manager;
             std::shared_ptr<spdlog::logger> m_logger;
 
         public:

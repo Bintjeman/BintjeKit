@@ -9,12 +9,11 @@
 #include "bintjekit/engine/play_ground.hpp"
 
 namespace gol {
-    GameOfLife::GameOfLife(): IEngine() {
-    }
+    GameOfLife::GameOfLife()  {}
     void GameOfLife::initialise() {
         m_play_ground->size = {GRID_WIDTH, GRID_HEIGHT};
-        m_grid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
-        m_next_grid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
+        m_grid.resize(GRID_HEIGHT, std::vector(GRID_WIDTH, false));
+        m_next_grid.resize(GRID_HEIGHT, std::vector(GRID_WIDTH, false));
     }
     void GameOfLife::update() {
         for (unsigned long y = 0; y < GRID_HEIGHT; ++ y) {
@@ -56,7 +55,7 @@ namespace gol {
 
     void GameOfLife::on_sfml_event(const sf::Event& event) {
         m_logger->debug("GOL: on_sfml_event: {}");
-        auto shift = []() {
+        auto shift = [] {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift) || sf::Keyboard::isKeyPressed(
                     sf::Keyboard::Key::LShift)) {
                 return true;
@@ -76,14 +75,14 @@ namespace gol {
     void GameOfLife::new_world() {
         m_logger->info("New world");
         m_play_ground->size = {GRID_WIDTH, GRID_HEIGHT};
-        m_grid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
-        m_next_grid.resize(GRID_HEIGHT, std::vector<bool>(GRID_WIDTH, false));
+        m_grid.resize(GRID_HEIGHT, std::vector(GRID_WIDTH, false));
+        m_next_grid.resize(GRID_HEIGHT, std::vector(GRID_WIDTH, false));
         for (unsigned long y = 0; y < GRID_HEIGHT; ++ y) {
             for (unsigned long x = 0; x < GRID_WIDTH; ++ x) {
                 m_grid[y][x] = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) > 0.5f;
                 m_next_grid[y][x] = m_grid[y][x];
             }
         }
-        m_state = READY;
+        m_state = State::READY;
     }
 } // gol

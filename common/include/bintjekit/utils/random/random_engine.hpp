@@ -28,7 +28,7 @@ namespace bnjkit::utils::random {
         RandomEngine();
 
         static std::mt19937 s_generator;
-        std::normal_distribution<double> m_normal_dist;
+        std::normal_distribution<> m_normal_dist;
     };
 }
 #endif //BINTJEKIT_COMMON_RANDOM_ENGINE_HPP

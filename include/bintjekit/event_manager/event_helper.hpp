@@ -7,11 +7,9 @@
 #ifndef EVENT_HELPER_HPP
 #define EVENT_HELPER_HPP
 #pragma once
-namespace bnjkit {
-    namespace event {
-        bool shift();
-        bool ctrl();
-        bool alt();
-    } // event
-} // bnjkit
+namespace bnjkit::event {
+    bool shift();
+    bool ctrl();
+    bool alt();
+}
 #endif //EVENT_HELPER_HPP

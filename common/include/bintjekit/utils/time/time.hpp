@@ -14,9 +14,9 @@ namespace bnjkit::utils::time {
     class Clock {
     public:
         using clock_type = std::chrono::high_resolution_clock;
-        using time_point = typename clock_type::time_point;
+        using time_point = clock_type::time_point;
         Clock();
-        ~Clock();
+        ~Clock() = default;
         void start();
         void reset();
         [[nodiscard]] auto get() const -> long int;

@@ -41,9 +41,9 @@ TEST_CASE("Configuration Manager", "[configuration_manager]") {
 
         auto settings = bnjkit::conf::Settings();
         settings.load_from_json(bnjkit::conf::from_string(test_string));
-        unsigned char red = settings.get<unsigned char>("/root/branch2/color/red"_json_pointer);
+        auto red = settings.get<unsigned char>("/root/branch2/color/red"_json_pointer);
         REQUIRE(red == 255);
-        sf::Color sf_color = settings.get<sf::Color>("/root/branch2/sf color"_json_pointer);
+        auto sf_color = settings.get<sf::Color>("/root/branch2/sf color"_json_pointer);
         REQUIRE(sf_color == sf::Color(100, 150, 3));
     }
 
@@ -68,9 +68,9 @@ TEST_CASE("Configuration Manager", "[configuration_manager]") {
         auto settings = bnjkit::conf::Settings();
         settings.load_from_json(bnjkit::conf::from_string(test_string));
         auto child = settings.create_child("/root/branch2"_json_pointer);
-        unsigned char red = child.get<unsigned char>("/color/red"_json_pointer);
+        auto red = child.get<unsigned char>("/color/red"_json_pointer);
         REQUIRE(red == 255);
-        sf::Color sf_color = child.get<sf::Color>("/sf color"_json_pointer);
+        auto sf_color = child.get<sf::Color>("/sf color"_json_pointer);
         REQUIRE(sf_color == sf::Color(100, 150, 3));
         child.set<bool>("/value"_json_pointer, true);
         auto value = settings.get<bool>("/root/branch2/value"_json_pointer);

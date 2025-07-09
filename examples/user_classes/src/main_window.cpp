@@ -6,10 +6,9 @@
 #include "main_window.hpp"
 
 namespace usr {
-    MainWindow::MainWindow() : IMainWindow() {
-    }
+    MainWindow::MainWindow()  {}
 
-    MainWindow::~MainWindow(){}
+    MainWindow::~MainWindow() = default;
 
     void MainWindow::show() {
         IMainWindow::show();
@@ -24,7 +23,7 @@ namespace usr {
         IMainWindow::configure();
     }
 
-    void MainWindow::on_sfml_event(const sf::Event &event) {
+    void MainWindow::on_sfml_event(const sf::Event& event) {
         IMainWindow::on_sfml_event(event);
     }
     std::string MainWindow::name() const {

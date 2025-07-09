@@ -14,27 +14,24 @@
 #include "SFML/System/Vector2.hpp"
 #include <spdlog/fwd.h>
 
-namespace bnjkit {
-    namespace engine {
-        struct PlayGround {
-        public:
-            PlayGround();
-            ~PlayGround();
-            void initialise();
-            void configure();
-            void update();
-            [[nodiscard]] long int ticks() const;
-            [[nodiscard]] sf::Rect<float> bounds() const;
-            sf::Vector2f size = {0.f, 0.f};
-            sf::Vector2f position = {0.f, 0.f};
+namespace bnjkit::engine {
+    struct PlayGround {
+        PlayGround();
+        ~PlayGround();
+        void initialise();
+        void configure();
+        void update();
+        [[nodiscard]] long int ticks() const;
+        [[nodiscard]] sf::Rect<float> bounds() const;
+        sf::Vector2f size = {0.f, 0.f};
+        sf::Vector2f position = {0.f, 0.f};
 
-        protected:
-            std::shared_ptr<spdlog::logger> m_logger;
+    protected:
+        std::shared_ptr<spdlog::logger> m_logger;
 
-        private:
-            long int ticks_counter = 0;
-        };
-    } // engine
-} // bnjkit
+    private:
+        long int ticks_counter = 0;
+    };
+}
 
 #endif // BNJKIT_ENGINE_PLAY_GROUND_HPP

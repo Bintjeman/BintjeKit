@@ -19,15 +19,16 @@ namespace sf {
 namespace bnjkit {
     namespace engine {
         class IEngine;
-    };
+    }
 
     namespace core {
         class Core;
-    };
+    }
 
     namespace event {
         class ICoreEventHandler;
     }
+
     namespace renderer {
         class IRenderer;
         class IImGuiRenderer : public core::IModule {
@@ -50,7 +51,7 @@ namespace bnjkit {
             virtual void set_core(core::Core* core);
             virtual void set_core_event_handler(event::ICoreEventHandler* core_event_handler);
             virtual void set_renderer(IRenderer* renderer);
-            void shutdown();
+            static void shutdown();
             [[nodiscard]] std::string name() const override;
 
         protected:

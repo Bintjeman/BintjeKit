@@ -23,7 +23,7 @@ namespace bnjkit {
         public:
             explicit IEngineRenderer();
             ~IEngineRenderer() override;
-            virtual void set_engine(const bnjkit::engine::IEngine *engine);
+            virtual void set_engine(const engine::IEngine *engine);
             virtual void get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const;
             [[nodiscard]] virtual sf::Rect<float> get_bounds() const;
             [[nodiscard]] std::string name() const override;

@@ -12,7 +12,6 @@
 #include <SFML/Graphics/Rect.hpp>
 #include "spdlog/spdlog.h"
 #include <nlohmann/json.hpp>
-
 namespace nlohmann {
     template<typename T>
     struct adl_serializer<sf::Vector2<T> > {
@@ -27,7 +26,7 @@ namespace nlohmann {
     };
     template<>
     struct adl_serializer<sf::Color> {
-        static void from_json(const nlohmann::json& j, sf::Color& c) {
+        static void from_json(const json& j, sf::Color& c) {
             c = sf::Color(
                 j.at("r").get<uint8_t>(),
                 j.at("g").get<uint8_t>(),
@@ -35,7 +34,7 @@ namespace nlohmann {
                 j.contains("a") ? j.at("a").get<uint8_t>() : 255
             );
         }
-        static void to_json(nlohmann::json& j, const sf::Color& color) {
+        static void to_json(json& j, const sf::Color& color) {
             if (color.a != 255) {
                 j = {
                     {"r", color.r},
@@ -53,14 +52,14 @@ namespace nlohmann {
         }
     };
     template<typename T>
-    void to_json(nlohmann::json& j, const sf::Rect<T>& r) {
-        j = nlohmann::json{
+    void to_json(json& j, const sf::Rect<T>& r) {
+        j = json{
             {"position", {{"x", r.position.x}, {"y", r.position.y}}},
             {"size", {{"x", r.size.x}, {"y", r.size.y}}}
         };
     }
     template<typename T>
-    sf::Rect<T> from_json(const nlohmann::json& j) {
+    sf::Rect<T> from_json(const json& j) {
         sf::Rect<T> r;
         r.position.x = j["position"]["x"].get<T>();
         r.position.y = j["position"]["y"].get<T>();
