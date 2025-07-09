@@ -35,13 +35,16 @@ namespace bnjkit::window {
             close();
         }
     }
+
     void IMainWindow::close() {
         m_logger->info("Closing IMainWindow");
         RenderWindow::close();
     }
+
     std::string IMainWindow::name() const {
         return "IMainWindow";
     }
+
     void IMainWindow::on_quit() {
         IModule::on_quit();
     }
