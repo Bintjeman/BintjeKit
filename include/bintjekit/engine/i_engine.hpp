@@ -15,7 +15,6 @@
 
 namespace bnjkit {
     namespace entity {
-        template<typename... Groups>
         class EntityManager;
     }
 
@@ -43,7 +42,7 @@ namespace bnjkit {
         protected:
             State m_state{State::EMPTY};
             std::unique_ptr<PlayGround> m_play_ground;
-            std::unique_ptr<entity::EntityManager<BaseEntity> > m_entity_manager;
+            std::unique_ptr<entity::EntityManager > m_entity_manager;
             std::shared_ptr<spdlog::logger> m_logger;
 
         public:

@@ -13,14 +13,6 @@
 #include "glob.hpp"
 
 namespace evo {
-    // Définition des types logiques si nécessaire
-    // template<>
-    // struct bnjkit::entity::RegisteredLogicalBase<Evobot2> {
-    //     using type = engine::Evobot;
-    // };
 
-    // Type alias pour le gestionnaire d'entités spécifique à Evobot
-    using GameEntityManager = bnjkit::entity::EntityManager<engine::Evobot, engine::Glob>;
 }
-
 #endif

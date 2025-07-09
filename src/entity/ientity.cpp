@@ -19,8 +19,7 @@ namespace bnjkit::entity {
     }
     IEntity& IEntity::operator=(const IEntity& other) noexcept {
         if (this != & other) {
-            // Garder notre ID, ne pas copier celui de other
-            // Pas besoin de modifier s_total_entities car l'entité existe déjà
+            m_id = other.m_id;
         }
         return * this;
     }
@@ -54,8 +53,7 @@ namespace bnjkit::entity {
     bool IEntity::valid() const {
         return m_id != INVALID_ID;
     }
-    void IEntity::update() {
-    }
+    void IEntity::update() {}
     std::size_t IEntity::next_id() {
         return s_next_id++;
     }

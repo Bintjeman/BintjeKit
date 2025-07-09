@@ -33,14 +33,13 @@ namespace evo {
                 bg.setFillColor(m_back_ground_color);
                 drawable_list.emplace_back(bg);
             }
-            auto & all = m_evobot_engine->entities();
-            circles.reserve(all.size());
+            circles.reserve(m_evobot_engine->entity_manager().size());
             if (m_draw_evobots) {
                 circle.setFillColor(m_evobot_color);
                 circle.setFillColor(m_evobot_color_2);
                 circle.setOutlineThickness(1.f);
-                for (const auto& entity: m_evobot_engine->entities()) {
-                    const auto evobot = dynamic_pointer_cast<engine::Evobot>(entity);
+                for (const auto& evobot: m_evobot_engine->entity_manager().get_collection<engine::Evobot>().
+                     entities()) {
                     if (evobot) {
                         circle.setPosition(evobot->bounds().position);
                         circle.setRadius(evobot->get_radius());
@@ -53,8 +52,8 @@ namespace evo {
                 circle.setFillColor(m_glob_color);
                 circle.setFillColor(m_glob_color_2);
                 circle.setOutlineThickness(1.f);
-                for (const auto& entity: m_evobot_engine->entities()) {
-                    const auto& glob = std::dynamic_pointer_cast<const engine::Glob>(entity);
+                for (const auto& glob: m_evobot_engine->entity_manager().get_collection<engine::Glob>().
+                     entities()) {
                     if (glob) {
                         circle.setPosition(glob->bounds().position);
                         circle.setRadius(glob->get_radius());

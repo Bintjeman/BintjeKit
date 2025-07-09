@@ -6,12 +6,15 @@ target_sources(bintjekit
         FILE_SET HEADERS
         BASE_DIRS ${PROJECT_SOURCE_DIR}/include
         FILES
-        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.hpp
-        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.inl
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_manager.hpp
-        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_manager.inl
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.hpp
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.hpp
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.inl
 )
 target_sources(bintjekit PRIVATE
         ientity.cpp
+        entity_collection.cpp
+        entity_manager.cpp
+        typed_collection.cpp
 )
 ################################################################################

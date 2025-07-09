@@ -18,6 +18,8 @@
 namespace evo::engine {
     EvobotEngine::EvobotEngine() {
         m_logger->info("EvobotEngine: created");
+        entity_manager().create_collection<engine::Evobot>();
+        entity_manager().create_collection<engine::Glob>();
     }
 
     EvobotEngine::~EvobotEngine() {
@@ -132,21 +134,18 @@ namespace evo::engine {
     void EvobotEngine::update() {
         m_play_ground->update();
         auto [evobots, globs] = m_entity_manager->get<Evobot, Glob>();
-        for (auto& evobot: evobots.get_entities()) {
+        for (auto& evobot: evobots.get().entities()) {
             evobot->update();
         }
-        for (auto& glob: globs.get_entities()) {
+        for (auto& glob: globs.get().entities()) {
             glob->update();
         }
     }
 
-    auto EvobotEngine::entities() const {
-        return entity_manager->get_all();
-    }
-    bnjkit::entity::EntityManager<EvobotEngine::Entity>& EvobotEngine::entity_manager() {
+    bnjkit::entity::EntityManager& EvobotEngine::entity_manager() {
         return * m_entity_manager;
     }
-    const bnjkit::entity::EntityManager<EvobotEngine::Entity>& EvobotEngine::entity_manager() const {
+    const bnjkit::entity::EntityManager& EvobotEngine::entity_manager() const {
         return * m_entity_manager;
     }
 
