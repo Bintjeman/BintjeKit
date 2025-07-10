@@ -7,7 +7,7 @@
 #ifndef ARROW_COMPONENT_HPP
 #define ARROW_COMPONENT_HPP
 #pragma once
-#include "bintjekit/entity/component.hpp"
+#include "../../../../include/bintjekit/entity/components/component.hpp"
 #include "SFML/Graphics/Color.hpp"
 
 namespace evo::entity {

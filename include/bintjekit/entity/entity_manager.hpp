@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include "bintjekit/logger/logger.hpp"
 #include "bintjekit/entity/typed_collection.hpp"
-#include "bintjekit/entity/component_register.hpp"
+#include "components/component_register.hpp"
 
 namespace bnjkit::entity {
     class EntityManager {

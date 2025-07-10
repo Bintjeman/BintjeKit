@@ -4,7 +4,7 @@
  * @name component_register.cpp
  */
 
-#include "bintjekit/entity/component_register.hpp"
+#include "../../../include/bintjekit/entity/components/component_register.hpp"
 
 namespace bnjkit::entity {
 

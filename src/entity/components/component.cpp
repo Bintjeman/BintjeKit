@@ -4,6 +4,6 @@
  * @name component.cpp
  */
 
-#include "bintjekit/entity/component.hpp"
+#include "../../../include/bintjekit/entity/components/component.hpp"
 
 namespace bnjkit::entity {}

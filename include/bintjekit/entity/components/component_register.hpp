@@ -8,7 +8,7 @@
 #define COMPONENT_REGISTER_HPP
 #pragma once
 #include <unordered_map>
-#include "bintjekit/entity/component.hpp"
+#include "component.hpp"
 #include "bintjekit/entity/ientity.hpp"
 
 namespace bnjkit::entity {
