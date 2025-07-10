@@ -56,7 +56,7 @@ namespace bnjkit::entity {
         std::size_t size() const;
 
         template<typename ComponentType>
-        requires is_component<ComponentType>
+            requires is_component<ComponentType>
         void register_component();
 
         template<typename ComponentType>
@@ -86,6 +86,5 @@ namespace bnjkit::entity {
         std::shared_ptr<spdlog::logger> m_logger;
     };
 }
-
 #include "bintjekit/entity/entity_manager.inl"
 #endif // BNJKIT_ENTITY_MANAGER_HPP

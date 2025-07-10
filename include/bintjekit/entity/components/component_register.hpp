@@ -19,7 +19,7 @@ namespace bnjkit::entity {
 
     template<typename ComponentType>
         requires is_component<ComponentType>
-    class ComponentRegistry : public IComponentRegistry {
+    class ComponentRegistry final : public IComponentRegistry {
     public:
         void add(EntityId entity_id, ComponentType component);
 
@@ -34,6 +34,5 @@ namespace bnjkit::entity {
         std::unordered_map<EntityId, ComponentType> m_components;
     };
 }
-
-#include "bintjekit/entity/component_register.inl"
+#include "bintjekit/entity/components/component_register.inl"
 #endif //COMPONENT_REGISTER_HPP

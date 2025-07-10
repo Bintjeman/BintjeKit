@@ -7,7 +7,23 @@
 #ifndef BINTJEKIT_ENTITY_TYPED_COLLECTION_INL
 #define BINTJEKIT_ENTITY_TYPED_COLLECTION_INL
 #pragma once
+#include "bintjekit/entity/components/component_view.hpp"
+
 namespace bnjkit::entity {
+    template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
+    TypedCollection<
+        EntityType>::ViewBuilder::ViewBuilder(
+        const TypedCollection<EntityType>& collection): m_collection(collection) {}
+    template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
+    typename TypedCollection<EntityType>::ViewBuilder& TypedCollection<EntityType>::ViewBuilder::where(
+        std::function<bool(const EntityPtr&)> filter) {
+        m_filter = std::move(filter);
+        return * this;
+    }
+    template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
+    ComponentView<EntityType> TypedCollection<EntityType>::ViewBuilder::build() {
+        return ComponentView<EntityType>(m_collection, m_filter);
+    }
     template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
     void TypedCollection<EntityType>::add(const EntityPtr& entity) {
         if (!entity) { return; }
@@ -61,6 +77,10 @@ namespace bnjkit::entity {
     template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
     std::size_t TypedCollection<EntityType>::size() const {
         return m_entities.size();
+    }
+    template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
+    typename TypedCollection<EntityType>::ViewBuilder TypedCollection<EntityType>::create_view() const {
+        return ViewBuilder(* this);
     }
 }
 #endif // BINTJEKIT_ENTITY_TYPED_COLLECTION_INL

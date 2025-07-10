@@ -7,6 +7,7 @@
 #ifndef BINTJEKIT_ENTITY_TYPEDCOLLECTION_HPP
 #define BINTJEKIT_ENTITY_TYPEDCOLLECTION_HPP
 #pragma once
+#include <functional>
 #include <type_traits>
 #include <unordered_map>
 #include <vector>
@@ -14,6 +15,9 @@
 #include "bintjekit/entity/ientity.hpp"
 
 namespace bnjkit::entity {
+    template<typename T>
+    class ComponentView;
+
     class ITypedCollection {
     public:
         ITypedCollection();
@@ -27,6 +31,16 @@ namespace bnjkit::entity {
     class TypedCollection : public ITypedCollection {
     public:
         using EntityPtr = std::shared_ptr<EntityType>;
+        class ViewBuilder {
+        private:
+            const TypedCollection<EntityType>& m_collection;
+            std::function<bool(const EntityPtr&)> m_filter = [](const EntityPtr&) { return true; };
+
+        public:
+            explicit ViewBuilder(const TypedCollection<EntityType>& collection);
+            ViewBuilder& where(std::function<bool(const EntityPtr&)> filter);
+            ComponentView<EntityType> build();
+        };
         void add(const EntityPtr& entity);
         EntityPtr create();
         void remove(EntityId id);
@@ -35,6 +49,7 @@ namespace bnjkit::entity {
         const std::vector<EntityPtr>& entities() const;
         const std::unordered_map<EntityId, std::size_t>& registry() const;
         std::size_t size() const override;
+        ViewBuilder create_view() const;
 
     private:
         std::vector<std::shared_ptr<EntityType> > m_entities;
