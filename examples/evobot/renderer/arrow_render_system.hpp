@@ -50,7 +50,7 @@ namespace evo::renderer {
         }
         static void render(sf::RenderTarget& target, const bnjkit::entity::EntityManager& entity_manager) {
             const auto& evobots = entity_manager.get_collection<engine::Evobot>();
-            for (const auto& evobot: evobots.entities()) {
+            for (const auto& evobot: evobots.typed_entities()) {
                 if (const auto* arrow = entity_manager.get_component<entity::ArrowComponent>(evobot->id())) {
                     target.draw(make_line(* evobot, * arrow));
                     target.draw(make_head(* evobot, * arrow));
@@ -75,7 +75,7 @@ namespace evo::renderer {
             const auto& evobots = entity_manager.get_collection<engine::Evobot>();
             storage.clear();
             storage.reserve(evobots.entities().size());
-            for (const auto& evobot: evobots.entities()) {
+            for (const auto& evobot: evobots.typed_entities()) {
                 if (const auto* arrow = entity_manager.get_component<entity::ArrowComponent>(evobot->id())) {
                     storage.lines.push_back(make_line(* evobot, * arrow));
                     storage.heads.push_back(make_head(* evobot, * arrow));

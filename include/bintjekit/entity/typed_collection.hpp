@@ -7,53 +7,61 @@
 #ifndef BINTJEKIT_ENTITY_TYPEDCOLLECTION_HPP
 #define BINTJEKIT_ENTITY_TYPEDCOLLECTION_HPP
 #pragma once
-#include <functional>
-#include <type_traits>
-#include <unordered_map>
+#include <memory>
 #include <vector>
-
+#include <functional>
+#include <unordered_map>
 #include "bintjekit/entity/ientity.hpp"
+#include "bintjekit/entity/components/component_view.hpp"
+#include "bintjekit/entity/fwd.hpp"
+#include "bintjekit/entity/entity_collection.hpp"
 
 namespace bnjkit::entity {
     template<typename T>
     class ComponentView;
 
-    class ITypedCollection {
-    public:
-        ITypedCollection();
-        virtual ~ITypedCollection();
-        [[nodiscard]] virtual std::size_t size() const;
-
-    private:
-    };
     template<typename EntityType>
         requires std::is_base_of_v<IEntity, EntityType>
-    class TypedCollection : public ITypedCollection {
+    class TypedCollection : public EntityCollection {
     public:
         using EntityPtr = std::shared_ptr<EntityType>;
-        class ViewBuilder {
-        private:
-            const TypedCollection<EntityType>& m_collection;
-            std::function<bool(const EntityPtr&)> m_filter = [](const EntityPtr&) { return true; };
+        using BasePtr = EntityCollection::EntityPtr;
+        template<typename T = EntityType>
+            requires (!std::is_same_v<T, IEntity>)
+        void add(const std::shared_ptr<T>& entity);
 
-        public:
-            explicit ViewBuilder(const TypedCollection<EntityType>& collection);
-            ViewBuilder& where(std::function<bool(const EntityPtr&)> filter);
-            ComponentView<EntityType> build();
-        };
-        void add(const EntityPtr& entity);
+        void add(const BasePtr& entity) override;
         EntityPtr create();
-        void remove(EntityId id);
-        EntityPtr get(EntityId id) const;
-        std::vector<EntityPtr>& entities();
-        const std::vector<EntityPtr>& entities() const;
-        const std::unordered_map<EntityId, std::size_t>& registry() const;
-        std::size_t size() const override;
-        ViewBuilder create_view() const;
+
+        EntityPtr get_typed(EntityId id) const {
+            return std::dynamic_pointer_cast<EntityType>(EntityCollection::get(id));
+        }
+
+        BasePtr get(EntityId id) const override {
+            return EntityCollection::get(id);
+        }
+
+        std::vector<std::shared_ptr<EntityType> >& typed_entities() {
+            return reinterpret_cast<std::vector<std::shared_ptr<EntityType> >&>(m_entities);
+        }
+
+        const std::vector<std::shared_ptr<EntityType> >& typed_entities() const {
+            return reinterpret_cast<const std::vector<std::shared_ptr<EntityType> >&>(m_entities);
+        }
+        ComponentView<EntityType> create_typed_view() const {
+            return ComponentView<EntityType>(* this, [](const std::shared_ptr<EntityType>&) { return true; });
+        }
+
+        void remove(EntityId id) override;
+
+        using EntityCollection::entities;
+        using EntityCollection::registry;
+        using EntityCollection::size;
+        using EntityCollection::create_view;
 
     protected:
-        std::vector<std::shared_ptr<EntityType> > m_entities;
-        std::unordered_map<unsigned long, std::size_t> m_registry;
+        using EntityCollection::m_entities;
+        using EntityCollection::m_registry;
     };
 }
 

@@ -41,7 +41,7 @@ namespace evo {
                 circle.setFillColor(m_evobot_color_2);
                 circle.setOutlineThickness(1.f);
                 for (const auto& evobot: m_evobot_engine->entity_manager().get_collection<engine::Evobot>().
-                     entities()) {
+                     typed_entities()) {
                     if (evobot) {
                         circle.setPosition(evobot->bounds().position);
                         circle.setRadius(evobot->radius());
@@ -55,7 +55,7 @@ namespace evo {
                 circle.setFillColor(m_glob_color_2);
                 circle.setOutlineThickness(1.f);
                 for (const auto& glob: m_evobot_engine->entity_manager().get_collection<engine::Glob>().
-                     entities()) {
+                     typed_entities()) {
                     if (glob) {
                         circle.setPosition(glob->bounds().position);
                         circle.setRadius(glob->radius());

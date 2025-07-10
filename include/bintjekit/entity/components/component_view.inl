@@ -8,7 +8,7 @@
 #define COMPONENT_VIEW_INL
 #pragma once
 #include "bintjekit/entity/typed_collection.hpp"
-
+#include "bintjekit/entity/entity_collection.hpp"
 namespace bnjkit::entity {
     template<typename T>
     void ComponentView<T>::Iterator::find_next_valid() {
@@ -42,18 +42,16 @@ namespace bnjkit::entity {
         return * this;
     }
     template<typename T>
-    typename TypedCollection<T>::EntityPtr ComponentView<T>::Iterator::operator*() const {
-        if (m_view.m_is_frozen) {
-            return m_view.m_collection.entities()[m_view.m_frozen_indices[m_current_index]];
-        }
+    typename ComponentView<T>::EntityPtr ComponentView<T>::Iterator::operator*() const {
         return m_view.m_collection.entities()[m_current_index];
     }
     template<typename T>
-    ComponentView<T>::ComponentView(const TypedCollection<T>& collection,
-                                    std::function<bool(
-                                        const typename TypedCollection<T>::EntityPtr&)> filter): m_collection(
-            collection)
-        , m_filter(std::move(filter)) {}
+    ComponentView<T>::ComponentView(const EntityCollection& collection, std::function<bool(const EntityPtr&)> filter): m_collection(
+        collection) {
+        m_filter = filter;
+        m_is_frozen = false;
+    }
+
     template<typename T>
     typename ComponentView<T>::Iterator ComponentView<T>::begin() const {
         if (m_is_frozen) {

@@ -8,8 +8,6 @@ target_sources(bintjekit
         FILES
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_manager.inl
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_manager.hpp
-        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/combined_typed_collection.hpp
-        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/combined_typed_collection.inl
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.inl
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.hpp
@@ -18,6 +16,7 @@ target_sources(bintjekit
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/components/component_register.inl
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/components/component_register.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/components/component.hpp
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/fwd.hpp
 )
 target_sources(bintjekit PRIVATE
         entity_manager.cpp
