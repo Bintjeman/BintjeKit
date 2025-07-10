@@ -4,13 +4,14 @@
  * @name entity_manager.hpp
  */
 
-#ifndef ENTITY_MANAGER_HPP
-#define ENTITY_MANAGER_HPP
+#ifndef BNJKIT_ENTITY_MANAGER_HPP
+#define BNJKIT_ENTITY_MANAGER_HPP
 #pragma once
 #include <typeindex>
 #include <unordered_map>
-#include "bintjekit/entity/typed_collection.hpp"
 #include "bintjekit/logger/logger.hpp"
+#include "bintjekit/entity/typed_collection.hpp"
+#include "bintjekit/entity/component_register.hpp"
 
 namespace bnjkit::entity {
     class EntityManager {
@@ -53,8 +54,22 @@ namespace bnjkit::entity {
         void remove(EntityId id);
         void clear();
         std::size_t size() const;
+        template<typename ComponentType>
+            requires is_component<ComponentType>
+        void add_component(EntityId entity_id, ComponentType component);
+
+        template<typename ComponentType>
+            requires is_component<ComponentType>
+        ComponentType* get_component(EntityId entity_id);
+
+        template<typename ComponentType>
+            requires is_component<ComponentType>
+        bool has_component(EntityId entity_id) const;
 
     private:
+        template<typename ComponentType>
+        ComponentRegistry<ComponentType>& get_component_registry();
+        std::unordered_map<std::type_index, std::unique_ptr<IComponentRegistry> > m_component_registries;
         std::unordered_map<std::type_index, std::unique_ptr<ITypedCollection> > m_collections;
         std::unordered_map<EntityId, std::type_index> m_entity_types;
         std::shared_ptr<spdlog::logger> m_logger;
@@ -62,4 +77,4 @@ namespace bnjkit::entity {
 }
 
 #include "bintjekit/entity/entity_manager.inl"
-#endif //ENTITY_MANAGER_HPP
+#endif // BNJKIT_ENTITY_MANAGER_HPP

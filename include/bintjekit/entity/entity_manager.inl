@@ -8,7 +8,6 @@
 #define BINTJEKIT_ENTITY_ENTITY_MANAGER_INL
 #pragma once
 #include <type_traits>
-
 #include "entity_manager.hpp"
 #include "bintjekit/entity/ientity.hpp"
 
@@ -70,7 +69,7 @@ namespace bnjkit::entity {
     template<typename EntityType>
         requires std::is_base_of_v<IEntity, EntityType>
     void EntityManager::add(const std::shared_ptr<EntityType>& entity) {
-        static_assert(!std::is_void<EntityType>::value, "EntityType must be a complete type");
+        static_assert(!std::is_void_v<EntityType>, "EntityType must be a complete type");
         auto& collection = get_collection<EntityType>();
         auto type_index = std::type_index(typeid(EntityType));
         m_entity_types.emplace(entity->id(), type_index);
@@ -98,6 +97,35 @@ namespace bnjkit::entity {
             m_logger->warn("Collection {} does not exist", entity_type.name());
         }
         m_logger->warn("Entity {} does not exist", id);
+    }
+    template<typename ComponentType> requires is_component<ComponentType>
+    void EntityManager::add_component(EntityId entity_id, ComponentType component) {
+        get_component_registry<ComponentType>().add(entity_id, std::move(component));
+    }
+    template<typename ComponentType> requires is_component<ComponentType>
+    ComponentType* EntityManager::get_component(EntityId entity_id) {
+        return get_component_registry<ComponentType>().get(entity_id);
+    }
+    template<typename ComponentType> requires is_component<ComponentType>
+    bool EntityManager::has_component(EntityId entity_id) const {
+        return get_component_registry<ComponentType>().has(entity_id);
+    }
+    template<typename ComponentType>
+    ComponentRegistry<ComponentType>& EntityManager::get_component_registry() {
+        auto type_index = std::type_index(typeid(ComponentType));
+        auto it = m_component_registries.find(type_index);
+        if (it == m_component_registries.end()) {
+            auto [inserted_it, _] = m_component_registries.emplace(
+                type_index,
+                std::make_unique<ComponentRegistry<ComponentType> >()
+            );
+            return * static_cast<ComponentRegistry<ComponentType>*>(
+                inserted_it->second.get()
+            );
+        }
+        return * static_cast<ComponentRegistry<ComponentType>*>(
+            it->second.get()
+        );
     }
 }
 #endif // BINTJEKIT_ENTITY_ENTITY_MANAGER_INL

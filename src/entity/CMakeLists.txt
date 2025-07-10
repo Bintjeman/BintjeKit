@@ -11,11 +11,16 @@ target_sources(bintjekit
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.inl
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/component_register.inl
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/component.hpp
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/component_register.hpp
 )
 target_sources(bintjekit PRIVATE
         ientity.cpp
         entity_collection.cpp
         entity_manager.cpp
         typed_collection.cpp
+        component.cpp
+        component_register.cpp
 )
 ################################################################################
