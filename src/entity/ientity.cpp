@@ -53,6 +53,21 @@ namespace bnjkit::entity {
     bool IEntity::valid() const {
         return m_id != INVALID_ID;
     }
+    EntityState IEntity::state() const {
+        return m_state;
+    }
+    void IEntity::set_state(const EntityState state) {
+        m_state = state;
+    }
+    bool IEntity::is_active() const {
+        return m_state == EntityState::ACTIVE;
+    }
+    bool IEntity::is_dead() const {
+        return m_state == EntityState::DEAD;
+    }
+    bool IEntity::is_disabled() const {
+        return m_state == EntityState::DISABLED;
+    }
     void IEntity::update() {}
     std::size_t IEntity::next_id() {
         return s_next_id++;

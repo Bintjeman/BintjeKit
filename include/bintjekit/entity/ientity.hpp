@@ -10,6 +10,11 @@
 #include <memory>
 #include <spdlog/fwd.h>
 namespace bnjkit::entity {
+    enum class EntityState {
+        ACTIVE,
+        DEAD,
+        DISABLED
+    };
     using EntityId = std::size_t;
     class IEntity {
     public:
@@ -21,12 +26,18 @@ namespace bnjkit::entity {
         IEntity& operator=(IEntity&& other) noexcept;
         [[nodiscard]] EntityId id() const;
         [[nodiscard]] bool valid() const;
+        [[nodiscard]] EntityState state() const;
+        void set_state(EntityState state);
+        bool is_active() const;
+        bool is_dead() const;
+        bool is_disabled() const;
         virtual void update();
         static EntityId total_entities();
         static void set_logger(const std::shared_ptr<spdlog::logger>& logger);
     protected:
         static EntityId next_id();
         EntityId m_id;
+        EntityState m_state;
         static std::shared_ptr<spdlog::logger> s_logger;
         static EntityId s_total_entities;
         static EntityId s_next_id;

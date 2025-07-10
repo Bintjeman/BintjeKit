@@ -74,12 +74,12 @@ namespace bnjkit::entity {
         template<typename ComponentType>
             requires is_component<ComponentType>
         bool has_component(EntityId entity_id) const;
-
-    private:
         template<typename ComponentType>
         ComponentRegistry<ComponentType>& get_component_registry();
         template<typename ComponentType>
         const ComponentRegistry<ComponentType>& get_component_registry() const;
+    private:
+
         std::unordered_map<std::type_index, std::unique_ptr<IComponentRegistry> > m_component_registries;
         std::unordered_map<std::type_index, std::unique_ptr<ITypedCollection> > m_collections;
         std::unordered_map<EntityId, std::type_index> m_entity_types;

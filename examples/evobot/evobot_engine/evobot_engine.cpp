@@ -12,6 +12,7 @@
 #include <bintjekit/configuration/sfml_json_adapter.hpp>
 
 #include "components/arrow_component.hpp"
+#include "components/health.hpp"
 #include "evobot_engine/entity.hpp"
 #include "evobot_engine/evobot.hpp"
 #include "evobot_engine/glob.hpp"
@@ -23,6 +24,7 @@ namespace evo::engine {
         entity_manager().create_collection<Evobot>();
         entity_manager().create_collection<Glob>();
         entity_manager().register_component<entity::ArrowComponent>();
+        entity_manager().register_component<entity::Health>();
     }
 
     EvobotEngine::~EvobotEngine() {
@@ -50,6 +52,7 @@ namespace evo::engine {
         entity_manager().create_collection<Evobot>();
         entity_manager().create_collection<Glob>();
         entity_manager().register_component<entity::ArrowComponent>();
+        entity_manager().register_component<entity::Health>();
         // Configuration
         unsigned int start_bot = m_custom_settings.
                 get_or_set("/Rules/Generation/Start bot", 100u);
@@ -107,6 +110,10 @@ namespace evo::engine {
                 unsigned char b = bnjkit::utils::random::RandomEngine::get_int(0, 255);
                 sf::Color color = sf::Color{r, g, b};
                 entity_manager().add_component(evobot->id(), entity::ArrowComponent{color, 20.f});
+                auto has_health = bnjkit::utils::random::RandomEngine::get_bool();
+                if (has_health) {
+                    entity_manager().add_component(evobot->id(), entity::Health{60.f});
+                } else {}
             } else {}
         }
         for (unsigned int i = 0; i < start_glob; ++ i) {
@@ -138,6 +145,10 @@ namespace evo::engine {
                     bnjkit::utils::d2::rad_to_vec(angle_rnd);
             sf::Vector2f velocity = direction * speed;
             glob->set_velocity(velocity);
+            auto has_health = bnjkit::utils::random::RandomEngine::get_bool();
+            if (has_health) {
+                entity_manager().add_component(glob->id(), entity::Health{30.f});
+            } else {}
         }
         m_state = State::READY;
     }
@@ -146,16 +157,34 @@ namespace evo::engine {
         m_entity_manager->clear();
     }
     void EvobotEngine::update() {
+        auto& health_registry = entity_manager().get_component_registry<entity::Health>();
         m_play_ground->update();
         auto [evobots, globs] = m_entity_manager->get_collections<Evobot, Glob>();
         for (auto& evobot: evobots.get().entities()) {
-            evobot->update();
+            if (evobot->is_active()) {
+                evobot->update();
+            }
         }
         for (auto& glob: globs.get().entities()) {
-            glob->update();
+            if (glob->is_active()) {
+                glob->update();
+            }
+        }
+
+        auto health_view = evobots.get().create_view().where([&health_registry](const auto& entity) {
+            return health_registry.has(entity->id());
+        }).build();
+        for (auto entity: health_view) {
+            if (entity->is_active()) {
+                auto* health = health_registry.get(entity->id());
+                health->damage(1.f);
+                if (health->current() <= 0.f) {
+                    m_logger->debug("kill: {}", entity->id());
+                    entity->set_state(bnjkit::entity::EntityState::DEAD);
+                }
+            }
         }
     }
-
     bnjkit::entity::EntityManager& EvobotEngine::entity_manager() {
         return * m_entity_manager;
     }
