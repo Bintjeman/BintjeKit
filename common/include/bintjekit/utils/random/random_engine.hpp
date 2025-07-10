@@ -16,6 +16,7 @@ namespace bnjkit::utils::random {
 
         static void set_seed(unsigned int seed);
 
+        static bool get_bool();
         static float get_float(float min, float max);
         static int get_int(int min, int max);
 

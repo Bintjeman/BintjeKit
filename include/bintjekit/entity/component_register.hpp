@@ -19,11 +19,12 @@ namespace bnjkit::entity {
 
     template<typename ComponentType>
         requires is_component<ComponentType>
-    class ComponentRegistry : IComponentRegistry {
+    class ComponentRegistry : public IComponentRegistry {
     public:
         void add(EntityId entity_id, ComponentType component);
 
         ComponentType* get(EntityId entity_id);
+        const ComponentType* get(EntityId entity_id) const;
 
         [[nodiscard]] bool has(EntityId entity_id) const;
 

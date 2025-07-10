@@ -99,6 +99,16 @@ namespace bnjkit::entity {
         m_logger->warn("Entity {} does not exist", id);
     }
     template<typename ComponentType> requires is_component<ComponentType>
+    void EntityManager::register_component() {
+        auto type_index = std::type_index(typeid(ComponentType));
+        if (!m_component_registries.contains(type_index)) {
+            m_component_registries.emplace(
+                type_index,
+                std::make_unique<ComponentRegistry<ComponentType> >()
+            );
+        }
+    }
+    template<typename ComponentType> requires is_component<ComponentType>
     void EntityManager::add_component(EntityId entity_id, ComponentType component) {
         get_component_registry<ComponentType>().add(entity_id, std::move(component));
     }
@@ -107,9 +117,14 @@ namespace bnjkit::entity {
         return get_component_registry<ComponentType>().get(entity_id);
     }
     template<typename ComponentType> requires is_component<ComponentType>
+    const ComponentType* EntityManager::get_component(EntityId entity_id) const {
+        return get_component_registry<ComponentType>().get(entity_id);
+    }
+    template<typename ComponentType> requires is_component<ComponentType>
     bool EntityManager::has_component(EntityId entity_id) const {
         return get_component_registry<ComponentType>().has(entity_id);
     }
+
     template<typename ComponentType>
     ComponentRegistry<ComponentType>& EntityManager::get_component_registry() {
         auto type_index = std::type_index(typeid(ComponentType));
@@ -122,6 +137,17 @@ namespace bnjkit::entity {
             return * static_cast<ComponentRegistry<ComponentType>*>(
                 inserted_it->second.get()
             );
+        }
+        return * static_cast<ComponentRegistry<ComponentType>*>(
+            it->second.get()
+        );
+    }
+    template<typename ComponentType>
+    const ComponentRegistry<ComponentType>& EntityManager::get_component_registry() const {
+        auto type_index = std::type_index(typeid(ComponentType));
+        auto it = m_component_registries.find(type_index);
+        if (it == m_component_registries.end()) {
+            throw std::runtime_error("Component registry does not exist");
         }
         return * static_cast<ComponentRegistry<ComponentType>*>(
             it->second.get()

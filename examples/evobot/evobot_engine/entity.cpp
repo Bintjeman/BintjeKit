@@ -17,16 +17,16 @@ namespace engine {
     void Entity::update() {
         m_movable.update();
     }
-    D2::Position Entity::get_position() const {
+    D2::Position Entity::position() const {
         return m_movable.position;
     }
-    float Entity::get_radius() const {
+    float Entity::radius() const {
         return m_movable.radius;
     }
     D2::Bounds Entity::bounds() const {
         return m_movable.bounds();
     }
-    Movable::Velocity Entity::get_velocity() {
+    Movable::Velocity Entity::velocity() {
         return m_movable.velocity;
     }
     void Entity::set_position(D2::Position position) {

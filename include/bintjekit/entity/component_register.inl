@@ -18,6 +18,11 @@ namespace bnjkit::entity {
         return it != m_components.end() ? & it->second : nullptr;
     }
     template<typename ComponentType> requires is_component<ComponentType>
+    const ComponentType* ComponentRegistry<ComponentType>::get(EntityId entity_id) const {
+        auto it = m_components.find(entity_id);
+        return it != m_components.end() ? & it->second : nullptr;
+    }
+    template<typename ComponentType> requires is_component<ComponentType>
     bool ComponentRegistry<ComponentType>::has(EntityId entity_id) const {
         return m_components.contains(entity_id);
     }

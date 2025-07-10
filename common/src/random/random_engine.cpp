@@ -5,6 +5,7 @@
  */
 #include "bintjekit/utils/random/random_engine.hpp"
 #include <chrono>
+
 namespace bnjkit::utils::random {
     std::mt19937 RandomEngine::s_generator{
         static_cast<unsigned int>(
@@ -17,6 +18,9 @@ namespace bnjkit::utils::random {
     }
     void RandomEngine::set_seed(unsigned int seed) {
         s_generator.seed(seed);
+    }
+    bool RandomEngine::get_bool() {
+        return std::uniform_int_distribution<int>{0, 1}(s_generator) == 1;
     }
     float RandomEngine::get_float(float min, float max) {
         return std::uniform_real_distribution{min, max}(s_generator);

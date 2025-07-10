@@ -10,6 +10,8 @@
 #include <bintjekit/utils/random/random_engine.hpp>
 #include <bintjekit/utils/d2/d2.hpp>
 #include <bintjekit/configuration/sfml_json_adapter.hpp>
+
+#include "components/arrow_component.hpp"
 #include "evobot_engine/entity.hpp"
 #include "evobot_engine/evobot.hpp"
 #include "evobot_engine/glob.hpp"
@@ -18,8 +20,9 @@
 namespace evo::engine {
     EvobotEngine::EvobotEngine() {
         m_logger->info("EvobotEngine: created");
-        entity_manager().create_collection<engine::Evobot>();
-        entity_manager().create_collection<engine::Glob>();
+        entity_manager().create_collection<Evobot>();
+        entity_manager().create_collection<Glob>();
+        entity_manager().register_component<entity::ArrowComponent>();
     }
 
     EvobotEngine::~EvobotEngine() {
@@ -44,6 +47,9 @@ namespace evo::engine {
     void EvobotEngine::new_world() {
         m_logger->info("EvobotEngine: new world");
         m_entity_manager->clear();
+        entity_manager().create_collection<Evobot>();
+        entity_manager().create_collection<Glob>();
+        entity_manager().register_component<entity::ArrowComponent>();
         // Configuration
         unsigned int start_bot = m_custom_settings.
                 get_or_set("/Rules/Generation/Start bot", 100u);
@@ -94,6 +100,14 @@ namespace evo::engine {
                     bnjkit::utils::d2::rad_to_vec(angle_rnd);
             sf::Vector2f velocity = direction * speed;
             evobot->set_velocity(velocity);
+            bool random = bnjkit::utils::random::RandomEngine::get_bool();
+            if (random) {
+                unsigned char r = bnjkit::utils::random::RandomEngine::get_int(0, 255);
+                unsigned char g = bnjkit::utils::random::RandomEngine::get_int(0, 255);
+                unsigned char b = bnjkit::utils::random::RandomEngine::get_int(0, 255);
+                sf::Color color = sf::Color{r, g, b};
+                entity_manager().add_component(evobot->id(), entity::ArrowComponent{color, 20.f});
+            } else {}
         }
         for (unsigned int i = 0; i < start_glob; ++ i) {
             auto glob = m_entity_manager->create<Glob>();

@@ -12,6 +12,7 @@
 #include <bintjekit/configuration/sfml_json_adapter.hpp>
 #include <bintjekit/engine/play_ground.hpp>
 
+#include "arrow_render_system.hpp"
 #include "evobot_engine/entity.hpp"
 #include "evobot_engine/evobot.hpp"
 #include "evobot_engine/evobot_engine.hpp"
@@ -33,6 +34,7 @@ namespace evo {
                 bg.setFillColor(m_back_ground_color);
                 drawable_list.emplace_back(bg);
             }
+            ArrowRenderSystem::append_drawables(drawable_list, m_evobot_engine->entity_manager());
             circles.reserve(m_evobot_engine->entity_manager().size());
             if (m_draw_evobots) {
                 circle.setFillColor(m_evobot_color);
@@ -42,7 +44,7 @@ namespace evo {
                      entities()) {
                     if (evobot) {
                         circle.setPosition(evobot->bounds().position);
-                        circle.setRadius(evobot->get_radius());
+                        circle.setRadius(evobot->radius());
                         circles.emplace_back(circle);
                         drawable_list.emplace_back(circles.back());
                     }
@@ -56,7 +58,7 @@ namespace evo {
                      entities()) {
                     if (glob) {
                         circle.setPosition(glob->bounds().position);
-                        circle.setRadius(glob->get_radius());
+                        circle.setRadius(glob->radius());
                         circles.emplace_back(circle);
                         drawable_list.emplace_back(circles.back());
                     }

@@ -16,11 +16,11 @@ namespace evo {
         public:
             Entity();
             ~Entity() override;
-            virtual void update() override;
-            [[nodiscard]] D2::Position get_position() const;
-            [[nodiscard]] float get_radius() const;
+            void update() override;
+            [[nodiscard]] D2::Position position() const;
+            [[nodiscard]] float radius() const;
             [[nodiscard]] D2::Bounds bounds() const;
-            Movable::Velocity get_velocity();
+            Movable::Velocity velocity();
             void set_position(D2::Position position);
             void set_radius(float size);
             void set_velocity(Movable::Velocity velocity);
