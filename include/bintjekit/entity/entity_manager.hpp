@@ -9,8 +9,10 @@
 #pragma once
 #include <typeindex>
 #include <unordered_map>
+#include <utility>
 #include "bintjekit/logger/logger.hpp"
 #include "bintjekit/entity/typed_collection.hpp"
+#include "bintjekit/entity/combined_typed_collection.hpp"
 #include "components/component_register.hpp"
 
 namespace bnjkit::entity {
@@ -51,7 +53,9 @@ namespace bnjkit::entity {
             requires std::is_base_of_v<IEntity, EntityType>
         auto get(EntityId id);
 
-        void remove(EntityId id);
+        void mark_for_removal(EntityId id);
+        void process_pending_removals();
+
         void clear();
         std::size_t size() const;
 
@@ -78,13 +82,29 @@ namespace bnjkit::entity {
         ComponentRegistry<ComponentType>& get_component_registry();
         template<typename ComponentType>
         const ComponentRegistry<ComponentType>& get_component_registry() const;
+
+        template<typename ComponentType>
+        ComponentView<ComponentType>& create_view();
+        template<typename ComponentType>
+        const ComponentView<ComponentType>& create_view() const;
+
+        template<typename... EntityTypes>
+        ComponentView<IEntity> create_combined_view(
+            std::function<bool(const std::shared_ptr<IEntity>&)> filter);
+        template<typename... EntityTypes>
+        ComponentView<IEntity> create_combined_view(
+            std::function<bool(const std::shared_ptr<IEntity>&)> filter) const;
+
     private:
+        void remove(EntityId id);
 
         std::unordered_map<std::type_index, std::unique_ptr<IComponentRegistry> > m_component_registries;
         std::unordered_map<std::type_index, std::unique_ptr<ITypedCollection> > m_collections;
         std::unordered_map<EntityId, std::type_index> m_entity_types;
+        std::vector<EntityId> m_pending_removals;
         std::shared_ptr<spdlog::logger> m_logger;
     };
 }
+
 #include "bintjekit/entity/entity_manager.inl"
 #endif // BNJKIT_ENTITY_MANAGER_HPP

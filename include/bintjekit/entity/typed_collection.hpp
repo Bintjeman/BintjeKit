@@ -51,7 +51,7 @@ namespace bnjkit::entity {
         std::size_t size() const override;
         ViewBuilder create_view() const;
 
-    private:
+    protected:
         std::vector<std::shared_ptr<EntityType> > m_entities;
         std::unordered_map<unsigned long, std::size_t> m_registry;
     };

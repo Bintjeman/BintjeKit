@@ -181,9 +181,11 @@ namespace evo::engine {
                 if (health->current() <= 0.f) {
                     m_logger->debug("kill: {}", entity->id());
                     entity->set_state(bnjkit::entity::EntityState::DEAD);
+                    entity_manager().mark_for_removal(entity->id());
                 }
             }
         }
+        entity_manager().process_pending_removals();
     }
     bnjkit::entity::EntityManager& EvobotEngine::entity_manager() {
         return * m_entity_manager;

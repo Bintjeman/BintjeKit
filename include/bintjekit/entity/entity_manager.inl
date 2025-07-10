@@ -153,5 +153,27 @@ namespace bnjkit::entity {
             it->second.get()
         );
     }
+    template<typename ComponentType>
+    ComponentView<ComponentType>& EntityManager::create_view() {
+        return get_component_registry<ComponentType>().create_view();
+    }
+    template<typename ComponentType>
+    const ComponentView<ComponentType>& EntityManager::create_view() const {
+        return get_component_registry<ComponentType>().create_view();
+    }
+    template<typename... EntityTypes>
+    ComponentView<IEntity> EntityManager::create_combined_view(
+        std::function<bool(const std::shared_ptr<IEntity>&)> filter) {
+        static CombinedTypedCollection combined_collection;
+        combined_collection.combine_collections<EntityTypes...>(* this);
+        return combined_collection.create_view().where(std::move(filter)).build();
+    }
+    template<typename... EntityTypes>
+    ComponentView<IEntity> EntityManager::create_combined_view(
+        std::function<bool(const std::shared_ptr<IEntity>&)> filter) const {
+        static CombinedTypedCollection combined_collection;
+        combined_collection.combine_collections<EntityTypes...>(* this);
+        return combined_collection.create_view().where(std::move(filter)).build();
+    }
 }
 #endif // BINTJEKIT_ENTITY_ENTITY_MANAGER_INL

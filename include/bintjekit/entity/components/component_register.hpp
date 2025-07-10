@@ -15,6 +15,7 @@ namespace bnjkit::entity {
     class IComponentRegistry {
     public:
         virtual ~IComponentRegistry() = default;
+        virtual void remove(EntityId entity_id) = 0;
     };
 
     template<typename ComponentType>
@@ -28,7 +29,7 @@ namespace bnjkit::entity {
 
         [[nodiscard]] bool has(EntityId entity_id) const;
 
-        void remove(EntityId entity_id);
+        void remove(EntityId entity_id) override;
 
     private:
         std::unordered_map<EntityId, ComponentType> m_components;

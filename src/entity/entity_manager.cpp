@@ -14,17 +14,27 @@ namespace bnjkit::entity {
     }
 
     EntityManager::~EntityManager() {}
-    void EntityManager::remove(const EntityId id){
-        if (m_entity_types.contains(id)) {
-            const auto entity_type = m_entity_types.find(id)->second;
-            if (m_collections.contains(entity_type)) {
-                auto& collection = * static_cast<TypedCollection<IEntity>*>(m_collections.at(entity_type)
-                    .get());
-                collection.remove(id);
+
+    void EntityManager::mark_for_removal(EntityId id) {
+        m_pending_removals.push_back(id);
+    }
+    void EntityManager::process_pending_removals() {
+        for (auto id: m_pending_removals) {
+            if (m_entity_types.contains(id)) {
+                const auto entity_type = m_entity_types.find(id)->second;
+                if (m_collections.contains(entity_type)) {
+                    auto& collection = * static_cast<TypedCollection<IEntity>*>(m_collections.at(entity_type).
+                        get());
+                    // Supprime les composants associés
+                    for (auto& [type, registry]: m_component_registries) {
+                        registry->remove(id);
+                    }
+                    collection.remove(id);
+                    m_entity_types.erase(id);
+                }
             }
-            m_logger->warn("Collection {} does not exist", entity_type.name());
         }
-        m_logger->warn("Entity {} does not exist", id);
+        m_pending_removals.clear();
     }
     void EntityManager::clear() {
         m_collections.clear();
@@ -36,5 +46,17 @@ namespace bnjkit::entity {
             size += collection.second->size();
         }
         return size;
+    }
+    void EntityManager::remove(const EntityId id) {
+        if (m_entity_types.contains(id)) {
+            const auto entity_type = m_entity_types.find(id)->second;
+            if (m_collections.contains(entity_type)) {
+                auto& collection = * static_cast<TypedCollection<IEntity>*>(m_collections.at(entity_type)
+                    .get());
+                collection.remove(id);
+            }
+            m_logger->warn("Collection {} does not exist", entity_type.name());
+        }
+        m_logger->warn("Entity {} does not exist", id);
     }
 }
