@@ -15,7 +15,7 @@ namespace bnjkit::window {
      * configuring, displaying, and managing SFML-based events for the main
      * application window.
      */
-    class DefaultMainWindow : public IMainWindow{
+    class DefaultMainWindow final : public IMainWindow{
 public:
     DefaultMainWindow();
     ~DefaultMainWindow() override;

@@ -22,7 +22,7 @@ namespace bnjkit::entity {
 
     template<typename EntityType>
         requires std::is_base_of_v<IEntity, EntityType>
-    class TypedCollection : public EntityCollection {
+    class TypedCollection final : public EntityCollection {
     public:
         using EntityPtr = std::shared_ptr<EntityType>;
         using BasePtr = EntityCollection::EntityPtr;
