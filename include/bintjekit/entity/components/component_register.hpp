@@ -14,8 +14,9 @@
 namespace bnjkit::entity {
     class IComponentRegistry {
     public:
-        virtual ~IComponentRegistry() = default;
-        virtual void remove(EntityId entity_id) = 0;
+        virtual ~IComponentRegistry();
+        virtual void remove(EntityId entity_id) =0;
+        virtual void clear() =0;
     };
 
     template<typename ComponentType>
@@ -30,10 +31,12 @@ namespace bnjkit::entity {
         [[nodiscard]] bool has(EntityId entity_id) const;
 
         void remove(EntityId entity_id) override;
+        void clear() override;
 
     private:
         std::unordered_map<EntityId, ComponentType> m_components;
     };
 }
+
 #include "bintjekit/entity/components/component_register.inl"
 #endif //COMPONENT_REGISTER_HPP

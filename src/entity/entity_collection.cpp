@@ -48,4 +48,8 @@ namespace bnjkit::entity {
         if (it == m_registry.end()) return nullptr;
         return m_entities[it->second];
     }
+    void EntityCollection::clear() {
+        m_entities.clear();
+        m_registry.clear();
+    }
 }

@@ -34,7 +34,7 @@ namespace bnjkit::entity {
         virtual void add(const EntityPtr& entity);
         virtual void remove(EntityId id);
         virtual EntityPtr get(EntityId id) const;
-
+        virtual void clear();
         virtual std::vector<EntityPtr>& entities() { return m_entities; }
         virtual const std::vector<EntityPtr>& entities() const { return m_entities; }
         virtual const std::unordered_map<EntityId, std::size_t>& registry() const { return m_registry; }

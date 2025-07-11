@@ -37,8 +37,12 @@ namespace bnjkit::entity {
         m_pending_removals.clear();
     }
     void EntityManager::clear() {
-        m_collections.clear();
-        m_entity_types.clear();
+        for (auto& [type, collection]: m_collections) {
+            collection->clear();
+        }
+        for (auto& [type, registry]: m_component_registries) {
+            registry->clear();
+        }
     }
     std::size_t EntityManager::size() const {
         std::size_t size = 0;

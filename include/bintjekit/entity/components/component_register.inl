@@ -30,5 +30,9 @@ namespace bnjkit::entity {
     void ComponentRegistry<ComponentType>::remove(EntityId entity_id) {
         m_components.erase(entity_id);
     }
+    template<typename ComponentType> requires is_component<ComponentType>
+    void ComponentRegistry<ComponentType>::clear() {
+        m_components.clear();   
+    }
 }
 #endif //COMPONENT_REGISTER_INL

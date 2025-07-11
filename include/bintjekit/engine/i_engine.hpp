@@ -14,16 +14,16 @@
 #include "bintjekit/entity/ientity.hpp"
 
 namespace bnjkit {
-    namespace entity {
-        class EntityManager;
-    }
+    // namespace entity {
+    //     class EntityManager;
+    // }
 
     namespace engine {
         struct PlayGround;
 
         class IEngine : public core::IModule, public event::IEventListener {
         public:
-            using BaseEntity = entity::IEntity;
+            // using BaseEntity = entity::IEntity;
 
             enum class State {
                 READY,
@@ -42,7 +42,7 @@ namespace bnjkit {
         protected:
             State m_state{State::EMPTY};
             std::unique_ptr<PlayGround> m_play_ground;
-            std::unique_ptr<entity::EntityManager > m_entity_manager;
+            // std::unique_ptr<entity::EntityManager > m_entity_manager;
             std::shared_ptr<spdlog::logger> m_logger;
 
         public:

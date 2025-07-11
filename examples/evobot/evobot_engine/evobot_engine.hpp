@@ -8,11 +8,13 @@
 #pragma once
 #include <bintjekit/engine.hpp>
 #include <bintjekit/entity/entity_manager.hpp>
-#include "entity.hpp"
 
+#include "entity_manager.hpp"
+
+// #include "entity_manager.hpp"
 namespace evo::engine {
     class EvobotEngine final : public bnjkit::engine::IEngine {
-        using Entity = bnjkit::entity::IEntity;
+        // using Entity = bnjkit::entity::IEntity;
 
     public:
         EvobotEngine();
@@ -37,6 +39,8 @@ namespace evo::engine {
         float m_glob_min_radius{1.f};
         float m_glob_max_radius{10.f};
         float m_glob_max_speed{1.f};
+        // std::unique_ptr<bnjkit::entity::EntityManager> m_entity_manager;
+        std::unique_ptr<evo::entity::EvoEntityManager> m_entity_manager;
     };
 }
 

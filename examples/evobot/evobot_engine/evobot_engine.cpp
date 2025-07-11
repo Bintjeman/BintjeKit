@@ -10,10 +10,11 @@
 #include <bintjekit/utils/random/random_engine.hpp>
 #include <bintjekit/utils/d2/d2.hpp>
 #include <bintjekit/configuration/sfml_json_adapter.hpp>
+#include <bintjekit/entity/entity_manager.hpp>
 
 #include "components/arrow_component.hpp"
 #include "components/health.hpp"
-#include "evobot_engine/entity.hpp"
+// #include "evobot_engine/entity.hpp"
 #include "evobot_engine/evobot.hpp"
 #include "evobot_engine/glob.hpp"
 #include "evobot_engine/components/d2.hpp"
@@ -21,10 +22,11 @@
 namespace evo::engine {
     EvobotEngine::EvobotEngine() {
         m_logger->info("EvobotEngine: created");
-        entity_manager().create_collection<Evobot>();
-        entity_manager().create_collection<Glob>();
-        entity_manager().register_component<entity::ArrowComponent>();
-        entity_manager().register_component<entity::Health>();
+        m_entity_manager = std::make_unique<evo::entity::EvoEntityManager>();
+        // entity_manager().create_collection<Evobot>();
+        // entity_manager().create_collection<Glob>();
+        // entity_manager().register_component<entity::ArrowComponent>();
+        // entity_manager().register_component<entity::Health>();
     }
 
     EvobotEngine::~EvobotEngine() {
@@ -49,10 +51,10 @@ namespace evo::engine {
     void EvobotEngine::new_world() {
         m_logger->info("EvobotEngine: new world");
         m_entity_manager->clear();
-        entity_manager().create_collection<Evobot>();
-        entity_manager().create_collection<Glob>();
-        entity_manager().register_component<entity::ArrowComponent>();
-        entity_manager().register_component<entity::Health>();
+        // entity_manager().create_collection<Evobot>();
+        // entity_manager().create_collection<Glob>();
+        // entity_manager().register_component<entity::ArrowComponent>();
+        // entity_manager().register_component<entity::Health>();
         // Configuration
         unsigned int start_bot = m_custom_settings.
                 get_or_set("/Rules/Generation/Start bot", 100u);

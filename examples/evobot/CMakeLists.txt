@@ -15,6 +15,7 @@ target_sources(evobot PRIVATE
         renderer/renderer.cpp
         # engine
         evobot_engine/evobot_engine.cpp
+        evobot_engine/entity_manager.cpp
         evobot_engine/evobot.cpp
         evobot_engine/bot.cpp
         evobot_engine/components/d2.cpp

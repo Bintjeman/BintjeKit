@@ -54,26 +54,20 @@ namespace bnjkit::entity {
 
         void mark_for_removal(EntityId id);
         void process_pending_removals();
-
         void clear();
         std::size_t size() const;
-
         template<typename ComponentType>
             requires is_component<ComponentType>
         void register_component();
-
         template<typename ComponentType>
             requires is_component<ComponentType>
         void add_component(EntityId entity_id, ComponentType component);
-
         template<typename ComponentType>
             requires is_component<ComponentType>
         ComponentType* get_component(EntityId entity_id);
-
         template<typename ComponentType>
             requires is_component<ComponentType>
         const ComponentType* get_component(EntityId entity_id) const;
-
         template<typename ComponentType>
             requires is_component<ComponentType>
         bool has_component(EntityId entity_id) const;
@@ -81,7 +75,6 @@ namespace bnjkit::entity {
         ComponentRegistry<ComponentType>& get_component_registry();
         template<typename ComponentType>
         const ComponentRegistry<ComponentType>& get_component_registry() const;
-
         template<typename ComponentType>
         ComponentView<ComponentType>& create_view();
         template<typename ComponentType>
