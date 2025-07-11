@@ -6,6 +6,7 @@
 
 #include "bintjekit/entity/entity_collection.hpp"
 #include "bintjekit/entity/components/component_view.hpp"
+
 namespace bnjkit::entity {
     EntityCollection::ViewBuilder::ViewBuilder(const EntityCollection& collection)
         : m_collection(collection) {}
@@ -17,18 +18,18 @@ namespace bnjkit::entity {
     }
 
     ComponentView<IEntity> EntityCollection::ViewBuilder::build() {
-        return ComponentView(m_collection, m_filter);
+        return {m_collection, m_filter};
     }
 
     void EntityCollection::add(const EntityPtr& entity) {
         if (!entity) return;
-        auto id = entity->id();
+        const auto id = entity->id();
         m_entities.push_back(entity);
         m_registry[id] = m_entities.size() - 1;
     }
 
     void EntityCollection::remove(const EntityId id) {
-        auto it = m_registry.find(id);
+        const auto it = m_registry.find(id);
         if (it == m_registry.end()) return;
 
         const std::size_t index = it->second;
@@ -42,7 +43,7 @@ namespace bnjkit::entity {
     }
 
     EntityCollection::EntityPtr EntityCollection::get(const EntityId id) const {
-        auto it = m_registry.find(id);
+        const auto it = m_registry.find(id);
         if (it == m_registry.end()) return nullptr;
         return m_entities[it->second];
     }

@@ -50,7 +50,7 @@ namespace bnjkit::event {
     void EventManager::register_listener(IEventListener* listener) {
         m_logger->debug("Registering listener");
         if (listener) {
-            if (std::find(m_listeners.begin(), m_listeners.end(), listener) == m_listeners.
+            if (std::ranges::find(m_listeners, listener) == m_listeners.
                 end()) {
                 m_listeners.push_back(listener);
             }
@@ -59,7 +59,7 @@ namespace bnjkit::event {
 
     void EventManager::unregister_listener(IEventListener* listener) {
         m_logger->debug("Unregistering listener");
-        auto it = std::remove(m_listeners.begin(), m_listeners.end(), listener);
+        const auto it = std::ranges::remove(m_listeners, listener).begin();
         m_listeners.erase(it, m_listeners.end());
     }
     void EventManager::set_core_event_handler_settings(const conf::Node& settings) {
@@ -70,7 +70,7 @@ namespace bnjkit::event {
         m_logger->debug("Setting core event handler custom settings");
         m_core_event_handler->set_custom(settings);
     }
-    ICoreEventHandler* EventManager::get_core_event_handler() {
+    ICoreEventHandler* EventManager::get_core_event_handler() const {
         return m_core_event_handler.get();
     }
     void EventManager::configure()  {

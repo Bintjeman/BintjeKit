@@ -18,8 +18,7 @@ void bnjkit::core::IModule::on_quit() {
 void bnjkit::core::IModule::set_settings(const conf::Node& settings) {
     conf::Node tmp_json_arg = settings;
     if (!m_settings.get_json().empty()) {
-        nlohmann::json tmp_json;
-        tmp_json = m_settings.get_json();
+        const nlohmann::json tmp_json = m_settings.get_json();
         tmp_json_arg.merge_with_json(tmp_json);
     }
     m_settings = tmp_json_arg;
@@ -27,8 +26,7 @@ void bnjkit::core::IModule::set_settings(const conf::Node& settings) {
 void bnjkit::core::IModule::set_custom(const conf::Node& settings) {
     conf::Node tmp_json_arg = settings;
     if (!m_custom_settings.get_json().empty()) {
-        nlohmann::json tmp_json;
-        tmp_json = m_custom_settings.get_json();
+        const nlohmann::json tmp_json = m_custom_settings.get_json();
         tmp_json_arg.merge_with_json(tmp_json);
     }
     m_custom_settings = tmp_json_arg;

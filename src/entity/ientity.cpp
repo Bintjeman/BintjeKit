@@ -3,7 +3,7 @@
  * @date 26.06.25
  * @name entity.cpp
  */
-#include <utility>
+// #include <utility>
 #include <spdlog/spdlog.h>
 #include "bintjekit/entity/ientity.hpp"
 
@@ -25,23 +25,23 @@ namespace bnjkit::entity {
         return * this;
     }
     IEntity::IEntity(IEntity&& other) noexcept : m_id(other.m_id), m_state(other.m_state) {
-        other.m_id = m_s_invalid_id;
+        other.m_id = s_invalid_id;
         other.m_state = EntityState::DISABLED;
     }
     IEntity& IEntity::operator=(IEntity&& other) noexcept {
         if (this != & other) {
-            if (m_id != m_s_invalid_id) {
+            if (m_id != s_invalid_id) {
                 -- m_s_total_entities;
             }
             m_id = other.m_id;
             m_state = other.m_state;
-            other.m_id = m_s_invalid_id;
+            other.m_id = s_invalid_id;
             other.m_state = EntityState::DISABLED;
         }
         return * this;
     }
     IEntity::~IEntity() {
-        if (m_id != m_s_invalid_id) {
+        if (m_id != s_invalid_id) {
             // Ne décrémenter que si l'entité était valide
             -- m_s_total_entities;
         }
@@ -54,7 +54,7 @@ namespace bnjkit::entity {
         return m_id;
     }
     bool IEntity::valid() const {
-        return m_id != m_s_invalid_id;
+        return m_id != s_invalid_id;
     }
     EntityState IEntity::state() const {
         return m_state;

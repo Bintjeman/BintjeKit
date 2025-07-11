@@ -42,7 +42,7 @@ namespace bnjkit::conf {
 
     Node::~Node() = default;
 
-    void Node::merge_with_json(const nlohmann::json& json) const {
+    void Node::merge_with_json(const nlohmann::json& json) {
         m_logger->trace("Merging settings with json");
         merge_json(*m_json, json);
     }
@@ -50,7 +50,7 @@ namespace bnjkit::conf {
     Node Node::create_child(const nlohmann::json::json_pointer& key) const {
         m_logger->trace("Creating child node");
         m_logger->trace("Nodes count: {}", node_count());
-        auto child_branch = m_branch / key;
+        const auto child_branch = m_branch / key;
         if (!m_json->contains(child_branch)) {
             (*m_json)[child_branch] = nlohmann::json::object();
         }

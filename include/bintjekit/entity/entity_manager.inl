@@ -27,7 +27,7 @@ namespace bnjkit::entity {
     template<typename EntityType>
         requires std::is_base_of_v<IEntity, EntityType>
     TypedCollection<EntityType>& EntityManager::get_collection() {
-        auto type_index = std::type_index(typeid(EntityType));
+        const auto type_index = std::type_index(typeid(EntityType));
         auto it = m_collections.find(type_index);
         if (it == m_collections.end()) {
             m_logger->warn("Collection {} does not exist", type_index.name());
@@ -40,8 +40,8 @@ namespace bnjkit::entity {
     template<typename EntityType>
         requires std::is_base_of_v<IEntity, EntityType>
     const TypedCollection<EntityType>& EntityManager::get_collection() const {
-        auto type_index = std::type_index(typeid(EntityType));
-        auto it = m_collections.find(type_index);
+        const auto type_index = std::type_index(typeid(EntityType));
+        const auto it = m_collections.find(type_index);
         if (it == m_collections.end()) {
             m_logger->warn("Collection {} does not exist", type_index.name());
             throw std::runtime_error("Collection does not exist");
@@ -88,7 +88,7 @@ namespace bnjkit::entity {
         requires std::is_base_of_v<IEntity, EntityType>
     auto EntityManager::get(EntityId id) {
         if (m_entity_types.contains(id)) {
-            auto entity_type = m_entity_types.find(id)->second;
+            const auto entity_type = m_entity_types.find(id)->second;
             if (m_collections.contains(entity_type)) {
                 auto& collection = * static_cast<TypedCollection<EntityType>*>(m_collections.at(entity_type)
                     .get());
@@ -127,7 +127,7 @@ namespace bnjkit::entity {
     template<typename ComponentType>
     ComponentRegistry<ComponentType>& EntityManager::get_component_registry() {
         auto type_index = std::type_index(typeid(ComponentType));
-        auto it = m_component_registries.find(type_index);
+        const auto it = m_component_registries.find(type_index);
         if (it == m_component_registries.end()) {
             auto [inserted_it, _] = m_component_registries.emplace(
                 type_index,
@@ -143,8 +143,8 @@ namespace bnjkit::entity {
     }
     template<typename ComponentType>
     const ComponentRegistry<ComponentType>& EntityManager::get_component_registry() const {
-        auto type_index = std::type_index(typeid(ComponentType));
-        auto it = m_component_registries.find(type_index);
+        const auto type_index = std::type_index(typeid(ComponentType));
+        const auto it = m_component_registries.find(type_index);
         if (it == m_component_registries.end()) {
             throw std::runtime_error("Component registry does not exist");
         }

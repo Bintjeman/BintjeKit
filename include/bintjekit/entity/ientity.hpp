@@ -43,7 +43,7 @@ namespace bnjkit::entity {
         static std::shared_ptr<spdlog::logger> m_s_logger;
         static EntityId m_s_total_entities;
         static EntityId m_s_next_id;
-        static constexpr EntityId m_s_invalid_id = std::numeric_limits<EntityId>::max();
+        static constexpr EntityId s_invalid_id = std::numeric_limits<EntityId>::max();
     }; // Entity
 }
 

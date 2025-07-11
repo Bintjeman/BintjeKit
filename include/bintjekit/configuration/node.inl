@@ -8,27 +8,27 @@
 #pragma once
 namespace bnjkit::conf {
     template<typename T>
-    T Node::get(const nlohmann::json::json_pointer& key, const T& defaultValue) const {
-        auto ptr = m_branch / key;
+    T Node::get(const nlohmann::json::json_pointer& key, const T& default_value) const {
+        const nlohmann::json_pointer<std::string> ptr = m_branch / key;
         if (!m_json->contains(ptr)) {
-            return defaultValue;
+            return default_value;
         }
         return m_json->at(ptr).get<T>();
     }
     template<typename T>
     T Node::get(const nlohmann::json::json_pointer& key) const {
-        auto ptr = m_branch / key;
+        const auto ptr = m_branch / key;
         if (!m_json->contains(ptr)) {
             return T{};
         }
         return m_json->at(ptr).get<T>();
     }
     template<typename T>
-    T Node::get_or_set(const nlohmann::json::json_pointer& key, const T& defaultValue) {
-        auto ptr = m_branch / key;
+    T Node::get_or_set(const nlohmann::json::json_pointer& key, const T& default_value) {
+        const nlohmann::json_pointer<std::string> ptr = m_branch / key;
         if (!m_json->contains(ptr)) {
-            (* m_json)[m_branch / key] = defaultValue;
-            return defaultValue;
+            (* m_json)[m_branch / key] = default_value;
+            return default_value;
         }
         return m_json->at(ptr).get<T>();
     }
@@ -37,8 +37,8 @@ namespace bnjkit::conf {
         (* m_json)[m_branch / key] = value;
     }
     template<typename T>
-    T Node::get(const std::string& key, const T& defaultValue) const {
-        return get<T>(nlohmann::json::json_pointer(key), defaultValue);
+    T Node::get(const std::string& key, const T& default_value) const {
+        return get<T>(nlohmann::json::json_pointer(key), default_value);
     }
     template<typename T>
     T Node::get(const std::string& key) const {

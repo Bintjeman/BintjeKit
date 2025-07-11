@@ -10,7 +10,7 @@
 #include <SFML/Window/Event.hpp>
 #include "bintjekit/event_manager/i_core_event_handler.hpp"
 namespace bnjkit::event {
-    class DefaultCoreEventHandler : public ICoreEventHandler {
+    class DefaultCoreEventHandler final : public ICoreEventHandler {
     public:
         void on_sfml_event(const sf::Event& event) override;
         [[nodiscard]] std::string name() const override;
