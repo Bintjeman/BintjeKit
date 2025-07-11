@@ -8,10 +8,10 @@
 
 namespace gol {
     GameOfLifeRenderer::GameOfLifeRenderer(): m_gol(nullptr) {
-        cell_shape.setSize({CELL_SIZE, CELL_SIZE});
-        cell_shape.setFillColor(sf::Color::White); // ou une autre couleur visible
-        cell_shape.setOutlineColor(sf::Color::Black);
-        cell_shape.setOutlineThickness(0.5f);
+        m_cell_shape.setSize({m_s_cell_size, m_s_cell_size});
+        m_cell_shape.setFillColor(sf::Color::White); // ou une autre couleur visible
+        m_cell_shape.setOutlineColor(sf::Color::Black);
+        m_cell_shape.setOutlineThickness(0.5f);
     }
     void GameOfLifeRenderer::get_drawable(
         std::vector<std::reference_wrapper<sf::Drawable> >& drawable_list) const {
@@ -27,9 +27,9 @@ namespace gol {
             for (size_t x = 0; x < grid[y].size(); ++ x) {
                 if (grid[y][x]) {
                     cellules_vivantes++;
-                    m_cells.emplace_back(cell_shape);
+                    m_cells.emplace_back(m_cell_shape);
                     m_cells.back().setPosition({
-                        static_cast<float>(x) * CELL_SIZE, static_cast<float>(y) * CELL_SIZE
+                        static_cast<float>(x) * m_s_cell_size, static_cast<float>(y) * m_s_cell_size
                     });
                     drawable_list.emplace_back(std::ref(m_cells.back()));
                 }
@@ -43,7 +43,7 @@ namespace gol {
     sf::Rect<float> GameOfLifeRenderer::get_bounds() const {
         return {
             {0.f, 0.f},
-            {m_engine->play_ground().size.x * CELL_SIZE, m_engine->play_ground().size.y * CELL_SIZE}
+            {m_engine->play_ground().size.x * m_s_cell_size, m_engine->play_ground().size.y * m_s_cell_size}
         };
     }
 } // gol

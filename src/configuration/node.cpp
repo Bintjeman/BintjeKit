@@ -42,12 +42,12 @@ namespace bnjkit::conf {
 
     Node::~Node() = default;
 
-    void Node::merge_with_json(const nlohmann::json& json) {
+    void Node::merge_with_json(const nlohmann::json& json) const {
         m_logger->trace("Merging settings with json");
         merge_json(*m_json, json);
     }
 
-    Node Node::create_child(const nlohmann::json::json_pointer& key) {
+    Node Node::create_child(const nlohmann::json::json_pointer& key) const {
         m_logger->trace("Creating child node");
         m_logger->trace("Nodes count: {}", node_count());
         auto child_branch = m_branch / key;
@@ -71,7 +71,7 @@ namespace bnjkit::conf {
         return m_json->get<nlohmann::json>().at(m_branch);
     }
 
-    void Node::reset_to_defaults() {
+    void Node::reset_to_defaults() const {
         if (!m_default_values) {
             throw std::runtime_error("Default values not initialized");
         }

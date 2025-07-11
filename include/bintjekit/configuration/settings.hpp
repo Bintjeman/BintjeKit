@@ -31,7 +31,7 @@ namespace bnjkit::conf {
         [[nodiscard]] std::string to_string() const;
         [[nodiscard]] std::stringstream to_stream() const;
         void set_path(const std::filesystem::path& path);
-        void set_default_values(const nlohmann::json& default_values);
+        void set_default_values(const nlohmann::json& default_values) const;
 
     private:
         std::filesystem::path m_path;

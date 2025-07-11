@@ -11,7 +11,7 @@
 #include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
-#include "bintjekit/entity/ientity.hpp"
+// #include "bintjekit/entity/ientity.hpp"
 
 namespace bnjkit {
     // namespace entity {

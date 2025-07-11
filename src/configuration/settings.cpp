@@ -15,7 +15,7 @@ namespace bnjkit::conf {
 
     Settings::~Settings() = default;
 
-    void Settings::load_from_json(const nlohmann::json& json, bool merge_default) {
+    void Settings::load_from_json(const nlohmann::json& json, const bool merge_default) {
         m_logger->debug("Loading settings from json");
         if (json.empty()) {
             m_logger->warn("Le JSON reçu est vide");
@@ -51,7 +51,7 @@ namespace bnjkit::conf {
         m_path = path;
     }
 
-    void Settings::set_default_values(const nlohmann::json& default_values) {
+    void Settings::set_default_values(const nlohmann::json& default_values) const {
         *m_default_values = default_values;
     }
 }

@@ -19,8 +19,7 @@ namespace gol {
         for (unsigned long y = 0; y < GRID_HEIGHT; ++ y) {
             for (unsigned long x = 0; x < GRID_WIDTH; ++ x) {
                 const unsigned long neighbors = count_neighbors(x, y);
-                const bool current_cell = m_grid[y][x];
-                if (current_cell && (neighbors < 2 || neighbors > 3)) {
+                if (const bool current_cell = m_grid[y][x]; current_cell && (neighbors < 2 || neighbors > 3)) {
                     m_next_grid[y][x] = false;
                 } else if (!current_cell && neighbors == 3) {
                     m_next_grid[y][x] = true;
@@ -36,7 +35,7 @@ namespace gol {
         return m_grid;
     }
 
-    unsigned long GameOfLife::count_neighbors(unsigned long x, unsigned long y) {
+    unsigned long GameOfLife::count_neighbors(const unsigned long x, const unsigned long y) {
         unsigned long count = 0ul;
         for (long dy = - 1l; dy <= 1l; ++ dy) {
             for (long dx = - 1l; dx <= 1l; ++ dx) {

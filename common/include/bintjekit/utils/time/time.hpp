@@ -13,8 +13,8 @@ namespace bnjkit::utils::time {
     using Duration = std::chrono::microseconds;
     class Clock {
     public:
-        using clock_type = std::chrono::high_resolution_clock;
-        using time_point = clock_type::time_point;
+        using ClockType = std::chrono::high_resolution_clock;
+        using TimePoint = ClockType::time_point;
         Clock();
         ~Clock() = default;
         void start();
@@ -22,11 +22,11 @@ namespace bnjkit::utils::time {
         [[nodiscard]] auto get() const -> long int;
         [[nodiscard]] auto get_frequency() const -> double;
         static double calculate_frequency(long int duration);
-        static time_point now();
+        static TimePoint now();
 
     protected:
-        time_point _start;
-        time_point _last;
+        TimePoint m_start;
+        TimePoint m_last;
     };
     class Pulser : public Clock {
     public:
@@ -42,11 +42,11 @@ namespace bnjkit::utils::time {
 
     private:
         void calc_frequency();
-        bool always_{false};
-        bool never_{false};
-        long int target_frequency_{};
-        long int target_interval_{};
-        long int effective_interval_{};
+        bool m_always{false};
+        bool m_never{false};
+        long int m_target_frequency{};
+        long int m_target_interval{};
+        long int m_effective_interval{};
     };
 } // bnjkit::utils::time
 #endif // BNJTIK_COMMON_TIME_HPP

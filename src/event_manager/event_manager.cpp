@@ -73,15 +73,15 @@ namespace bnjkit::event {
     ICoreEventHandler* EventManager::get_core_event_handler() {
         return m_core_event_handler.get();
     }
-    void EventManager::configure() {
+    void EventManager::configure()  {
         m_logger->debug("Configuring event manager");
         m_core_event_handler->configure();
     }
-    void EventManager::on_quit() {
+    void EventManager::on_quit()  {
         m_logger->debug("Quitting event manager");
         m_core_event_handler->on_quit();
     }
-    void EventManager::general_event(const sf::Event& event[[maybe_unused]]) {
+    void EventManager::general_event(const sf::Event& event[[maybe_unused]]) const {
         m_logger->trace("General event");
     }
 }

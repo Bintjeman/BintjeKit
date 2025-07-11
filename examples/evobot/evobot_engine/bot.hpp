@@ -8,13 +8,12 @@
 #define BOT_HPP
 #pragma once
 #include "entity.hpp"
+
 namespace evo::engine {
     class Bot : public Entity {
     public:
         Bot();
         ~Bot() override;
-
-    private:
     };
 }
 

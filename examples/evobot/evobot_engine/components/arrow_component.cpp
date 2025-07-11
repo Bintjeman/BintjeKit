@@ -6,7 +6,5 @@
 
 #include "arrow_component.hpp"
 
-namespace evo {
-namespace entity {
-} // entity
-} // evo
+namespace evo::entity {
+}

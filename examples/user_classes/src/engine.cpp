@@ -113,13 +113,13 @@ namespace usr {
             new_speed();
         }
     }
-    int Engine::randi(int min, int max) {
+    int Engine::randi(const int min, const int max) {
         return rand() * (max + min) - min;
     }
     float Engine::randf() {
         return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
     }
-    float Engine::randf(float min, float max) {
+    float Engine::randf(const float min, const float max) {
         return randf() * (max + min) - min;
     }
     std::string Engine::name() const {

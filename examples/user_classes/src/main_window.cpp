@@ -6,7 +6,7 @@
 #include "main_window.hpp"
 
 namespace usr {
-    MainWindow::MainWindow()  {}
+    MainWindow::MainWindow() = default;
 
     MainWindow::~MainWindow() = default;
 

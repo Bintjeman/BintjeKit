@@ -20,9 +20,9 @@ namespace bnjkit::core {
                                      spdlog::level::level_enum level);
 
     private:
-        static bool initialized;
-        static std::vector<spdlog::sink_ptr> s_sinks;
-        static std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > s_loggers;
+        static bool m_initialized;
+        static std::vector<spdlog::sink_ptr> m_s_sinks;
+        static std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > m_s_loggers;
     };
 }
 #endif // BNJKIT_CORE_LOGGER_HPP

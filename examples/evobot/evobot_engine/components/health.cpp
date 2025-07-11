@@ -6,7 +6,5 @@
 
 #include "health.hpp"
 
-namespace evo {
-namespace entity {
-} // entity
-} // evo
+namespace evo::entity {
+}

@@ -70,7 +70,7 @@ namespace bnjkit::renderer {
     void IImGuiRenderer::draw() {
     }
 
-    void IImGuiRenderer::render() {
+    void IImGuiRenderer::render() const {
         ImGui::SFML::Render(* m_window);
     }
 

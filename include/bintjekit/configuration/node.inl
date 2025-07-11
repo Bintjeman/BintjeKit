@@ -45,8 +45,8 @@ namespace bnjkit::conf {
         return get<T>(nlohmann::json::json_pointer(key));
     }
     template<typename T>
-    T Node::get_or_set(const std::string& key, const T& defaultValue) {
-        return get_or_set<T>(nlohmann::json::json_pointer(key), defaultValue);
+    T Node::get_or_set(const std::string& key, const T& default_value) {
+        return get_or_set<T>(nlohmann::json::json_pointer(key), default_value);
     }
     template<typename T>
     void Node::set(const std::string& key, const T& value) {

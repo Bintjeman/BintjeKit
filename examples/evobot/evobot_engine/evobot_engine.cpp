@@ -14,7 +14,6 @@
 
 #include "components/arrow_component.hpp"
 #include "components/health.hpp"
-// #include "evobot_engine/entity.hpp"
 #include "evobot_engine/evobot.hpp"
 #include "evobot_engine/glob.hpp"
 #include "evobot_engine/components/d2.hpp"
@@ -22,11 +21,7 @@
 namespace evo::engine {
     EvobotEngine::EvobotEngine() {
         m_logger->info("EvobotEngine: created");
-        m_entity_manager = std::make_unique<evo::entity::EvoEntityManager>();
-        // entity_manager().create_collection<Evobot>();
-        // entity_manager().create_collection<Glob>();
-        // entity_manager().register_component<entity::ArrowComponent>();
-        // entity_manager().register_component<entity::Health>();
+        m_entity_manager = std::make_unique<entity::EvoEntityManager>();
     }
 
     EvobotEngine::~EvobotEngine() {
@@ -105,15 +100,13 @@ namespace evo::engine {
                     bnjkit::utils::d2::rad_to_vec(angle_rnd);
             sf::Vector2f velocity = direction * speed;
             evobot->set_velocity(velocity);
-            bool random = bnjkit::utils::random::RandomEngine::get_bool();
-            if (random) {
+            if (bnjkit::utils::random::RandomEngine::get_bool()) {
                 unsigned char r = bnjkit::utils::random::RandomEngine::get_int(0, 255);
                 unsigned char g = bnjkit::utils::random::RandomEngine::get_int(0, 255);
                 unsigned char b = bnjkit::utils::random::RandomEngine::get_int(0, 255);
-                sf::Color color = sf::Color{r, g, b};
+                const auto color = sf::Color{r, g, b};
                 entity_manager().add_component(evobot->id(), entity::ArrowComponent{color, 20.f});
-                auto has_health = bnjkit::utils::random::RandomEngine::get_bool();
-                if (has_health) {
+                if (bnjkit::utils::random::RandomEngine::get_bool()) {
                     entity_manager().add_component(evobot->id(), entity::Health{60.f});
                 } else {}
             } else {}
@@ -147,8 +140,7 @@ namespace evo::engine {
                     bnjkit::utils::d2::rad_to_vec(angle_rnd);
             sf::Vector2f velocity = direction * speed;
             glob->set_velocity(velocity);
-            auto has_health = bnjkit::utils::random::RandomEngine::get_bool();
-            if (has_health) {
+            if (bnjkit::utils::random::RandomEngine::get_bool()) {
                 entity_manager().add_component(glob->id(), entity::Health{30.f});
             } else {}
         }

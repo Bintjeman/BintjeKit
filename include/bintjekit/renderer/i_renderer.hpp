@@ -46,8 +46,8 @@ namespace bnjkit {
             virtual void set_core(core::Core *core);
 
         protected:
-            void begin_frame();
-            void end_frame();
+            void begin_frame() const;
+            void end_frame() const;
 
         public:
             [[nodiscard]] std::string name() const override;

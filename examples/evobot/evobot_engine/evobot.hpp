@@ -9,17 +9,13 @@
 #pragma once
 #include "evobot_engine/bot.hpp"
 
-namespace evo {
-    namespace engine {
-        class Evobot : public Bot {
-        public:
-            Evobot();
-            ~Evobot() override;
-            void update() override;
-
-        private:
-        };
-    } // engine
-} // evo
+namespace evo::engine {
+    class Evobot : public Bot {
+    public:
+        Evobot();
+        ~Evobot() override;
+        void update() override;
+    };
+}
 
 #endif //EVOBOT_HPP

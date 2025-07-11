@@ -6,12 +6,8 @@
 
 #include "bot.hpp"
 
-namespace evo {
-    namespace engine {
-        Bot::Bot() {
-        }
-        Bot::~Bot() {
-        }
+namespace evo::engine {
+    Bot::Bot() =default;
+    Bot::~Bot() =default;
 
-    } // engine
-} // evo
+}

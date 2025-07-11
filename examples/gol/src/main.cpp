@@ -26,7 +26,7 @@ int main() {
             .set<gol::CoreEventHandler>()
             .build();
     auto settings = std::make_shared<bnjkit::conf::Settings>();
-    settings->set_default_values(default_json);
+    settings->set_default_values(DEFAULT_JSON);
     settings->load_from_json(bnjkit::conf::from_file("conf.json"), true);
     core->configure(settings);
     core->configure();

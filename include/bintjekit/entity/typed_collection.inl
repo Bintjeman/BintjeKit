@@ -29,7 +29,7 @@ namespace bnjkit::entity {
         return entity;
     }
     template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
-    void TypedCollection<EntityType>::remove(EntityId id) {
+    void TypedCollection<EntityType>::remove(const EntityId id) {
         EntityCollection::remove(id);
     }
 

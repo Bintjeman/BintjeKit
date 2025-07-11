@@ -6,7 +6,5 @@
 
 #include "blob.hpp"
 
-namespace evo {
-namespace engine {
-} // engine
-} // evo
+namespace evo::engine {
+}

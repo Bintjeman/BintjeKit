@@ -31,7 +31,7 @@ TEST_CASE("Clock functionality", "[time][clock]") {
         INFO("Valeur de clock après reset : " << after << " ms");
         REQUIRE(after < before);
         REQUIRE(after >= 0);
-        const auto TOLERANCE = 10;
+        constexpr auto TOLERANCE = 10;
         if (after >= TOLERANCE) {
             WARN("Clock.get() >= " << TOLERANCE << ": " << after << " ms (possible surcharge système)");
         }
@@ -68,8 +68,8 @@ TEST_CASE("Pulser functionality", "[time][pulser]") {
     }
     SECTION("Précision de la fréquence sur la durée") {
         pulser.set_frequency(60); // 60Hz = période de ~16.67ms
-        const int duree_test_secondes = 3;
-        const int frequence_attendue = 60;
+        constexpr int duree_test_secondes = 3;
+        constexpr int frequence_attendue = 60;
         int compte_pulses = 0;
         auto debut = std::chrono::steady_clock::now();
 
@@ -96,7 +96,7 @@ TEST_CASE("Cas particuliers du Pulser", "[time][pulser][edge]") {
 
         SECTION("Fréquence normale") {
         pulser.set_frequency(60); // 60Hz
-        const int duree_test_secondes = 3;
+        constexpr int duree_test_secondes = 3;
         int compte_pulses = 0;
         auto debut = std::chrono::steady_clock::now();
 

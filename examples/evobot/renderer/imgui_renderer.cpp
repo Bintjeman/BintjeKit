@@ -76,7 +76,7 @@ namespace evo::renderer {
                     int current_level = bnjkit::core::Logger::get_logger(module)->level();
                     if (ImGui::Combo(title.c_str(), & current_level, items,
                                      IM_ARRAYSIZE(items))) {
-                        const auto int_to_level = [](int level) {
+                        const auto int_to_level = [](const int level) {
                             switch (level) {
                                 case 0: return spdlog::level::trace;
                                 case 1: return spdlog::level::debug;
@@ -154,7 +154,7 @@ namespace evo::renderer {
     void ImGuiRenderer::set_core_event_handler(
         bnjkit::event::ICoreEventHandler* core_event_handler) {
         IImGuiRenderer::set_core_event_handler(core_event_handler);
-        m_event_manager = dynamic_cast<evo::event::EventManager*>(core_event_handler);
+        m_event_manager = dynamic_cast<event::EventManager*>(core_event_handler);
     }
 } // renderer
 // evo

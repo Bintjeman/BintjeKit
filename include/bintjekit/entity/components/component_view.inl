@@ -25,7 +25,7 @@ namespace bnjkit::entity {
         }
     }
     template<typename T>
-    ComponentView<T>::Iterator::Iterator(const ComponentView& view, size_t start_index): m_view(view),
+    ComponentView<T>::Iterator::Iterator(const ComponentView& view, const size_t start_index): m_view(view),
         m_current_index(start_index) {
         if (!m_view.m_is_frozen) {
             find_next_valid();

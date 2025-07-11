@@ -21,9 +21,9 @@ namespace gol {
         [[nodiscard]] sf::Rect<float> get_bounds() const override;
 
     private:
-        static constexpr float CELL_SIZE = 1.0f;
+        static constexpr float m_s_cell_size = 1.0f;
         const GameOfLife* m_gol;
-        mutable sf::RectangleShape cell_shape;
+        mutable sf::RectangleShape m_cell_shape;
         mutable std::vector<sf::RectangleShape> m_cells;
 
     };

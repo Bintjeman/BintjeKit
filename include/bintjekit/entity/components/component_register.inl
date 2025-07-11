@@ -32,7 +32,7 @@ namespace bnjkit::entity {
     }
     template<typename ComponentType> requires is_component<ComponentType>
     void ComponentRegistry<ComponentType>::clear() {
-        m_components.clear();   
+        m_components.clear();
     }
 }
 #endif //COMPONENT_REGISTER_INL

@@ -100,8 +100,7 @@ namespace bnjkit::entity {
     }
     template<typename ComponentType> requires is_component<ComponentType>
     void EntityManager::register_component() {
-        auto type_index = std::type_index(typeid(ComponentType));
-        if (!m_component_registries.contains(type_index)) {
+        if (auto type_index = std::type_index(typeid(ComponentType)); !m_component_registries.contains(type_index)) {
             m_component_registries.emplace(
                 type_index,
                 std::make_unique<ComponentRegistry<ComponentType> >()

@@ -13,7 +13,7 @@
 namespace evo::entity {
     class ArrowComponent : public bnjkit::entity::IComponent {
     public:
-        explicit ArrowComponent(sf::Color color = sf::Color::Yellow, float length = 30.0f)
+        explicit ArrowComponent(const sf::Color color = sf::Color::Yellow, const float length = 30.0f)
             : color(color), length(length) {}
 
         sf::Color color;

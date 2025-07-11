@@ -7,7 +7,7 @@
 #define DEFAULT_JSON_INL
 #pragma once
 #include <string_view>
-constexpr std::string_view default_json = R"({
+constexpr std::string_view DEFAULT_JSON = R"({
 
 
 })";

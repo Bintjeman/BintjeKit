@@ -113,11 +113,11 @@ namespace bnjkit::renderer {
         m_engine = engine;
     }
 
-    void IRenderer::begin_frame() {
+    void IRenderer::begin_frame() const {
         m_render_window->clear();
     }
 
-    void IRenderer::end_frame() {
+    void IRenderer::end_frame() const {
         m_imgui_renderer->render();
         m_render_window->display();
     }

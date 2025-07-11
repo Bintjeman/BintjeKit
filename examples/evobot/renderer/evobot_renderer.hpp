@@ -18,6 +18,7 @@ namespace evo {
     namespace renderer {
         class EvobotRenderer final : public bnjkit::renderer::IEngineRenderer {
         public:
+            EvobotRenderer();
             void get_drawable(
                 std::vector<std::reference_wrapper<sf::Drawable> >& drawable_list) const override;
             [[nodiscard]] std::string name() const override;
@@ -26,7 +27,7 @@ namespace evo {
             void set_engine(const bnjkit::engine::IEngine* engine) override;
 
         private:
-            const engine::EvobotEngine* m_evobot_engine;
+            const engine::EvobotEngine* m_evobot_engine = nullptr;
             sf::Color m_back_ground_color;
             sf::Color m_evobot_color;
             sf::Color m_evobot_color_2;

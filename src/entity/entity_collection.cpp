@@ -17,7 +17,7 @@ namespace bnjkit::entity {
     }
 
     ComponentView<IEntity> EntityCollection::ViewBuilder::build() {
-        return ComponentView<IEntity>(m_collection, m_filter);
+        return ComponentView(m_collection, m_filter);
     }
 
     void EntityCollection::add(const EntityPtr& entity) {
@@ -27,14 +27,12 @@ namespace bnjkit::entity {
         m_registry[id] = m_entities.size() - 1;
     }
 
-    void EntityCollection::remove(EntityId id) {
+    void EntityCollection::remove(const EntityId id) {
         auto it = m_registry.find(id);
         if (it == m_registry.end()) return;
 
-        std::size_t index = it->second;
-        std::size_t last_index = m_entities.size() - 1;
-
-        if (index != last_index) {
+        const std::size_t index = it->second;
+        if (const std::size_t last_index = m_entities.size() - 1; index != last_index) {
             m_entities[index] = m_entities[last_index];
             m_registry[m_entities[index]->id()] = index;
         }
@@ -43,7 +41,7 @@ namespace bnjkit::entity {
         m_registry.erase(it);
     }
 
-    EntityCollection::EntityPtr EntityCollection::get(EntityId id) const {
+    EntityCollection::EntityPtr EntityCollection::get(const EntityId id) const {
         auto it = m_registry.find(id);
         if (it == m_registry.end()) return nullptr;
         return m_entities[it->second];

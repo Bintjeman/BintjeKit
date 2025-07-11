@@ -8,14 +8,12 @@
 #define BLOB_HPP
 #pragma once
 
-namespace evo {
-namespace engine {
+namespace evo::engine {
 
-class Blob {
+    class Blob {
 
-};
+    };
 
-} // engine
-} // evo
+}
 
 #endif //BLOB_HPP

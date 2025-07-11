@@ -22,13 +22,13 @@ namespace bnjkit::utils::random {
 
         static double get_normal(double mean, double stddev);
 
-        static std::mt19937& getGenerator();
+        static std::mt19937& get_generator();
 
     private:
         static RandomEngine& instance();
         RandomEngine();
 
-        static std::mt19937 s_generator;
+        static std::mt19937 m_s_generator;
         std::normal_distribution<> m_normal_dist;
     };
 }

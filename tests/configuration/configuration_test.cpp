@@ -22,7 +22,7 @@ TEST_CASE("Configuration Manager", "[configuration_manager]") {
     }
 
     SECTION("Get values") {
-        const std::string_view test_string = R"({
+        constexpr std::string_view test_string = R"({
     "title": "titre",
     "root": {
         "branch1": {},
@@ -48,7 +48,7 @@ TEST_CASE("Configuration Manager", "[configuration_manager]") {
     }
 
     SECTION("Child") {
-        const std::string_view test_string = R"({
+        constexpr std::string_view test_string = R"({
     "title": "titre",
     "root": {
         "branch1": {},
@@ -77,7 +77,7 @@ TEST_CASE("Configuration Manager", "[configuration_manager]") {
         REQUIRE(value);
     }
     SECTION("Merge & default") {
-        const std::string_view test_string = R"({
+        constexpr std::string_view test_string = R"({
     "title": "titre",
     "root": {
         "branch1": {},
@@ -94,7 +94,7 @@ TEST_CASE("Configuration Manager", "[configuration_manager]") {
         "value": 42
     }
 })";
-        const std::string_view default_str = R"({
+        constexpr std::string_view default_str = R"({
     "title": "titre",
     "root": {
         "branch1": {},

@@ -19,20 +19,20 @@ namespace bnjkit::engine {
         m_logger->info("Destructor of PlayGround");
     }
 
-    void PlayGround::initialise() {
+    void PlayGround::initialise() const {
         m_logger->debug("Initialising PlayGround");
     }
 
-    void PlayGround::configure() {
+    void PlayGround::configure() const {
         m_logger->debug("Configuring PlayGround");
     }
 
     void PlayGround::update() {
-        ticks_counter++;
+        m_ticks_counter++;
     }
 
     long int PlayGround::ticks() const {
-        return ticks_counter;
+        return m_ticks_counter;
     }
 
     sf::Rect<float> PlayGround::bounds() const {

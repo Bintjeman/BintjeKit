@@ -8,11 +8,10 @@
 #define EVO_IMGUIRENDERER_HPP
 #pragma once
 #include <bintjekit/renderer/i_bnjkit_imgui.hpp>
-namespace bnjkit {
-    namespace event {
-        class ICoreEventHandler;
-    }
+namespace bnjkit::event {
+    class ICoreEventHandler;
 }
+
 namespace evo {
     namespace engine {
         class EvobotEngine;

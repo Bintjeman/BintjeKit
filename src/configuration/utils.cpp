@@ -109,8 +109,7 @@ namespace bnjkit::conf {
         get_logger()->trace("json: {}", json.dump());
         try {
             // Création des répertoires parents si nécessaire
-            const auto parent_path = path.parent_path();
-            if (!parent_path.empty()) {
+            if (const auto parent_path = path.parent_path(); !parent_path.empty()) {
                 std::filesystem::create_directories(parent_path);
             }
             // Ouverture du fichier en écriture

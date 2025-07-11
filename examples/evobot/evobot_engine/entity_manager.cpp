@@ -10,17 +10,15 @@
 #include "evobot_engine/evobot.hpp"
 #include "evobot_engine/glob.hpp"
 
-namespace evo {
-    namespace entity {
-        EvoEntityManager::EvoEntityManager() {
-            init();
-        }
-        EvoEntityManager::~EvoEntityManager() {}
-        void EvoEntityManager::init() {
-            create_collection<engine::Glob>();
-            create_collection<engine::Evobot>();
-            register_component<ArrowComponent>();
-            register_component<Health>();
-        }
-    } // entity
-} // evo
+namespace evo::entity {
+    EvoEntityManager::EvoEntityManager() {
+        init();
+    }
+    EvoEntityManager::~EvoEntityManager() =default;
+    void EvoEntityManager::init() {
+        create_collection<engine::Glob>();
+        create_collection<engine::Evobot>();
+        register_component<ArrowComponent>();
+        register_component<Health>();
+    }
+}

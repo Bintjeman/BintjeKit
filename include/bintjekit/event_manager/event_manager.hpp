@@ -41,10 +41,10 @@ namespace bnjkit {
             void set_core_event_handler_settings(const conf::Node& settings);
             void set_core_event_handler_custom_settings(const conf::Node& settings);
             ICoreEventHandler* get_core_event_handler();
-            void configure();
-            void on_quit();
+            void configure() ;
+            void on_quit() ;
         protected:
-            void general_event(const sf::Event& event);
+            void general_event(const sf::Event& event) const;
             std::shared_ptr<ICoreEventHandler> m_core_event_handler;
             std::vector<IEventListener*> m_listeners;
             renderer::IImGuiRenderer* m_imgui_renderer;

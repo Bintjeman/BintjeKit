@@ -73,9 +73,9 @@ namespace bnjkit {
 
         protected:
             State m_state{State::STOPPED};
-            utils::time::Pulser engine_pulser;
-            utils::time::Pulser renderer_pulser;
-            utils::time::Pulser window_pulser;
+            utils::time::Pulser m_engine_pulser;
+            utils::time::Pulser m_renderer_pulser;
+            utils::time::Pulser m_window_pulser;
 
         private:
             std::unique_ptr<window::IMainWindow> m_main_window;

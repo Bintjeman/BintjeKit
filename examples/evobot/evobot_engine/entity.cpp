@@ -6,13 +6,10 @@
 
 #include "entity.hpp"
 
-namespace evo {
-namespace engine {
-    Entity::Entity() {
-    }
+namespace evo::engine {
+    Entity::Entity(): m_movable({}) {};
 
-    Entity::~Entity() {
-    }
+    Entity::~Entity() = default;
 
     void Entity::update() {
         m_movable.update();
@@ -26,17 +23,16 @@ namespace engine {
     D2::Bounds Entity::bounds() const {
         return m_movable.bounds();
     }
-    Movable::Velocity Entity::velocity() {
+    Movable::Velocity Entity::velocity() const {
         return m_movable.velocity;
     }
-    void Entity::set_position(D2::Position position) {
+    void Entity::set_position(const D2::Position position) {
         m_movable.position = position;
     }
-    void Entity::set_radius(float size) {
+    void Entity::set_radius(const float size) {
         m_movable.radius = size;
     }
-    void Entity::set_velocity(Movable::Velocity velocity) {
+    void Entity::set_velocity(const Movable::Velocity velocity) {
         m_movable.velocity = velocity;
     }
-} // engine
-} // evo
+}

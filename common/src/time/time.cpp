@@ -12,23 +12,23 @@ namespace bnjkit::utils::time {
 
 
     void Clock::start() {
-        _start = clock_type::now();
-        _last = _start;
+        m_start = ClockType::now();
+        m_last = m_start;
     }
 
     void Clock::reset() {
-        _last = clock_type::now();
+        m_last = ClockType::now();
     }
 
     auto Clock::get() const -> long int {
-        return std::chrono::duration_cast<Duration>(clock_type::now() - _last).count();
+        return std::chrono::duration_cast<Duration>(ClockType::now() - m_last).count();
     }
 
     auto Clock::get_frequency() const -> double {
         return calculate_frequency(get());
     }
 
-    double Clock::calculate_frequency(long int duration) {
+    double Clock::calculate_frequency(const long int duration) {
         if (duration == 0) {
             return std::numeric_limits<double>::infinity();
         }
@@ -36,15 +36,15 @@ namespace bnjkit::utils::time {
                    Duration(duration)).
                count();
     }
-    Clock::time_point Clock::now() {
-        return clock_type::now();
+    Clock::TimePoint Clock::now() {
+        return ClockType::now();
     }
 
     Pulser::Pulser() {
         set_frequency(60L);
     }
 
-    Pulser::Pulser(long int frequency) {
+    Pulser::Pulser(const long int frequency) {
         set_frequency(frequency);
     }
 
@@ -52,81 +52,81 @@ namespace bnjkit::utils::time {
         return pulse();
     }
 
-    void Pulser::set_frequency(long int pulse_per_second) {
+    void Pulser::set_frequency(const long int pulse_per_second) {
         if (pulse_per_second == 0L) {
-            target_interval_ = 0L;
-            always_ = false;
-            never_ = true;
-            target_frequency_ = 0L;
+            m_target_interval = 0L;
+            m_always = false;
+            m_never = true;
+            m_target_frequency = 0L;
         } else if (pulse_per_second < 0L) {
-            target_interval_ = - 1L;
-            target_frequency_ = - 1L;
-            always_ = true;
-            never_ = false;
+            m_target_interval = - 1L;
+            m_target_frequency = - 1L;
+            m_always = true;
+            m_never = false;
         } else {
             if (pulse_per_second >= LI_MAXIMUM) {
-                target_interval_ = Duration::period::den / LI_MAXIMUM;
-                target_frequency_ = LI_MAXIMUM;
+                m_target_interval = Duration::period::den / LI_MAXIMUM;
+                m_target_frequency = LI_MAXIMUM;
             } else {
-                target_interval_ = Duration::period::den / pulse_per_second;
-                target_frequency_ = pulse_per_second;
+                m_target_interval = Duration::period::den / pulse_per_second;
+                m_target_frequency = pulse_per_second;
             }
-            always_ = false;
-            never_ = false;
+            m_always = false;
+            m_never = false;
             calc_frequency();
         }
     }
 
-    void Pulser::set_interval(long int pulse_duration) {
+    void Pulser::set_interval(const long int pulse_duration) {
         if (pulse_duration <= 0L) {
-            target_interval_ = - 1L;
-            target_frequency_ = - 1L;
+            m_target_interval = - 1L;
+            m_target_frequency = - 1L;
         } else {
-            target_interval_ = pulse_duration;
+            m_target_interval = pulse_duration;
         }
         calc_frequency();
     }
 
     bool Pulser::pulse() {
-        const auto now = clock_type::now();
-        const auto elapsed = std::chrono::duration_cast<Duration>(now - this->_last).
+        const auto now = ClockType::now();
+        const auto elapsed = std::chrono::duration_cast<Duration>(now - this->m_last).
                 count();
-        if (!never_ && (always_ || elapsed >= target_interval_)) {
-            this->_last = now;
-            effective_interval_ = elapsed;
+        if (!m_never && (m_always || elapsed >= m_target_interval)) {
+            this->m_last = now;
+            m_effective_interval = elapsed;
             return true;
         }
         return false;
     }
 
     long int Pulser::effective_interval() const {
-        return effective_interval_;
+        return m_effective_interval;
     }
 
     long int Pulser::effective_frequency() const {
-        if (effective_interval_ == 0L) {
+        if (m_effective_interval == 0L) {
             return std::numeric_limits<long int>::max();
         }
-        return Duration::period::den / effective_interval_;
+        return Duration::period::den / m_effective_interval;
     }
 
     auto Pulser::target_freqency() const -> long int {
-        return target_frequency_;
+        return m_target_frequency;
     }
 
     void Pulser::calc_frequency() {
-        if (target_interval_ != 0L) {
-            never_ = false;
-            if (target_interval_ == - 1L) {
-                target_frequency_ = - 1L;
-                always_ = true;
+        if (m_target_interval != 0L) {
+            m_never = false;
+            if (m_target_interval == - 1L) {
+                m_target_frequency = - 1L;
+                m_always = true;
             } else {
-                target_frequency_ = Duration::period::den / target_interval_;
+                m_target_frequency = Duration::period::den / m_target_interval;
             }
         } else {
-            never_ = true;
-            always_ = false;
-            target_frequency_ = 0L;
+            m_never = true;
+            m_always = false;
+            m_target_frequency = 0L;
         }
     }
 } // bnjkit::utils::time

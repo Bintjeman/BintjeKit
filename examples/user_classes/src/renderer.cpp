@@ -12,7 +12,7 @@
 #include "engine.hpp"
 
 namespace usr {
-    Renderer::Renderer(): m_usr_engine(nullptr) {};
+    Renderer::Renderer(): m_usr_engine(nullptr) {}
     Renderer::~Renderer() = default;
 
     void Renderer::initialise() {

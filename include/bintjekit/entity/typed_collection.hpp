@@ -10,10 +10,10 @@
 #include <memory>
 #include <vector>
 #include <functional>
-#include <unordered_map>
+// #include <unordered_map>
 #include "bintjekit/entity/ientity.hpp"
 #include "bintjekit/entity/components/component_view.hpp"
-#include "bintjekit/entity/fwd.hpp"
+// #include "bintjekit/entity/fwd.hpp"
 #include "bintjekit/entity/entity_collection.hpp"
 
 namespace bnjkit::entity {
@@ -33,11 +33,11 @@ namespace bnjkit::entity {
         void add(const BasePtr& entity) override;
         EntityPtr create();
 
-        EntityPtr get_typed(EntityId id) const {
+        EntityPtr get_typed(const EntityId id) const {
             return std::dynamic_pointer_cast<EntityType>(EntityCollection::get(id));
         }
 
-        BasePtr get(EntityId id) const override {
+        BasePtr get(const EntityId id) const override {
             return EntityCollection::get(id);
         }
 

@@ -22,7 +22,7 @@ namespace bnjkit::conf {
                       const nlohmann::json::json_pointer& branch = ""_json_pointer,
                       const std::shared_ptr<nlohmann::json>& default_values = nullptr);
         virtual ~Node();
-        void merge_with_json(const nlohmann::json& json);
+        void merge_with_json(const nlohmann::json& json) const;
         template<typename T>
         T get(const nlohmann::json::json_pointer& key, const T& defaultValue) const;
         template<typename T>
@@ -36,14 +36,14 @@ namespace bnjkit::conf {
         template<typename T>
         T get(const std::string& key) const;
         template<typename T>
-        T get_or_set(const std::string& key, const T& defaultValue);
+        T get_or_set(const std::string& key, const T& default_value);
         template<typename T>
         void set(const std::string& key, const T& value);
         [[nodiscard]] nlohmann::json::json_pointer branch();
         [[nodiscard]] std::string branch_str() const;
         [[nodiscard]] nlohmann::json get_json() const;
-        void reset_to_defaults();
-        Node create_child(const nlohmann::json::json_pointer& key);
+        void reset_to_defaults() const;
+        Node create_child(const nlohmann::json::json_pointer& key) const;
         [[nodiscard]] long node_count() const;
 
     protected:

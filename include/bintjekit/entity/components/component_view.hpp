@@ -17,7 +17,6 @@ namespace bnjkit::entity {
         using EntityPtr = std::shared_ptr<T>;
 
         class Iterator {
-        private:
             const ComponentView& m_view;
             size_t m_current_index;
             void find_next_valid();

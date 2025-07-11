@@ -96,12 +96,12 @@ namespace bnjkit::core {
         m_imgui_renderer->init();
         m_renderer->configure();
         while (m_main_window->isOpen()) {
-            if (window_pulser()) {
+            if (m_window_pulser()) {
                 m_event_manager->process_events(*m_main_window);
-                if (m_state == State::RUNNING && engine_pulser()) {
+                if (m_state == State::RUNNING && m_engine_pulser()) {
                     m_engine->update();
                 }
-                if (renderer_pulser()) {
+                if (m_renderer_pulser()) {
                     m_imgui_renderer->update();
                     m_renderer->render();
                 }
@@ -148,27 +148,27 @@ namespace bnjkit::core {
     }
 
     long Core::engine_frequency() {
-        return engine_pulser.target_freqency();
+        return m_engine_pulser.target_freqency();
     }
 
     long Core::renderer_frequency() {
-        return renderer_pulser.target_freqency();
+        return m_renderer_pulser.target_freqency();
     }
 
     long Core::window_frequency() {
-        return window_pulser.target_freqency();
+        return m_window_pulser.target_freqency();
     }
 
     long Core::engine_effective_frequency() {
-        return engine_pulser.effective_frequency();
+        return m_engine_pulser.effective_frequency();
     }
 
     long Core::renderer_effective_frequency() {
-        return renderer_pulser.effective_frequency();
+        return m_renderer_pulser.effective_frequency();
     }
 
     long Core::window_effective_frequency() {
-        return window_pulser.effective_frequency();
+        return m_window_pulser.effective_frequency();
     }
 
     void Core::set_state(const State& state) {
@@ -191,16 +191,16 @@ namespace bnjkit::core {
         m_imgui_renderer = std::move(imgui_renderer);
     }
 
-    void Core::set_engine_frequency(long frequency) {
-        engine_pulser.set_frequency(frequency);
+    void Core::set_engine_frequency(const long frequency) {
+        m_engine_pulser.set_frequency(frequency);
     }
 
-    void Core::set_renderer_frequency(long frequency) {
-        renderer_pulser.set_frequency(frequency);
+    void Core::set_renderer_frequency(const long frequency) {
+        m_renderer_pulser.set_frequency(frequency);
     }
 
-    void Core::set_window_frequency(long frequency) {
-        window_pulser.set_frequency(frequency);
+    void Core::set_window_frequency(const long frequency) {
+        m_window_pulser.set_frequency(frequency);
     }
 
     void Core::set_settings(const std::shared_ptr<conf::Settings>& settings) {
@@ -211,7 +211,7 @@ namespace bnjkit::core {
         m_settings->save_to_file();
     }
 
-    std::string Core::state_to_string(State state) {
+    std::string Core::state_to_string(const State state) {
         switch (state) {
             case State::RUNNING: return "RUNNING";
             case State::PAUSED: return "PAUSED";

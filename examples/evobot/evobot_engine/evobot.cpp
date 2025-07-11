@@ -5,14 +5,10 @@
  */
 #include "evobot.hpp"
 
-namespace evo {
-    namespace engine {
-        Evobot::Evobot() {
-        }
-        Evobot::~Evobot() {
-        }
-        void Evobot::update() {
-            Bot::update();
-        }
-    } // engine
-} // evo
+namespace evo::engine {
+    Evobot::Evobot() = default;
+    Evobot::~Evobot() = default;
+    void Evobot::update() {
+        Bot::update();
+    }
+}

@@ -45,7 +45,7 @@ namespace bnjkit {
             virtual void update();
             virtual void process_events(sf::Event& event);
             virtual void draw();
-            void render();
+            void render() const;
             void set_window(sf::RenderWindow* window);
             virtual void set_engine(engine::IEngine* engine);
             virtual void set_core(core::Core* core);

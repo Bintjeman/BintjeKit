@@ -9,6 +9,7 @@
 #include <limits>
 #include <memory>
 #include <spdlog/fwd.h>
+
 namespace bnjkit::entity {
     enum class EntityState {
         ACTIVE,
@@ -28,20 +29,21 @@ namespace bnjkit::entity {
         [[nodiscard]] bool valid() const;
         [[nodiscard]] EntityState state() const;
         void set_state(EntityState state);
-        bool is_active() const;
-        bool is_dead() const;
-        bool is_disabled() const;
+        [[nodiscard]] bool is_active() const;
+        [[nodiscard]] bool is_dead() const;
+        [[nodiscard]] bool is_disabled() const;
         virtual void update();
         static EntityId total_entities();
         static void set_logger(const std::shared_ptr<spdlog::logger>& logger);
+
     protected:
         static EntityId next_id();
         EntityId m_id;
         EntityState m_state;
-        static std::shared_ptr<spdlog::logger> s_logger;
-        static EntityId s_total_entities;
-        static EntityId s_next_id;
-        static constexpr EntityId INVALID_ID = std::numeric_limits<EntityId>::max();
+        static std::shared_ptr<spdlog::logger> m_s_logger;
+        static EntityId m_s_total_entities;
+        static EntityId m_s_next_id;
+        static constexpr EntityId m_s_invalid_id = std::numeric_limits<EntityId>::max();
     }; // Entity
 }
 

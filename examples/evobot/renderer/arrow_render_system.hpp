@@ -17,7 +17,7 @@
 namespace evo::renderer {
     class ArrowRenderSystem {
     public:
-        static sf::RectangleShape make_line(evo::engine::Evobot& evobot, const entity::ArrowComponent& arrow) {
+        static sf::RectangleShape make_line(engine::Evobot& evobot, const entity::ArrowComponent& arrow) {
             sf::RectangleShape line({arrow.length, 2.0f});
             // Position de l'Evobot
             auto position = evobot.position();
@@ -29,7 +29,7 @@ namespace evo::renderer {
             line.setFillColor(arrow.color);
             return line;
         }
-        static sf::ConvexShape make_head(evo::engine::Evobot& evobot, const entity::ArrowComponent& arrow) {
+        static sf::ConvexShape make_head(engine::Evobot& evobot, const entity::ArrowComponent& arrow) {
             sf::ConvexShape head;
             head.setPointCount(3);
             head.setPoint(0, {0, - 5});
@@ -49,8 +49,8 @@ namespace evo::renderer {
             return head;
         }
         static void render(sf::RenderTarget& target, const bnjkit::entity::EntityManager& entity_manager) {
-            const auto& evobots = entity_manager.get_collection<engine::Evobot>();
-            for (const auto& evobot: evobots.typed_entities()) {
+            for (const auto& evobots = entity_manager.get_collection<engine::Evobot>(); const auto& evobot: evobots.
+                 typed_entities()) {
                 if (const auto* arrow = entity_manager.get_component<entity::ArrowComponent>(evobot->id())) {
                     target.draw(make_line(* evobot, * arrow));
                     target.draw(make_head(* evobot, * arrow));
@@ -67,7 +67,7 @@ namespace evo::renderer {
                     lines.clear();
                     heads.clear();
                 }
-                void reserve(size_t size) {
+                void reserve(const size_t size) {
                     lines.reserve(size);
                     heads.reserve(size);
                 }

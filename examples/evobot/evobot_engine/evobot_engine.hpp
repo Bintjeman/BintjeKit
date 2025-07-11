@@ -39,8 +39,7 @@ namespace evo::engine {
         float m_glob_min_radius{1.f};
         float m_glob_max_radius{10.f};
         float m_glob_max_speed{1.f};
-        // std::unique_ptr<bnjkit::entity::EntityManager> m_entity_manager;
-        std::unique_ptr<evo::entity::EvoEntityManager> m_entity_manager;
+        std::unique_ptr<entity::EvoEntityManager> m_entity_manager;
     };
 }
 

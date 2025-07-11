@@ -18,8 +18,8 @@ namespace bnjkit::engine {
     struct PlayGround {
         PlayGround();
         ~PlayGround();
-        void initialise();
-        void configure();
+        void initialise() const;
+        void configure() const;
         void update();
         [[nodiscard]] long int ticks() const;
         [[nodiscard]] sf::Rect<float> bounds() const;
@@ -30,7 +30,7 @@ namespace bnjkit::engine {
         std::shared_ptr<spdlog::logger> m_logger;
 
     private:
-        long int ticks_counter = 0;
+        long int m_ticks_counter = 0;
     };
 }
 

@@ -9,7 +9,7 @@
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/core/core.hpp"
 #include "bintjekit/logger/logger.hpp"
-#include "bintjekit/entity/entity_manager.hpp"
+// #include "bintjekit/entity/entity_manager.hpp"
 #include "bintjekit/engine/play_ground.hpp"
 
 namespace bnjkit::engine {
@@ -42,7 +42,7 @@ namespace bnjkit::engine {
         return m_state;
     }
 
-    std::string IEngine::state_to_string(State state) {
+    std::string IEngine::state_to_string(const State state) {
         switch (state) {
             case State::EMPTY:
                 return "EMPTY";
