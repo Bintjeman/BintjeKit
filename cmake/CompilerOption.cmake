@@ -53,6 +53,11 @@ set(RELEASE_OPTIONS
 )
 ################################################################################
 function(configure_target_options target_name)
+    if(NOT TARGET ${target_name})
+        message(STATUS ">> Skipping target ${target_name} (target does not exist)")
+        return()
+    endif()
+
     cmake_parse_arguments(PARSE_ARGV 1 ARG "WERROR;EXTERNAL" "" "")
     if (NOT ARG_EXTERNAL)
         target_compile_options(${target_name}
@@ -78,5 +83,12 @@ function(configure_target_options target_name)
         )
     endif ()
     message(STATUS ">> Configuring target ${target_name} (EXTERNAL = ${ARG_EXTERNAL})")
+    get_target_property(_linkopts ${target_name} LINK_OPTIONS)
+    if (_linkopts)
+        message(STATUS "   Link options: ${_linkopts}")
+    else ()
+        message(STATUS "   Link options: none")
+    endif ()
+
 endfunction()
 ################################################################################

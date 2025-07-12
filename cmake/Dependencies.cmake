@@ -51,7 +51,7 @@ FetchContent_Declare(imgui
 )
 ################################################################################
 FetchContent_MakeAvailable(SFML imgui)
-configure_target_options(imgui EXTERNAL)
+configure_target_options(imgui::imgui EXTERNAL)
 configure_target_options(SFML::Graphics EXTERNAL)
 configure_target_options(SFML::Window EXTERNAL)
 configure_target_options(SFML::System EXTERNAL)
@@ -84,7 +84,6 @@ FetchContent_Declare(json
 )
 FetchContent_MakeAvailable(json)
 ################################################################################
-configure_target_options(ImGui-SFML::ImGui-SFML EXTERNAL)
-configure_target_options(json EXTERNAL)
+configure_target_options(nlohmann_json EXTERNAL)
 
 
