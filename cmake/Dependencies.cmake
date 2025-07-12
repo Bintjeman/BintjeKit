@@ -4,6 +4,10 @@ message("Actual *.cmake: ${CMAKE_CURRENT_LIST_FILE}")
 ################################################################################
 include(FetchContent)
 include(cmake/CompilerOption.cmake)
+set(FETCHCONTENT_BASE_DIR "${CMAKE_SOURCE_DIR}/.deps-cache" CACHE PATH "Dépôt local pour les dépendances")
+set(FETCHCONTENT_QUIET OFF)
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+
 ################################################################################
 # Configuration de SFML
 set(SFML_BUILD_AUDIO FALSE)
