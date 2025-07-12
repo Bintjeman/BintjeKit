@@ -18,7 +18,7 @@ namespace bnjkit::entity {
     class EntityManager {
     public:
         EntityManager();
-        ~EntityManager();
+        virtual ~EntityManager();
 
         template<typename EntityType=IEntity>
             requires std::is_base_of_v<IEntity, EntityType>
