@@ -82,8 +82,6 @@ namespace bnjkit::entity {
         ComponentView<ComponentType>& create_view();
         template<typename ComponentType>
         const ComponentView<ComponentType>& create_view() const;
-        template<typename EntityType>
-        void register_builder(std::unique_ptr<IComponentBuilder> builder);
 
     protected:
         void remove(EntityId id);
@@ -93,7 +91,6 @@ namespace bnjkit::entity {
         std::unordered_map<std::type_index, std::unique_ptr<IComponentRegistry> > m_component_registries;
         std::unordered_map<std::type_index, std::unique_ptr<EntityCollection> > m_collections;
         std::unordered_map<EntityId, std::type_index> m_entity_types;
-        std::unordered_map<std::type_index, std::unique_ptr<IComponentBuilder> > m_builders;
 
         std::vector<EntityId> m_pending_removals;
         std::shared_ptr<spdlog::logger> m_logger;

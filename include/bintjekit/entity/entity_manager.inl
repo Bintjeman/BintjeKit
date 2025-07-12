@@ -81,9 +81,6 @@ namespace bnjkit::entity {
         requires std::is_base_of_v<IEntity, EntityType>
     std::shared_ptr<EntityType> EntityManager::create() {
         auto entity = std::make_shared<EntityType>();
-        if (const auto it = m_builders.find(typeid(EntityType)); it != m_builders.end()) {
-            it->second->build(*entity);
-        }
         add(entity);
         return entity;
     }
@@ -166,10 +163,6 @@ namespace bnjkit::entity {
     template<typename ComponentType>
     const ComponentView<ComponentType>& EntityManager::create_view() const {
         return get_component_registry<ComponentType>().create_view();
-    }
-    template<typename EntityType>
-    void EntityManager::register_builder(std::unique_ptr<IComponentBuilder> builder) {
-        m_builders[typeid(EntityType)] = std::move(builder);
     }
 
     template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
