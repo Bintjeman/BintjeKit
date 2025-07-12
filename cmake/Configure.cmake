@@ -8,6 +8,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 ################################################################################
 find_program(CCACHE_PROGRAM ccache)
 if(CCACHE_PROGRAM)

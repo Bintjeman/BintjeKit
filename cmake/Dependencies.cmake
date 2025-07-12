@@ -52,8 +52,10 @@ FetchContent_Declare(imgui
 ################################################################################
 FetchContent_MakeAvailable(SFML imgui)
 configure_target_options(imgui EXTERNAL)
-configure_target_options(SFML EXTERNAL)
-configure_target_options(spdlog EXTERNAL)
+configure_target_options(SFML::Graphics EXTERNAL)
+configure_target_options(SFML::Window EXTERNAL)
+configure_target_options(SFML::System EXTERNAL)
+configure_target_options(spdlog::spdlog EXTERNAL)
 get_target_property(SPDLOG_INCLUDES spdlog INTERFACE_INCLUDE_DIRECTORIES)
 ################################################################################
 # Ajout de SFML-ImGui
@@ -82,3 +84,7 @@ FetchContent_Declare(json
 )
 FetchContent_MakeAvailable(json)
 ################################################################################
+configure_target_options(ImGui-SFML::ImGui-SFML EXTERNAL)
+configure_target_options(json EXTERNAL)
+
+

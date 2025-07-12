@@ -38,17 +38,17 @@ set(RELEASE_WARNINGS
 set(DEBUG_OPTIONS
         -g                     # Informations de debug
         -O0                   # Pas d'optimisation pour un meilleur debugging
-#        -fno-omit-frame-pointer # Garde la frame pointer pour un meilleur debugging
-#        -fno-inline          # Désactive l' inlining pour un meilleur debugging
-#        -D_GLIBCXX_DEBUG     # Active les vérifications de la STL en debug
+        #        -fno-omit-frame-pointer # Garde la frame pointer pour un meilleur debugging
+        -fno-inline          # Désactive l' inlining pour un meilleur debugging
+        #        -D_GLIBCXX_DEBUG     # Active les vérifications de la STL en debug
 )
 set(RELEASE_OPTIONS
         -DNDEBUG            # Désactive les assertions
         -O3                 # Optimisation maximale
-#        -flto              # Link Time Optimization
-#        -march=native      # Optimise pour le CPU actuel
-#        -ffast-math        # Optimisations mathématiques agressives
-#        -fomit-frame-pointer # Supprime frame pointer pour la performance
+        -flto=auto              # Link Time Optimization
+        #        -march=native      # Optimise pour le CPU actuel
+        #        -ffast-math        # Optimisations mathématiques agressives
+        #        -fomit-frame-pointer # Supprime frame pointer pour la performance
 
 )
 ################################################################################
@@ -63,5 +63,20 @@ function(configure_target_options target_name)
                 $<$<CONFIG:Release>:${RELEASE_WARNINGS}>
         )
     endif ()
+    #            target_compile_options(${target_name}
+    #            PRIVATE
+    #            $<$<CONFIG:Debug>:${DEBUG_OPTIONS}>
+    #            $<$<CONFIG:Release>:${RELEASE_OPTIONS}>
+    ##            $<$<CONFIG:Debug>:${DEBUG_WARNINGS}>
+    ##            $<$<CONFIG:Release>:${RELEASE_WARNINGS}>
+    #    )
+    if (NOT ARG_EXTERNAL)
+        target_link_options(${target_name}
+                PRIVATE
+                -Wl,--gc-sections
+                -flto=auto
+        )
+    endif ()
+    message(STATUS ">> Configuring target ${target_name} (EXTERNAL = ${ARG_EXTERNAL})")
 endfunction()
 ################################################################################
