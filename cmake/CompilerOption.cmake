@@ -53,42 +53,70 @@ set(RELEASE_OPTIONS
 )
 ################################################################################
 function(configure_target_options target_name)
-    if(NOT TARGET ${target_name})
+    if (NOT TARGET ${target_name})
         message(STATUS ">> Skipping target ${target_name} (target does not exist)")
         return()
-    endif()
+    endif ()
+
+    # Obtenir la cible réelle si c'est une ALIAS
+    get_target_property(ALIASED_TARGET ${target_name} ALIASED_TARGET)
+    if (ALIASED_TARGET)
+        set(actual_target ${ALIASED_TARGET})
+        message(STATUS ">> Using actual target ${actual_target} for alias ${target_name}")
+    else ()
+        set(actual_target ${target_name})
+    endif ()
+
+    # Vérifier le type de cible
+    get_target_property(target_type ${actual_target} TYPE)
+    message(STATUS ">> Target ${actual_target} is of type ${target_type}")
 
     cmake_parse_arguments(PARSE_ARGV 1 ARG "WERROR;EXTERNAL" "" "")
-    if (NOT ARG_EXTERNAL)
-        target_compile_options(${target_name}
-                PRIVATE
-                $<$<CONFIG:Debug>:${DEBUG_OPTIONS}>
-                $<$<CONFIG:Release>:${RELEASE_OPTIONS}>
-                $<$<CONFIG:Debug>:${DEBUG_WARNINGS}>
-                $<$<CONFIG:Release>:${RELEASE_WARNINGS}>
-        )
+
+    if (target_type STREQUAL "INTERFACE_LIBRARY")
+        if (CMAKE_BUILD_TYPE STREQUAL "Release")
+            target_compile_options(${actual_target}
+                    INTERFACE
+                    -flto=auto
+            )
+            target_link_options(${actual_target}
+                    INTERFACE
+                    -flto=auto
+                    -Wl,--gc-sections
+            )
+        endif ()
+    else ()
+        # Options de compilation spécifiques pour les cibles non-externes
+        if (NOT ARG_EXTERNAL)
+            target_compile_options(${actual_target}
+                    PRIVATE
+                    $<$<CONFIG:Debug>:${DEBUG_OPTIONS}>
+                    $<$<CONFIG:Release>:${RELEASE_OPTIONS}>
+                    $<$<CONFIG:Debug>:${DEBUG_WARNINGS}>
+                    $<$<CONFIG:Release>:${RELEASE_WARNINGS}>
+            )
+        endif ()
+
+        # Options LTO appliquées à toutes les cibles en Release
+        if (CMAKE_BUILD_TYPE STREQUAL "Release")
+            target_compile_options(${actual_target}
+                    PRIVATE
+                    -flto=auto
+            )
+            target_link_options(${actual_target}
+                    PRIVATE
+                    -flto=auto
+                    -Wl,--gc-sections
+            )
+        endif ()
     endif ()
-    #            target_compile_options(${target_name}
-    #            PRIVATE
-    #            $<$<CONFIG:Debug>:${DEBUG_OPTIONS}>
-    #            $<$<CONFIG:Release>:${RELEASE_OPTIONS}>
-    ##            $<$<CONFIG:Debug>:${DEBUG_WARNINGS}>
-    ##            $<$<CONFIG:Release>:${RELEASE_WARNINGS}>
-    #    )
-    if (NOT ARG_EXTERNAL)
-        target_link_options(${target_name}
-                PRIVATE
-                -Wl,--gc-sections
-                -flto=auto
-        )
-    endif ()
+
     message(STATUS ">> Configuring target ${target_name} (EXTERNAL = ${ARG_EXTERNAL})")
-    get_target_property(_linkopts ${target_name} LINK_OPTIONS)
+    get_target_property(_linkopts ${actual_target} LINK_OPTIONS)
     if (_linkopts)
         message(STATUS "   Link options: ${_linkopts}")
     else ()
         message(STATUS "   Link options: none")
     endif ()
-
 endfunction()
 ################################################################################

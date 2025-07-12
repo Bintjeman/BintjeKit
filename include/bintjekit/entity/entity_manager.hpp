@@ -80,7 +80,7 @@ namespace bnjkit::entity {
         template<typename ComponentType>
         const ComponentView<ComponentType>& create_view() const;
 
-    private:
+    protected:
         void remove(EntityId id);
 
         std::unordered_map<std::type_index, std::unique_ptr<IComponentRegistry>> m_component_registries;
