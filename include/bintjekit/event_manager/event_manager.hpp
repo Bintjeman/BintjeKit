@@ -40,7 +40,7 @@ namespace bnjkit {
             void unregister_listener(IEventListener* listener);
             void set_core_event_handler_settings(const conf::Node& settings);
             void set_core_event_handler_custom_settings(const conf::Node& settings);
-            ICoreEventHandler* get_core_event_handler() const;
+            [[nodiscard]] ICoreEventHandler* get_core_event_handler() const;
             void configure() ;
             void on_quit() ;
         protected:

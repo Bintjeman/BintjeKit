@@ -45,18 +45,18 @@ namespace bnjkit {
             void run();
             [[nodiscard]] conf::Settings& settings() const;
             [[nodiscard]] State state() const;
-            [[nodiscard]] engine::IEngine& engine();
-            [[nodiscard]] renderer::IRenderer& renderer();
-            [[nodiscard]] renderer::IEngineRenderer& engine_renderer();
-            [[nodiscard]] renderer::IImGuiRenderer& imgui_renderer();
-            [[nodiscard]] window::IMainWindow& main_window();
-            [[nodiscard]] event::EventManager& event_manager();
-            [[nodiscard]] long engine_frequency();
-            [[nodiscard]] long renderer_frequency();
-            [[nodiscard]] long window_frequency();
-            [[nodiscard]] long engine_effective_frequency();
-            [[nodiscard]] long renderer_effective_frequency();
-            [[nodiscard]] long window_effective_frequency();
+            [[nodiscard]] engine::IEngine& engine() const;
+            [[nodiscard]] renderer::IRenderer& renderer() const;
+            [[nodiscard]] renderer::IEngineRenderer& engine_renderer() const;
+            [[nodiscard]] renderer::IImGuiRenderer& imgui_renderer() const;
+            [[nodiscard]] window::IMainWindow& main_window() const;
+            [[nodiscard]] event::EventManager& event_manager() const;
+            [[nodiscard]] long engine_frequency() const;
+            [[nodiscard]] long renderer_frequency() const;
+            [[nodiscard]] long window_frequency() const;
+            [[nodiscard]] long engine_effective_frequency() const;
+            [[nodiscard]] long renderer_effective_frequency() const;
+            [[nodiscard]] long window_effective_frequency() const;
             void set_state(const State& state);
             void set_modules(std::unique_ptr<window::IMainWindow> window,
                              std::unique_ptr<event::EventManager> event_manager,

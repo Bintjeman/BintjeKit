@@ -11,6 +11,7 @@
 #include <bintjekit/utils/d2/d2.hpp>
 #include <bintjekit/configuration/sfml_json_adapter.hpp>
 #include <bintjekit/entity/entity_manager.hpp>
+#include <bintjekit/entity/components/component_view.hpp>
 
 #include "components/arrow_component.hpp"
 #include "components/health.hpp"

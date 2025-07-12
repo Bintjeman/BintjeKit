@@ -7,7 +7,7 @@
 #ifndef BINTJEKIT_ENTITY_TYPED_COLLECTION_INL
 #define BINTJEKIT_ENTITY_TYPED_COLLECTION_INL
 #pragma once
-#include "bintjekit/entity/components/component_view.hpp"
+// #include "bintjekit/entity/components/component_view.hpp"
 
 namespace bnjkit::entity {
     template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>

@@ -123,51 +123,51 @@ namespace bnjkit::core {
         return m_state;
     }
 
-    engine::IEngine& Core::engine() {
+    engine::IEngine& Core::engine() const {
         return *m_engine;
     }
 
-    renderer::IRenderer& Core::renderer() {
+    renderer::IRenderer& Core::renderer() const {
         return *m_renderer;
     }
 
-    renderer::IEngineRenderer& Core::engine_renderer() {
+    renderer::IEngineRenderer& Core::engine_renderer() const {
         return *m_engine_renderer;
     }
 
-    renderer::IImGuiRenderer& Core::imgui_renderer() {
+    renderer::IImGuiRenderer& Core::imgui_renderer() const {
         return *m_imgui_renderer;
     }
 
-    window::IMainWindow& Core::main_window() {
+    window::IMainWindow& Core::main_window() const {
         return *m_main_window;
     }
 
-    event::EventManager& Core::event_manager() {
+    event::EventManager& Core::event_manager() const {
         return *m_event_manager;
     }
 
-    long Core::engine_frequency() {
+    long Core::engine_frequency() const {
         return m_engine_pulser.target_freqency();
     }
 
-    long Core::renderer_frequency() {
+    long Core::renderer_frequency() const {
         return m_renderer_pulser.target_freqency();
     }
 
-    long Core::window_frequency() {
+    long Core::window_frequency() const {
         return m_window_pulser.target_freqency();
     }
 
-    long Core::engine_effective_frequency() {
+    long Core::engine_effective_frequency() const {
         return m_engine_pulser.effective_frequency();
     }
 
-    long Core::renderer_effective_frequency() {
+    long Core::renderer_effective_frequency() const {
         return m_renderer_pulser.effective_frequency();
     }
 
-    long Core::window_effective_frequency() {
+    long Core::window_effective_frequency() const {
         return m_window_pulser.effective_frequency();
     }
 

@@ -12,7 +12,7 @@
 #include <functional>
 // #include <unordered_map>
 #include "bintjekit/entity/ientity.hpp"
-#include "bintjekit/entity/components/component_view.hpp"
+// #include "bintjekit/entity/components/component_view.hpp"
 // #include "bintjekit/entity/fwd.hpp"
 #include "bintjekit/entity/entity_collection.hpp"
 

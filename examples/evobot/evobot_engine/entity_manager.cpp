@@ -5,20 +5,15 @@
  */
 
 #include "entity_manager.hpp"
-#include "components/arrow_component.hpp"
-#include "components/health.hpp"
-#include "evobot_engine/evobot.hpp"
-#include "evobot_engine/glob.hpp"
+
+#include "evobot_engine/entity_manager_builder.hpp"
 
 namespace evo::entity {
     EvoEntityManager::EvoEntityManager() {
         init();
     }
-    EvoEntityManager::~EvoEntityManager() =default;
+    EvoEntityManager::~EvoEntityManager() = default;
     void EvoEntityManager::init() {
-        create_collection<engine::Glob>();
-        create_collection<engine::Evobot>();
-        register_component<ArrowComponent>();
-        register_component<Health>();
+        EntityManagerBuilder::build_default(* this);
     }
 }
