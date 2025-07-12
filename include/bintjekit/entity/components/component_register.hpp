@@ -23,7 +23,9 @@ namespace bnjkit::entity {
         requires is_component<ComponentType>
     class ComponentRegistry final : public IComponentRegistry {
     public:
-        void add(EntityId entity_id, ComponentType component);
+        ComponentType& add(EntityId entity_id, ComponentType component);
+
+        ComponentType& add(EntityId entity_id);
 
         ComponentType* get(EntityId entity_id);
         const ComponentType* get(EntityId entity_id) const;

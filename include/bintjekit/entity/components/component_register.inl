@@ -9,8 +9,12 @@
 #pragma once
 namespace bnjkit::entity {
     template<typename ComponentType> requires is_component<ComponentType>
-    void ComponentRegistry<ComponentType>::add(EntityId entity_id, ComponentType component) {
-        m_components[entity_id] = std::move(component);
+    ComponentType& ComponentRegistry<ComponentType>::add(EntityId entity_id, ComponentType component) {
+        return m_components.emplace(entity_id, std::move(component)).first->second;
+    }
+    template<typename ComponentType> requires is_component<ComponentType>
+    ComponentType& ComponentRegistry<ComponentType>::add(EntityId entity_id) {
+        return m_components.emplace(entity_id, ComponentType{}).first->second;
     }
     template<typename ComponentType> requires is_component<ComponentType>
     ComponentType* ComponentRegistry<ComponentType>::get(EntityId entity_id) {

@@ -12,6 +12,7 @@ target_sources(bintjekit_entity
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.inl
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/typed_collection.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/entity_collection.hpp
+        ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/components/i_component_builder.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/components/component_view.inl
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/components/component_view.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/components/component_register.inl

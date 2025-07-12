@@ -10,6 +10,7 @@
 #include <type_traits>
 #include "entity_manager.hpp"
 #include "bintjekit/entity/ientity.hpp"
+#include "components/i_component_builder.hpp"
 
 namespace bnjkit::entity {
     template<typename EntityType>
@@ -80,10 +81,12 @@ namespace bnjkit::entity {
         requires std::is_base_of_v<IEntity, EntityType>
     std::shared_ptr<EntityType> EntityManager::create() {
         auto entity = std::make_shared<EntityType>();
+        if (const auto it = m_builders.find(typeid(EntityType)); it != m_builders.end()) {
+            it->second->build(*entity);
+        }
         add(entity);
         return entity;
     }
-
     template<typename EntityType>
         requires std::is_base_of_v<IEntity, EntityType>
     auto EntityManager::get(EntityId id) {
@@ -108,8 +111,12 @@ namespace bnjkit::entity {
         }
     }
     template<typename ComponentType> requires is_component<ComponentType>
-    void EntityManager::add_component(EntityId entity_id, ComponentType component) {
-        get_component_registry<ComponentType>().add(entity_id, std::move(component));
+    ComponentType& EntityManager::add_component(EntityId entity_id, ComponentType component) {
+        return get_component_registry<ComponentType>().add(entity_id, std::move(component));
+    }
+    template<typename ComponentType> requires is_component<ComponentType>
+    ComponentType& EntityManager::add_component(EntityId entity_id) {
+        return get_component_registry<ComponentType>().add(entity_id);
     }
     template<typename ComponentType> requires is_component<ComponentType>
     ComponentType* EntityManager::get_component(EntityId entity_id) {
@@ -160,6 +167,16 @@ namespace bnjkit::entity {
     const ComponentView<ComponentType>& EntityManager::create_view() const {
         return get_component_registry<ComponentType>().create_view();
     }
+    template<typename EntityType>
+    void EntityManager::register_builder(std::unique_ptr<IComponentBuilder> builder) {
+        m_builders[typeid(EntityType)] = std::move(builder);
+    }
 
+    template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
+    std::shared_ptr<EntityType> EntityManager::create_entity() {
+        auto entity = std::make_shared<EntityType>();
+        add(entity);
+        return entity;
+    }
 }
 #endif // BINTJEKIT_ENTITY_ENTITY_MANAGER_INL

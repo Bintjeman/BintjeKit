@@ -14,6 +14,7 @@
 #include "components/component_register.hpp"
 
 namespace bnjkit::entity {
+    class IComponentBuilder;
     class EntityManager {
     public:
         EntityManager();
@@ -60,7 +61,10 @@ namespace bnjkit::entity {
         void register_component();
         template<typename ComponentType>
             requires is_component<ComponentType>
-        void add_component(EntityId entity_id, ComponentType component);
+        ComponentType& add_component(EntityId entity_id, ComponentType component);
+        template<typename ComponentType>
+            requires is_component<ComponentType>
+        ComponentType& add_component(EntityId entity_id);
         template<typename ComponentType>
             requires is_component<ComponentType>
         ComponentType* get_component(EntityId entity_id);
@@ -78,17 +82,23 @@ namespace bnjkit::entity {
         ComponentView<ComponentType>& create_view();
         template<typename ComponentType>
         const ComponentView<ComponentType>& create_view() const;
+        template<typename EntityType>
+        void register_builder(std::unique_ptr<IComponentBuilder> builder);
 
     protected:
         void remove(EntityId id);
-
-        std::unordered_map<std::type_index, std::unique_ptr<IComponentRegistry>> m_component_registries;
-        std::unordered_map<std::type_index, std::unique_ptr<EntityCollection>> m_collections;
+        template<typename EntityType=IEntity>
+            requires std::is_base_of_v<IEntity, EntityType>
+        std::shared_ptr<EntityType> create_entity();
+        std::unordered_map<std::type_index, std::unique_ptr<IComponentRegistry> > m_component_registries;
+        std::unordered_map<std::type_index, std::unique_ptr<EntityCollection> > m_collections;
         std::unordered_map<EntityId, std::type_index> m_entity_types;
+        std::unordered_map<std::type_index, std::unique_ptr<IComponentBuilder> > m_builders;
 
         std::vector<EntityId> m_pending_removals;
         std::shared_ptr<spdlog::logger> m_logger;
     };
 }
+
 #include "bintjekit/entity/entity_manager.inl"
 #endif // BNJKIT_ENTITY_ENTITY_MANAGER_HPP
