@@ -14,8 +14,8 @@ namespace evo::engine {
     struct D2 {
         using Position = sf::Vector2f;
         using Bounds = sf::Rect<float>;
-        Bounds bounds() const;
-        [[nodiscard]] Position position;
+        [[nodiscard]] Bounds bounds() const;
+        Position position;
         float radius{0.f};
     };
     struct Movable : D2 {
