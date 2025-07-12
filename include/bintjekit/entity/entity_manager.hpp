@@ -3,9 +3,8 @@
  * @date 08.07.25
  * @name entity_manager.hpp
  */
-
-#ifndef BNJKIT_ENTITY_MANAGER_HPP
-#define BNJKIT_ENTITY_MANAGER_HPP
+#ifndef BNJKIT_ENTITY_ENTITY_MANAGER_HPP
+#define BNJKIT_ENTITY_ENTITY_MANAGER_HPP
 #pragma once
 #include <typeindex>
 #include <unordered_map>
@@ -91,6 +90,5 @@ namespace bnjkit::entity {
         std::shared_ptr<spdlog::logger> m_logger;
     };
 }
-
 #include "bintjekit/entity/entity_manager.inl"
-#endif // BNJKIT_ENTITY_MANAGER_HPP
+#endif // BNJKIT_ENTITY_ENTITY_MANAGER_HPP

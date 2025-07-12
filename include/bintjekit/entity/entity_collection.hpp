@@ -4,8 +4,8 @@
  * @name entity_collection.hpp
  */
 
-#ifndef ENTITY_COLLECTION_HPP
-#define ENTITY_COLLECTION_HPP
+#ifndef BINTJEKIT_ENTITY_ENTITY_COLLECTION_HPP
+#define BINTJEKIT_ENTITY_ENTITY_COLLECTION_HPP
 #pragma once
 #include <memory>
 #include <vector>
@@ -47,4 +47,4 @@ namespace bnjkit::entity {
     };
 }
 
-#endif //ENTITY_COLLECTION_HPP
+#endif // BINTJEKIT_ENTITY_ENTITY_COLLECTION_HPP
