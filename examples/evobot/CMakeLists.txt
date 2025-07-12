@@ -24,6 +24,7 @@ target_sources(evobot PRIVATE
 )
 target_include_directories(evobot PRIVATE ${PROJECT_SOURCE_DIR}/examples/evobot)
 target_link_libraries(evobot PRIVATE
+        BintjeKit::Entity
         BintjeKit::BintjeKit
         SFML::Graphics
 )

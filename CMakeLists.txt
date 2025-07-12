@@ -20,6 +20,7 @@ include(cmake/Dependencies.cmake)
 ################################################################################
 # Définition de la bibliothèque principale
 add_library(bintjekit STATIC)
+add_library(bintjekit_entity STATIC)
 ################################################################################
 # Définition des cibles objets (object libraries)
 add_library(time OBJECT)
@@ -33,19 +34,10 @@ add_library(d2 OBJECT)
 add_subdirectory(common)
 add_subdirectory(src)
 ################################################################################
-#target_include_directories(time PUBLIC
-#        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
-#        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-#)
-#target_compile_features(time PUBLIC cxx_std_20)
-#target_link_libraries(time PUBLIC SFML::System)
-#target_include_directories(random PUBLIC
-#        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
-#        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-#)
-#target_compile_features(random PUBLIC cxx_std_20)
-##target_link_libraries(random PUBLIC SFML::System)
 set_target_properties(bintjekit PROPERTIES
+        PUBLIC_HEADER_FILE_SET HEADERS
+)
+set_target_properties(bintjekit_entity PROPERTIES
         PUBLIC_HEADER_FILE_SET HEADERS
 )
 ################################################################################
@@ -64,7 +56,13 @@ target_include_directories(bintjekit
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
         $<INSTALL_INTERFACE:include>
 )
+target_include_directories(bintjekit_entity
+        PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
 target_include_directories(bintjekit SYSTEM PUBLIC ${SPDLOG_INCLUDES})
+target_include_directories(bintjekit_entity SYSTEM PUBLIC ${SPDLOG_INCLUDES})
 ################################################################################
 target_link_libraries(bintjekit
         PUBLIC
@@ -79,16 +77,20 @@ target_link_libraries(bintjekit
 # Configuration des suffixes
 set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Suffixe pour les builds debug")
 # Appliquer le suffixe à votre bibliothèque
-set_target_properties(bintjekit PROPERTIES
-        DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
-)
 ################################################################################
 set_target_properties(bintjekit PROPERTIES
+        DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
+        VERSION ${PROJECT_VERSION}
+        POSITION_INDEPENDENT_CODE ON
+)
+set_target_properties(bintjekit_entity PROPERTIES
+        DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
         VERSION ${PROJECT_VERSION}
         POSITION_INDEPENDENT_CODE ON
 )
 ################################################################################
 # Configuration des options de compilation
+configure_target_options(bintjekit_entity)
 configure_target_options(bintjekit)
 configure_target_options(time)
 configure_target_options(random)
@@ -96,6 +98,7 @@ configure_target_options(d2)
 ################################################################################
 # Alias pour la cible
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)
+add_library(BintjeKit::Entity ALIAS bintjekit_entity)
 ################################################################################
 set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.local")
 ################################################################################
@@ -131,7 +134,11 @@ install(
 )
 ################################################################################
 # Installation des cibles et des dépendances
-install(TARGETS bintjekit time spdlog
+install(TARGETS
+        bintjekit
+        bintjekit_entity
+        time
+        spdlog
         EXPORT BintjeKitTargets
         LIBRARY
         DESTINATION ${CMAKE_INSTALL_LIBDIR}

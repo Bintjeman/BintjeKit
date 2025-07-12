@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
-target_sources(bintjekit
+################################################################################
+target_sources(bintjekit_entity
         PUBLIC
         FILE_SET HEADERS
         BASE_DIRS ${PROJECT_SOURCE_DIR}/include
@@ -18,7 +19,7 @@ target_sources(bintjekit
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/components/component.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/entity/fwd.hpp
 )
-target_sources(bintjekit PRIVATE
+target_sources(bintjekit_entity PRIVATE
         entity_manager.cpp
         typed_collection.cpp
         entity_collection.cpp

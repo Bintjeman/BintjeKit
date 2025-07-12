@@ -4,7 +4,7 @@ message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 add_executable(configuration_test configuration_test.cpp)
 target_link_libraries(configuration_test
         PRIVATE
-        bintjekit
+        BintjeKit::BintjeKit
         Catch2::Catch2WithMain
 )
 include(Catch)
