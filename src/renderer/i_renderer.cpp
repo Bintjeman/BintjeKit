@@ -45,7 +45,7 @@ namespace bnjkit::renderer {
     }
     void IRenderer::resize_views() {
         m_logger->trace("IRenderer: Resizing views");
-        const sf::Rect<float> world_bounds = m_engine_renderer->get_bounds();
+        const sf::Rect<float> world_bounds = m_engine_renderer->bounds();
         const float window_ratio = static_cast<float>(m_render_window->getSize().x) /
                                    static_cast<float>(
                                        m_render_window->getSize().y);
@@ -68,15 +68,15 @@ namespace bnjkit::renderer {
         }
         m_logger->trace(
             "IRenderer: Engine bounds: {}\nwindow size: {}\nView center: {}\nView size: {}",
-            m_engine_renderer->get_bounds(), m_render_window->getSize(),
+            m_engine_renderer->bounds(), m_render_window->getSize(),
             m_engine_view.getCenter(),
             m_engine_view.getSize());
     }
     void IRenderer::render_scene() {
         m_drawables.clear();
-        m_engine_renderer->get_drawable(m_drawables);
         for (const auto& drawable: m_drawables) {
             m_render_window->setView(m_engine_view);
+            m_engine_renderer->render(static_cast<sf::RenderTarget&>(*m_render_window));
             m_render_window->draw(drawable);
         }
     }

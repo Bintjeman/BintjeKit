@@ -16,9 +16,9 @@ namespace usr {
     class EngineRenderer final : public bnjkit::renderer::IEngineRenderer {
     public:
         ~EngineRenderer() override;
-        void get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const override;
+        void drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const override;
         void set_engine(const bnjkit::engine::IEngine *engine) override;
-        [[nodiscard]] sf::Rect<float> get_bounds() const override;
+        [[nodiscard]] sf::Rect<float> bounds() const override;
         [[nodiscard]] std::string name() const override;
 
     private:

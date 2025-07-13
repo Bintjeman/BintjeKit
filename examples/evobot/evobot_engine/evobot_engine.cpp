@@ -22,6 +22,7 @@ namespace evo::engine {
         m_logger->info("EvobotEngine: configuring");
         IEngine::configure();
         m_evo_world->configure(m_settings);
+
     }
     void EvobotEngine::new_world() {
         m_evo_world = std::make_unique<EvoWorld>();

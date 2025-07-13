@@ -26,7 +26,7 @@ namespace usr {
     }
 
     void Renderer::render_scene() {
-        m_engine_renderer->get_drawable(m_drawables);
+        m_engine_renderer->drawable(m_drawables);
         for (const auto &drawable: m_drawables) {
             m_render_window->setView(m_engine_view);
             m_render_window->draw(drawable);

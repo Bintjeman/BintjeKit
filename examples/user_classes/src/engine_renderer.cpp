@@ -12,7 +12,7 @@
 namespace usr {
     EngineRenderer::~EngineRenderer() = default;
 
-    void EngineRenderer::get_drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const {
+    void EngineRenderer::drawable(std::vector<std::reference_wrapper<sf::Drawable> > &drawable_list) const {
         static sf::RectangleShape background(m_engine->play_ground().size);
         static sf::CircleShape circle(100.f);
         // Text
@@ -32,7 +32,7 @@ namespace usr {
         m_usr_engine = dynamic_cast<const Engine *>(engine);
     }
 
-    sf::Rect<float> EngineRenderer::get_bounds() const {
+    sf::Rect<float> EngineRenderer::bounds() const {
         return {m_engine->play_ground().bounds()};
     }
     std::string EngineRenderer::name() const {

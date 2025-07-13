@@ -16,9 +16,9 @@ namespace gol {
     class GameOfLifeRenderer : public bnjkit::renderer::IEngineRenderer {
     public:
         GameOfLifeRenderer();
-        void get_drawable(std::vector<std::reference_wrapper<sf::Drawable>> &drawable_list) const override;
+        void drawable(std::vector<std::reference_wrapper<sf::Drawable>> &drawable_list) const override;
         void set_engine(const bnjkit::engine::IEngine *engine) override;
-        [[nodiscard]] sf::Rect<float> get_bounds() const override;
+        [[nodiscard]] sf::Rect<float> bounds() const override;
 
     private:
         static constexpr float m_s_cell_size = 1.0f;
