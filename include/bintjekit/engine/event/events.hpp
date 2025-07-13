@@ -7,7 +7,6 @@
 #ifndef EVENTS_HPP
 #define EVENTS_HPP
 #pragma once
-#include <entt/entity/registry.hpp>
 
 namespace bnjkit::engine {
     struct EntitySpawnedEvent {

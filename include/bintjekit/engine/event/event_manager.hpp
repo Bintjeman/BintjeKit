@@ -11,25 +11,38 @@
 #include <memory>
 
 namespace bnjkit::engine {
-    template<typename Event>
-    class EventDispatcher {
+    class IEventDispatcher {
     public:
-        void emit(const Event& event) {
-            for (auto& listener: m_listeners) {
-                listener(event);
-            }
-        }
+        virtual ~IEventDispatcher();
+    };
+    template<typename Event>
+    class EventDispatcher : public IEventDispatcher {
+    public:
+        ~EventDispatcher() override;
+        void emit(const Event& event);
 
-        void subscribe(std::function<void(const Event&)> callback) {
-            m_listeners.push_back(callback);
-        }
+        void subscribe(std::function<void(const Event&)> callback);
 
     private:
         std::vector<std::function<void(const Event&)> > m_listeners;
     };
 
+    template<typename Event>
+    EventDispatcher<Event>::~EventDispatcher() {}
+    template<typename Event>
+    void EventDispatcher<Event>::emit(const Event& event) {
+        for (auto& listener: m_listeners) {
+            listener(event);
+        }
+    }
+    template<typename Event>
+    void EventDispatcher<Event>::subscribe(std::function<void(const Event&)> callback) {
+        m_listeners.push_back(callback);
+    }
     class EventBus {
     public:
+        EventBus();
+        virtual ~EventBus();
         template<typename Event>
         void emit(const Event& event) {
             get_dispatcher<Event>().emit(event);
@@ -50,7 +63,7 @@ namespace bnjkit::engine {
             return * static_cast<EventDispatcher<Event>*>(dispatcher.get());
         }
 
-        std::unordered_map<size_t, std::unique_ptr<void> > m_dispatchers;
+        std::unordered_map<size_t, std::unique_ptr<IEventDispatcher> > m_dispatchers;
     };
 }
 
