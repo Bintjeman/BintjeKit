@@ -23,6 +23,15 @@ namespace bnjkit::entity {
         requires is_component<ComponentType>
     class ComponentRegistry final : public IComponentRegistry {
     public:
+        class Iterator {
+        private:
+            typename std::unordered_map<EntityId, ComponentType>::const_iterator m_it;
+
+        public:
+            EntityId operator*() const { return m_it->first; }
+            // ... autres méthodes d'itérateur
+        };
+
         ComponentType& add(EntityId entity_id, ComponentType component);
 
         ComponentType& add(EntityId entity_id);
@@ -38,6 +47,9 @@ namespace bnjkit::entity {
     private:
         std::unordered_map<EntityId, ComponentType> m_components;
     };
+    Iterator begin() const { return Iterator(m_components.begin()); }
+    Iterator end() const { return Iterator(m_components.end()); }
+
 }
 
 #include "bintjekit/entity/components/component_register.inl"

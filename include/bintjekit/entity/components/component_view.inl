@@ -51,7 +51,6 @@ namespace bnjkit::entity {
         m_filter = filter;
         m_is_frozen = false;
     }
-
     template<typename T>
     typename ComponentView<T>::Iterator ComponentView<T>::begin() const {
         if (m_is_frozen) {
@@ -69,7 +68,6 @@ namespace bnjkit::entity {
     template<typename T>
     void ComponentView<T>::freeze() {
         if (m_is_frozen) return;
-
         m_frozen_indices.clear();
         for (size_t i = 0; i < m_collection.size(); ++ i) {
             if (m_filter(m_collection.entities()[i])) {
