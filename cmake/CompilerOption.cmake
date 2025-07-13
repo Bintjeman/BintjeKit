@@ -36,20 +36,14 @@ set(RELEASE_WARNINGS
         ${BASE_WARNINGS}
 )
 set(DEBUG_OPTIONS
-        -g                     # Informations de debug
-        -O0                   # Pas d'optimisation pour un meilleur debugging
-        #        -fno-omit-frame-pointer # Garde la frame pointer pour un meilleur debugging
-        -fno-inline          # Désactive l' inlining pour un meilleur debugging
-        #        -D_GLIBCXX_DEBUG     # Active les vérifications de la STL en debug
+        -g
+        -O0
+        -fno-inline
 )
 set(RELEASE_OPTIONS
-        -DNDEBUG            # Désactive les assertions
-        -O3                 # Optimisation maximale
-        -flto=auto              # Link Time Optimization
-        #        -march=native      # Optimise pour le CPU actuel
-        #        -ffast-math        # Optimisations mathématiques agressives
-        #        -fomit-frame-pointer # Supprime frame pointer pour la performance
-
+        -DNDEBUG
+        -O3
+        -flto=auto
 )
 ################################################################################
 function(configure_target_options target_name)
