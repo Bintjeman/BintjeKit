@@ -31,7 +31,9 @@ namespace evo::engine {
         m_play_ground.reset();
     }
     void EvobotEngine::update() {
-        m_evo_world->update();
+        if (m_state == State::READY) {
+            m_evo_world->update();
+        }
     }
     EvoWorld* EvobotEngine::get_world() {
         return m_evo_world.get();
