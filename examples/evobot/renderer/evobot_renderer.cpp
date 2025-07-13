@@ -12,14 +12,10 @@
 #include <bintjekit/configuration/sfml_json_adapter.hpp>
 #include <bintjekit/engine/play_ground.hpp>
 
-#include "arrow_render_system.hpp"
-#include "evobot_engine/entity.hpp"
-#include "evobot_engine/evobot.hpp"
 #include "evobot_engine/evobot_engine.hpp"
-#include "evobot_engine/glob.hpp"
 
 namespace evo::renderer {
-    EvobotRenderer::EvobotRenderer() =default;
+    EvobotRenderer::EvobotRenderer() = default;
     void EvobotRenderer::get_drawable(
         std::vector<std::reference_wrapper<sf::Drawable> >& drawable_list
     ) const {
@@ -27,6 +23,8 @@ namespace evo::renderer {
         static sf::CircleShape circle;
         static std::vector<sf::CircleShape> circles;
         circles.clear();
+
+        // Background rendering reste le même
         if (m_draw_background) {
             sf::FloatRect rect = m_engine->play_ground().bounds();
             bg.setSize(rect.size);
@@ -34,36 +32,14 @@ namespace evo::renderer {
             bg.setFillColor(m_back_ground_color);
             drawable_list.emplace_back(bg);
         }
-        ArrowRenderSystem::append_drawables(drawable_list, m_evobot_engine->entity_manager());
-        circles.reserve(m_evobot_engine->entity_manager().size());
-        if (m_draw_evobots) {
-            circle.setFillColor(m_evobot_color);
-            circle.setFillColor(m_evobot_color_2);
-            circle.setOutlineThickness(1.f);
-            for (const auto& evobot: m_evobot_engine->entity_manager().get_collection<engine::Evobot>().
-                 typed_entities()) {
-                if (evobot) {
-                    circle.setPosition(evobot->bounds().position);
-                    circle.setRadius(evobot->radius());
-                    circles.emplace_back(circle);
-                    drawable_list.emplace_back(circles.back());
-                }
-            }
-        }
-        if (m_draw_globs) {
-            circle.setFillColor(m_glob_color);
-            circle.setFillColor(m_glob_color_2);
-            circle.setOutlineThickness(1.f);
-            for (const auto& glob: m_evobot_engine->entity_manager().get_collection<engine::Glob>().
-                 typed_entities()) {
-                if (glob) {
-                    circle.setPosition(glob->bounds().position);
-                    circle.setRadius(glob->radius());
-                    circles.emplace_back(circle);
-                    drawable_list.emplace_back(circles.back());
-                }
-            }
-        }
+
+        circles.reserve(100); // Réservation arbitraire, à ajuster selon les besoins
+
+        // Rendu des Evobots
+
+
+        // Rendu des Globs
+
     }
 
     std::string EvobotRenderer::name() const {

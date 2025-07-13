@@ -7,14 +7,10 @@
 #define EVO_EVOBOTENGINE_HPP
 #pragma once
 #include <bintjekit/engine.hpp>
-#include <bintjekit/entity/entity_manager.hpp>
 
-#include "entity_manager.hpp"
-
-// #include "entity_manager.hpp"
 namespace evo::engine {
+    class EvoWorld;
     class EvobotEngine final : public bnjkit::engine::IEngine {
-        // using Entity = bnjkit::entity::IEntity;
 
     public:
         EvobotEngine();
@@ -23,23 +19,13 @@ namespace evo::engine {
         void new_world();
         void clear();
         void update() override;
-        bnjkit::entity::EntityManager& entity_manager();
-        [[nodiscard]] const bnjkit::entity::EntityManager& entity_manager() const;
+        EvoWorld* get_world();
+        const EvoWorld* get_world() const;
         [[nodiscard]] std::string name() const override;
         void on_sfml_event(const sf::Event& event) override;
 
     private:
-        unsigned int m_minimum_bot{0};
-        unsigned int m_maximum_bot{10};
-        unsigned int m_minimum_glob{0};
-        unsigned int m_maximum_glob{10};
-        float m_bot_min_radius{1.f};
-        float m_bot_max_radius{10.f};
-        float m_bot_max_speed{2.f};
-        float m_glob_min_radius{1.f};
-        float m_glob_max_radius{10.f};
-        float m_glob_max_speed{1.f};
-        std::unique_ptr<entity::EvoEntityManager> m_entity_manager;
+        std::unique_ptr<EvoWorld> m_evo_world;
     };
 }
 

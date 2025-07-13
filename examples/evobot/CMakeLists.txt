@@ -14,13 +14,8 @@ target_sources(evobot PRIVATE
         renderer/evobot_renderer.cpp
         renderer/renderer.cpp
         # engine
+        evobot_engine/evo_world.cpp
         evobot_engine/evobot_engine.cpp
-        evobot_engine/entity_manager_builder.cpp
-        evobot_engine/entity_manager.cpp
-        evobot_engine/evobot.cpp
-        evobot_engine/bot.cpp
-        evobot_engine/components/d2.cpp
-        evobot_engine/entity.cpp
 )
 target_include_directories(evobot PRIVATE ${PROJECT_SOURCE_DIR}/examples/evobot)
 target_link_libraries(evobot PRIVATE

@@ -19,7 +19,7 @@ namespace bnjkit::engine {
         virtual void initialize(World& world) = 0;
 
         // Mise à jour du système
-        virtual void update(World& world, float deltaTime) = 0;
+        virtual void update(World& world) = 0;
 
         // Nettoyage du système
         virtual void cleanup(World& world) = 0;

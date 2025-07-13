@@ -4,8 +4,8 @@
  * @name prefab.hpp
  */
 
-#ifndef PREFAB_HPP
-#define PREFAB_HPP
+#ifndef BINTJEKIT_ENGINE_PREFAB_HPP
+#define BINTJEKIT_ENGINE_PREFAB_HPP
 #pragma once
 #include <functional>
 
@@ -25,4 +25,4 @@ namespace bnjkit::engine {
     };
 }
 
-#endif //PREFAB_HPP
+#endif // BINTJEKIT_ENGINE_PREFAB_HPP

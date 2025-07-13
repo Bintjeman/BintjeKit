@@ -8,6 +8,7 @@
 #define EVO_IMGUIRENDERER_HPP
 #pragma once
 #include <bintjekit/renderer/i_bnjkit_imgui.hpp>
+
 namespace bnjkit::event {
     class ICoreEventHandler;
 }
@@ -15,11 +16,13 @@ namespace bnjkit::event {
 namespace evo {
     namespace engine {
         class EvobotEngine;
+        class EvoWorld;
     } // engine
     namespace event {
         class EventManager;
     }
-        namespace renderer {
+
+    namespace renderer {
         class ImGuiRenderer final : public bnjkit::renderer::IImGuiRenderer {
         public:
             ImGuiRenderer();
@@ -29,6 +32,7 @@ namespace evo {
             void on_quit() override;
             void set_engine(bnjkit::engine::IEngine* engine) override;
             void set_core_event_handler(bnjkit::event::ICoreEventHandler* core_event_handler) override;
+
         private:
             event::EventManager* m_event_manager;
             const engine::EvobotEngine* m_evobot_engine;

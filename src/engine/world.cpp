@@ -20,10 +20,10 @@ namespace bnjkit::engine {
             (* it)->cleanup(* this);
         }
     }
-    void World::update(float dt) {
+    void World::update() {
         // Update des systèmes
         for (auto& system: m_systems) {
-            system->update(* this, dt);
+            system->update(* this);
         }
     }
     void World::register_prefab(const std::string& name, PrefabData data) {

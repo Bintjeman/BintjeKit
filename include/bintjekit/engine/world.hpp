@@ -17,12 +17,12 @@ namespace bnjkit::engine {
     class World : public EntityManager {
     public:
         explicit World(const std::string& name);
-        ~World();
+        virtual ~World();
         // Méthodes spécifiques au gameplay
         template<typename... Components>
         entt::entity spawn(Components&&... components);
 
-        void update(float dt);
+        void update();
 
         template<typename T>
         void add_system();

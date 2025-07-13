@@ -9,12 +9,10 @@
 #include <bintjekit/logger.hpp>
 #include <bintjekit/core/core.hpp>
 #include <bintjekit/engine/i_engine.hpp>
-#include <bintjekit/entity/entity_manager.hpp>
 #include "application/event_manager.hpp"
 #include "evobot_engine/evobot_engine.hpp"
-#include "evobot_engine/evobot.hpp"
-#include "evobot_engine/glob.hpp"
-
+#include "evobot_engine/evo_world.hpp"
+#include "evobot_engine/components/base_components.hpp"
 namespace evo::renderer {
     ImGuiRenderer::ImGuiRenderer(): m_event_manager(nullptr), m_evobot_engine(nullptr) {
         m_logger->info("ImGuiRenderer: created");
@@ -37,22 +35,19 @@ namespace evo::renderer {
         }
 
         if (m_draw_evobot_window) {
-            if (m_evobot_engine && m_evobot_engine->state() == bnjkit::engine::IEngine::State::READY) {
-                auto evobots = m_evobot_engine->entity_manager().get_collection<engine::Evobot>().entities();
-                ImGui::Begin("Evobot", & m_draw_evobot_window);
-                auto state = m_engine->state();
-                ImGui::Text("Evobot state: %s",
-                            bnjkit::engine::IEngine::state_to_string(state).c_str());
-                auto ticks = m_engine->play_ground().ticks();
-                ImGui::Text("Evobot ticks: %ld", ticks);
-                auto entities_number = engine::Evobot::total_entities();
-                ImGui::Text("Evobot: %zu", entities_number);
-                auto evobot_number = evobots.size();
-                auto glob_number = m_evobot_engine->entity_manager().get_collection<engine::Glob>().size();
-                ImGui::Text("Evobot: %zu", evobot_number);
-                ImGui::Text("Glob: %zu", glob_number);
-                ImGui::End();
+            ImGui::Begin("Evobot", & m_draw_evobot_window);
+            if (auto world = m_evobot_engine->get_world()) {
+                auto evobot_view = world->registry().view<engine::comp::EvobotTag>();
+                auto glob_view = world->registry().view<engine::comp::GlobTag>();
+                std::size_t evobot_count = evobot_view.size();
+                std::size_t glob_count = glob_view.size();
+                std::size_t total_count = evobot_count + glob_count;
+                ImGui::Text("Total entities count: %zu", total_count);
+                ImGui::Text("Evobot count: %zu", evobot_count);
+                ImGui::Text("Glob count: %zu", glob_count);
+
             }
+            ImGui::End();
         }
         if (m_draw_info_window) {
             ImGui::Begin("Info", & m_draw_info_window);
