@@ -5,10 +5,12 @@
  */
 
 #include "evo_world.hpp"
+#include <bintjekit/configuration/sfml_json_adapter.hpp>
 #include <bintjekit/configuration/node.hpp>
-
+#include <bintjekit/engine/play_ground.hpp>
 #include "bintjekit/utils/random/random_engine.hpp"
 #include "evobot_engine/components/components.hpp"
+#include "spdlog/logger.h"
 
 namespace evo::engine {
     EvoWorld::EvoWorld() : World("EvoWorld") {
@@ -71,17 +73,22 @@ namespace evo::engine {
                         });
     }
     void EvoWorld::configure(bnjkit::conf::Node& settings) {
+        m_logger->debug("EvoWorld: configuring");
         m_bot_max_radius = settings.get_or_set("/Rules/Bot/MaxRadius", 20.f);
         m_bot_min_radius = settings.get_or_set("/Rules/Bot/MinRadius", 10.f);
         m_bot_max_speed = settings.get_or_set("/Rules/Bot/MaxSpeed", 10.f);
-        m_maximum_bot = settings.get_or_set("/Rules/Bot/MaxBots", 1000.f);
-        m_minimum_bot = settings.get_or_set("/Rules/Bot/MinBots", 100.f);
+        m_maximum_bot = settings.get_or_set("/Rules/Bot/MaxBots", 1000);
+        m_minimum_bot = settings.get_or_set("/Rules/Bot/MinBots", 100);
         m_glob_max_radius = settings.get_or_set("/Rules/Glob/MaxRadius", 20.f);
         m_glob_min_radius = settings.get_or_set("/Rules/Glob/MinRadius", 10.f);
         m_glob_max_speed = settings.get_or_set("/Rules/Glob/MaxSpeed", 10.f);
-        m_maximum_glob = settings.get_or_set("/Rules/Glob/MaxGlobs", 1000.f);
-        m_minimum_glob = settings.get_or_set("/Rules/Glob/MinGlobs", 100.f);
-    }
+        m_maximum_glob = settings.get_or_set("/Rules/Glob/MaxGlobs", 1000);
+        m_minimum_glob = settings.get_or_set("/Rules/Glob/MinGlobs", 100);
+        auto playground_bounds = settings.get_or_set<sf::Rect<float>>("/Rules/Playground/Bounds",{{0.f, 0.f}, {1000.f, 1000.f}});
+        m_play_ground->size = playground_bounds.size;
+        m_play_ground->position = playground_bounds.position;
+
+;    }
     void EvoWorld::generate() {
         unsigned int initial_bots = bnjkit::utils::random::RandomEngine::get_int(
             m_minimum_bot,

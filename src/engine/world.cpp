@@ -6,6 +6,7 @@
 
 #include "bintjekit/engine/world.hpp"
 #include "bintjekit/logger.hpp"
+#include "bintjekit/engine/play_ground.hpp"
 #include "bintjekit/engine/event/event_manager.hpp"
 #include "bintjekit/engine/system/i_system.hpp"
 
@@ -13,6 +14,7 @@ namespace bnjkit::engine {
     World::World(const std::string& name): EntityManager(), m_name(name)
                                            , m_eventBus(std::make_unique<EventBus>()) {
         m_logger->info("World '{}' created", name);
+        m_play_ground = std::make_unique<PlayGround>();
     }
     World::~World() {
         m_logger->info("World '{}' destroyed", m_name);
@@ -36,5 +38,14 @@ namespace bnjkit::engine {
         }
         m_logger->error("Prefab '{}' not found", name);
         return entt::null;
+    }
+    const std::string& World::name() const {
+        return m_name;
+    }
+    PlayGround& World::play_ground() {
+        return *m_play_ground;
+    }
+    const PlayGround& World::play_ground() const {
+        return *m_play_ground;
     }
 }

@@ -13,6 +13,7 @@
 #include <bintjekit/engine/play_ground.hpp>
 
 #include "evobot_engine/evobot_engine.hpp"
+#include "evobot_engine/evo_world.hpp"
 
 namespace evo::renderer {
     EvobotRenderer::EvobotRenderer() = default;
@@ -20,20 +21,17 @@ namespace evo::renderer {
         std::vector<std::reference_wrapper<sf::Drawable> >& drawable_list
     ) const {
         static sf::RectangleShape bg;
-        static sf::CircleShape circle;
-        static std::vector<sf::CircleShape> circles;
-        circles.clear();
 
         // Background rendering reste le même
         if (m_draw_background) {
-            sf::FloatRect rect = m_engine->play_ground().bounds();
+            auto world = m_evobot_engine->world();
+            sf::FloatRect rect = world->play_ground().bounds();
             bg.setSize(rect.size);
             bg.setPosition(rect.position);
             bg.setFillColor(m_back_ground_color);
             drawable_list.emplace_back(bg);
         }
 
-        circles.reserve(100); // Réservation arbitraire, à ajuster selon les besoins
 
         // Rendu des Evobots
 
@@ -70,7 +68,12 @@ namespace evo::renderer {
     }
 
     sf::Rect<float> EvobotRenderer::get_bounds() const {
-        return m_engine->play_ground().bounds();
+        const auto *world = m_evobot_engine->world();
+        if (world) {
+            return sf::Rect<float>{world->play_ground().bounds()};
+        }else {
+            return sf::Rect<float>{};
+        }
     }
 
     void EvobotRenderer::set_engine(const bnjkit::engine::IEngine* engine) {

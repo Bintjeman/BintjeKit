@@ -13,6 +13,7 @@
 namespace evo::engine {
     EvobotEngine::EvobotEngine() {
         m_logger->info("EvobotEngine: created");
+        m_evo_world = std::make_unique<EvoWorld>();
     }
     EvobotEngine::~EvobotEngine() {
         m_logger->info("EvobotEngine: destroyed");
@@ -20,25 +21,24 @@ namespace evo::engine {
     void EvobotEngine::configure() {
         m_logger->info("EvobotEngine: configuring");
         IEngine::configure();
+        m_evo_world->configure(m_settings);
     }
-
     void EvobotEngine::new_world() {
         m_evo_world = std::make_unique<EvoWorld>();
         m_evo_world->generate();
         m_state = State::READY;
     }
     void EvobotEngine::clear() {
-        m_play_ground.reset();
     }
     void EvobotEngine::update() {
         if (m_state == State::READY) {
             m_evo_world->update();
         }
     }
-    EvoWorld* EvobotEngine::get_world() {
+    EvoWorld* EvobotEngine::world() {
         return m_evo_world.get();
     }
-    const EvoWorld* EvobotEngine::get_world() const {
+    const EvoWorld* EvobotEngine::world() const {
         return m_evo_world.get();
     }
 

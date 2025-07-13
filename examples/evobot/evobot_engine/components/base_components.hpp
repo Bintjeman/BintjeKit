@@ -15,7 +15,6 @@ namespace evo::engine::comp {
     struct D2 {
         sf::Vector2f position{0.f, 0.f};
         float radius{0.f};
-
         [[nodiscard]] sf::Rect<float> bounds() const {
             return {
                 {position.x - radius, position.y - radius},

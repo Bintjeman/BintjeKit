@@ -13,6 +13,9 @@ target_sources(evobot PRIVATE
         renderer/imgui_renderer.cpp
         renderer/evobot_renderer.cpp
         renderer/renderer.cpp
+        # systems
+        evobot_engine/system/movement.cpp
+        # components
         # engine
         evobot_engine/evo_world.cpp
         evobot_engine/evobot_engine.cpp

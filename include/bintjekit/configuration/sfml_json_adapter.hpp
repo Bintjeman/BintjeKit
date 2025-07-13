@@ -12,6 +12,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include "spdlog/spdlog.h"
 #include <nlohmann/json.hpp>
+
 namespace nlohmann {
     template<typename T>
     struct adl_serializer<sf::Vector2<T> > {
@@ -52,21 +53,22 @@ namespace nlohmann {
         }
     };
     template<typename T>
-    void to_json(json& j, const sf::Rect<T>& r) {
-        j = json{
-            {"position", {{"x", r.position.x}, {"y", r.position.y}}},
-            {"size", {{"x", r.size.x}, {"y", r.size.y}}}
-        };
-    }
-    template<typename T>
-    sf::Rect<T> from_json(const json& j) {
-        sf::Rect<T> r;
-        r.position.x = j["position"]["x"].get<T>();
-        r.position.y = j["position"]["y"].get<T>();
-        r.size.x = j["size"]["x"].get<T>();
-        r.size.y = j["size"]["y"].get<T>();
-        return r;
-    }
+    struct adl_serializer<sf::Rect<T> > {
+        static void to_json(json& j, const sf::Rect<T>& r) {
+            j = json{
+                {"position", {{"x", r.position.x}, {"y", r.position.y}}},
+                {"size", {{"x", r.size.x}, {"y", r.size.y}}}
+            };
+        }
+        static sf::Rect<T> from_json(const json& j) {
+            sf::Rect<T> r;
+            r.position.x = j["position"]["x"].get<T>();
+            r.position.y = j["position"]["y"].get<T>();
+            r.size.x = j["size"]["x"].get<T>();
+            r.size.y = j["size"]["y"].get<T>();
+            return r;
+        }
+    };
 }
 
 namespace spdlog::level {

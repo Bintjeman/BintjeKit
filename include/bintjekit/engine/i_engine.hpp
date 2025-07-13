@@ -30,12 +30,10 @@ namespace bnjkit {
             void initialise() override;
             void configure() override;
             virtual void update();
-            [[nodiscard]] PlayGround& play_ground() const;
             [[nodiscard]] State state() const;
 
         protected:
             State m_state{State::EMPTY};
-            std::unique_ptr<PlayGround> m_play_ground;
             std::shared_ptr<spdlog::logger> m_logger;
 
         public:

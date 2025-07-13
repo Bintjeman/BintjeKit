@@ -36,7 +36,7 @@ namespace evo::renderer {
 
         if (m_draw_evobot_window) {
             ImGui::Begin("Evobot", & m_draw_evobot_window);
-            if (auto world = m_evobot_engine->get_world()) {
+            if (auto world = m_evobot_engine->world()) {
                 auto evobot_view = world->registry().view<engine::comp::EvobotTag>();
                 auto glob_view = world->registry().view<engine::comp::GlobTag>();
                 std::size_t evobot_count = evobot_view.size();

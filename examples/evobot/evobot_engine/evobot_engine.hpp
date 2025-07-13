@@ -19,8 +19,8 @@ namespace evo::engine {
         void new_world();
         void clear();
         void update() override;
-        EvoWorld* get_world();
-        const EvoWorld* get_world() const;
+        EvoWorld* world();
+        [[nodiscard]] const EvoWorld* world() const;
         [[nodiscard]] std::string name() const override;
         void on_sfml_event(const sf::Event& event) override;
 

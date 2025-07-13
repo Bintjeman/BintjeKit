@@ -13,12 +13,12 @@
 #include "bintjekit/engine/prefab/prefab.hpp"
 
 namespace bnjkit::engine {
+    struct PlayGround;
     class ISystem;
     class World : public EntityManager {
     public:
         explicit World(const std::string& name);
         virtual ~World();
-        // Méthodes spécifiques au gameplay
         template<typename... Components>
         entt::entity spawn(Components&&... components);
 
@@ -27,13 +27,16 @@ namespace bnjkit::engine {
         template<typename T>
         void add_system();
 
-        // Gestion des prefabs
         void register_prefab(const std::string& name, PrefabData data);
-
         entt::entity spawn_prefab(const std::string& name);
 
-    private:
+        [[nodiscard]] const std::string& name() const;
+        [[nodiscard]] PlayGround& play_ground();
+        [[nodiscard]] const PlayGround& play_ground() const;
+    protected:
         std::string m_name;
+        std::unique_ptr<PlayGround> m_play_ground;
+    private:
         std::vector<std::unique_ptr<ISystem> > m_systems;
         std::unique_ptr<EventBus> m_eventBus;
         std::unordered_map<std::string, PrefabData> m_prefabs;
