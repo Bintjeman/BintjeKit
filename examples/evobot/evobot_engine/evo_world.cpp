@@ -6,7 +6,6 @@
 
 #include "evo_world.hpp"
 #include <bintjekit/configuration/sfml_json_adapter.hpp>
-#include <bintjekit/configuration/node.hpp>
 #include <bintjekit/engine/play_ground.hpp>
 #include "bintjekit/utils/random/random_engine.hpp"
 #include "evobot_engine/components/components.hpp"
@@ -72,7 +71,13 @@ namespace evo::engine {
                             .name = "glob"
                         });
     }
-    void EvoWorld::configure(bnjkit::conf::Node& settings) {
+    void EvoWorld::set_settings(bnjkit::conf::Node& settings) {
+        m_settings = settings;
+    }
+    void EvoWorld::configure(bnjkit::conf::Node settings) {
+        if (!settings.get_json().is_null()) {
+            set_settings(settings);
+        }
         m_logger->debug("EvoWorld: configuring");
         m_bot_max_radius = settings.get_or_set("/Rules/Bot/MaxRadius", 20.f);
         m_bot_min_radius = settings.get_or_set("/Rules/Bot/MinRadius", 10.f);
@@ -83,30 +88,30 @@ namespace evo::engine {
         m_glob_min_radius = settings.get_or_set("/Rules/Glob/MinRadius", 10.f);
         m_glob_max_speed = settings.get_or_set("/Rules/Glob/MaxSpeed", 10.f);
         m_maximum_glob = settings.get_or_set("/Rules/Glob/MaxGlobs", 1000);
-        m_minimum_glob = settings.get_or_set("/Rules/Glob/MinGlobs", 100);
-        auto playground_bounds = settings.get_or_set<sf::Rect<float>>("/Rules/Playground/Bounds",{{0.f, 0.f}, {1000.f, 1000.f}});
-        m_play_ground->size = playground_bounds.size;
-        m_play_ground->position = playground_bounds.position;
-
-;    }
+        m_minimum_glob = settings.get_or_set("/Rules/Glob/MinGlobs", 100);;
+    }
     void EvoWorld::generate() {
+        generate_playground();
         unsigned int initial_bots = bnjkit::utils::random::RandomEngine::get_int(
             m_minimum_bot,
             m_maximum_bot
         );
-
         for (unsigned int i = 0; i < initial_bots; ++ i) {
             spawn_prefab("evobot");
         }
-
         // Génération des globs initiaux
         unsigned int initial_globs = bnjkit::utils::random::RandomEngine::get_int(
             m_minimum_glob,
             m_maximum_glob
         );
-
         for (unsigned int i = 0; i < initial_globs; ++ i) {
             spawn_prefab("glob");
         }
+    }
+    void EvoWorld::generate_playground() {
+        auto playground_bounds = m_settings.get_or_set<sf::Rect<float> >(
+            "/Rules/Playground/Bounds", {{0.f, 0.f}, {1000.f, 1000.f}});
+        m_play_ground->size = playground_bounds.size;
+        m_play_ground->position = playground_bounds.position;
     }
 }

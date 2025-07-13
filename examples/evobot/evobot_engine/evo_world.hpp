@@ -15,9 +15,7 @@
 #pragma once
 
 #include <bintjekit/engine/world.hpp>
-namespace bnjkit::conf {
-    class Node;
-}
+#include "bintjekit/configuration/node.hpp"
 namespace evo::engine {
     class EvoWorld final : public bnjkit::engine::World {
     public:
@@ -27,7 +25,8 @@ namespace evo::engine {
         void init_prefab();
 
         // Configuration spécifique au monde Evo
-        void configure(bnjkit::conf::Node& settings);
+        void set_settings(bnjkit::conf::Node& settings);
+        void configure(bnjkit::conf::Node settings = bnjkit::conf::Node{});
         void generate();
 
         // Accès aux paramètres du monde
@@ -43,6 +42,8 @@ namespace evo::engine {
         unsigned int get_maximum_glob() const { return m_maximum_glob; }
 
     private:
+        bnjkit::conf::Node m_settings;
+        void generate_playground();
         // Paramètres du monde
         float m_bot_min_radius{1.f};
         float m_bot_max_radius{10.f};
