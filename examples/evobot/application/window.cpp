@@ -35,6 +35,9 @@ namespace evo::window {
         IMainWindow::close();
     }
     void Window::on_sfml_event(const sf::Event& event) {
+        if (const auto& close_event = event.getIf<sf::Event::Closed>()) {
+            close();
+        }
         if (const auto& key_pressed = event.getIf<sf::Event::KeyPressed>()) {
             if (key_pressed->code == sf::Keyboard::Key::Q && bnjkit::event::ctrl()) {
                 close();
