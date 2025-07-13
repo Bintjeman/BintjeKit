@@ -165,11 +165,5 @@ namespace bnjkit::entity {
         return get_component_registry<ComponentType>().create_view();
     }
 
-    template<typename EntityType> requires std::is_base_of_v<IEntity, EntityType>
-    std::shared_ptr<EntityType> EntityManager::create_entity() {
-        auto entity = std::make_shared<EntityType>();
-        add(entity);
-        return entity;
-    }
 }
 #endif // BINTJEKIT_ENTITY_ENTITY_MANAGER_INL

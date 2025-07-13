@@ -85,9 +85,7 @@ namespace bnjkit::entity {
 
     protected:
         void remove(EntityId id);
-        template<typename EntityType=IEntity>
-            requires std::is_base_of_v<IEntity, EntityType>
-        std::shared_ptr<EntityType> create_entity();
+
         std::unordered_map<std::type_index, std::unique_ptr<IComponentRegistry> > m_component_registries;
         std::unordered_map<std::type_index, std::unique_ptr<EntityCollection> > m_collections;
         std::unordered_map<EntityId, std::type_index> m_entity_types;

@@ -8,12 +8,16 @@
 bnjkit::core::IModule::IModule() = default;
 bnjkit::core::IModule::~IModule() = default;
 
-void bnjkit::core::IModule::initialise() {
-}
+void bnjkit::core::IModule::initialise() {}
 
-void bnjkit::core::IModule::configure() {
-}
-void bnjkit::core::IModule::on_quit() {
+void bnjkit::core::IModule::configure() {}
+void bnjkit::core::IModule::on_quit() {}
+void bnjkit::core::IModule::configure(const conf::Node& settings, const conf::Node& custom_settings) {
+    set_settings(settings);
+    if (!custom_settings.get_json().empty()) {
+        set_custom(custom_settings);
+    }
+    configure();
 }
 void bnjkit::core::IModule::set_settings(const conf::Node& settings) {
     conf::Node tmp_json_arg = settings;

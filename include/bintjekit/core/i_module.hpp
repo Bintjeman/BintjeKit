@@ -17,6 +17,7 @@ namespace bnjkit::core {
         virtual void initialise();
         virtual void configure();
         virtual void on_quit();
+        void configure(const conf::Node& settings, const conf::Node& custom_settings = conf::Node());
         void set_settings(const conf::Node& settings);
         void set_custom(const conf::Node& settings);
         [[nodiscard]] virtual std::string name() const =0;
