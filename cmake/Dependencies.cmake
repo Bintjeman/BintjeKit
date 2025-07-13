@@ -7,7 +7,6 @@ include(cmake/CompilerOption.cmake)
 set(FETCHCONTENT_BASE_DIR "${CMAKE_SOURCE_DIR}/.deps-cache" CACHE PATH "Dépôt local pour les dépendances")
 set(FETCHCONTENT_QUIET OFF)
 set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
-
 ################################################################################
 # Configuration de SFML
 set(SFML_BUILD_AUDIO FALSE)
@@ -89,5 +88,14 @@ FetchContent_Declare(json
 FetchContent_MakeAvailable(json)
 ################################################################################
 configure_target_options(nlohmann_json EXTERNAL)
+################################################################################
+FetchContent_Declare(EnTT
+    GIT_REPOSITORY https://github.com/skypjack/entt
+        GIT_TAG v3.15.0
+        GIT_SHALLOW ON
+        SYSTEM
+)
+FetchContent_MakeAvailable(EnTT)
+configure_target_options(EnTT::EnTT)
 
 

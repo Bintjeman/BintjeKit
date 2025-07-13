@@ -20,7 +20,6 @@ include(cmake/Dependencies.cmake)
 ################################################################################
 # Définition de la bibliothèque principale
 add_library(bintjekit STATIC)
-add_library(bintjekit_entity STATIC)
 ################################################################################
 # Définition des cibles objets (object libraries)
 add_library(time OBJECT)
@@ -35,9 +34,6 @@ add_subdirectory(common)
 add_subdirectory(src)
 ################################################################################
 set_target_properties(bintjekit PROPERTIES
-        PUBLIC_HEADER_FILE_SET HEADERS
-)
-set_target_properties(bintjekit_entity PROPERTIES
         PUBLIC_HEADER_FILE_SET HEADERS
 )
 ################################################################################
@@ -56,13 +52,7 @@ target_include_directories(bintjekit
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/common/include>
         $<INSTALL_INTERFACE:include>
 )
-target_include_directories(bintjekit_entity
-        PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-)
 target_include_directories(bintjekit SYSTEM PUBLIC ${SPDLOG_INCLUDES})
-target_include_directories(bintjekit_entity SYSTEM PUBLIC ${SPDLOG_INCLUDES})
 ################################################################################
 target_link_libraries(bintjekit
         PUBLIC
@@ -72,6 +62,7 @@ target_link_libraries(bintjekit
         ImGui-SFML::ImGui-SFML
         spdlog::spdlog
         nlohmann_json::nlohmann_json
+        EnTT::EnTT
 )
 ################################################################################
 # Configuration des suffixes
@@ -83,14 +74,8 @@ set_target_properties(bintjekit PROPERTIES
         VERSION ${PROJECT_VERSION}
         POSITION_INDEPENDENT_CODE ON
 )
-set_target_properties(bintjekit_entity PROPERTIES
-        DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
-        VERSION ${PROJECT_VERSION}
-        POSITION_INDEPENDENT_CODE ON
-)
 ################################################################################
 # Configuration des options de compilation
-configure_target_options(bintjekit_entity)
 configure_target_options(bintjekit)
 configure_target_options(time)
 configure_target_options(random)
@@ -98,7 +83,6 @@ configure_target_options(d2)
 ################################################################################
 # Alias pour la cible
 add_library(BintjeKit::BintjeKit ALIAS bintjekit)
-add_library(BintjeKit::Entity ALIAS bintjekit_entity)
 ################################################################################
 set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.local")
 ################################################################################
@@ -136,9 +120,9 @@ install(
 # Installation des cibles et des dépendances
 install(TARGETS
         bintjekit
-        bintjekit_entity
         time
         spdlog
+        EnTT
         EXPORT BintjeKitTargets
         LIBRARY
         DESTINATION ${CMAKE_INSTALL_LIBDIR}
