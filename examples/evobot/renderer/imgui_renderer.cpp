@@ -130,9 +130,9 @@ namespace evo::renderer {
         m_logger->info("ImGuiRenderer: configuring");
         m_draw_menu = m_settings.get_or_set("/View/Draw menu", true);
         m_draw_info_window = m_settings.get_or_set("/View/Draw info window", true);
-        m_draw_debug_window = m_settings.get_or_set("/View/Draw debug window", false);
+        m_draw_debug_window = m_settings.get_or_set("/View/Draw debug window", true);
         m_draw_evobot_window = m_settings.get_or_set("/View/Draw evobot window", true);
-        m_draw_controls_window = m_settings.get_or_set("/View/Draw controls window", false);
+        m_draw_controls_window = m_settings.get_or_set("/View/Draw controls window", true);
     }
     void ImGuiRenderer::on_quit() {
         m_logger->info("ImGuiRenderer: on quit");
