@@ -19,6 +19,7 @@ namespace bnjkit::utils::random {
         static bool get_bool();
         static float get_float(float min, float max);
         static int get_int(int min, int max);
+        static unsigned int get_uint(unsigned int min, unsigned int max);
 
         static double get_normal(double mean, double stddev);
 

@@ -28,6 +28,9 @@ namespace bnjkit::utils::random {
     int RandomEngine::get_int(const int min, const int max) {
         return std::uniform_int_distribution{min, max}(m_s_generator);
     }
+    unsigned int RandomEngine::get_uint(unsigned int min, unsigned int max) {
+        return static_cast<unsigned int>(std::uniform_int_distribution{min, max}(m_s_generator));
+    }
     double RandomEngine::get_normal(const double mean, const double stddev) {
         auto& inst = instance();
         inst.m_normal_dist.param(
