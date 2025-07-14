@@ -79,6 +79,7 @@ namespace evo::engine {
                         });
     }
     void EvoWorld::set_settings(bnjkit::conf::Node& settings) {
+        m_logger->debug("EvoWorld: setting settings");
         m_settings = settings;
     }
     void EvoWorld::configure(bnjkit::conf::Node settings) {
@@ -86,18 +87,19 @@ namespace evo::engine {
             set_settings(settings);
         }
         m_logger->debug("EvoWorld: configuring");
-        m_bot_max_radius = settings.get_or_set("/Rules/Bot/MaxRadius", 20.f);
-        m_bot_min_radius = settings.get_or_set("/Rules/Bot/MinRadius", 10.f);
-        m_bot_max_speed = settings.get_or_set("/Rules/Bot/MaxSpeed", 10.f);
-        m_maximum_bot = settings.get_or_set("/Rules/Bot/MaxBots", 1000);
-        m_minimum_bot = settings.get_or_set("/Rules/Bot/MinBots", 100);
-        m_glob_max_radius = settings.get_or_set("/Rules/Glob/MaxRadius", 20.f);
-        m_glob_min_radius = settings.get_or_set("/Rules/Glob/MinRadius", 10.f);
-        m_glob_max_speed = settings.get_or_set("/Rules/Glob/MaxSpeed", 10.f);
-        m_maximum_glob = settings.get_or_set("/Rules/Glob/MaxGlobs", 1000);
-        m_minimum_glob = settings.get_or_set("/Rules/Glob/MinGlobs", 100);;
+        m_bot_max_radius = settings.get_or_set("/Rules/Bot/Max radius", 20.f);
+        m_bot_min_radius = settings.get_or_set("/Rules/Bot/Min radius", 10.f);
+        m_bot_max_speed = settings.get_or_set("/Rules/Bot/Max speed", 10.f);
+        m_maximum_bot = settings.get_or_set("/Rules/Bot/Max bots", 1000);
+        m_minimum_bot = settings.get_or_set("/Rules/Bot/Min bots", 100);
+        m_glob_max_radius = settings.get_or_set("/Rules/Glob/Max radius", 20.f);
+        m_glob_min_radius = settings.get_or_set("/Rules/Glob/Min radius", 10.f);
+        m_glob_max_speed = settings.get_or_set("/Rules/Glob/Max speed", 10.f);
+        m_maximum_glob = settings.get_or_set("/Rules/Glob/Max globs", 1000);
+        m_minimum_glob = settings.get_or_set("/Rules/Glob/Ming globs", 100);;
     }
     void EvoWorld::generate() {
+        m_logger->info("EvoWorld: generating");
         generate_playground();
         unsigned int initial_bots = bnjkit::utils::random::RandomEngine::get_int(
             m_minimum_bot,
@@ -116,8 +118,9 @@ namespace evo::engine {
         }
     }
     void EvoWorld::generate_playground() {
+        m_logger->info("EvoWorld: generating playground");
         auto playground_bounds = m_settings.get_or_set<sf::Rect<float> >(
-            "/Rules/Playground/Bounds", {{0.f, 0.f}, {1000.f, 1000.f}});
+            "/Rules/Playground/Bounds", {{-500.f, -500.f}, {500.f, 500.f}});
         m_play_ground->size = playground_bounds.size;
         m_play_ground->position = playground_bounds.position;
     }
