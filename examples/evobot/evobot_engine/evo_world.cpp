@@ -109,6 +109,7 @@ namespace evo::engine {
     }
     void EvoWorld::generate() {
         m_logger->info("EvoWorld: generating");
+        clear();
         generate_playground();
         unsigned int initial_bots = bnjkit::utils::random::RandomEngine::get_int(
             m_minimum_bot,

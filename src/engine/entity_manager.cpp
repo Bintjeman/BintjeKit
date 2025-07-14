@@ -17,4 +17,7 @@ namespace bnjkit::engine {
     void EntityManager::destroy(entt::entity entity) {
         m_registry.destroy(entity);
     }
+    void EntityManager::clear() {
+        m_registry.clear();
+    }
 }

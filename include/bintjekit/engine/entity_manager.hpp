@@ -37,6 +37,8 @@ namespace bnjkit::engine {
         template<typename... Components>
         auto view();
 
+        void clear();
+
     protected:
         entt::registry m_registry;
         std::shared_ptr<spdlog::logger> m_logger;
