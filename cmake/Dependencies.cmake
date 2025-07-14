@@ -89,6 +89,9 @@ FetchContent_MakeAvailable(json)
 ################################################################################
 configure_target_options(nlohmann_json EXTERNAL)
 ################################################################################
+set(ENTT_BUILD_TESTING OFF)
+set(ENTT_BUILD_DOCS OFF)
+set(ENTT_INSTALL ON)
 FetchContent_Declare(EnTT
     GIT_REPOSITORY https://github.com/skypjack/entt
         GIT_TAG v3.15.0
