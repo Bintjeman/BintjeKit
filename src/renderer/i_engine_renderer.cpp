@@ -42,8 +42,8 @@ namespace bnjkit::renderer {
         m_logger->debug("Setting default view");
         m_default_view = view;
     }
-    void IEngineRenderer::set_view(RenderLayer layer,const std::shared_ptr<sf::View>& view) {
-        m_logger->debug("Setting view for layer {}", layer);
+    void IEngineRenderer::set_view(RenderLayer layer, const std::shared_ptr<sf::View>& view) {
+        m_logger->debug("Setting view for layer {}", render_layer_to_string(layer));
         m_layer_views[layer] = view;
     }
     void IEngineRenderer::add_render_system(std::unique_ptr<IRenderSystem> system, RenderLayer layer) {
@@ -105,7 +105,7 @@ namespace bnjkit::renderer {
     }
     void IEngineRenderer::render(sf::RenderTarget& target) const {
         for (const auto& [layer, systems]: m_render_systems) {
-            target.setView(m_layer_views.at(layer));
+            target.setView(* m_layer_views.at(layer));
             for (const auto& entry: systems) {
                 if (entry.enabled && entry.system) {
                     entry.system->render(target);
@@ -120,5 +120,23 @@ namespace bnjkit::renderer {
     }
     std::string IEngineRenderer::name() const {
         return "IEngineRenderer";
+    }
+    std::string render_layer_to_string(RenderLayer layer) {
+        switch (layer) {
+            case RenderLayer::BACKGROUND:
+                return "BACKGROUND";
+            case RenderLayer::WORLD:
+                return "WORLD";
+            case RenderLayer::ENTITIES:
+                return "ENTITIES";
+            case RenderLayer::EFFECTS:
+                return "EFFECTS";
+            case RenderLayer::UI:
+                return "UI";
+            case RenderLayer::DEBUG:
+                return "DEBUG";
+            default:
+                return "UNKNOWN";
+        }
     }
 }

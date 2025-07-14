@@ -35,20 +35,13 @@ namespace evo::renderer {
             m_logger->error("Cannot configure renderer: invalid world");
             return;
         }
-        if (!m_view) {
-            m_view = std::make_shared<sf::View>(sf::FloatRect({0, 0}, {1000, 1000}));
-        }
         m_logger->debug("Creating CircleRenderSystem");
         auto circle_system = std::make_unique<CircleRenderSystem>(
             evobot_engine->world()->registry()
         );
-        circle_system->set_view(m_view);
         m_logger->debug("Adding CircleRenderSystem to layer Entities");
         add_render_system(std::move(circle_system),
                           bnjkit::renderer::RenderLayer::ENTITIES);
-    }
-    void EvobotRenderer::set_view(const std::shared_ptr<sf::View>& view) {
-        m_view = view;
     }
     sf::Rect<float> EvobotRenderer::bounds() const {
         if ((m_evobot_engine == nullptr) || (m_evobot_engine->world() == nullptr)) {

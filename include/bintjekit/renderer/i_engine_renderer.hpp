@@ -62,5 +62,6 @@ namespace bnjkit::renderer {
         std::shared_ptr<sf::View> m_default_view;
         std::shared_ptr<spdlog::logger> m_logger;
     };
+    std::string render_layer_to_string(RenderLayer layer);
 }
 #endif // BNJKIT_RENDERER_I_ENGINE_RENDERER_HPP

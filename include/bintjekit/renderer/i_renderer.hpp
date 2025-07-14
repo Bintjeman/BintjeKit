@@ -42,7 +42,7 @@ namespace bnjkit {
             virtual void set_render_window(sf::RenderWindow *window);
             virtual void set_imgui_renderer(IImGuiRenderer *imgui_renderer);
             virtual void set_engine(const engine::IEngine *engine);
-            virtual void set_engine_renderer(const IEngineRenderer *engine_renderer);
+            virtual void set_engine_renderer(IEngineRenderer *engine_renderer);
             virtual void set_core(core::Core *core);
 
         protected:
@@ -56,7 +56,7 @@ namespace bnjkit {
             sf::RenderWindow *m_render_window;
             IImGuiRenderer *m_imgui_renderer;
             const engine::IEngine *m_engine;
-            const IEngineRenderer *m_engine_renderer;
+            IEngineRenderer *m_engine_renderer;
             core::Core *m_core;
             std::vector<std::reference_wrapper<sf::Drawable> > m_drawables;
             std::shared_ptr<sf::View> m_engine_view;

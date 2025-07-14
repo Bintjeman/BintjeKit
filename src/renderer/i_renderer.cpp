@@ -19,6 +19,8 @@ namespace bnjkit::renderer {
                              m_engine_renderer(nullptr), m_core(nullptr) {
         m_logger = core::Logger::get_logger(core::module_names::RENDERER);
         m_logger->info("IRenderer: Constructor of IRenderer");
+        m_engine_view = std::make_shared<sf::View>();
+        m_gui_view = std::make_shared<sf::View>();
     }
 
     IRenderer::~IRenderer() {
@@ -82,20 +84,18 @@ namespace bnjkit::renderer {
         m_render_window->setView(*m_gui_view);
         m_imgui_renderer->draw();
     }
-
     void IRenderer::set_render_window(sf::RenderWindow* window) {
         m_logger->debug("IRenderer: Setting render window");
         m_render_window = window;
         *m_engine_view = window->getDefaultView();
         *m_gui_view = window->getDefaultView();
     }
-
     void IRenderer::set_imgui_renderer(IImGuiRenderer* imgui_renderer) {
         m_logger->debug("IRenderer: Setting imgui renderer");
         m_imgui_renderer = imgui_renderer;
     }
 
-    void IRenderer::set_engine_renderer(const IEngineRenderer* engine_renderer) {
+    void IRenderer::set_engine_renderer(IEngineRenderer* engine_renderer) {
         m_logger->debug("IRenderer: Setting engine renderer");
         m_engine_renderer = engine_renderer;
     }
