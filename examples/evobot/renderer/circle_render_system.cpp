@@ -14,26 +14,16 @@ namespace evo::renderer {
     CircleRenderSystem::~CircleRenderSystem() = default;
     CircleRenderSystem::CircleRenderSystem(const entt::registry& registry)
         : m_registry(registry) {
-        // m_circle_shape.setPointCount(32);
     }
     void CircleRenderSystem::render(sf::RenderTarget& target) const {
-
         // Rendu des bots
         sf::CircleShape circle_shape;
         circle_shape.setPointCount(32);
-
-        const auto circle_view = m_registry.view<const engine::comp::D2>();
-        m_logger->debug("Number of entities with D2: {}", circle_view.size());
-        const auto evobot_view = m_registry.view<const engine::comp::EvobotTag>();
-        m_logger->debug("Number of entities with EvobotTag: {}", evobot_view.size());
         const auto bot_view = m_registry.view<engine::comp::D2, engine::comp::EvobotTag>();
-        // m_logger->debug("Number of entities with D2 and EvobotTag: {}", bot_view);
         bot_view.each([this,&target, &circle_shape](const auto& d2, const auto& tag) {
             circle_shape.setRadius(d2.radius);
             circle_shape.setPosition(d2.position - sf::Vector2f(d2.radius, d2.radius));
             circle_shape.setFillColor(sf::Color(50, 150, 250));
-            m_logger->debug("Drawing circle at: ({}, {}), radius: {}",
-                            d2.position.x, d2.position.y, d2.radius);
             target.draw(circle_shape);
         });
     }

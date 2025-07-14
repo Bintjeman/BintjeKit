@@ -28,10 +28,19 @@ namespace evo::engine {
         register_prefab("evobot", {
                             .spawn = [this](bnjkit::engine::World& world) -> entt::entity {
                                 auto entity = world.registry().create();
-
+                                auto playground = world.play_ground();
+                                auto random_position = [&playground]() {
+                                    auto x = bnjkit::utils::random::RandomEngine::get_float(
+                                        playground.bounds().position.x,
+                                        playground.bounds().position.x + playground.bounds().size.x);
+                                    auto y = bnjkit::utils::random::RandomEngine::get_float(
+                                        playground.bounds().position.y,
+                                        playground.bounds().position.y + playground.bounds().size.y);
+                                    return sf::Vector2f{x, y};
+                                };
                                 // Composants de base
                                 world.registry().emplace<comp::D2>(entity,
-                                                                   sf::Vector2f{100.f, 100.f},
+                                                                   random_position(),
                                                                    m_bot_min_radius
                                 );
                                 world.registry().emplace<comp::Velocity>(entity);
@@ -120,7 +129,7 @@ namespace evo::engine {
     void EvoWorld::generate_playground() {
         m_logger->info("EvoWorld: generating playground");
         auto playground_bounds = m_settings.get_or_set<sf::Rect<float> >(
-            "/Rules/Playground/Bounds", {{-500.f, -500.f}, {500.f, 500.f}});
+            "/Rules/Playground/Bounds", {{- 500.f, - 500.f}, {500.f, 500.f}});
         m_play_ground->size = playground_bounds.size;
         m_play_ground->position = playground_bounds.position;
     }
