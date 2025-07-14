@@ -12,7 +12,7 @@
 #include "bintjekit/renderer/i_render_system.hpp"
 
 namespace bnjkit::renderer {
-    IEngineRenderer::IEngineRenderer() {
+    IEngineRenderer::IEngineRenderer(): m_engine(nullptr) {
         m_logger = core::Logger::get_logger(core::module_names::RENDERER);
         m_logger->info("Constructor of IEngineRenderer");
         m_default_view = std::make_shared<sf::View>();
@@ -23,7 +23,7 @@ namespace bnjkit::renderer {
     }
     void IEngineRenderer::initialise() {
         IModule::initialise();
-        m_logger->debug("Initialising IEngineRenderer");
+        m_logger->trace("Initialising IEngineRenderer");
         m_layer_views[RenderLayer::BACKGROUND] = m_default_view;
         m_layer_views[RenderLayer::WORLD] = m_default_view;
         m_layer_views[RenderLayer::ENTITIES] = m_default_view;
@@ -35,15 +35,15 @@ namespace bnjkit::renderer {
         IModule::configure();
     }
     void IEngineRenderer::set_engine(const engine::IEngine* engine) {
-        m_logger->debug("Setting engine");
+        m_logger->trace("Setting engine");
         m_engine = engine;
     }
     void IEngineRenderer::set_default_view(const std::shared_ptr<sf::View>& view) {
-        m_logger->debug("Setting default view");
+        m_logger->trace("Setting default view");
         m_default_view = view;
     }
     void IEngineRenderer::set_view(RenderLayer layer, const std::shared_ptr<sf::View>& view) {
-        m_logger->debug("Setting view for layer {}", render_layer_to_string(layer));
+        m_logger->trace("Setting view for layer {}", render_layer_to_string(layer));
         m_layer_views[layer] = view;
     }
     void IEngineRenderer::add_render_system(std::unique_ptr<IRenderSystem> system, RenderLayer layer) {

@@ -33,23 +33,23 @@ namespace bnjkit::renderer {
     }
 
     void IImGuiRenderer::set_window(sf::RenderWindow* window) {
-        m_logger->debug("IImGuiRenderer: Setting window");
+        m_logger->trace("IImGuiRenderer: Setting window");
         m_window = window;
     }
     void IImGuiRenderer::set_engine(engine::IEngine* engine) {
-        m_logger->debug("IImGuiRenderer: Setting engine");
+        m_logger->trace("IImGuiRenderer: Setting engine");
         m_engine = engine;
     }
     void IImGuiRenderer::set_core(core::Core* core) {
-        m_logger->debug("IImGuiRenderer: Setting core");
+        m_logger->trace("IImGuiRenderer: Setting core");
         m_core = core;
     }
     void IImGuiRenderer::set_core_event_handler(event::ICoreEventHandler* core_event_handler) {
-        m_logger->debug("IImGuiRenderer: Setting core event handler");
+        m_logger->trace("IImGuiRenderer: Setting core event handler");
         m_core_event_handler = core_event_handler;
     }
     void IImGuiRenderer::set_renderer(IRenderer* renderer) {
-        m_logger->debug("IImGuiRenderer: Setting renderer");
+        m_logger->trace("IImGuiRenderer: Setting renderer");
         m_renderer = renderer;
     }
 

@@ -5,7 +5,7 @@
  */
 
 #include "evo_world.hpp"
-#include <bintjekit/configuration/sfml_json_adapter.hpp>
+#include <bintjekit/configuration/json_adapter.hpp>
 #include <bintjekit/engine/play_ground.hpp>
 #include "bintjekit/utils/random/random_engine.hpp"
 #include "evobot_engine/components/components.hpp"

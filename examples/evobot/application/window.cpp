@@ -5,7 +5,7 @@
  */
 
 #include "window.hpp"
-#include <bintjekit/configuration/sfml_json_adapter.hpp>
+#include <bintjekit/configuration/json_adapter.hpp>
 #include <bintjekit/event_manager/event_helper.hpp>
 
 namespace evo::window {

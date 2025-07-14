@@ -19,11 +19,11 @@ namespace bnjkit::engine {
         m_logger->info("Destructor of IEngine");
     }
     void IEngine::initialise() {
-        m_logger->debug("Initialising IEngine");
+        m_logger->trace("Initialising IEngine");
     }
 
     void IEngine::configure() {
-        m_logger->debug("Configuring IEngine");
+        m_logger->trace("Configuring IEngine");
     }
 
     void IEngine::update() {

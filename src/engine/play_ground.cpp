@@ -20,11 +20,11 @@ namespace bnjkit::engine {
     }
 
     void PlayGround::initialise() const {
-        m_logger->debug("Initialising PlayGround");
+        m_logger->trace("Initialising PlayGround");
     }
 
     void PlayGround::configure() const {
-        m_logger->debug("Configuring PlayGround");
+        m_logger->trace("Configuring PlayGround");
     }
 
     void PlayGround::update() {

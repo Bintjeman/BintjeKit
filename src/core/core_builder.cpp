@@ -31,43 +31,43 @@ namespace bnjkit::core {
     }
 
     CoreBuilder& CoreBuilder::set_window_module(std::unique_ptr<window::IMainWindow> window) {
-        m_logger->debug("Setting window module");
+        m_logger->trace("Setting window module");
         m_window = std::move(window);
         return *this;
     }
 
     CoreBuilder& CoreBuilder::set_event_manager_module(std::unique_ptr<event::EventManager> event_manager) {
-        m_logger->debug("Setting event manager module");
+        m_logger->trace("Setting event manager module");
         m_event_manager = std::move(event_manager);
         return *this;
     }
 
     CoreBuilder& CoreBuilder::set_engine_module(std::unique_ptr<engine::IEngine> engine) {
-        m_logger->debug("Setting engine module");
+        m_logger->trace("Setting engine module");
         m_engine = std::move(engine);
         return *this;
     }
 
     CoreBuilder& CoreBuilder::set_renderer_module(std::unique_ptr<renderer::IRenderer> renderer) {
-        m_logger->debug("Setting renderer module");
+        m_logger->trace("Setting renderer module");
         m_renderer = std::move(renderer);
         return *this;
     }
 
     CoreBuilder& CoreBuilder::set_engine_renderer(std::unique_ptr<renderer::IEngineRenderer> engine_renderer) {
-        m_logger->debug("Setting engine renderer module");
+        m_logger->trace("Setting engine renderer module");
         m_engine_renderer = std::move(engine_renderer);
         return *this;
     }
 
     CoreBuilder& CoreBuilder::set_imgui_renderer(std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer) {
-        m_logger->debug("Setting imgui renderer module");
+        m_logger->trace("Setting imgui renderer module");
         m_imgui_renderer = std::move(imgui_renderer);
         return *this;
     }
 
     CoreBuilder& CoreBuilder::set_core_event_handler(std::unique_ptr<event::ICoreEventHandler> core_event_handler) {
-        m_logger->debug("Setting core event handler");
+        m_logger->trace("Setting core event handler");
         m_event_manager->set_core_event_handler(std::move(core_event_handler));
         return *this;
     }

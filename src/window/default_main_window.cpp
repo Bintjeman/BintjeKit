@@ -8,7 +8,7 @@
 #include <imgui-SFML.h>
 #include <spdlog/logger.h>
 #include "bintjekit/utils/fmt_sfml/fmt_sfml.hpp"
-#include "bintjekit/configuration/sfml_json_adapter.hpp"
+#include "bintjekit/configuration/json_adapter.hpp"
 
 namespace bnjkit::window {
     DefaultMainWindow::DefaultMainWindow() {

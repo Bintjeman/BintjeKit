@@ -28,7 +28,7 @@ namespace bnjkit::renderer {
     }
 
     void IRenderer::configure() {
-        m_logger->debug("IRenderer: Configuring IRenderer");
+        m_logger->trace("IRenderer: Configuring IRenderer");
         resize_views();
     }
 
@@ -85,28 +85,28 @@ namespace bnjkit::renderer {
         m_imgui_renderer->draw();
     }
     void IRenderer::set_render_window(sf::RenderWindow* window) {
-        m_logger->debug("IRenderer: Setting render window");
+        m_logger->trace("IRenderer: Setting render window");
         m_render_window = window;
         *m_engine_view = window->getDefaultView();
         *m_gui_view = window->getDefaultView();
     }
     void IRenderer::set_imgui_renderer(IImGuiRenderer* imgui_renderer) {
-        m_logger->debug("IRenderer: Setting imgui renderer");
+        m_logger->trace("IRenderer: Setting imgui renderer");
         m_imgui_renderer = imgui_renderer;
     }
 
     void IRenderer::set_engine_renderer(IEngineRenderer* engine_renderer) {
-        m_logger->debug("IRenderer: Setting engine renderer");
+        m_logger->trace("IRenderer: Setting engine renderer");
         m_engine_renderer = engine_renderer;
     }
 
     void IRenderer::set_core(core::Core* core) {
-        m_logger->debug("IRenderer: Setting core");
+        m_logger->trace("IRenderer: Setting core");
         m_core = core;
     }
 
     void IRenderer::set_engine(const engine::IEngine* engine) {
-        m_logger->debug("IRenderer: Setting engine");
+        m_logger->trace("IRenderer: Setting engine");
         m_engine = engine;
     }
 

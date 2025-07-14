@@ -6,7 +6,7 @@
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/logger/logger.hpp"
-#include "bintjekit/configuration/sfml_json_adapter.hpp"
+#include "bintjekit/configuration/json_adapter.hpp"
 
 namespace bnjkit::window {
     IMainWindow::IMainWindow() {
@@ -19,15 +19,15 @@ namespace bnjkit::window {
     }
 
     void IMainWindow::initialise() {
-        m_logger->debug("Initialising IMainWindow");
+        m_logger->trace("Initialising IMainWindow");
     }
 
     void IMainWindow::configure() {
-        m_logger->debug("Configure IMainWindow");
+        m_logger->trace("Configure IMainWindow");
     }
 
     void IMainWindow::show() {
-        m_logger->debug("Showing IMainWindow");
+        m_logger->trace("Showing IMainWindow");
     }
 
     void IMainWindow::on_sfml_event(const sf::Event& event) {

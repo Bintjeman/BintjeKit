@@ -11,7 +11,7 @@
 #include <bintjekit/core.hpp>
 #include <bintjekit/logger.hpp>
 #include <bintjekit/configuration/settings.hpp>
-#include <bintjekit/configuration/sfml_json_adapter.hpp>
+#include <bintjekit/configuration/json_adapter.hpp>
 // Evobot
 #include "module.hpp"
 #include "defaults_options.hpp"

@@ -7,10 +7,11 @@
 #include "bintjekit/logger/logger.hpp"
 bnjkit::event::ICoreEventHandler::ICoreEventHandler(): m_core(nullptr) {
     m_logger = core::Logger::get_logger("EVENT");
+    m_logger->info("ICoreEventHandler: Constructor");
 }
 bnjkit::event::ICoreEventHandler::~ICoreEventHandler() = default;
 void bnjkit::event::ICoreEventHandler::set_core(core::Core *core) {
-    m_logger->debug("ICoreEventHandler: Setting core");
+    m_logger->trace("ICoreEventHandler: Setting core");
     m_core = core;
 }
 std::string bnjkit::event::ICoreEventHandler::name() const {

@@ -8,8 +8,7 @@
 #define BINTJEKIT_ENGINE_PREFAB_HPP
 #pragma once
 #include <functional>
-
-#include "entt/entity/entity.hpp"
+#include <entt/entity/entity.hpp>
 
 namespace bnjkit::engine {
     class World;

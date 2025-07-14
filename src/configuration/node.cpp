@@ -14,7 +14,7 @@ namespace bnjkit::conf {
                const std::shared_ptr<nlohmann::json>& default_values
     ) {
         m_logger = core::Logger::get_logger(core::module_names::CONFIGURATION);
-        m_logger->debug("Constructor of Node");
+        m_logger->trace("Constructor of Node");
         if (json == nullptr) {
             m_json = std::make_shared<nlohmann::json>();
             *m_json = nlohmann::json::parse("{}");
@@ -72,6 +72,7 @@ namespace bnjkit::conf {
     }
 
     void Node::reset_to_defaults() const {
+        m_logger->trace("Resetting to defaults");
         if (!m_default_values) {
             throw std::runtime_error("Default values not initialized");
         }

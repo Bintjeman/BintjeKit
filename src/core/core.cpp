@@ -77,13 +77,13 @@ namespace bnjkit::core {
     }
 
     void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
-        m_logger->debug("Configuring Core from settings");
+        m_logger->trace("Configuring Core from settings");
         set_settings(settings);
         configure();
     }
 
     void Core::configure(const std::filesystem::path& conf_file_path) {
-        m_logger->debug("Configuring Core from file: {}", conf_file_path.string());
+        m_logger->trace("Configuring Core from file: {}", conf_file_path.string());
         const auto settings = std::make_shared<conf::Settings>();
         settings->load_from_json(conf::from_file(conf_file_path));
         settings->set_path(conf_file_path);
@@ -182,7 +182,7 @@ namespace bnjkit::core {
                            std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
                            std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer
     ) {
-        m_logger->debug("Setting modules");
+        m_logger->trace("Setting modules");
         m_main_window = std::move(window);
         m_event_manager = std::move(event_manager);
         m_engine = std::move(engine);

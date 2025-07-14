@@ -6,7 +6,7 @@
 
 #include "evobot_engine.hpp"
 #include <spdlog/logger.h>
-#include <bintjekit/configuration/sfml_json_adapter.hpp>
+#include <bintjekit/configuration/json_adapter.hpp>
 
 #include "evo_world.hpp"
 

@@ -4,8 +4,8 @@
  * @name sfml_json_adapter.hpp
  */
 
-#ifndef BNJKIT_CONFIGURATION_SFML_JSON_ADAPTER_HPP
-#define BNJKIT_CONFIGURATION_SFML_JSON_ADAPTER_HPP
+#ifndef BNJKIT_CONFIGURATION_JSON_ADAPTER_HPP
+#define BNJKIT_CONFIGURATION_JSON_ADAPTER_HPP
 #pragma once
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -70,7 +70,6 @@ namespace nlohmann {
         }
     };
 }
-
 namespace spdlog::level {
     NLOHMANN_JSON_SERIALIZE_ENUM(spdlog::level::level_enum, {
                                  {spdlog::level::level_enum::trace, "trace"},
@@ -82,4 +81,4 @@ namespace spdlog::level {
                                  {spdlog::level::level_enum::off, "off"}
                                  })
 }
-#endif // BNJKIT_CONFIGURATION_SFML_JSON_ADAPTER_HPP
+#endif // BNJKIT_CONFIGURATION_JSON_ADAPTER_HPP

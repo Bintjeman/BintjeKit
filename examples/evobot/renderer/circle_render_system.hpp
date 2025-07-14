@@ -20,8 +20,6 @@ namespace evo::renderer {
 
     private:
         const entt::registry& m_registry;
-        // mutable sf::CircleShape m_circle_shape;
-
     };
 }
 
