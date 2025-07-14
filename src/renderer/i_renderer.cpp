@@ -74,11 +74,8 @@ namespace bnjkit::renderer {
     }
     void IRenderer::render_scene() {
         m_drawables.clear();
-        for (const auto& drawable: m_drawables) {
-            m_render_window->setView(m_engine_view);
-            m_engine_renderer->render(static_cast<sf::RenderTarget&>(*m_render_window));
-            m_render_window->draw(drawable);
-        }
+        m_render_window->setView(m_engine_view);
+        m_engine_renderer->render(static_cast<sf::RenderTarget&>(* m_render_window));
     }
 
     void IRenderer::render_gui() {

@@ -11,11 +11,11 @@
 namespace evo::engine {
     class EvoWorld;
     class EvobotEngine final : public bnjkit::engine::IEngine {
-
     public:
         EvobotEngine();
         ~EvobotEngine() override;
         void configure() override;
+        void initialise() override;
         void new_world();
         void clear();
         void update() override;

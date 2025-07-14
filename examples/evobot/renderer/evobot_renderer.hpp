@@ -20,10 +20,13 @@ namespace evo {
             EvobotRenderer();
             ~EvobotRenderer() override;
             void set_engine(const bnjkit::engine::IEngine* engine) override;
+            void configure() override;
+            void set_view(const std::shared_ptr<sf::View>& view);
             [[nodiscard]] sf::Rect<float> bounds() const override;
             [[nodiscard]] std::string name() const override;
 
         private:
+            std::shared_ptr<sf::View> m_view;
             const engine::EvobotEngine* m_evobot_engine;
         };
     } // renderer

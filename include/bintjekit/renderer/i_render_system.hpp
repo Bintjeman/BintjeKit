@@ -9,6 +9,7 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <spdlog/fwd.h>
 
 namespace sf {
     class View;
@@ -18,6 +19,7 @@ namespace sf {
 namespace bnjkit::renderer {
     class IRenderSystem {
     public:
+        IRenderSystem();
         virtual ~IRenderSystem();
 
         // Méthodes principales
@@ -31,7 +33,8 @@ namespace bnjkit::renderer {
         // Configuration
         virtual void configure();
         [[nodiscard]] virtual std::string name() const;
-    private:
+    protected:
+        std::shared_ptr<spdlog::logger> m_logger;
         std::shared_ptr<sf::View> m_view;
     };
 }

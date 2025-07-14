@@ -13,10 +13,17 @@
 
 namespace evo::engine {
     EvoWorld::EvoWorld() : World("EvoWorld") {
+        m_logger->info("EvoWorld: created");
+    }
+    EvoWorld::~EvoWorld() {
+        m_logger->info("EvoWorld: destroyed");
+    }
+    void EvoWorld::initialization() {
+        m_logger->info("EvoWorld: initializing");
         init_prefab();
     }
-    EvoWorld::~EvoWorld() {}
     void EvoWorld::init_prefab() {
+        m_logger->info("EvoWorld: initializing prefab");
         // Prefab pour Evobot
         register_prefab("evobot", {
                             .spawn = [this](bnjkit::engine::World& world) -> entt::entity {
@@ -24,7 +31,7 @@ namespace evo::engine {
 
                                 // Composants de base
                                 world.registry().emplace<comp::D2>(entity,
-                                                                   sf::Vector2f{0.f, 0.f},
+                                                                   sf::Vector2f{100.f, 100.f},
                                                                    m_bot_min_radius
                                 );
                                 world.registry().emplace<comp::Velocity>(entity);

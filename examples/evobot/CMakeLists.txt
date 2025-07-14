@@ -10,9 +10,11 @@ target_sources(evobot PRIVATE
         application/window.cpp
         application/defaults_options.cpp
         # renderer
+        renderer/circle_render_system.cpp
         renderer/imgui_renderer.cpp
         renderer/evobot_renderer.cpp
         renderer/renderer.cpp
+        # renderer
         # systems
         evobot_engine/system/movement.cpp
         # components

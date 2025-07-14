@@ -18,19 +18,21 @@ namespace evo::engine {
     EvobotEngine::~EvobotEngine() {
         m_logger->info("EvobotEngine: destroyed");
     }
+    void EvobotEngine::initialise() {
+        m_logger->info("EvobotEngine: initialise");
+        IEngine::initialise();
+        m_evo_world->initialization();
+    }
     void EvobotEngine::configure() {
         m_logger->info("EvobotEngine: configuring");
         IEngine::configure();
         m_evo_world->configure(m_settings);
-
     }
     void EvobotEngine::new_world() {
-        m_evo_world = std::make_unique<EvoWorld>();
         m_evo_world->generate();
         m_state = State::READY;
     }
-    void EvobotEngine::clear() {
-    }
+    void EvobotEngine::clear() {}
     void EvobotEngine::update() {
         if (m_state == State::READY) {
             m_evo_world->update();
@@ -48,4 +50,5 @@ namespace evo::engine {
     }
 
     void EvobotEngine::on_sfml_event(const sf::Event& event[[maybe_unused]]) {}
+
 }

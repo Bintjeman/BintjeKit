@@ -53,14 +53,6 @@ namespace bnjkit {
                 return *this;
             }
 
-            // template<typename T, typename... Args>
-            // CoreBuilder &set(Args &&... args) {
-            //     if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
-            //         m_window = std::make_unique<T>(std::forward<Args>(args)...);
-            //     }
-            //     return *this;
-            // }
-
             CoreBuilder &set_window_module(std::unique_ptr<window::IMainWindow> window);
             CoreBuilder &set_event_manager_module(std::unique_ptr<event::EventManager> event_manager);
             CoreBuilder &set_engine_module(std::unique_ptr<engine::IEngine> engine);

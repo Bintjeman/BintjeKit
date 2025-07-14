@@ -21,9 +21,8 @@ namespace evo::engine {
     public:
         explicit EvoWorld();
         ~EvoWorld() override;
-
+        void initialization();
         void init_prefab();
-
         // Configuration spécifique au monde Evo
         void set_settings(bnjkit::conf::Node& settings);
         void configure(bnjkit::conf::Node settings = bnjkit::conf::Node{});

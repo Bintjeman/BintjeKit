@@ -41,7 +41,9 @@ namespace evo::engine::comp {
     };
 
     // Tags pour identifier les types d'entités
-    struct EvobotTag {};
+    struct EvobotTag {
+        int i{0};
+    };
     struct GlobTag {};
 }
 #endif //EVO_ENGINE_COMP_BASE_COMPONENTS_HPP

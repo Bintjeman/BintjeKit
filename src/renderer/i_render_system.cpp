@@ -6,9 +6,13 @@
 
 #include "bintjekit/renderer/i_render_system.hpp"
 #include <SFML/Graphics/View.hpp>
-
+#include "bintjekit/logger.hpp"
 namespace bnjkit {
     namespace renderer {
+        IRenderSystem::IRenderSystem() {
+            m_view = std::make_shared<sf::View>();
+            m_logger=core::Logger::get_logger(bnjkit::core::module_names::RENDERER);
+        }
         IRenderSystem::~IRenderSystem() = default;
         void IRenderSystem::render(sf::RenderTarget& target[[maybe_unused]]) const {}
         void IRenderSystem::update() {}
