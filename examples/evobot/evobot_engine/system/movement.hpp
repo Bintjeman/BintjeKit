@@ -29,9 +29,9 @@ namespace evo::engine::systems {
         void cleanup(bnjkit::engine::World& world) override;
 
     private:
-        void update_position(evo::engine::EvoWorld& evo_world,
-                             evo::engine::comp::D2& position,
-                             const evo::engine::comp::Velocity& velocity);
+        void update_position(EvoWorld& evo_world,
+                             comp::D2& position,
+                             comp::Velocity& velocity);
     };
 };
 

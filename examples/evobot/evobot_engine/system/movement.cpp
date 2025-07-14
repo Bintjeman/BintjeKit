@@ -19,33 +19,35 @@ namespace evo::engine::systems {
         auto view = registry.view<comp::D2,
             comp::Velocity>();
 
-        view.each([this, &evo_world](auto& position, const auto& velocity) {
+        view.each([this, &evo_world](auto& position, auto& velocity) {
             update_position(evo_world, position, velocity);
         });
     }
     void Movement::cleanup(bnjkit::engine::World& world) {}
     void Movement::update_position(EvoWorld& evo_world,
                                    comp::D2& position,
-                                   const comp::Velocity& velocity) {
+                                   comp::Velocity& velocity) {
         sf::Vector2f new_position = position.position + velocity.value;
 
         // Obtention des limites du PlayGround
         const auto& playground = evo_world.play_ground();
         const auto bounds = playground.bounds();
 
-        // Application du wrap-around ou rebond selon les besoins
-        // if (new_position.x < bounds.position.x) {
-        //     new_position.x = bounds.position.x;
-        // } else if (new_position.x > bounds.position.x + bounds.size.x) {
-        //     new_position.x = bounds.position.x + bounds.size.x;
-        // }
-        //
-        // if (new_position.y < bounds.position.y) {
-        //     new_position.y = bounds.position.y;
-        // } else if (new_position.y > bounds.position.y + bounds.position.y) {
-        //     new_position.y = bounds.position.y + bounds.size.y;
-        // }
+        if (new_position.x < bounds.position.x) {
+            new_position.x = bounds.position.x;
+            velocity.value.x = - velocity.value.x;
+        } else if (new_position.x > bounds.position.x + bounds.size.x) {
+            new_position.x = bounds.position.x + bounds.size.x;
+            velocity.value.x = - velocity.value.x;
+        }
 
+        if (new_position.y < bounds.position.y) {
+            new_position.y = bounds.position.y;
+            velocity.value.y = - velocity.value.y;
+        } else if (new_position.y > bounds.position.y + bounds.size.y) {
+            new_position.y = bounds.position.y + bounds.size.y;
+            velocity.value.y = - velocity.value.y;
+        }
         position.position = new_position;
     }
 }

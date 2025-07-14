@@ -7,6 +7,8 @@
 #include "evo_world.hpp"
 #include <bintjekit/configuration/json_adapter.hpp>
 #include <bintjekit/engine/play_ground.hpp>
+
+#include "bintjekit/utils/d2/d2.hpp"
 #include "bintjekit/utils/random/random_engine.hpp"
 #include "evobot_engine/components/components.hpp"
 #include "evobot_engine/system/movement.hpp"
@@ -31,21 +33,15 @@ namespace evo::engine {
                             .spawn = [this](bnjkit::engine::World& world) -> entt::entity {
                                 auto entity = world.registry().create();
                                 auto playground = world.play_ground();
-                                auto random_position = [&playground]() {
-                                    auto x = bnjkit::utils::random::RandomEngine::get_float(
-                                        playground.bounds().position.x,
-                                        playground.bounds().position.x + playground.bounds().size.x);
-                                    auto y = bnjkit::utils::random::RandomEngine::get_float(
-                                        playground.bounds().position.y,
-                                        playground.bounds().position.y + playground.bounds().size.y);
-                                    return sf::Vector2f{x, y};
-                                };
                                 // Composants de base
                                 world.registry().emplace<comp::D2>(entity,
-                                                                   random_position(),
+                                                                   random_position(playground.bounds()),
                                                                    m_bot_min_radius
                                 );
-                                world.registry().emplace<comp::Velocity>(entity, sf::Vector2f{1.f, 1.f});
+                                float speed = bnjkit::utils::random::RandomEngine::get_float(0, m_bot_max_speed);
+                                float rad = random_angle_rad();
+                                sf::Vector2f velocity{bnjkit::utils::d2::rad_to_vec(rad) * speed};
+                                world.registry().emplace<comp::Velocity>(entity, velocity);
                                 world.registry().emplace<comp::EvobotTag>(entity);
                                 world.registry().emplace<comp::Health>(entity, 60.f, 60.f);
 
@@ -70,15 +66,17 @@ namespace evo::engine {
         register_prefab("glob", {
                             .spawn = [this](bnjkit::engine::World& world) -> entt::entity {
                                 auto entity = world.registry().create();
-
+                                auto playground = world.play_ground();
                                 // Composants de base
                                 world.registry().emplace<comp::D2>(entity,
-                                                                   sf::Vector2f{0.f, 0.f},
+                                                                   random_position(playground.bounds()),
                                                                    m_glob_min_radius
                                 );
-                                world.registry().emplace<comp::Velocity>(entity);
+                                float speed = bnjkit::utils::random::RandomEngine::get_float(0, m_bot_max_speed);
+                                float rad = random_angle_rad();
+                                sf::Vector2f velocity{bnjkit::utils::d2::rad_to_vec(rad) * speed};
+                                world.registry().emplace<comp::Velocity>(entity, velocity);
                                 world.registry().emplace<comp::GlobTag>(entity);
-
                                 // Composant optionnel
                                 if (bnjkit::utils::random::RandomEngine::get_bool()) {
                                     world.registry().emplace<comp::Health>(entity, 30.f, 30.f);
@@ -128,6 +126,15 @@ namespace evo::engine {
         for (unsigned int i = 0; i < initial_globs; ++ i) {
             spawn_prefab("glob");
         }
+    }
+    sf::Vector2f EvoWorld::random_position(const sf::Rect<float>& bounds) {
+        return sf::Vector2f{
+            bnjkit::utils::random::RandomEngine::get_float(bounds.position.x, bounds.position.x + bounds.size.x),
+            bnjkit::utils::random::RandomEngine::get_float(bounds.position.y, bounds.position.y + bounds.size.y)
+        };
+    }
+    float EvoWorld::random_angle_rad() {
+        return bnjkit::utils::random::RandomEngine::get_float(0.f, bnjkit::utils::d2::PIX2);
     }
     void EvoWorld::generate_playground() {
         m_logger->info("EvoWorld: generating playground");

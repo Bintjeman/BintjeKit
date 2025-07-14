@@ -15,6 +15,8 @@
 #pragma once
 
 #include <bintjekit/engine/world.hpp>
+#include <SFML/Graphics/Rect.hpp>
+
 #include "bintjekit/configuration/node.hpp"
 namespace evo::engine {
     class EvoWorld final : public bnjkit::engine::World {
@@ -39,7 +41,8 @@ namespace evo::engine {
         unsigned int get_maximum_bot() const { return m_maximum_bot; }
         unsigned int get_minimum_glob() const { return m_minimum_glob; }
         unsigned int get_maximum_glob() const { return m_maximum_glob; }
-
+        static sf::Vector2f random_position(const sf::Rect<float>& bounds);
+        static float random_angle_rad();
     private:
         bnjkit::conf::Node m_settings;
         void generate_playground();
