@@ -9,6 +9,7 @@
 #include <bintjekit/engine/play_ground.hpp>
 #include "bintjekit/utils/random/random_engine.hpp"
 #include "evobot_engine/components/components.hpp"
+#include "evobot_engine/system/movement.hpp"
 #include "spdlog/logger.h"
 
 namespace evo::engine {
@@ -21,6 +22,7 @@ namespace evo::engine {
     void EvoWorld::initialization() {
         m_logger->info("EvoWorld: initializing");
         init_prefab();
+        add_system<systems::Movement>();
     }
     void EvoWorld::init_prefab() {
         m_logger->info("EvoWorld: initializing prefab");
@@ -43,7 +45,7 @@ namespace evo::engine {
                                                                    random_position(),
                                                                    m_bot_min_radius
                                 );
-                                world.registry().emplace<comp::Velocity>(entity);
+                                world.registry().emplace<comp::Velocity>(entity, sf::Vector2f{1.f, 1.f});
                                 world.registry().emplace<comp::EvobotTag>(entity);
                                 world.registry().emplace<comp::Health>(entity, 60.f, 60.f);
 

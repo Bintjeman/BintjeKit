@@ -44,6 +44,8 @@ namespace evo::engine::comp {
     struct EvobotTag {
         int i{0};
     };
-    struct GlobTag {};
+    struct GlobTag {
+        int i{0};
+    };
 }
 #endif //EVO_ENGINE_COMP_BASE_COMPONENTS_HPP

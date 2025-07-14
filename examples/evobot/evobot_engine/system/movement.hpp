@@ -18,7 +18,7 @@ namespace evo::engine::comp {
     struct Velocity;
 }
 
-namespace engine::systems {
+namespace evo::engine::systems {
     class Movement final : public bnjkit::engine::ISystem {
     public:
         explicit Movement();

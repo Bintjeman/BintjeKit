@@ -10,7 +10,7 @@
 #include <catch2/generators/catch_generators_random.hpp>
 #include <catch2/generators/catch_generators_adapters.hpp>
 #include <bintjekit/configuration/settings.hpp>
-#include <bintjekit/configuration/sfml_json_adapter.hpp>
+#include <bintjekit/configuration/json_adapter.hpp>
 
 #include "bintjekit/configuration/utils.hpp"
 #include "SFML/Graphics/Color.hpp"

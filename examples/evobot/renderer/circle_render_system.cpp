@@ -23,7 +23,14 @@ namespace evo::renderer {
         bot_view.each([this,&target, &circle_shape](const auto& d2, const auto& tag) {
             circle_shape.setRadius(d2.radius);
             circle_shape.setPosition(d2.position - sf::Vector2f(d2.radius, d2.radius));
-            circle_shape.setFillColor(sf::Color(50, 150, 250));
+            circle_shape.setFillColor(sf::Color(50, 150, 250,200));
+            target.draw(circle_shape);
+        });
+        const auto glob_view = m_registry.view<engine::comp::D2, engine::comp::GlobTag>();
+        glob_view.each([this,&target, &circle_shape](const auto& d2, const auto& tag) {
+            circle_shape.setRadius(d2.radius);
+            circle_shape.setPosition(d2.position - sf::Vector2f(d2.radius, d2.radius));
+            circle_shape.setFillColor(sf::Color(50, 255, 250,200));
             target.draw(circle_shape);
         });
     }
