@@ -59,8 +59,8 @@ namespace bnjkit {
             const IEngineRenderer *m_engine_renderer;
             core::Core *m_core;
             std::vector<std::reference_wrapper<sf::Drawable> > m_drawables;
-            sf::View m_engine_view;
-            sf::View m_gui_view;
+            std::shared_ptr<sf::View> m_engine_view;
+            std::shared_ptr<sf::View> m_gui_view;
             std::shared_ptr<spdlog::logger> m_logger;
         };
     } // renderer

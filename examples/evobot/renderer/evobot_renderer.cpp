@@ -45,7 +45,7 @@ namespace evo::renderer {
         circle_system->set_view(m_view);
         m_logger->debug("Adding CircleRenderSystem to layer Entities");
         add_render_system(std::move(circle_system),
-                          bnjkit::renderer::RenderLayer::Entities);
+                          bnjkit::renderer::RenderLayer::ENTITIES);
     }
     void EvobotRenderer::set_view(const std::shared_ptr<sf::View>& view) {
         m_view = view;
