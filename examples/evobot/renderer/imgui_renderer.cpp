@@ -8,7 +8,7 @@
 #include <spdlog/logger.h>
 #include <bintjekit/logger.hpp>
 #include <bintjekit/core/core.hpp>
-#include <bintjekit/engine/i_world.hpp>
+#include <bintjekit/engine/i_engine.hpp>
 #include "application/event_manager.hpp"
 #include "evobot_engine/evobot_engine.hpp"
 #include "evobot_engine/evo_world.hpp"
@@ -57,14 +57,14 @@ namespace evo::renderer {
                 };
                 static const char* enum_module[] = {
                     // bnjkit::core::module_names::NONE,
-                    bnjkit::core::module_names::APP,
-                    bnjkit::core::module_names::LOG,
-                    bnjkit::core::module_names::CORE,
-                    bnjkit::core::module_names::ENGINE,
-                    bnjkit::core::module_names::RENDERER,
-                    bnjkit::core::module_names::WINDOW,
-                    bnjkit::core::module_names::EVENT,
-                    bnjkit::core::module_names::CONFIGURATION,
+                    bnjkit::literals::logger::APP,
+                    bnjkit::literals::logger::LOG,
+                    bnjkit::literals::logger::CORE,
+                    bnjkit::literals::logger::ENGINE,
+                    bnjkit::literals::logger::RENDERER,
+                    bnjkit::literals::logger::WINDOW,
+                    bnjkit::literals::logger::EVENT,
+                    bnjkit::literals::logger::CONFIGURATION,
                 };
                 for (const auto& module: enum_module) {
                     std::string title = std::string(module) + " logger level";

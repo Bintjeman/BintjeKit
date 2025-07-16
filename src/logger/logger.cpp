@@ -36,7 +36,7 @@ namespace bnjkit::core {
         spdlog::register_logger(logger);
         logger->set_level(spdlog::level::info);
         m_s_loggers[module_name] = logger;
-        if (module_name == module_names::LOG) {
+        if (module_name == literals::logger::LOG) {
             logger->info("Logger \"LOG\" initialised");
         } else {
             logger->warn("Logger \"{}\" initialised", module_name.c_str());
@@ -51,7 +51,7 @@ namespace bnjkit::core {
     }
 
     void Logger::shutdown() {
-        get_logger(module_names::LOG)->info("Shutting down logger");
+        get_logger(literals::logger::LOG)->info("Shutting down logger");
         m_s_loggers.clear();
         m_s_sinks.clear();
         spdlog::shutdown();

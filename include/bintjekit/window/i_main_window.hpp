@@ -19,7 +19,7 @@ namespace bnjkit::window {
         ~IMainWindow() noexcept override;
         void initialise() override;
         void configure() override;
-        virtual void show() = 0;
+        virtual void show();
         void on_sfml_event(const sf::Event& event) override;
         void close() override;
         [[nodiscard]] std::string name() const override;

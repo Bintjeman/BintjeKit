@@ -23,10 +23,10 @@ namespace evo::engine::systems {
     public:
         explicit Movement();
         ~Movement() override;
-        void initialize(bnjkit::engine::IWorld& world) override;
+        void initialize(bnjkit::engine::IEngine& world) override;
 
-        void update(bnjkit::engine::IWorld& world) override;
-        void cleanup(bnjkit::engine::IWorld& world) override;
+        void update(bnjkit::engine::IEngine& world) override;
+        void cleanup(bnjkit::engine::IEngine& world) override;
 
     private:
         void update_position(EvoWorld& evo_world,

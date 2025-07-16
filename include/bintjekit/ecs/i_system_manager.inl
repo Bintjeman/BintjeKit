@@ -16,7 +16,7 @@ namespace bnjkit::ecs {
         name(std::move(n)), enabled(e) {}
     template<typename SystemType, typename PriorityType>
     SystemManager<SystemType, PriorityType>::SystemManager() {
-        m_logger = bnjkit::core::Logger::get_logger(bnjkit::core::module_names::ECS);
+        m_logger = bnjkit::core::Logger::get_logger(literals::logger::ECS);
         m_logger->info("SystemManager <{}, {}> created", typeid(SystemType).name(), typeid(PriorityType).name());
     }
     template<typename SystemType, typename PriorityType>
@@ -62,7 +62,7 @@ return false;
                 --location.second;
             }
         }
-        m_logger->info("System {} removed : {}", typeid(SystemType), name);
+        m_logger->info("System {} removed : {}", typeid(SystemType).name(), name);
         return true;
     }
     template<typename SystemType, typename PriorityType>
@@ -74,7 +74,7 @@ return false;
     template<typename SystemType, typename PriorityType>
     void SystemManager<SystemType, PriorityType>::toggle_system(const std::string& name, bool enable) {
         auto index = m_system_registry[name];
-        auto system& = m_systems[index.first][index.second].enabled = enable;
+        m_systems[index.first][index.second].enabled = enable;
     }
     template<typename SystemType, typename PriorityType>
     void SystemManager<SystemType, PriorityType>::update() {}

@@ -18,9 +18,11 @@
 namespace bnjkit::core {
     class Core;
 }
+
 namespace bnjkit::engine {
-    class IWorld;
+    class IEngine;
 }
+
 namespace bnjkit::renderer {
     class IRenderer : public core::IModule, public event::IEventListener {
     public:
@@ -39,7 +41,7 @@ namespace bnjkit::renderer {
         // Configuration
         virtual void set_render_window(sf::RenderWindow* window);
         virtual void set_imgui_renderer(IImGuiRenderer* imgui_renderer);
-        virtual void set_engine(const ecs::IEngine* engine);
+        virtual void set_world(const engine::IEngine* world);
         virtual void set_core(core::Core* core);
 
         [[nodiscard]] std::string name() const override;
@@ -50,12 +52,12 @@ namespace bnjkit::renderer {
         virtual void render_scene();
         virtual void render_gui();
         //
-        RenderSystemManager m_render_manager;
+        RenderSystemManager m_render_system_manager;
         // bnjkit Modules
         sf::RenderWindow* m_render_window;
         IImGuiRenderer* m_imgui_renderer;
         core::Core* m_core;
-        const engine::IWorld* m_world;
+        const engine::IEngine* m_world;
         // Utils
         std::shared_ptr<sf::View> m_gui_view;
         std::shared_ptr<sf::View> m_world_view;

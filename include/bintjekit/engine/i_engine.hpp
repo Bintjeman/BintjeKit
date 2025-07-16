@@ -4,27 +4,29 @@
  * @name world.hpp
  */
 
-#ifndef BINTJEKIT_ENGINE_WORLD_HPP
-#define BINTJEKIT_ENGINE_WORLD_HPP
+#ifndef BINTJEKIT_ENGINE_ENGINE_HPP
+#define BINTJEKIT_ENGINE_ENGINE_HPP
 #pragma once
 #include "bintjekit/core/i_module.hpp"
 #include "bintjekit/ecs/entity_manager.hpp"
 #include "bintjekit/ecs/event/events.hpp"
 #include "bintjekit/ecs/event/event_manager.hpp"
+#include "bintjekit/event_manager/i_event_listener.hpp"
+
+namespace bnjkit::ecs {
+    class PrefabData;
+    class ISystem;
+}
 
 namespace bnjkit::engine {
     struct PlayGround;
-    struct PrefabData;
-    class ISystem;
 
-    class IWorld : public core::IModule, public ecs::EntityManager {
+    class IEngine : public core::IModule, public ecs::EntityManager, public event::IEventListener {
     public:
-        explicit IWorld(const std::string& name);
-        ~IWorld() override;
+        IEngine();
+        ~IEngine() override;
 
-        void register_prefab(const std::string& name, PrefabData data);
-        virtual void add_system(std::unique_ptr<ISystem> system) = 0;
-        virtual void remove_system(const std::string& name) = 0;
+        void register_prefab(const std::string& name, ecs::PrefabData data);
 
         entt::entity spawn_prefab(const std::string& name);
         template<typename... Components>
@@ -35,20 +37,20 @@ namespace bnjkit::engine {
         [[nodiscard]] std::string name() const override;
         [[nodiscard]] PlayGround& play_ground();
         [[nodiscard]] const PlayGround& play_ground() const;
+
     protected:
-        std::string m_name;
         std::unique_ptr<PlayGround> m_play_ground;
+
     private:
-        std::vector<std::unique_ptr<ISystem> > m_systems;
         std::unique_ptr<ecs::EventBus> m_eventBus;
-        std::unordered_map<std::string, PrefabData> m_prefabs;
+        std::unordered_map<std::string, ecs::PrefabData> m_prefabs;
     };
     // /////////////////////////////////////////////////////////////////////////
     template<typename... Components>
-    entt::entity IWorld::spawn(Components&&... components) {
+    entt::entity IEngine::spawn(Components&&... components) {
         auto entity = create(std::forward<Components>(components)...);
         m_eventBus->emit(ecs::EntitySpawnedEvent{entity});
         return entity;
     }
 }
-#endif // BINTJEKIT_ENGINE_WORLD_HPP
+#endif // BINTJEKIT_ENGINE_ENGINE_HPP

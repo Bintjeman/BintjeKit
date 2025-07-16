@@ -143,7 +143,7 @@ namespace bnjkit::conf {
         get_logger()->trace("target result: {}", target.dump());
     }
     std::shared_ptr<spdlog::logger>& get_logger() {
-        static auto logger = core::Logger::get_logger(core::module_names::CONFIGURATION);
+        static auto logger = core::Logger::get_logger(literals::logger::CONFIGURATION);
         return logger;
     }
 }

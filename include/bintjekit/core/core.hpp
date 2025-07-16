@@ -9,27 +9,14 @@
 #include <filesystem>
 #include <memory>
 #include <spdlog/fwd.h>
+#include "module_set.hpp"
 #include "bintjekit/utils/time/time.hpp"
-
-namespace bnjkit {
-    namespace window {
-        class IMainWindow;
-    } // window
-    namespace event {
-        class EventManager;
-    } // event
-    namespace engine {
-        class IWorld;
-    } // engine
-    namespace renderer {
-        class IRenderer;
-        class IImGuiRenderer;
-    } // renderer
-    namespace conf {
-        class Settings;
-    } // conf
+namespace bnjkit::conf {
+    class Settings;
 }
-
+namespace bnjkit::event {
+    class EventManager;
+}
 namespace bnjkit::core {
     class Core {
     public:
@@ -67,39 +54,21 @@ namespace bnjkit::core {
         void run();
         // Getters
         [[nodiscard]] State state() const;
+        [[nodiscard]] conf::Settings& settings() const;
         [[nodiscard]] long engine_frequency() const;
         [[nodiscard]] long renderer_frequency() const;
         [[nodiscard]] long window_frequency() const;
         [[nodiscard]] long engine_effective_frequency() const;
         [[nodiscard]] long renderer_effective_frequency() const;
         [[nodiscard]] long window_effective_frequency() const;
-        // Getter modules
-        [[nodiscard]] conf::Settings& settings() const;
-        [[nodiscard]] renderer::IRenderer& renderer() const;
-        [[nodiscard]] renderer::IImGuiRenderer& imgui_renderer() const;
-        [[nodiscard]] window::IMainWindow& main_window() const;
-        [[nodiscard]] event::EventManager& event_manager() const;
         // Setters
+        void set_modules(ModuleSet&& modules);
         void set_state(const State& state);
         void set_engine_frequency(long frequency);
         void set_renderer_frequency(long frequency);
         void set_window_frequency(long frequency);
         void set_settings(const std::shared_ptr<conf::Settings>& settings);
         void save_settings();
-        /*!
-         * Définit les modules de base de Core.
-         *
-         * Normalement appelé par un CoreBuilder
-         * @param window
-         * @param event_manager
-         * @param renderer
-         * @param imgui_renderer
-         */
-        void set_modules(std::unique_ptr<window::IMainWindow> window,
-                         std::unique_ptr<event::EventManager> event_manager,
-                         std::unique_ptr<renderer::IRenderer> renderer,
-                         std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer
-        );
 
     protected:
         // Gestion des états et du temps
@@ -110,12 +79,10 @@ namespace bnjkit::core {
 
     private:
         // Modules
-        std::unique_ptr<window::IMainWindow> m_main_window;
-        std::unique_ptr<event::EventManager> m_event_manager;
-        std::unique_ptr<renderer::IRenderer> m_renderer;
-        std::unique_ptr<renderer::IImGuiRenderer> m_imgui_renderer;
+        ModuleSet m_modules;
         // Utilitaires
-        std::shared_ptr<conf::Settings> m_settings;
+        std::unique_ptr<conf::Settings> m_settings;
+        std::unique_ptr<event::EventManager> m_event_manager;
         std::shared_ptr<spdlog::logger> m_logger;
 
     public:

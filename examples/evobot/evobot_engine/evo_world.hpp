@@ -14,12 +14,12 @@
 #define EVOBOT_ENGINE_EVO_WORLD_HPP
 #pragma once
 
-#include <bintjekit/engine/i_world.hpp>
+#include <bintjekit/engine/i_engine.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
 #include "bintjekit/configuration/node.hpp"
 namespace evo::engine {
-    class EvoWorld final : public bnjkit::engine::IWorld {
+    class EvoWorld final : public bnjkit::engine::IEngine {
     public:
         explicit EvoWorld();
         ~EvoWorld() override;

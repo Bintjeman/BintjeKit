@@ -8,8 +8,8 @@
 namespace bnjkit::renderer {
     IRenderSystem::IRenderSystem()= default;
     IRenderSystem::~IRenderSystem() = default;
-    void IRenderSystem::initialize(engine::IWorld& world[[maybe_unused]]) {}
-    void IRenderSystem::update(engine::IWorld& world[[maybe_unused]]) {}
-    void IRenderSystem::cleanup(engine::IWorld& world[[maybe_unused]]) {}
+    void IRenderSystem::initialize(engine::IEngine& world[[maybe_unused]]) {}
+    void IRenderSystem::update(engine::IEngine& world[[maybe_unused]]) {}
+    void IRenderSystem::cleanup(engine::IEngine& world[[maybe_unused]]) {}
     void IRenderSystem::render(sf::RenderTarget& target[[maybe_unused]]) const {}
 }

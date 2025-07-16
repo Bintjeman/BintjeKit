@@ -9,17 +9,16 @@
 #include <imgui-SFML.h>
 #include "bintjekit/utils/fmt_sfml/fmt_sfml.hpp"
 #include "bintjekit/core/common.hpp"
-#include "bintjekit/engine/i_world.hpp"
+#include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/engine/play_ground.hpp"
 #include "bintjekit/logger/logger.hpp"
 #include "bintjekit/renderer/i_bnjkit_imgui.hpp"
-#include "bintjekit/renderer/i_engine_renderer.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 
 namespace bnjkit::renderer {
     IRenderer::IRenderer() : m_render_window(nullptr), m_imgui_renderer(nullptr), m_engine(nullptr),
                              m_core(nullptr) {
-        m_logger = core::Logger::get_logger(core::module_names::RENDERER);
+        m_logger = core::Logger::get_logger(literals::logger::RENDERER);
         m_logger->info("IRenderer: Constructor of IRenderer");
         m_world_view = std::make_shared<sf::View>();
         m_gui_view = std::make_shared<sf::View>();
@@ -81,7 +80,7 @@ namespace bnjkit::renderer {
     bool IRenderer::toggle_render_system(const std::string& name, bool enable) {}
     void IRenderer::render_scene() {
         m_render_window->setView(* m_world_view);
-        m_render_manager.render();
+        m_render_system_manager.render();
         m_engine_renderer->render(static_cast<sf::RenderTarget&>(* m_render_window));
     }
 
@@ -110,9 +109,9 @@ namespace bnjkit::renderer {
         m_core = core;
     }
 
-    void IRenderer::set_engine(const ecs::IEngine* engine) {
+    void IRenderer::set_world(const engine::IEngine* world) {
         m_logger->trace("IRenderer: Setting engine");
-        m_engine = engine;
+        m_world = world;
     }
 
     void IRenderer::begin_frame() const {

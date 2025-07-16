@@ -21,9 +21,9 @@ namespace bnjkit::renderer {
         IRenderSystem();
         ~IRenderSystem() override;
         // Implémentation de ISystem
-        void initialize(engine::IWorld& world) override;
-        void update(engine::IWorld& world) override;
-        void cleanup(engine::IWorld& world) override;
+        void initialize(engine::IEngine& world) override;
+        void update(engine::IEngine& world) override;
+        void cleanup(engine::IEngine& world) override;
 
         // Méthode pure de rendu
         virtual void render(sf::RenderTarget& target) const = 0;

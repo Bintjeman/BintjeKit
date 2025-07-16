@@ -6,7 +6,7 @@
 #ifndef BNJKIT_CORE_COMMON_HPP
 #define BNJKIT_CORE_COMMON_HPP
 #pragma once
-namespace bnjkit::core::module_names {
+namespace bnjkit::literals::logger {
     constexpr auto NONE = "";
     constexpr auto APP = "APP";
     constexpr auto LOG = "LOG";
@@ -18,20 +18,5 @@ namespace bnjkit::core::module_names {
     constexpr auto CONFIGURATION = "CONF";
     constexpr auto ENTITY = "ENTITY";
     constexpr auto ECS = "ECS";
-}
-namespace bnjkit::core {
-    static const char* ENUM_MODULE[] = {
-        module_names::NONE,
-        module_names::APP,
-        module_names::LOG,
-        module_names::CORE,
-        module_names::ENGINE,
-        module_names::RENDERER,
-        module_names::WINDOW,
-        module_names::EVENT,
-        module_names::CONFIGURATION,
-        module_names::ENTITY,
-        module_names::ECS,
-    };
 }
 #endif // BNJKIT_CORE_COMMON_HPP

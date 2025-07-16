@@ -26,7 +26,7 @@ namespace evo::app {
     }
     void Application::init() {
         init_logger();
-        m_logger = bnjkit::core::Logger::get_logger(bnjkit::core::module_names::APP);
+        m_logger = bnjkit::core::Logger::get_logger(bnjkit::literals::logger::APP);
         m_logger->critical("Working dir: {}", std::filesystem::current_path().c_str());
         m_logger->info("Application: created");
         m_logger->info("Application: initializing core");
@@ -46,25 +46,25 @@ namespace evo::app {
         m_logger->info("Application: configuring core");
         m_core->configure("evobot.json");
         auto& settings = m_core->settings();
-        Logger::get_logger(module_names::APP)->set_level(
+        Logger::get_logger(logger_names::APP)->set_level(
             settings.get_or_set("/Application/Logger/App logger level", DEFAULT_LOGGER_LEVEL));
-        Logger::get_logger(module_names::CORE)->set_level(
+        Logger::get_logger(logger_names::CORE)->set_level(
             settings.get_or_set("/Application/Logger/Core logger level", DEFAULT_LOGGER_LEVEL));
-        Logger::get_logger(module_names::ENGINE)->set_level(
+        Logger::get_logger(logger_names::ENGINE)->set_level(
             settings.get_or_set("/Application/Logger/Engine logger level",
                                 DEFAULT_LOGGER_LEVEL));
-        Logger::get_logger(module_names::CONFIGURATION)->set_level(
+        Logger::get_logger(logger_names::CONFIGURATION)->set_level(
             settings.get_or_set("/Application/Logger/Conf logger level", DEFAULT_LOGGER_LEVEL));
-        Logger::get_logger(module_names::EVENT)->set_level(
+        Logger::get_logger(logger_names::EVENT)->set_level(
             settings.get_or_set("/Application/Logger/Event logger level",
                                 DEFAULT_LOGGER_LEVEL));
-        Logger::get_logger(module_names::WINDOW)->set_level(
+        Logger::get_logger(logger_names::WINDOW)->set_level(
             settings.get_or_set("/Application/Logger/Window logger level",
                                 DEFAULT_LOGGER_LEVEL));
-        Logger::get_logger(module_names::RENDERER)->set_level(
+        Logger::get_logger(logger_names::RENDERER)->set_level(
             settings.get_or_set("/Application/Logger/Renderer logger level",
                                 DEFAULT_LOGGER_LEVEL));
-        Logger::get_logger(module_names::ENTITY)->set_level(DEFAULT_ENTITY_LOGGER_LEVEL);
+        Logger::get_logger(logger_names::ENTITY)->set_level(DEFAULT_ENTITY_LOGGER_LEVEL);
         m_core->set_engine_frequency(settings.get_or_set("/Application/Engine/Frequency", 60u));
         m_core->set_renderer_frequency(
             settings.get_or_set("/Application/Renderer/Frequency", 60u));
@@ -115,31 +115,31 @@ namespace evo::app {
     }
     void Application::init_logger() {
         using namespace bnjkit::core;
-        Logger::get_logger(module_names::APP)->set_level(DEFAULT_LOGGER_LEVEL);
-        Logger::get_logger(module_names::CORE)->set_level(DEFAULT_CORE_LOGGER_LEVEL);
-        Logger::get_logger(module_names::ENGINE)->set_level(DEFAULT_ENGINE_LOGGER_LEVEL);
-        Logger::get_logger(module_names::CONFIGURATION)->set_level(DEFAULT_CONF_LOGGER_LEVEL);
-        Logger::get_logger(module_names::EVENT)->set_level(DEFAULT_EVENT_LOGGER_LEVEL);
-        Logger::get_logger(module_names::WINDOW)->set_level(DEFAULT_WINDOW_LOGGER_LEVEL);
-        Logger::get_logger(module_names::RENDERER)->set_level(DEFAULT_RENDERER_LOGGER_LEVEL);
+        Logger::get_logger(logger_names::APP)->set_level(DEFAULT_LOGGER_LEVEL);
+        Logger::get_logger(logger_names::CORE)->set_level(DEFAULT_CORE_LOGGER_LEVEL);
+        Logger::get_logger(logger_names::ENGINE)->set_level(DEFAULT_ENGINE_LOGGER_LEVEL);
+        Logger::get_logger(logger_names::CONFIGURATION)->set_level(DEFAULT_CONF_LOGGER_LEVEL);
+        Logger::get_logger(logger_names::EVENT)->set_level(DEFAULT_EVENT_LOGGER_LEVEL);
+        Logger::get_logger(logger_names::WINDOW)->set_level(DEFAULT_WINDOW_LOGGER_LEVEL);
+        Logger::get_logger(logger_names::RENDERER)->set_level(DEFAULT_RENDERER_LOGGER_LEVEL);
     }
     void Application::update_config() {
         using namespace bnjkit::core;
         auto& settings = m_core->settings();
         settings.set("/Application/Logger/App logger level",
-                     Logger::get_logger(module_names::APP)->level());
+                     Logger::get_logger(logger_names::APP)->level());
         settings.set("/Application/Logger/Core logger level",
-                     Logger::get_logger(module_names::CORE)->level());
+                     Logger::get_logger(logger_names::CORE)->level());
         settings.set("/Application/Logger/Engine logger level",
-                     Logger::get_logger(module_names::ENGINE)->level());
+                     Logger::get_logger(logger_names::ENGINE)->level());
         settings.set("/Application/Logger/Conf logger level",
-                     Logger::get_logger(module_names::CONFIGURATION)->level());
+                     Logger::get_logger(logger_names::CONFIGURATION)->level());
         settings.set("/Application/Logger/Event logger level",
-                     Logger::get_logger(module_names::EVENT)->level());
+                     Logger::get_logger(logger_names::EVENT)->level());
         settings.set("/Application/Logger/Window logger level",
-                     Logger::get_logger(module_names::WINDOW)->level());
+                     Logger::get_logger(logger_names::WINDOW)->level());
         settings.set("/Application/Logger/Renderer logger level",
-                     Logger::get_logger(module_names::RENDERER)->level());
+                     Logger::get_logger(logger_names::RENDERER)->level());
         settings.set("/Application/Engine/Frequency", m_core->engine_frequency());
         settings.set("/Application/Renderer/Frequency", m_core->renderer_frequency());
         settings.set("/Application/Window/Frequency", m_core->window_frequency());

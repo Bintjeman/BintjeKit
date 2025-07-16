@@ -4,19 +4,13 @@
  * @name core.cpp
  */
 #include "bintjekit/core/core.hpp"
-#include "bintjekit/logger/logger.hpp"
-#include "bintjekit/window/i_main_window.hpp"
+#include "bintjekit/logger.hpp"
+#include "bintjekit/configuration.hpp"
 #include "bintjekit/event_manager/event_manager.hpp"
-#include "bintjekit/renderer/i_renderer.hpp"
-#include "bintjekit/core/common.hpp"
-#include "bintjekit/configuration/settings.hpp"
-#include "bintjekit/configuration/utils.hpp"
-#include "bintjekit/renderer/i_engine_renderer.hpp"
-#include "bintjekit/utils/time/time.hpp"
-
+#include "bintjekit/core/modules.hpp"
 namespace bnjkit::core {
     Core::Core() {
-        m_logger = Logger::get_logger(module_names::CORE);
+        m_logger = Logger::get_logger(literals::logger::CORE);
         m_logger->info("Constructor of Core");
 #ifndef NDEBUG
         m_logger->critical("Running in debug mode");
@@ -27,40 +21,27 @@ namespace bnjkit::core {
         Logger::shutdown();
     }
     void Core::initialise() {
-
+        m_logger->debug("Initialising Core");
+        m_modules.initialise();
     }
     void Core::configure() {
         m_logger->debug("Configuring Core");
         if (!m_settings) {
             m_logger->warn("No settings set. Using default settings");
-            m_settings = std::make_shared<conf::Settings>();
+            m_settings = std::make_unique<conf::Settings>();
         }
         // Settings
         m_event_manager->set_core_event_handler_settings(
             m_settings->create_child("/Event"_json_pointer)
         );
-        m_engine_renderer->set_settings(m_settings->create_child("/Renderer/Engine"_json_pointer));
-        m_renderer->set_settings(m_settings->create_child("/Renderer"_json_pointer));
-        m_imgui_renderer->set_settings(m_settings->create_child("/Renderer/ImGui"_json_pointer));
-        m_main_window->set_settings(m_settings->create_child("/Window"_json_pointer));
-        m_engine->set_settings(m_settings->create_child("/Engine"_json_pointer));
+        m_modules.get_window().set_settings(m_settings->create_child("/Window"_json_pointer));
+        m_modules.get_renderer().set_settings(m_settings->create_child("/Renderer"_json_pointer));
+        m_modules.get_world().set_settings(m_settings->create_child("/World"_json_pointer));
+        m_modules.get_core_event_handler().set_settings(m_settings->create_child("/CoreEventHandler"_json_pointer));
         // Custom settings
-        m_engine->set_custom(
-            m_settings->create_child(
-                nlohmann::json::json_pointer(std::string("/Engine/" + m_engine->name()))
-            )
-        );
-        m_engine_renderer->set_custom(m_settings->create_child(
-                nlohmann::json::json_pointer(std::string("/Renderer/" + m_engine_renderer->name()))
-            )
-        );
         // Configure modules
         m_event_manager->configure();
-        m_engine->configure();
-        m_engine_renderer->configure();
-        m_main_window->configure();
-        m_renderer->configure();
-        m_imgui_renderer->configure();
+        m_modules.configure();
     }
     void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
         m_logger->trace("Configuring Core from settings");
@@ -74,17 +55,13 @@ namespace bnjkit::core {
         settings->set_path(conf_file_path);
         configure(settings);
     }
-    Core::State Core::state() const {
-        return m_state;
-    }
     void Core::run() {
         m_logger->info("Running Core");
-        m_main_window->show();
-        m_imgui_renderer->init();
-        m_renderer->configure();
-        while (m_main_window->isOpen()) {
+        auto& window = m_modules.get_window();
+        window.show();
+        while (window.isOpen()) {
             if (m_window_pulser()) {
-                m_event_manager->process_events(* m_main_window);
+                m_event_manager->process_events(window);
                 if (m_state == State::RUNNING && m_engine_pulser()) {
                     m_engine->update();
                 }
@@ -96,11 +73,15 @@ namespace bnjkit::core {
         }
         m_logger->info("Core stopped");
         m_event_manager->on_quit();
-        m_renderer->on_quit();
-        m_engine->on_quit();
-        m_engine_renderer->on_quit();
-        m_imgui_renderer->on_quit();
+        m_modules.on_quit();
     }
+    Core::State Core::state() const {
+        return m_state;
+    }
+    conf::Settings& Core::settings() const {
+        return * m_settings;
+    }
+
     long Core::engine_frequency() const {
         return m_engine_pulser.target_freqency();
     }
@@ -124,24 +105,8 @@ namespace bnjkit::core {
     long Core::window_effective_frequency() const {
         return m_window_pulser.effective_frequency();
     }
-    conf::Settings& Core::settings() const {
-        return * m_settings;
-    }
-
-    renderer::IRenderer& Core::renderer() const {
-        return * m_renderer;
-    }
-
-    renderer::IImGuiRenderer& Core::imgui_renderer() const {
-        return * m_imgui_renderer;
-    }
-
-    window::IMainWindow& Core::main_window() const {
-        return * m_main_window;
-    }
-
-    event::EventManager& Core::event_manager() const {
-        return * m_event_manager;
+    void Core::set_modules(ModuleSet&& modules) {
+        m_modules = std::move(modules);
     }
 
     void Core::set_state(const State& state) {
@@ -160,7 +125,7 @@ namespace bnjkit::core {
     }
 
     void Core::set_settings(const std::shared_ptr<conf::Settings>& settings) {
-        m_settings = settings;
+        m_settings->;
     }
     void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
                            std::unique_ptr<event::EventManager> event_manager,

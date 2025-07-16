@@ -6,26 +6,21 @@
 #ifndef EVO_EVOBOTENGINE_HPP
 #define EVO_EVOBOTENGINE_HPP
 #pragma once
-#include <bintjekit/engine.hpp>
-
+#include <bintjekit/engine/i_engine.hpp>
+namespace sf {
+    class Event;
+}
 namespace evo::engine {
-    class EvoWorld;
-    class EvobotEngine final : public bnjkit::ecs::IEngine {
+    class EvobotEngine final : public bnjkit::engine::IEngine {
     public:
         EvobotEngine();
         ~EvobotEngine() override;
         void configure() override;
         void initialise() override;
         void new_world();
-        void clear();
-        void update() override;
-        EvoWorld* world();
-        [[nodiscard]] const EvoWorld* world() const;
         [[nodiscard]] std::string name() const override;
         void on_sfml_event(const sf::Event& event) override;
 
-    private:
-        std::unique_ptr<EvoWorld> m_evo_world;
     };
 }
 

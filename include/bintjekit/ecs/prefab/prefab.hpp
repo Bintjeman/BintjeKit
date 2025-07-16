@@ -10,15 +10,15 @@
 #include <functional>
 #include <entt/entity/entity.hpp>
 
-namespace bnjkit::ecs {
-    class IWorld;
+namespace bnjkit::engine {
+    class IEngine;
 }
 
 namespace bnjkit::ecs {
     class PrefabData {
         public:
         // Fonction générique de spawn qui retourne une entité
-        std::function<entt::entity(IWorld &)> spawn;
+        std::function<entt::entity(engine::IEngine &)> spawn;
         // Métadonnées optionnelles (utile pour le debugging/logging)
         std::string name;
     };

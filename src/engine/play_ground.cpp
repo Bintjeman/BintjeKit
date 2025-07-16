@@ -9,9 +9,9 @@
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/logger/logger.hpp"
 
-namespace bnjkit::ecs {
+namespace bnjkit::engine {
     PlayGround::PlayGround() {
-        m_logger = core::Logger::get_logger(core::module_names::ENGINE);
+        m_logger = core::Logger::get_logger(literals::logger::ENGINE);
         m_logger->info("Constructor of PlayGround");
     }
 

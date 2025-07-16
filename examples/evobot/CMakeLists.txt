@@ -12,7 +12,6 @@ target_sources(evobot PRIVATE
         # renderer
         renderer/circle_render_system.cpp
         renderer/imgui_renderer.cpp
-        renderer/evobot_renderer.cpp
         renderer/renderer.cpp
         # renderer
         # systems

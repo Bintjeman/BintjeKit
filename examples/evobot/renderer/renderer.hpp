@@ -20,7 +20,7 @@ namespace evo {
             [[nodiscard]] std::string name() const override;
             void camera_move(sf::Vector2f delta);
             void camera_zoom(float ratio);
-            void set_engine(const bnjkit::ecs::IEngine* engine) override;
+            void set_world(const bnjkit::engine::IEngine* world) override;
 
         private:
             const engine::EvobotEngine* m_evobot{nullptr};

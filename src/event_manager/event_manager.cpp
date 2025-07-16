@@ -16,7 +16,7 @@
 
 namespace bnjkit::event {
     EventManager::EventManager(): m_imgui_renderer(nullptr) {
-        m_logger = core::Logger::get_logger(core::module_names::EVENT);
+        m_logger = core::Logger::get_logger(literals::logger::EVENT);
         m_logger->info("Constructor of IEventManager");
     }
 

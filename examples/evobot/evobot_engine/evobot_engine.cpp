@@ -11,7 +11,7 @@
 #include "evo_world.hpp"
 
 namespace evo::engine {
-    EvobotEngine::EvobotEngine() {
+    EvobotEngine::EvobotEngine(): IEngine() {
         m_logger->info("EvobotEngine: created");
         m_evo_world = std::make_unique<EvoWorld>();
     }

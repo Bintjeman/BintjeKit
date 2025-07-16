@@ -10,7 +10,7 @@
 #include <string>
 
 namespace bnjkit::engine {
-    class IWorld;
+    class IEngine;
 
     class ISystem {
     public:
@@ -18,13 +18,13 @@ namespace bnjkit::engine {
         virtual ~ISystem();
 
         // Initialisation du système
-        virtual void initialize(IWorld& world);
+        virtual void initialize(IEngine& world);
 
         // Mise à jour du système
-        virtual void update(IWorld& world);
+        virtual void update(IEngine& world);
 
         // Nettoyage du système
-        virtual void cleanup(IWorld& world);
+        virtual void cleanup(IEngine& world);
         [[nodiscard]] virtual std::string name() const = 0;
 
     protected:
