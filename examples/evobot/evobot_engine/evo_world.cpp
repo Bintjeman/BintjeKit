@@ -30,7 +30,7 @@ namespace evo::engine {
         m_logger->info("EvoWorld: initializing prefab");
         // Prefab pour Evobot
         register_prefab("evobot", {
-                            .spawn = [this](bnjkit::engine::World& world) -> entt::entity {
+                            .spawn = [this](bnjkit::ecs::IWorld& world) -> entt::entity {
                                 auto entity = world.registry().create();
                                 auto playground = world.play_ground();
                                 // Composants de base
@@ -64,7 +64,7 @@ namespace evo::engine {
 
         // Prefab pour Glob
         register_prefab("glob", {
-                            .spawn = [this](bnjkit::engine::World& world) -> entt::entity {
+                            .spawn = [this](bnjkit::ecs::IWorld& world) -> entt::entity {
                                 auto entity = world.registry().create();
                                 auto playground = world.play_ground();
                                 // Composants de base

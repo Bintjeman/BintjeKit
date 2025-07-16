@@ -4,13 +4,13 @@
  * @name entity_manager.hpp
  */
 
-#ifndef BINTJEKIT_ENGINE_ENTITY_MANAGER_HPP
-#define BINTJEKIT_ENGINE_ENTITY_MANAGER_HPP
+#ifndef BINTJEKIT_ECS_ENTITY_MANAGER_HPP
+#define BINTJEKIT_ECS_ENTITY_MANAGER_HPP
 #pragma once
 #include <entt/entt.hpp>
 #include <spdlog/fwd.h>
 
-namespace bnjkit::engine {
+namespace bnjkit::ecs {
     class EntityManager {
     public:
         EntityManager();
@@ -64,4 +64,4 @@ namespace bnjkit::engine {
     }
 }
 
-#endif // BINTJEKIT_ENGINE_ENTITY_MANAGER_HPP
+#endif // BINTJEKIT_ECS_ENTITY_MANAGER_HPP

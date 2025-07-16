@@ -12,8 +12,8 @@
 namespace evo::engine::systems {
     Movement::Movement() = default;
     Movement::~Movement() = default;
-    void Movement::initialize(bnjkit::engine::World& world) {}
-    void Movement::update(bnjkit::engine::World& world) {
+    void Movement::initialize(bnjkit::ecs::IWorld& world) {}
+    void Movement::update(bnjkit::ecs::IWorld& world) {
         auto& evo_world = static_cast<EvoWorld&>(world);
         auto& registry = evo_world.registry();
         auto view = registry.view<comp::D2,
@@ -23,7 +23,7 @@ namespace evo::engine::systems {
             update_position(evo_world, position, velocity);
         });
     }
-    void Movement::cleanup(bnjkit::engine::World& world) {}
+    void Movement::cleanup(bnjkit::ecs::IWorld& world) {}
     void Movement::update_position(EvoWorld& evo_world,
                                    comp::D2& position,
                                    comp::Velocity& velocity) {

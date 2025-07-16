@@ -10,7 +10,7 @@
 #include <functional>
 #include <memory>
 
-namespace bnjkit::engine {
+namespace bnjkit::ecs {
     class IEventDispatcher {
     public:
         virtual ~IEventDispatcher();

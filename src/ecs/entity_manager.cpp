@@ -4,10 +4,10 @@
  * @name entity_manager.cpp
  */
 
-#include "bintjekit/engine/entity_manager.hpp"
+#include "bintjekit/ECS/entity_manager.hpp"
 #include "bintjekit/logger.hpp"
 
-namespace bnjkit::engine {
+namespace bnjkit::ecs {
     EntityManager::EntityManager() {
         m_logger = core::Logger::get_logger(core::module_names::ENTITY);
         m_logger->info("EntityManager created");

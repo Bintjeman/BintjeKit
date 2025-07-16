@@ -107,7 +107,7 @@ namespace evo::event {
     }
     void EventManager::run_button() {
         auto engine_state = m_core->engine().state();
-        if (engine_state != bnjkit::engine::IEngine::State::EMPTY) {
+        if (engine_state != bnjkit::ecs::IEngine::State::EMPTY) {
             run();
         }
     }

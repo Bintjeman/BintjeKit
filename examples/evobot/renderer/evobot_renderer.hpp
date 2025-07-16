@@ -19,7 +19,7 @@ namespace evo {
         public:
             EvobotRenderer();
             ~EvobotRenderer() override;
-            void set_engine(const bnjkit::engine::IEngine* engine) override;
+            void set_engine(const bnjkit::ecs::IEngine* engine) override;
             void configure() override;
             [[nodiscard]] sf::Rect<float> bounds() const override;
             [[nodiscard]] std::string name() const override;

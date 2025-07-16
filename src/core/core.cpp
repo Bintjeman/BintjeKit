@@ -7,7 +7,6 @@
 #include "bintjekit/logger/logger.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/event_manager.hpp"
-#include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/core/common.hpp"
 #include "bintjekit/configuration/settings.hpp"
@@ -23,26 +22,14 @@ namespace bnjkit::core {
         m_logger->critical("Running in debug mode");
 #endif
     }
-
     Core::~Core() {
         m_logger->info("Destructor of Core");
         Logger::shutdown();
     }
+    void Core::initialise() {
 
+    }
     void Core::configure() {
-        static_assert(!std::is_abstract_v<decltype(*m_engine)>,
-                      "Engine class must implement all pure virtual methods"
-        );
-        static_assert(!std::is_abstract_v<decltype(*m_engine_renderer)>,
-                      "EngineRenderer class must implement all pure virtual methods"
-        );
-        static_assert(!std::is_abstract_v<decltype(*m_renderer)>,
-                      "Renderer class must implement all pure virtual methods"
-        );
-        static_assert(!std::is_abstract_v<decltype(*m_imgui_renderer)>,
-                      "ImGuiRenderer class must implement all pure virtual methods"
-        );
-
         m_logger->debug("Configuring Core");
         if (!m_settings) {
             m_logger->warn("No settings set. Using default settings");
@@ -75,13 +62,11 @@ namespace bnjkit::core {
         m_renderer->configure();
         m_imgui_renderer->configure();
     }
-
     void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
         m_logger->trace("Configuring Core from settings");
         set_settings(settings);
         configure();
     }
-
     void Core::configure(const std::filesystem::path& conf_file_path) {
         m_logger->trace("Configuring Core from file: {}", conf_file_path.string());
         const auto settings = std::make_shared<conf::Settings>();
@@ -89,7 +74,9 @@ namespace bnjkit::core {
         settings->set_path(conf_file_path);
         configure(settings);
     }
-
+    Core::State Core::state() const {
+        return m_state;
+    }
     void Core::run() {
         m_logger->info("Running Core");
         m_main_window->show();
@@ -97,7 +84,7 @@ namespace bnjkit::core {
         m_renderer->configure();
         while (m_main_window->isOpen()) {
             if (m_window_pulser()) {
-                m_event_manager->process_events(*m_main_window);
+                m_event_manager->process_events(* m_main_window);
                 if (m_state == State::RUNNING && m_engine_pulser()) {
                     m_engine->update();
                 }
@@ -114,39 +101,6 @@ namespace bnjkit::core {
         m_engine_renderer->on_quit();
         m_imgui_renderer->on_quit();
     }
-
-    conf::Settings& Core::settings() const {
-        return *m_settings;
-    }
-
-    Core::State Core::state() const {
-        return m_state;
-    }
-
-    engine::IEngine& Core::engine() const {
-        return *m_engine;
-    }
-
-    renderer::IRenderer& Core::renderer() const {
-        return *m_renderer;
-    }
-
-    renderer::IEngineRenderer& Core::engine_renderer() const {
-        return *m_engine_renderer;
-    }
-
-    renderer::IImGuiRenderer& Core::imgui_renderer() const {
-        return *m_imgui_renderer;
-    }
-
-    window::IMainWindow& Core::main_window() const {
-        return *m_main_window;
-    }
-
-    event::EventManager& Core::event_manager() const {
-        return *m_event_manager;
-    }
-
     long Core::engine_frequency() const {
         return m_engine_pulser.target_freqency();
     }
@@ -170,27 +124,29 @@ namespace bnjkit::core {
     long Core::window_effective_frequency() const {
         return m_window_pulser.effective_frequency();
     }
+    conf::Settings& Core::settings() const {
+        return * m_settings;
+    }
+
+    renderer::IRenderer& Core::renderer() const {
+        return * m_renderer;
+    }
+
+    renderer::IImGuiRenderer& Core::imgui_renderer() const {
+        return * m_imgui_renderer;
+    }
+
+    window::IMainWindow& Core::main_window() const {
+        return * m_main_window;
+    }
+
+    event::EventManager& Core::event_manager() const {
+        return * m_event_manager;
+    }
 
     void Core::set_state(const State& state) {
         m_state = state;
     }
-
-    void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
-                           std::unique_ptr<event::EventManager> event_manager,
-                           std::unique_ptr<engine::IEngine> engine,
-                           std::unique_ptr<renderer::IRenderer> renderer,
-                           std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
-                           std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer
-    ) {
-        m_logger->trace("Setting modules");
-        m_main_window = std::move(window);
-        m_event_manager = std::move(event_manager);
-        m_engine = std::move(engine);
-        m_renderer = std::move(renderer);
-        m_engine_renderer = std::move(engine_renderer);
-        m_imgui_renderer = std::move(imgui_renderer);
-    }
-
     void Core::set_engine_frequency(const long frequency) {
         m_engine_pulser.set_frequency(frequency);
     }
@@ -205,6 +161,21 @@ namespace bnjkit::core {
 
     void Core::set_settings(const std::shared_ptr<conf::Settings>& settings) {
         m_settings = settings;
+    }
+    void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
+                           std::unique_ptr<event::EventManager> event_manager,
+                           std::unique_ptr<ecs::IEngine> engine,
+                           std::unique_ptr<renderer::IRenderer> renderer,
+                           std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
+                           std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer
+    ) {
+        m_logger->trace("Setting modules");
+        m_main_window = std::move(window);
+        m_event_manager = std::move(event_manager);
+        m_engine = std::move(engine);
+        m_renderer = std::move(renderer);
+        m_engine_renderer = std::move(engine_renderer);
+        m_imgui_renderer = std::move(imgui_renderer);
     }
 
     void Core::save_settings() {

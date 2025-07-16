@@ -16,7 +16,6 @@ namespace evo::renderer {
         ~CircleRenderSystem() override;
         explicit CircleRenderSystem(const entt::registry& registry);
         void render(sf::RenderTarget& target) const override;
-        [[nodiscard]] std::string name() const override;
 
     private:
         const entt::registry& m_registry;

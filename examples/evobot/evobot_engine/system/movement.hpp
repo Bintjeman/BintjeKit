@@ -7,7 +7,7 @@
 #ifndef MOVEMENT_HPP
 #define MOVEMENT_HPP
 #pragma once
-#include "bintjekit/engine/system/i_system.hpp"
+#include "bintjekit/ecs/system/i_system.hpp"
 
 namespace evo::engine {
     class EvoWorld;
@@ -23,10 +23,10 @@ namespace evo::engine::systems {
     public:
         explicit Movement();
         ~Movement() override;
-        void initialize(bnjkit::engine::World& world) override;
+        void initialize(bnjkit::engine::IWorld& world) override;
 
-        void update(bnjkit::engine::World& world) override;
-        void cleanup(bnjkit::engine::World& world) override;
+        void update(bnjkit::engine::IWorld& world) override;
+        void cleanup(bnjkit::engine::IWorld& world) override;
 
     private:
         void update_position(EvoWorld& evo_world,

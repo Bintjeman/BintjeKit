@@ -4,34 +4,33 @@
  * @name i_render_system.hpp
  */
 
-#ifndef I_RENDER_SYSTEM_HPP
-#define I_RENDER_SYSTEM_HPP
+#ifndef BINTJEKIT_RENDERER_I_RENDER_SYSTEM_HPP
+#define BINTJEKIT_RENDERER_I_RENDER_SYSTEM_HPP
 #pragma once
 #include <memory>
-#include <string>
 #include <spdlog/fwd.h>
+#include "bintjekit/ecs/system/i_system.hpp"
 
 namespace sf {
-    class View;
     class RenderTarget;
 }
 
 namespace bnjkit::renderer {
-    class IRenderSystem {
+    class IRenderSystem : public engine::ISystem {
     public:
         IRenderSystem();
-        virtual ~IRenderSystem();
+        ~IRenderSystem() override;
+        // Implémentation de ISystem
+        void initialize(engine::IWorld& world) override;
+        void update(engine::IWorld& world) override;
+        void cleanup(engine::IWorld& world) override;
 
-        // Méthodes principales
-        virtual void render(sf::RenderTarget& target) const;
-        virtual void update();
+        // Méthode pure de rendu
+        virtual void render(sf::RenderTarget& target) const = 0;
 
-        // Configuration
-        virtual void configure();
-        [[nodiscard]] virtual std::string name() const;
     protected:
         std::shared_ptr<spdlog::logger> m_logger;
+        static unsigned int m_counter;
     };
 }
-
-#endif //I_RENDER_SYSTEM_HPP
+#endif

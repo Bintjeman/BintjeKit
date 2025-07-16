@@ -8,7 +8,7 @@
 #include <spdlog/logger.h>
 #include <bintjekit/logger.hpp>
 #include <bintjekit/core/core.hpp>
-#include <bintjekit/engine/i_engine.hpp>
+#include <bintjekit/engine/i_world.hpp>
 #include "application/event_manager.hpp"
 #include "evobot_engine/evobot_engine.hpp"
 #include "evobot_engine/evo_world.hpp"
@@ -142,7 +142,7 @@ namespace evo::renderer {
         m_settings.set("/View/Draw evobot window", m_draw_evobot_window);
         m_settings.set("/View/Draw controls window", m_draw_controls_window);
     }
-    void ImGuiRenderer::set_engine(bnjkit::engine::IEngine* engine) {
+    void ImGuiRenderer::set_engine(bnjkit::ecs::IEngine* engine) {
         IImGuiRenderer::set_engine(engine);
         m_evobot_engine = dynamic_cast<engine::EvobotEngine*>(engine);
     }

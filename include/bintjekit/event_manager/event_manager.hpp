@@ -11,8 +11,6 @@
 #include <SFML/Window/Event.hpp>
 #include <spdlog/fwd.h>
 
-#include "bintjekit/configuration/node.hpp"
-
 namespace sf {
     class Window;
 }
@@ -21,6 +19,7 @@ namespace bnjkit {
     namespace conf {
         class Node;
     }
+
     namespace renderer {
         class IImGuiRenderer;
     }
@@ -33,22 +32,30 @@ namespace bnjkit {
         public:
             EventManager();
             ~EventManager();
+            void configure();
+            // Getters
+            [[nodiscard]] ICoreEventHandler* get_core_event_handler() const;
+            // Setters
             void set_imgui_renderer(renderer::IImGuiRenderer* renderer);
             void set_core_event_handler(std::shared_ptr<ICoreEventHandler> core_event_handler);
-            void process_events(sf::Window& window);
-            void register_listener(IEventListener* listener);
-            void unregister_listener(IEventListener* listener);
             void set_core_event_handler_settings(const conf::Node& settings);
             void set_core_event_handler_custom_settings(const conf::Node& settings);
-            [[nodiscard]] ICoreEventHandler* get_core_event_handler() const;
-            void configure() ;
-            void on_quit() ;
+            // Listener managers
+            void register_listener(IEventListener* listener);
+            void unregister_listener(IEventListener* listener);
+            // Events
+            void process_events(sf::Window& window);
+            //
+            void on_quit();
+
         protected:
             void general_event(const sf::Event& event) const;
             std::shared_ptr<ICoreEventHandler> m_core_event_handler;
             std::vector<IEventListener*> m_listeners;
-            renderer::IImGuiRenderer* m_imgui_renderer;
+            // Utils
             std::shared_ptr<spdlog::logger> m_logger;
+            //Externe
+            renderer::IImGuiRenderer* m_imgui_renderer;
         };
     } // event
 } // bnjkit

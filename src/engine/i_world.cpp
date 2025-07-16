@@ -3,35 +3,35 @@
  * @date 13.07.25
  * @name world.cpp
  */
-
-#include "bintjekit/engine/world.hpp"
+#include "bintjekit/engine/i_world.hpp"
 #include "bintjekit/logger.hpp"
 #include "bintjekit/engine/play_ground.hpp"
-#include "bintjekit/engine/event/event_manager.hpp"
-#include "bintjekit/engine/system/i_system.hpp"
+#include "bintjekit/ecs/event/event_manager.hpp"
+#include "bintjekit/ecs/prefab/prefab.hpp"
+#include "bintjekit/ecs/system/i_system.hpp"
 
-namespace bnjkit::engine {
-    World::World(const std::string& name): EntityManager(), m_name(name)
-                                           , m_eventBus(std::make_unique<EventBus>()) {
+namespace bnjkit::ecs {
+    IWorld::IWorld(const std::string& name): EntityManager(), m_name(name)
+                                             , m_eventBus(std::make_unique<EventBus>()) {
         m_logger->info("World '{}' created", name);
         m_play_ground = std::make_unique<PlayGround>();
     }
-    World::~World() {
+    IWorld::~IWorld() {
         m_logger->info("World '{}' destroyed", m_name);
         for (auto it = m_systems.rbegin(); it != m_systems.rend(); ++ it) {
             (* it)->cleanup(* this);
         }
     }
-    void World::update() {
+    void IWorld::update() {
         // Update des systèmes
         for (auto& system: m_systems) {
             system->update(* this);
         }
     }
-    void World::register_prefab(const std::string& name, PrefabData data) {
+    void IWorld::register_prefab(const std::string& name, PrefabData data) {
         m_prefabs[name] = std::move(data);
     }
-    entt::entity World::spawn_prefab(const std::string& name) {
+    entt::entity IWorld::spawn_prefab(const std::string& name) {
         auto it = m_prefabs.find(name);
         if (it != m_prefabs.end()) {
             return it->second.spawn(* this);
@@ -39,13 +39,13 @@ namespace bnjkit::engine {
         m_logger->error("Prefab '{}' not found", name);
         return entt::null;
     }
-    const std::string& World::name() const {
-        return m_name;
+    std::string IWorld::name() const {
+        return "IWorld";
     }
-    PlayGround& World::play_ground() {
-        return *m_play_ground;
+    PlayGround& IWorld::play_ground() {
+        return * m_play_ground;
     }
-    const PlayGround& World::play_ground() const {
-        return *m_play_ground;
+    const PlayGround& IWorld::play_ground() const {
+        return * m_play_ground;
     }
 }

@@ -2,6 +2,9 @@
  * @author bintjeman
  * @date 15.06.25
  * @name sfml_json_adapter.hpp
+ *
+ * Fichier qui regroupe les methode de serialisation et désérialisation entre\
+ * nlohmann et d'autres type spécifiques notamment les type sf:: de la sfml
  */
 
 #ifndef BNJKIT_CONFIGURATION_JSON_ADAPTER_HPP
@@ -14,6 +17,11 @@
 #include <nlohmann/json.hpp>
 
 namespace nlohmann {
+    /*!
+     * Convertit un sf::Vector2<T> en object nlohmann::json et inversement.
+     *
+     * @tparam T int ou float
+     */
     template<typename T>
     struct adl_serializer<sf::Vector2<T> > {
         static void to_json(json& j, const sf::Vector2<T>& v) {
@@ -25,6 +33,9 @@ namespace nlohmann {
             v.y = j.at("y").get<T>();
         }
     };
+    /*!
+     * Convertit un sf::Color en object nlohmann::json et inversement.
+     */
     template<>
     struct adl_serializer<sf::Color> {
         static void from_json(const json& j, sf::Color& c) {
@@ -52,6 +63,11 @@ namespace nlohmann {
             }
         }
     };
+    /*!
+     * Convertit un sf::Rect<T> en object nlohmann::json et inversement.
+     *
+     * @tparam T int ou float
+     */
     template<typename T>
     struct adl_serializer<sf::Rect<T> > {
         static void to_json(json& j, const sf::Rect<T>& r) {
@@ -70,6 +86,9 @@ namespace nlohmann {
         }
     };
 }
+/*!
+ * Convertit un spdlog::level en object nlohmann::json et inversement.
+ */
 namespace spdlog::level {
     NLOHMANN_JSON_SERIALIZE_ENUM(spdlog::level::level_enum, {
                                  {spdlog::level::level_enum::trace, "trace"},

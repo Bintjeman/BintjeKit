@@ -26,11 +26,48 @@ namespace bnjkit::conf {
     public:
         explicit Settings();
         ~Settings() override;
+        /*!
+         * Charge des nouvelles valeurs depuis un objet nlohmann::json
+         *
+         * @param json Les données
+         * @param merge_default Si true: injecte les valeurs par default dans\
+         * les nouvelles données
+         */
         void load_from_json(const nlohmann::json& json, bool merge_default = true);
+        /*!
+         * Sauve les données sous forme d'un json
+         * @param path Le chemin du fichier de sortie
+         */
         void save_to_file(const std::filesystem::path& path = {}) const;
+        /*!
+         * Converti en std::string les données
+         * @return La chaîne de caractère générée
+         */
         [[nodiscard]] std::string to_string() const;
+        /*!
+         * Converti en std::stringstream les données
+         * @return Le stringstream généré
+         */
         [[nodiscard]] std::stringstream to_stream() const;
+        /*!
+         * Retourne le chemin du fichier utilisé par default pour la sauvegarde
+         * @return Le chemin du fichier
+         */
+        [[nodiscard]] std::filesystem::path path() const;
+        /*!
+         * Retourne le chemin du fichier utilisé par default pour la sauvegarde
+         * @return Le chemin du fichier
+         */
+        [[nodiscard]] std::string path_str() const;
+
+        /*!
+         * Définit le chemin du fichier utilisé par default pour la sauvegarde
+         * @param path Le chemin du fichier
+         */
         void set_path(const std::filesystem::path& path);
+        /*!
+         * Définit les valeurs par default
+         */
         void set_default_values(const nlohmann::json& default_values) const;
 
     private:

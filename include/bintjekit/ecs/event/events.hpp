@@ -2,13 +2,16 @@
  * @author bintjeman
  * @date 13.07.25
  * @name events.hpp
+ *
  */
-
-#ifndef EVENTS_HPP
-#define EVENTS_HPP
+ /*!
+  * @todo Mettre en place le system event dans le module ECS
+  */
+#ifndef BINTJEKIT_ECS_EVENTS_HPP
+#define BINTJEKIT_ECS_EVENTS_HPP
 #pragma once
-
-namespace bnjkit::engine {
+#include <entt/entity/entity.hpp>
+namespace bnjkit::ecs {
     struct EntitySpawnedEvent {
         entt::entity entity;
     };
@@ -24,4 +27,4 @@ namespace bnjkit::engine {
     };
 } // namespace bnjkit::engine
 
-#endif //EVENTS_HPP
+#endif // BINTJEKIT_ECS_EVENTS_HPP

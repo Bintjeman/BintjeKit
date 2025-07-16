@@ -11,24 +11,22 @@
 #include "SFML/Window/Event.hpp"
 #include "bintjekit/core/i_module.hpp"
 
-namespace bnjkit {
-    namespace core {
-        class Core;
-    }
+namespace bnjkit::core {
+    class Core;
+}
 
-    namespace event {
-        class ICoreEventHandler: public core::IModule{
-        public:
-            ICoreEventHandler();
-            ~ICoreEventHandler() override;
-            virtual void set_core(core::Core *core);
-            virtual void on_sfml_event(const sf::Event &event) =0;
-            [[nodiscard]] std::string name() const override;
+namespace bnjkit::event {
+    class ICoreEventHandler : public core::IModule {
+    public:
+        ICoreEventHandler();
+        ~ICoreEventHandler() override;
+        virtual void set_core(core::Core* core);
+        virtual void on_sfml_event(const sf::Event& event) =0;
+        [[nodiscard]] std::string name() const override;
 
-        protected:
-            core::Core *m_core;
-            std::shared_ptr<spdlog::logger> m_logger;
-        };
-    } // event
-} // bnjkit
+    protected:
+        core::Core* m_core;
+        std::shared_ptr<spdlog::logger> m_logger;
+    };
+}
 #endif // BNJKIT_EVENT_ICOREEVENTHANDLER_HPP

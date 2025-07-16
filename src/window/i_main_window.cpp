@@ -5,7 +5,7 @@
  */
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/core/common.hpp"
-#include "bintjekit/logger/logger.hpp"
+#include "bintjekit/logger.hpp"
 #include "bintjekit/configuration/json_adapter.hpp"
 
 namespace bnjkit::window {
@@ -46,6 +46,7 @@ namespace bnjkit::window {
     }
 
     void IMainWindow::on_quit() {
+        m_logger->info("Quitting IMainWindow");
         IModule::on_quit();
     }
 }

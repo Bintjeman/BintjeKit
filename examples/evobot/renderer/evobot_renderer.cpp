@@ -19,7 +19,7 @@ namespace evo::renderer {
     EvobotRenderer::~EvobotRenderer() {
         m_logger->info("EvobotRenderer: destroyed");
     }
-    void EvobotRenderer::set_engine(const bnjkit::engine::IEngine* engine) {
+    void EvobotRenderer::set_engine(const bnjkit::ecs::IEngine* engine) {
         IEngineRenderer::set_engine(engine);
         m_evobot_engine = dynamic_cast<const engine::EvobotEngine*>(engine);
     }

@@ -2,6 +2,8 @@
  * @author bintjeman
  * @date 15.06.25
  * @name util.hpp
+ *
+ * Collection d'utilitaires pour aider à la manipulation d'objet nlohmann::json
  */
 
 #ifndef BNJKIT_CONFIGURATION_UTIL_HPP

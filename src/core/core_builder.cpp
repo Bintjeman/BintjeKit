@@ -11,14 +11,10 @@
 // Interface modules
 #include "bintjekit/window/i_main_window.hpp"
 #include "bintjekit/event_manager/event_manager.hpp"
-#include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/renderer/i_engine_renderer.hpp"
 #include "bintjekit/event_manager/i_core_event_handler.hpp"
 // defaults modules
-#include "bintjekit/window/default_main_window.hpp"
-#include "bintjekit/renderer/default_renderer.hpp"
-#include "bintjekit/event_manager/default_core_event_handler.hpp"
 
 namespace bnjkit::core {
     CoreBuilder::CoreBuilder() {
@@ -42,7 +38,7 @@ namespace bnjkit::core {
         return *this;
     }
 
-    CoreBuilder& CoreBuilder::set_engine_module(std::unique_ptr<engine::IEngine> engine) {
+    CoreBuilder& CoreBuilder::set_engine_module(std::unique_ptr<ecs::IEngine> engine) {
         m_logger->trace("Setting engine module");
         m_engine = std::move(engine);
         return *this;
@@ -98,7 +94,7 @@ namespace bnjkit::core {
         if (!m_engine) {
             m_logger->warn("No engine module set. Using interface engine module");
             m_engine.reset();
-            m_engine = std::make_unique<engine::IEngine>();
+            m_engine = std::make_unique<ecs::IEngine>();
         }
         if (!m_engine_renderer) {
             m_logger->warn("No engine renderer module set. Using interface engine renderer module");

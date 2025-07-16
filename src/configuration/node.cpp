@@ -4,8 +4,7 @@
  * @name configuration_node.cpp
  */
 #include "bintjekit/configuration/node.hpp"
-#include "bintjekit/core/common.hpp"
-#include "bintjekit/logger/logger.hpp"
+#include "bintjekit/logger.hpp" // pour core::Logger::get_logger
 #include "bintjekit/configuration/utils.hpp"
 
 namespace bnjkit::conf {

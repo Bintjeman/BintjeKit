@@ -10,7 +10,7 @@
 
 namespace evo::engine {
     class EvoWorld;
-    class EvobotEngine final : public bnjkit::engine::IEngine {
+    class EvobotEngine final : public bnjkit::ecs::IEngine {
     public:
         EvobotEngine();
         ~EvobotEngine() override;

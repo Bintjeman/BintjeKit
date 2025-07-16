@@ -34,7 +34,4 @@ namespace evo::renderer {
             target.draw(circle_shape);
         });
     }
-    std::string CircleRenderSystem::name() const {
-        return "CircleRenderSystem";
-    }
 }

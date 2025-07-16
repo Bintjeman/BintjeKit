@@ -36,7 +36,7 @@ namespace bnjkit::renderer {
         m_logger->trace("IImGuiRenderer: Setting window");
         m_window = window;
     }
-    void IImGuiRenderer::set_engine(engine::IEngine* engine) {
+    void IImGuiRenderer::set_engine(ecs::IEngine* engine) {
         m_logger->trace("IImGuiRenderer: Setting engine");
         m_engine = engine;
     }

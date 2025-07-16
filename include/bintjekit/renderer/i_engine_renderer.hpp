@@ -17,20 +17,12 @@ namespace sf {
 }
 
 namespace bnjkit {
-    namespace engine {
+    namespace ecs {
         class IEngine;
     }
 }
 
 namespace bnjkit::renderer {
-    enum class RenderLayer {
-        BACKGROUND = 0,
-        WORLD = 100,
-        ENTITIES = 200,
-        EFFECTS = 300,
-        DEBUG = 400,
-        UI = 500
-    };
     class IRenderSystem;
     class IEngineRenderer : public core::IModule {
     public:
@@ -38,7 +30,7 @@ namespace bnjkit::renderer {
         ~IEngineRenderer() override;
         void initialise() override;
         void configure() override;
-        virtual void set_engine(const engine::IEngine* engine);
+        virtual void set_engine(const ecs::IEngine* engine);
         void set_default_view(const std::shared_ptr<sf::View>& view);
         void set_view(RenderLayer layer, const std::shared_ptr<sf::View>& view);
         void add_render_system(std::unique_ptr<IRenderSystem> system, RenderLayer layer);
@@ -55,7 +47,7 @@ namespace bnjkit::renderer {
             bool enabled = true;
             std::string name;
         };
-        const engine::IEngine* m_engine;
+        const ecs::IEngine* m_engine;
         std::map<RenderLayer, std::vector<RenderSystemEntry> > m_render_systems;
         std::unordered_map<std::string, std::pair<RenderLayer, std::size_t> > m_system_registry;
         std::unordered_map<RenderLayer, std::shared_ptr<sf::View> > m_layer_views;
