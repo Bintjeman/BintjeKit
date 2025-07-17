@@ -76,7 +76,6 @@ namespace bnjkit::core {
         std::unique_ptr<renderer::IImGuiRenderer> m_imgui_renderer;
         // Utils
         std::shared_ptr<spdlog::logger> m_logger;
-
     public:
         // Désactiver la copie
         ModuleSet(const ModuleSet&) = delete;
@@ -86,53 +85,6 @@ namespace bnjkit::core {
         ModuleSet& operator=(ModuleSet&& other) noexcept;
     };
 
-    template<typename T> requires std::is_base_of_v<IModule, T>
-    T& ModuleSet::get() {
-        if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
-            return * static_cast<T*>(m_window.get());
-        } else if constexpr (std::is_base_of_v<renderer::IRenderer, T>) {
-            return * static_cast<T*>(m_renderer.get());
-        } else if constexpr (std::is_base_of_v<event::ICoreEventHandler, T>) {
-            return * static_cast<T*>(m_core_event_handler.get());
-        } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
-            return * static_cast<T*>(m_engine.get());
-        } else if constexpr (std::is_base_of_v<renderer::IImGuiRenderer, T>) {
-            return * static_cast<T*>(m_imgui_renderer.get());
-        }
-        m_logger->error("Module {} not found", typeid(T).name());
-        return nullptr;
-    }
-
-    template<typename T> requires std::is_base_of_v<IModule, T>
-    const T& ModuleSet::get() const {
-        if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
-            return window();
-        } else if constexpr (std::is_base_of_v<renderer::IRenderer, T>) {
-            return renderer();
-        } else if constexpr (std::is_base_of_v<event::ICoreEventHandler, T>) {
-            return core_event_handler();
-        } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
-            return engine();
-        } else if constexpr (std::is_base_of_v<renderer::IImGuiRenderer, T>) {
-            return imgui_renderer();
-        }
-        m_logger->error("Module {} not found", typeid(T).name());
-        return nullptr;
-    }
-
-    template<typename T> requires std::is_base_of_v<IModule, T>
-    void ModuleSet::set_module(std::unique_ptr<T> module) {
-        if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
-            set_window(std::move(module));
-        } else if constexpr (std::is_base_of_v<renderer::IRenderer, T>) {
-            set_renderer(std::move(module));
-        } else if constexpr (std::is_base_of_v<event::ICoreEventHandler, T>) {
-            set_core_event_handler(std::move(module));
-        } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
-            set_world(std::move(module));
-        } else if constexpr (std::is_base_of_v<renderer::IImGuiRenderer, T>) {
-            set_imgui_renderer(std::move(module));
-        }
-    }
 }
+#include "module_set.inl"
 #endif // BINTJEKIT_CORE_MODULE_SET_HPP

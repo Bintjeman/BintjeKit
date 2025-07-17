@@ -11,6 +11,7 @@
 #include <spdlog/fwd.h>
 
 #include "bintjekit/core/i_module.hpp"
+#include "bintjekit/event_manager/i_event_listener.hpp"
 
 namespace sf {
     class Event;
@@ -32,7 +33,7 @@ namespace bnjkit {
 
     namespace renderer {
         class IRenderer;
-        class IImGuiRenderer : public core::IModule {
+        class IImGuiRenderer : public core::IModule, event::IEventListener {
             class ImGuiContext {
             public:
                 explicit ImGuiContext(sf::RenderWindow* window);

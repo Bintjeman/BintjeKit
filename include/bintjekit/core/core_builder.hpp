@@ -14,11 +14,23 @@ namespace bnjkit::core {
     public:
         CoreBuilder();
         ~CoreBuilder();
+        /*!
+         *
+         * @tparam T Le type hérité d'un des @see @ref requiered_modules "Liste des module requis"
+         * par bnjkit::core::Core
+         *
+         * @return Une référence vers CoreBuilder
+         */
         template<typename T>
         CoreBuilder& set() {
             m_modules_tmp.set_module<T>();
             return * this;
         }
+        /*!
+         *
+         * @return Un pointeur vers bnjkit::core::Core construit via les modules sélectionnés
+         * avec @ref CoreBuilder::set()
+         */
         std::unique_ptr<Core> build();
     private:
         ModuleSet m_modules_tmp;

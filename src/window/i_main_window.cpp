@@ -28,6 +28,7 @@ namespace bnjkit::window {
 
     void IMainWindow::show() {
         m_logger->trace("Showing IMainWindow");
+        create(sf::VideoMode({800, 600}),"SFML window");
     }
 
     void IMainWindow::on_sfml_event(const sf::Event& event) {
@@ -39,10 +40,6 @@ namespace bnjkit::window {
     void IMainWindow::close() {
         m_logger->info("Closing IMainWindow");
         RenderWindow::close();
-    }
-
-    std::string IMainWindow::name() const {
-        return "IMainWindow";
     }
 
     void IMainWindow::on_quit() {

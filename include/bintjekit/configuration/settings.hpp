@@ -18,7 +18,7 @@ namespace bnjkit::conf {
      *        saved, and manipulated through JSON and file paths.
      *
      * This class provides an abstraction for managing configuration settings,
-     * allowing interaction with JSON objects, storage in files, and string/stream
+     * allowing interaction with JSON objects, storage in files, and stringstream
      * representation. The settings can also be initialized with default values and
      * modified dynamically.
      */
@@ -30,7 +30,7 @@ namespace bnjkit::conf {
          * Charge des nouvelles valeurs depuis un objet nlohmann::json
          *
          * @param json Les données
-         * @param merge_default Si true: injecte les valeurs par default dans\
+         * @param merge_default Si true: injecte les valeurs par default dans
          * les nouvelles données
          */
         void load_from_json(const nlohmann::json& json, bool merge_default = true);

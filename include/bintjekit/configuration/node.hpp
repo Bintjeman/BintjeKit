@@ -61,7 +61,7 @@ namespace bnjkit::conf {
         /*!
          * Réinitialise toutes les valeurs des données aux valeurs par defaults.
          *
-         * @todo Mettre en place un meilleurs système de gestion des valeurs\
+         * @todo Mettre en place un meilleurs système de gestion des valeurs
          * par default
          */
         void reset_to_defaults() const;
@@ -74,7 +74,7 @@ namespace bnjkit::conf {
          */
         [[nodiscard]] std::shared_ptr<spdlog::logger> const& logger() const;
         /*!
-         * Retourne un node fille de this. Les données sont identiques et\
+         * Retourne un node fille de this. Les données sont identiques et
          * partagées
          *
          * @param key Le chemin vers la base de la nouvelle branche fille
@@ -83,7 +83,7 @@ namespace bnjkit::conf {
         [[nodiscard]] Node create_child(const nlohmann::json::json_pointer& key) const;
         /*!
          *
-         * @return Le nombre de node partageants les données
+         * @return Le nombre de node partageant les données
          */
         [[nodiscard]] long node_count() const;
 

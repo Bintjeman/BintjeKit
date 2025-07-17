@@ -2,8 +2,17 @@
  * @author bintjeman
  * @date 16.07.25
  * @name modules.hpp
+ *
+ * @defgroup required_modules Modules Requis
+ * @brief Liste des modules requis pour le fonctionnement du core
+ * @{
+ *     - bnjkit::window::IMainWindow
+ *     - bnjkit::event::ICoreEventHandler
+ *     - bnjkit::engine::IEngine
+ *     - bnjkit::renderer::IRenderer
+ *     - bnjkit::renderer::IBnjkitImGui
+ * @}
  */
-
 #ifndef BINTJEKIT_CORE_MODULES_HPP
 #define BINTJEKIT_CORE_MODULES_HPP
 #pragma once

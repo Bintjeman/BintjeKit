@@ -3,7 +3,7 @@
  * @date 15.06.25
  * @name sfml_json_adapter.hpp
  *
- * Fichier qui regroupe les methode de serialisation et désérialisation entre\
+ * Fichier qui regroupe les methode de serialisation et désérialisation entre
  * nlohmann et d'autres type spécifiques notamment les type sf:: de la sfml
  */
 

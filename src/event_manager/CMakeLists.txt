@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
 target_sources(bintjekit PRIVATE
-        i_core_event_handler.cpp
         event_manager.cpp
-        i_event_listener.cpp
         event_helper.cpp
-
 )

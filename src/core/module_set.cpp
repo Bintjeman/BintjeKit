@@ -4,8 +4,9 @@
  * @name module_set.cpp
  */
 #include "bintjekit/core/module_set.hpp"
-#include "bintjekit/logger.hpp""
+#include "bintjekit/logger.hpp"
 #include "bintjekit/core/modules.hpp"
+#include "bintjekit/core/default_modules.hpp"
 
 namespace bnjkit::core {
     ModuleSet::ModuleSet() {
@@ -18,43 +19,43 @@ namespace bnjkit::core {
     }
 
     window::IMainWindow& ModuleSet::window() {
-        return *m_window;
+        return * m_window;
     }
 
     renderer::IRenderer& ModuleSet::renderer() {
-        return *m_renderer;
+        return * m_renderer;
     }
 
     event::ICoreEventHandler& ModuleSet::core_event_handler() {
-        return *m_core_event_handler;
+        return * m_core_event_handler;
     }
 
     engine::IEngine& ModuleSet::engine() {
-        return *m_engine;
+        return * m_engine;
     }
 
     renderer::IImGuiRenderer& ModuleSet::imgui_renderer() {
-        return *m_imgui_renderer;
+        return * m_imgui_renderer;
     }
 
     window::IMainWindow& ModuleSet::window() const {
-        return *m_window;
+        return * m_window;
     }
 
     renderer::IRenderer& ModuleSet::renderer() const {
-        return *m_renderer;
+        return * m_renderer;
     }
 
     event::ICoreEventHandler& ModuleSet::core_event_handler() const {
-        return *m_core_event_handler;
+        return * m_core_event_handler;
     }
 
     engine::IEngine& ModuleSet::engine() const {
-        return *m_engine;
+        return * m_engine;
     }
 
     renderer::IImGuiRenderer& ModuleSet::imgui_renderer() const {
-        return *m_imgui_renderer;
+        return * m_imgui_renderer;
     }
 
     void ModuleSet::set_window(std::unique_ptr<window::IMainWindow> window) {
@@ -89,10 +90,33 @@ namespace bnjkit::core {
             result = false;
             if (create_missing) {
                 m_logger->warn("Making default window");
-                m_window = std::make_unique<window::IMainWindow>;
+                m_window = std::make_unique<window::DefaultMainWindow>();
             }
         }
-
+        if (m_renderer == nullptr) {
+            m_logger->error("Renderer is not set");
+            result = false;
+            if (create_missing) {
+                m_logger->warn("Making default renderer");
+                m_renderer = std::make_unique<renderer::IRenderer>();
+            }
+        }
+        if (m_core_event_handler == nullptr) {
+            m_logger->error("Core event handler is not set");
+            result = false;
+            if (create_missing) {
+                m_logger->warn("Making default core event handler");
+                m_core_event_handler = std::make_unique<event::ICoreEventHandler>();
+            }
+        }
+        if (m_imgui_renderer == nullptr) {
+            m_logger->error("ImGui renderer is not set");
+            result = false;
+            if (create_missing) {
+                m_logger->warn("Making default imgui renderer");
+                m_imgui_renderer = std::make_unique<renderer::IImGuiRenderer>();
+            }
+        }
         return result;
     }
 
@@ -114,11 +138,9 @@ namespace bnjkit::core {
         m_imgui_renderer->configure();
     }
 
-    void ModuleSet::update() {
-    }
+    void ModuleSet::update() {}
 
-    void ModuleSet::cleanup() {
-    }
+    void ModuleSet::cleanup() {}
 
     void ModuleSet::on_quit() {
         m_logger->trace("Quitting modules");

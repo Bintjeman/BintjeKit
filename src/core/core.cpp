@@ -69,15 +69,15 @@ namespace bnjkit::core {
         while (window.isOpen()) {
             auto& engine = m_modules.engine();
             auto& renderer = m_modules.renderer();
-            // auto& imgui_renderer = m_modules
+            auto& imgui_renderer = m_modules.imgui_renderer();
             if (m_window_pulser()) {
                 m_event_manager->process_events(window);
                 if (m_state == State::RUNNING && m_engine_pulser()) {
-                    m_engine->update();
+                    engine.update();
                 }
                 if (m_renderer_pulser()) {
-                    m_imgui_renderer->update();
-                    m_renderer->render();
+                    imgui_renderer.update();
+                    renderer.render();
                 }
             }
         }
@@ -91,77 +91,48 @@ namespace bnjkit::core {
     }
 
     conf::Settings& Core::settings() const {
-        return *m_settings;
+        return * m_settings;
     }
 
     long Core::engine_frequency() const {
         return m_engine_pulser.target_freqency();
     }
-
     long Core::renderer_frequency() const {
         return m_renderer_pulser.target_freqency();
     }
-
     long Core::window_frequency() const {
         return m_window_pulser.target_freqency();
     }
-
     long Core::engine_effective_frequency() const {
         return m_engine_pulser.effective_frequency();
     }
-
     long Core::renderer_effective_frequency() const {
         return m_renderer_pulser.effective_frequency();
     }
-
     long Core::window_effective_frequency() const {
         return m_window_pulser.effective_frequency();
     }
-
     void Core::set_modules(ModuleSet&& modules) {
         m_modules = std::move(modules);
     }
-
     void Core::set_state(const State& state) {
         m_state = state;
     }
-
     void Core::set_engine_frequency(const long frequency) {
         m_engine_pulser.set_frequency(frequency);
     }
-
     void Core::set_renderer_frequency(const long frequency) {
         m_renderer_pulser.set_frequency(frequency);
     }
-
     void Core::set_window_frequency(const long frequency) {
         m_window_pulser.set_frequency(frequency);
     }
-
     void Core::set_settings(const std::shared_ptr<conf::Settings>& settings) {
-        m_settings->;
+        m_settings = settings;
     }
-
-    void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
-                           std::unique_ptr<event::EventManager> event_manager,
-                           std::unique_ptr<ecs::IEngine> engine,
-                           std::unique_ptr<renderer::IRenderer> renderer,
-                           std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
-                           std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer
-    ) {
-        m_logger->trace("Setting modules");
-        m_main_window = std::move(window);
-        m_event_manager = std::move(event_manager);
-        m_engine = std::move(engine);
-        m_renderer = std::move(renderer);
-        m_engine_renderer = std::move(engine_renderer);
-        m_imgui_renderer = std::move(imgui_renderer);
-    }
-
     void Core::save_settings() {
         m_settings->save_to_file();
     }
-
     std::string Core::state_to_string(const State state) {
         switch (state) {
             case State::RUNNING: return "RUNNING";
