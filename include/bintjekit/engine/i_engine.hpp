@@ -19,7 +19,6 @@ namespace bnjkit::ecs {
     class PrefabData;
     class ISystem;
 }
-
 namespace bnjkit::engine {
     struct PlayGround;
 

@@ -4,7 +4,7 @@
  * @name event_bus.cpp
  */
 
-#include "bintjekit/ECS/event/event_manager.hpp"
+#include "bintjekit/ecs/event/event_manager.hpp"
 
 namespace bnjkit::ecs {
     IEventDispatcher::~IEventDispatcher() {}

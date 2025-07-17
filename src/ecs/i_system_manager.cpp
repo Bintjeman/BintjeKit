@@ -6,19 +6,19 @@
 #include "bintjekit/ecs/i_system_manager.hpp"
 
 namespace bnjkit::ecs {
-    RenderSystemManager::RenderSystemManager() {
+    SystemManager::SystemManager() {
         m_logger = bnjkit::core::Logger::get_logger(bnjkit::core::module_names::RENDERER);
         m_logger->info("RenderSystemManager created");
     }
-    RenderSystemManager::~RenderSystemManager() {
+    SystemManager::~SystemManager() {
         m_logger->info("RenderSystemManager destroyed");
     }
-    void RenderSystemManager::initialise() {
+    void SystemManager::initialise() {
         m_logger->trace("RenderSystemManager: Initializing");
         m_default_view = nullptr;
     }
-    void RenderSystemManager::configure() {}
-    void RenderSystemManager::add_render_system(std::unique_ptr<IRenderSystem> system, RenderLayer layer) {
+    void SystemManager::configure() {}
+    void SystemManager::add_render_system(std::unique_ptr<IRenderSystem> system, RenderLayer layer) {
         m_logger->trace("RenderSystemManager: Adding render system");
         const std::string system_name = system->name();
         m_logger->trace("Adding render system: {}", system_name);
@@ -33,7 +33,7 @@ namespace bnjkit::ecs {
         });
         m_system_registry[system_name] = {layer, index};
     }
-    bool RenderSystemManager::remove_render_system(const std::string& name) {
+    bool SystemManager::remove_render_system(const std::string& name) {
         auto it = m_system_registry.find(name);
         if (it == m_system_registry.end()) {
             m_logger->warn("Tentative de suppression d'un système inexistant : {}", name);
@@ -60,22 +60,22 @@ namespace bnjkit::ecs {
         m_logger->info("Système de rendu supprimé : {}", name);
         return true;
     }
-    void RenderSystemManager::clear() {
+    void SystemManager::clear() {
         m_render_systems.clear();
         m_system_registry.clear();
         m_layer_views.clear();
     }
-    void RenderSystemManager::toggle_render_system(const std::string& system_name, bool enable) {
+    void SystemManager::toggle_render_system(const std::string& system_name, bool enable) {
         auto index = m_system_registry[system_name];
         auto system& = m_render_systems[index.first][index.second].enabled = enable;
     }
-    void RenderSystemManager::set_default_view(const std::shared_ptr<sf::View>& view) {
+    void SystemManager::set_default_view(const std::shared_ptr<sf::View>& view) {
         m_default_view = view;
     }
-    void RenderSystemManager::set_view(RenderLayer layer, const std::shared_ptr<sf::View>& view) {
+    void SystemManager::set_view(RenderLayer layer, const std::shared_ptr<sf::View>& view) {
         m_layer_views[layer] = view;
     }
-    void RenderSystemManager::render(sf::RenderTarget& target) const {
+    void SystemManager::render(sf::RenderTarget& target) const {
         for (const auto& layer: m_layer_views) {
             target.setView(* layer.second);
             for (const auto& system: layer.first) {
@@ -85,7 +85,7 @@ namespace bnjkit::ecs {
             }
         }
     }
-    RenderSystemManager::RenderSystemEntry::RenderSystemEntry(std::unique_ptr<IRenderSystem> system, std::string name,
+    SystemManager::RenderSystemEntry::RenderSystemEntry(std::unique_ptr<IRenderSystem> system, std::string name,
                                                               bool enabled) : system(std::move(system)),
                                                                               name(std::move(name)), enabled(enabled) {}
 }

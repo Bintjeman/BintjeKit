@@ -8,12 +8,11 @@
 #define BINTJEKIT_ECS_ENTITY_MANAGER_HPP
 #pragma once
 #include <entt/entt.hpp>
-
 namespace bnjkit::ecs {
     class EntityManager {
     public:
         EntityManager();
-
+        virtual ~EntityManager();
         // Accès au registry EnTT sous-jacent
         entt::registry& registry();
         [[nodiscard]] const entt::registry& registry() const;
@@ -39,6 +38,7 @@ namespace bnjkit::ecs {
         void clear();
 
     protected:
+        // std::shared_ptr<spdlog::logger> m_logger;
         entt::registry m_registry;
     };
     // /////////////////////////////////////////////////////////////////////////

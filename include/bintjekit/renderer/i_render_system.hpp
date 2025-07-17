@@ -14,19 +14,21 @@
 namespace sf {
     class RenderTarget;
 }
-
+namespace bnjkit::engine {
+    class IEngine;
+}
 namespace bnjkit::renderer {
-    class IRenderSystem : public engine::ISystem {
+    class IRenderSystem : public ecs::ISystem {
     public:
         IRenderSystem();
         ~IRenderSystem() override;
         // Implémentation de ISystem
-        void initialize(engine::IEngine& world) override;
-        void update(engine::IEngine& world) override;
-        void cleanup(engine::IEngine& world) override;
+        void initialize(engine::IEngine& engine) override;
+        void update(engine::IEngine& engine) override;
+        void cleanup(engine::IEngine& engine) override;
 
         // Méthode pure de rendu
-        virtual void render(sf::RenderTarget& target) const = 0;
+        virtual void render(sf::RenderTarget& target) const;
 
     protected:
         std::shared_ptr<spdlog::logger> m_logger;

@@ -4,11 +4,11 @@
  * @name gameplay_system_manager.hpp
  */
 
-#ifndef GAMEPLAY_SYSTEM_MANAGER_HPP
-#define GAMEPLAY_SYSTEM_MANAGER_HPP
+#ifndef BINTJEKIT_ENGINE_GAMEPLAY_SYSTEM_MANAGER_HPP
+#define BINTJEKIT_ENGINE_GAMEPLAY_SYSTEM_MANAGER_HPP
 #pragma once
-#include "bintjekit/ecs/i_system_manager.hpp"
 #include "bintjekit/ecs/system/i_system.hpp"
+#include "bintjekit/ecs/i_system_manager.hpp"
 namespace bnjkit::engine {
     enum class GameplayPriority {
         INPUT = 0,
@@ -16,10 +16,10 @@ namespace bnjkit::engine {
         AI = 200,
         POST_UPDATE = 300
     };
-    class GameplaySystemManager : public ecs::SystemManager<ISystem, GameplayPriority> {
+    class GameplaySystemManager : public ecs::SystemManager<ecs::ISystem, GameplayPriority> {
     public:
         void process_game_logic(float deltaTime);
     };
 }
 
-#endif //GAMEPLAY_SYSTEM_MANAGER_HPP
+#endif //BINTJEKIT_ENGINE_GAMEPLAY_SYSTEM_MANAGER_HPP

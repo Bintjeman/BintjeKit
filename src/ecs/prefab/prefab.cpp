@@ -4,7 +4,7 @@
  * @name prefab.cpp
  */
 
-#include "bintjekit/ECS/prefab/prefab.hpp"
+#include "bintjekit/ecs/prefab/prefab.hpp"
 
 namespace engine::engine {
 }

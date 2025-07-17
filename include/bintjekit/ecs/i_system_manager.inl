@@ -24,6 +24,12 @@ namespace bnjkit::ecs {
         m_logger->info("SystemManager <{}, {}> destroyed", typeid(SystemType).name(), typeid(PriorityType).name());
     }
     template<typename SystemType, typename PriorityType>
+    void SystemManager<SystemType, PriorityType>::initialise() {}
+    template<typename SystemType, typename PriorityType>
+    void SystemManager<SystemType, PriorityType>::configure() {}
+    template<typename SystemType, typename PriorityType>
+    void SystemManager<SystemType, PriorityType>::on_quit() {}
+    template<typename SystemType, typename PriorityType>
     void SystemManager<SystemType, PriorityType>::
     add_system(std::unique_ptr<SystemType> system, PriorityType priority) {
         m_logger->trace("SystemManager {}: Adding system", typeid(SystemType).name());
@@ -50,8 +56,8 @@ namespace bnjkit::ecs {
         auto [layer, index] = it->second;
         auto& systems = m_systems[layer];
         if (index >= systems.size()) {
-m_logger->error("Invalid system index: {}", name);
-return false;
+            m_logger->error("Invalid system index: {}", name);
+            return false;
         }
         // Suppression du système
         systems.erase(systems.begin() + static_cast<std::ptrdiff_t>(index));
@@ -59,7 +65,7 @@ return false;
         // Mise à jour des indices dans le registre
         for (auto& [name_, location]: m_system_registry) {
             if (location.first == layer && location.second > index) {
-                --location.second;
+                -- location.second;
             }
         }
         m_logger->info("System {} removed : {}", typeid(SystemType).name(), name);

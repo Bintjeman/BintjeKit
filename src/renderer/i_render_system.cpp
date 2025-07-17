@@ -5,11 +5,18 @@
  */
 
 #include "bintjekit/renderer/i_render_system.hpp"
+#include "bintjekit/logger.hpp"
+
 namespace bnjkit::renderer {
-    IRenderSystem::IRenderSystem()= default;
-    IRenderSystem::~IRenderSystem() = default;
-    void IRenderSystem::initialize(engine::IEngine& world[[maybe_unused]]) {}
-    void IRenderSystem::update(engine::IEngine& world[[maybe_unused]]) {}
-    void IRenderSystem::cleanup(engine::IEngine& world[[maybe_unused]]) {}
+    IRenderSystem::IRenderSystem() {
+        m_logger = core::Logger::get_logger(literals::logger::RENDERER);
+        m_logger->info("IRenderSystem created");
+    }
+    IRenderSystem::~IRenderSystem() {
+        m_logger->info("IRenderSystem destroyed");
+    }
+    void IRenderSystem::initialize(engine::IEngine& engine[[maybe_unused]]) {}
+    void IRenderSystem::update(engine::IEngine& engine[[maybe_unused]]) {}
+    void IRenderSystem::cleanup(engine::IEngine& engine[[maybe_unused]]) {}
     void IRenderSystem::render(sf::RenderTarget& target[[maybe_unused]]) const {}
 }

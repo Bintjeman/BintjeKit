@@ -8,5 +8,8 @@ target_sources(minimal PRIVATE
 target_link_libraries(minimal PRIVATE
         bintjekit::bintjekit
 #        bintjekit::spdlog
+        EnTT::EnTT
+
         spdlog::spdlog
 )
+configure_target_options(minimal)

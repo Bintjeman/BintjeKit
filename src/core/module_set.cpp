@@ -4,7 +4,7 @@
  * @name module_set.cpp
  */
 #include "bintjekit/core/module_set.hpp"
-#include <spdlog/spdlog.h>
+#include "bintjekit/logger.hpp"
 #include "bintjekit/core/modules.hpp"
 #include "bintjekit/core/default_modules.hpp"
 namespace bnjkit::core {
@@ -13,7 +13,7 @@ namespace bnjkit::core {
         m_logger->info("Constructor of ModuleSet");
     }
     ModuleSet::~ModuleSet() {
-        m_logger->info("Destructor of ModuleSet");
+        // m_logger->info("Destructor of ModuleSet");
     }
     window::IMainWindow& ModuleSet::window() {
         return * m_window;
@@ -83,12 +83,20 @@ namespace bnjkit::core {
                 m_event_manager = std::make_unique<event::IEventManager>();
             }
         }
+        if (m_engine == nullptr) {
+            m_logger->error("Engine is not set");
+            result = false;
+            if (create_missing) {
+                m_logger->warn("Making default engine");
+                m_engine = std::make_unique<engine::DefaultEngine>();
+            }
+        }
         if (m_renderer == nullptr) {
             m_logger->error("Renderer is not set");
             result = false;
             if (create_missing) {
                 m_logger->warn("Making default renderer");
-                m_renderer = std::make_unique<renderer::IRenderer>();
+                m_renderer = std::make_unique<renderer::DefaultRenderer>();
             }
         }
         if (m_imgui_renderer == nullptr) {

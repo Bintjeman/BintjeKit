@@ -3,15 +3,10 @@
  * @date 13.07.25
  * @name entity_manager.cpp
  */
-
-#include "bintjekit/ECS/entity_manager.hpp"
-#include "bintjekit/logger.hpp"
-
+#include "bintjekit/ecs/entity_manager.hpp"
 namespace bnjkit::ecs {
-    EntityManager::EntityManager() {
-        m_logger = core::Logger::get_logger(core::module_names::ENTITY);
-        m_logger->info("EntityManager created");
-    }
+    EntityManager::EntityManager() = default;
+    EntityManager::~EntityManager() = default;
     entt::registry& EntityManager::registry() { return m_registry; }
     const entt::registry& EntityManager::registry() const { return m_registry; }
     void EntityManager::destroy(entt::entity entity) {
