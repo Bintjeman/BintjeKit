@@ -22,11 +22,9 @@ namespace bnjkit::renderer {
         m_world_view = std::make_shared<sf::View>();
         m_gui_view = std::make_shared<sf::View>();
     }
-
     IRenderer::~IRenderer() {
         m_logger->info("IRenderer: Destructor of IRenderer");
     }
-
     void IRenderer::configure() {
         m_logger->trace("IRenderer: Configuring IRenderer");
         resize_views();
@@ -99,7 +97,6 @@ namespace bnjkit::renderer {
         static auto& window = m_modules->window();
         window.clear();
     }
-
     void IRenderer::end_frame() const {
         static auto& window = m_modules->window();
         static auto& imgui_renderer = m_modules->imgui_renderer();
