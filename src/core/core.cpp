@@ -17,19 +17,22 @@ namespace bnjkit::core {
         m_logger->critical("Running in debug mode");
 #endif
     }
+
     Core::~Core() {
         m_logger->info("Destructor of Core");
         Logger::shutdown();
     }
+
     void Core::initialise() {
         m_logger->debug("Initialising Core");
         m_modules.initialise();
     }
+
     void Core::configure() {
         m_logger->debug("Configuring Core");
         if (!m_settings) {
             m_logger->warn("No settings set. Using default settings");
-            m_settings = std::make_shared<conf::Settings>();
+            m_settings = std::make_unique<conf::Settings>();
         }
         // Settings
         m_event_manager->set_core_event_handler_settings(
@@ -44,11 +47,13 @@ namespace bnjkit::core {
         m_event_manager->configure();
         m_modules.configure();
     }
+
     void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
         m_logger->trace("Configuring Core from settings");
         set_settings(settings);
         configure();
     }
+
     void Core::configure(const std::filesystem::path& conf_file_path) {
         m_logger->trace("Configuring Core from file: {}", conf_file_path.string());
         const auto settings = std::make_shared<conf::Settings>();
@@ -56,6 +61,7 @@ namespace bnjkit::core {
         settings->set_path(conf_file_path);
         configure(settings);
     }
+
     void Core::run() {
         m_logger->info("Running Core");
         auto& window = m_modules.get_window();
@@ -63,13 +69,15 @@ namespace bnjkit::core {
         while (window.isOpen()) {
             auto& engine = m_modules.get_engine();
             auto& renderer = m_modules.get_renderer();
+            // auto& imgui_renderer = m_modules
             if (m_window_pulser()) {
                 m_event_manager->process_events(window);
                 if (m_state == State::RUNNING && m_engine_pulser()) {
-                    engine.update();
+                    m_engine->update();
                 }
                 if (m_renderer_pulser()) {
-                    renderer.render();
+                    m_imgui_renderer->update();
+                    m_renderer->render();
                 }
             }
         }
@@ -77,11 +85,13 @@ namespace bnjkit::core {
         m_event_manager->on_quit();
         m_modules.on_quit();
     }
+
     Core::State Core::state() const {
         return m_state;
     }
+
     conf::Settings& Core::settings() const {
-        return * m_settings;
+        return *m_settings;
     }
 
     long Core::engine_frequency() const {
@@ -107,6 +117,7 @@ namespace bnjkit::core {
     long Core::window_effective_frequency() const {
         return m_window_pulser.effective_frequency();
     }
+
     void Core::set_modules(ModuleSet&& modules) {
         m_modules = std::move(modules);
     }
@@ -114,6 +125,7 @@ namespace bnjkit::core {
     void Core::set_state(const State& state) {
         m_state = state;
     }
+
     void Core::set_engine_frequency(const long frequency) {
         m_engine_pulser.set_frequency(frequency);
     }
@@ -127,7 +139,23 @@ namespace bnjkit::core {
     }
 
     void Core::set_settings(const std::shared_ptr<conf::Settings>& settings) {
-        m_settings = settings;
+        m_settings->;
+    }
+
+    void Core::set_modules(std::unique_ptr<window::IMainWindow> window,
+                           std::unique_ptr<event::EventManager> event_manager,
+                           std::unique_ptr<ecs::IEngine> engine,
+                           std::unique_ptr<renderer::IRenderer> renderer,
+                           std::unique_ptr<renderer::IEngineRenderer> engine_renderer,
+                           std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer
+    ) {
+        m_logger->trace("Setting modules");
+        m_main_window = std::move(window);
+        m_event_manager = std::move(event_manager);
+        m_engine = std::move(engine);
+        m_renderer = std::move(renderer);
+        m_engine_renderer = std::move(engine_renderer);
+        m_imgui_renderer = std::move(imgui_renderer);
     }
 
     void Core::save_settings() {
