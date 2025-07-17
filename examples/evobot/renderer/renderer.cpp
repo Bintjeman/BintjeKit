@@ -24,8 +24,8 @@ namespace evo::renderer {
     void Renderer::camera_zoom(const float ratio) {
         m_world_view->zoom(ratio);
     }
-    void Renderer::set_world(const bnjkit::engine::IEngine* world) {
-        IRenderer::set_engine(world);
-        m_evobot = dynamic_cast<const engine::EvobotEngine*>(world);
+    void Renderer::set_engine(const bnjkit::engine::IEngine* engine) {
+        IRenderer::set_engine(engine);
+        m_evobot = dynamic_cast<const engine::EvobotEngine*>(engine);
     }
 }

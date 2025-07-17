@@ -12,9 +12,9 @@
 namespace evo::engine::systems {
     Movement::Movement() = default;
     Movement::~Movement() = default;
-    void Movement::initialize(bnjkit::ecs::IWorld& world) {}
-    void Movement::update(bnjkit::ecs::IWorld& world) {
-        auto& evo_world = static_cast<EvoWorld&>(world);
+    void Movement::initialize(bnjkit::engine::IEngine& engine) {}
+    void Movement::update(bnjkit::engine::IEngine& engine) {
+        auto& evo_world = static_cast<EvoWorld&>(engine);
         auto& registry = evo_world.registry();
         auto view = registry.view<comp::D2,
             comp::Velocity>();
@@ -23,7 +23,7 @@ namespace evo::engine::systems {
             update_position(evo_world, position, velocity);
         });
     }
-    void Movement::cleanup(bnjkit::ecs::IWorld& world) {}
+    void Movement::cleanup(bnjkit::engine::IEngine& engine) {}
     void Movement::update_position(EvoWorld& evo_world,
                                    comp::D2& position,
                                    comp::Velocity& velocity) {
@@ -49,5 +49,8 @@ namespace evo::engine::systems {
             velocity.value.y = - velocity.value.y;
         }
         position.position = new_position;
+    }
+    std::string Movement::name() const {
+        return "Movement";
     }
 }

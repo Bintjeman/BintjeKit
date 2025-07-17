@@ -14,7 +14,7 @@ namespace bnjkit::window {
         m_logger->info("Constructor of IMainWindow");
     }
 
-    IMainWindow::~IMainWindow() noexcept {
+    IMainWindow::~IMainWindow()  {
         m_logger->info("Destructor of IMainWindow");
     }
 

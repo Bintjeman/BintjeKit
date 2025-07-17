@@ -9,6 +9,7 @@
 #include <memory>
 #include <oneapi/tbb/profiling.h>
 #include <spdlog/fwd.h>
+
 #include "bintjekit/core/i_module.hpp"
 
 namespace sf {
@@ -17,7 +18,7 @@ namespace sf {
 }
 
 namespace bnjkit {
-    namespace ecs {
+    namespace engine {
         class IEngine;
     }
 
@@ -47,7 +48,7 @@ namespace bnjkit {
             virtual void draw();
             void render() const;
             void set_window(sf::RenderWindow* window);
-            virtual void set_engine(ecs::IEngine* engine);
+            virtual void set_engine(engine::IEngine* engine);
             virtual void set_core(core::Core* core);
             virtual void set_core_event_handler(event::ICoreEventHandler* core_event_handler);
             virtual void set_renderer(IRenderer* renderer);
@@ -56,7 +57,7 @@ namespace bnjkit {
 
         protected:
             std::shared_ptr<spdlog::logger> m_logger;
-            ecs::IEngine* m_engine;
+            engine::IEngine* m_engine;
             core::Core* m_core;
             event::ICoreEventHandler* m_core_event_handler;
             IRenderer* m_renderer;

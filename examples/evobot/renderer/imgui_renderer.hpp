@@ -30,7 +30,7 @@ namespace evo {
             void draw() override;
             void configure() override;
             void on_quit() override;
-            void set_engine(bnjkit::ecs::IEngine* engine) override;
+            void set_engine(bnjkit::engine::IEngine* engine) override;
             void set_core_event_handler(bnjkit::event::ICoreEventHandler* core_event_handler) override;
 
         private:

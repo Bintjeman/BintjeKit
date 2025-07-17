@@ -9,7 +9,6 @@
 #pragma once
 #include "evobot_engine/evobot_engine.hpp"
 #include "renderer/imgui_renderer.hpp"
-#include "renderer/evobot_renderer.hpp"
 #include "renderer/renderer.hpp"
 #include "application/event_manager.hpp"
 #include "application/window.hpp"

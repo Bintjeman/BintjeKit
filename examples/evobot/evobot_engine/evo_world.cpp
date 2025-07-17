@@ -15,7 +15,7 @@
 #include "spdlog/logger.h"
 
 namespace evo::engine {
-    EvoWorld::EvoWorld() : World("EvoWorld") {
+    EvoWorld::EvoWorld() {
         m_logger->info("EvoWorld: created");
     }
     EvoWorld::~EvoWorld() {
@@ -24,26 +24,27 @@ namespace evo::engine {
     void EvoWorld::initialization() {
         m_logger->info("EvoWorld: initializing");
         init_prefab();
-        add_system<systems::Movement>();
+        std::unique_ptr<systems::Movement> movement_system = std::make_unique<systems::Movement>();
+        m_physics_system_manager.add_system(std::move(movement_system), bnjkit::engine::PhysicsPriority::POST_STEP);
     }
     void EvoWorld::init_prefab() {
         m_logger->info("EvoWorld: initializing prefab");
         // Prefab pour Evobot
         register_prefab("evobot", {
-                            .spawn = [this](bnjkit::ecs::IWorld& world) -> entt::entity {
-                                auto entity = world.registry().create();
-                                auto playground = world.play_ground();
+                            .spawn = [this](bnjkit::engine::IEngine& engine) -> entt::entity {
+                                auto entity = engine.registry().create();
+                                auto playground = engine.play_ground();
                                 // Composants de base
-                                world.registry().emplace<comp::D2>(entity,
+                                engine.registry().emplace<comp::D2>(entity,
                                                                    random_position(playground.bounds()),
                                                                    m_bot_min_radius
                                 );
                                 float speed = bnjkit::utils::random::RandomEngine::get_float(0, m_bot_max_speed);
                                 float rad = random_angle_rad();
                                 sf::Vector2f velocity{bnjkit::utils::d2::rad_to_vec(rad) * speed};
-                                world.registry().emplace<comp::Velocity>(entity, velocity);
-                                world.registry().emplace<comp::EvobotTag>(entity);
-                                world.registry().emplace<comp::Health>(entity, 60.f, 60.f);
+                                engine.registry().emplace<comp::Velocity>(entity, velocity);
+                                engine.registry().emplace<comp::EvobotTag>(entity);
+                                engine.registry().emplace<comp::Health>(entity, 60.f, 60.f);
 
                                 // Composants optionnels
                                 if (bnjkit::utils::random::RandomEngine::get_bool()) {
@@ -54,7 +55,7 @@ namespace evo::engine {
                                             bnjkit::utils::random::RandomEngine::get_int(0, 255)),
                                         static_cast<unsigned char>(bnjkit::utils::random::RandomEngine::get_int(0, 255))
                                     };
-                                    world.registry().emplace<comp::Arrow>(entity, color, 20.f);
+                                    engine.registry().emplace<comp::Arrow>(entity, color, 20.f);
                                 }
 
                                 return entity;

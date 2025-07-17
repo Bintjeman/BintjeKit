@@ -37,11 +37,11 @@ namespace bnjkit::core {
         window::IMainWindow& get_window();
         renderer::IRenderer& get_renderer();
         event::ICoreEventHandler& get_core_event_handler();
-        engine::IEngine& get_world();
+        engine::IEngine& get_engine();
         [[nodiscard]] window::IMainWindow& get_window() const;
         [[nodiscard]] renderer::IRenderer& get_renderer() const;
         [[nodiscard]] event::ICoreEventHandler& get_core_event_handler() const;
-        [[nodiscard]] engine::IEngine& get_world() const;
+        [[nodiscard]] engine::IEngine& get_engine() const;
         // Setters modules
         template<typename T>
             requires std::is_base_of_v<IModule, T>
@@ -49,7 +49,7 @@ namespace bnjkit::core {
         void set_window(std::unique_ptr<window::IMainWindow> window);
         void set_renderer(std::unique_ptr<renderer::IRenderer> renderer);
         void set_core_event_handler(std::unique_ptr<event::ICoreEventHandler> core_event_handler);
-        void set_world(std::unique_ptr<engine::IEngine> world);
+        void set_engine(std::unique_ptr<engine::IEngine> world);
         // Helpers
         bool check_modules(bool create_missing = true);
         void initialise();
@@ -62,7 +62,7 @@ namespace bnjkit::core {
         std::unique_ptr<window::IMainWindow> m_window;
         std::unique_ptr<renderer::IRenderer> m_renderer;
         std::unique_ptr<event::ICoreEventHandler> m_core_event_handler;
-        std::unique_ptr<engine::IEngine> m_world;
+        std::unique_ptr<engine::IEngine> m_engine;
         std::shared_ptr<spdlog::logger> m_logger;
 
     public:
@@ -82,7 +82,7 @@ namespace bnjkit::core {
         } else if constexpr (std::is_base_of_v<event::ICoreEventHandler, T>) {
             set_core_event_handler(std::make_unique<T>());
         } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
-            set_world(std::make_unique<T>());
+            set_engine(std::make_unique<T>());
         }
     }
 }

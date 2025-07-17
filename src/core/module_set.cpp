@@ -4,7 +4,7 @@
  * @name module_set.cpp
  */
 #include "bintjekit/core/module_set.hpp"
-#include "bintjekit/logger.hpp""
+#include "bintjekit/logger.hpp"
 #include "bintjekit/core/modules.hpp"
 
 namespace bnjkit::core {
@@ -24,8 +24,8 @@ namespace bnjkit::core {
     event::ICoreEventHandler& ModuleSet::get_core_event_handler() {
         return * m_core_event_handler;
     }
-    engine::IEngine& ModuleSet::get_world() {
-        return * m_world;
+    engine::IEngine& ModuleSet::get_engine() {
+        return * m_engine;
     }
     window::IMainWindow& ModuleSet::get_window() const {
         return * m_window;
@@ -36,8 +36,8 @@ namespace bnjkit::core {
     event::ICoreEventHandler& ModuleSet::get_core_event_handler() const {
         return * m_core_event_handler;
     }
-    engine::IEngine& ModuleSet::get_world() const {
-        return * m_world;
+    engine::IEngine& ModuleSet::get_engine() const {
+        return * m_engine;
     }
     void ModuleSet::set_window(std::unique_ptr<window::IMainWindow> window) {
         m_logger->trace("Setting window");
@@ -51,9 +51,9 @@ namespace bnjkit::core {
         m_logger->trace("Setting core event handler");
         m_core_event_handler = std::move(core_event_handler);
     }
-    void ModuleSet::set_world(std::unique_ptr<engine::IEngine> world) {
+    void ModuleSet::set_engine(std::unique_ptr<engine::IEngine> world) {
         m_logger->trace("Setting world");
-        m_world = std::move(world);
+        m_engine = std::move(world);
     }
     bool ModuleSet::check_modules(bool create_missing) {
         bool result = true;
@@ -62,7 +62,7 @@ namespace bnjkit::core {
             result = false;
             if (create_missing) {
                 m_logger->warn("Making default window");
-                m_window = std::make_unique<window::IMainWindow>;
+                m_window = std::make_unique<window::IMainWindow>();
             }
         }
 
@@ -73,14 +73,14 @@ namespace bnjkit::core {
         m_window->initialise();
         m_renderer->initialise();
         m_core_event_handler->initialise();
-        m_world->initialise();
+        m_engine->initialise();
     }
     void ModuleSet::configure() {
         m_logger->trace("Configuring modules");
         m_window->configure();
         m_renderer->configure();
         m_core_event_handler->configure();
-        m_world->configure();
+        m_engine->configure();
     }
     void ModuleSet::update() {}
     void ModuleSet::cleanup() {}
@@ -89,7 +89,7 @@ namespace bnjkit::core {
         // m_window->on_quit();
         m_renderer->on_quit();
         m_core_event_handler->on_quit();
-        m_world->on_quit();
+        m_engine->on_quit();
     }
     ModuleSet::ModuleSet(ModuleSet&& other) noexcept = default;
     ModuleSet& ModuleSet::operator=(ModuleSet&& other) noexcept = default;

@@ -6,6 +6,7 @@
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/logger.hpp"
 #include "bintjekit/ecs/prefab/prefab.hpp"
+#include "bintjekit/engine/play_ground.hpp"
 
 namespace bnjkit::engine {
     IEngine::IEngine() {

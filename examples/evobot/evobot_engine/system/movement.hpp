@@ -32,6 +32,9 @@ namespace evo::engine::systems {
         void update_position(EvoWorld& evo_world,
                              comp::D2& position,
                              comp::Velocity& velocity);
+
+    public:
+        [[nodiscard]] std::string name() const override;
     };
 };
 

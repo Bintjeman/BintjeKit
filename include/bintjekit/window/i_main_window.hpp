@@ -16,7 +16,7 @@ namespace bnjkit::window {
                         public event::IEventListener {
     public:
         IMainWindow();
-        ~IMainWindow() noexcept override;
+        ~IMainWindow() override;
         void initialise() override;
         void configure() override;
         virtual void show();

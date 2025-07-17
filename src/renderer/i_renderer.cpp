@@ -13,11 +13,11 @@
 #include "bintjekit/engine/play_ground.hpp"
 #include "bintjekit/logger/logger.hpp"
 #include "bintjekit/renderer/i_bnjkit_imgui.hpp"
+#include "bintjekit/renderer/i_render_system.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 
 namespace bnjkit::renderer {
-    IRenderer::IRenderer() : m_render_window(nullptr), m_imgui_renderer(nullptr), m_engine(nullptr),
-                             m_core(nullptr) {
+    IRenderer::IRenderer(): m_render_window(nullptr), m_imgui_renderer(nullptr), m_core(nullptr), m_engine(nullptr) {
         m_logger = core::Logger::get_logger(literals::logger::RENDERER);
         m_logger->info("IRenderer: Constructor of IRenderer");
         m_world_view = std::make_shared<sf::View>();
@@ -34,10 +34,10 @@ namespace bnjkit::renderer {
     }
 
     void IRenderer::render() {
-        if (!m_render_window || !m_world) {
+        if (!m_render_window || !m_engine) {
             m_logger->warn("Render skipped: m_render_window={}, m_engine={}",
                            static_cast<const void*>(m_render_window),
-                           static_cast<const void*>(m_world));
+                           static_cast<const void*>(m_engine));
             return;
         }
         begin_frame();
@@ -47,7 +47,7 @@ namespace bnjkit::renderer {
     }
     void IRenderer::resize_views() {
         m_logger->trace("IRenderer: Resizing views");
-        const auto& bounds = m_world->play_ground().bounds();
+        const auto& bounds = m_engine->play_ground().bounds();
         const sf::Rect<float> world_bounds = bounds;
         const float window_ratio = static_cast<float>(m_render_window->getSize().x) /
                                    static_cast<float>(
@@ -75,15 +75,21 @@ namespace bnjkit::renderer {
             m_world_view->getCenter(),
             m_world_view->getSize());
     }
-    void IRenderer::add_render_system(std::unique_ptr<IRenderSystem> system, ::bnjkit::renderer::RenderLayer layer) {}
-    bool IRenderer::remove_render_system(const std::string& name) {}
-    bool IRenderer::toggle_render_system(const std::string& name, bool enable) {}
-    void IRenderer::render_scene() {
-        m_render_window->setView(* m_world_view);
-        m_render_system_manager.render();
-        m_engine_renderer->render(static_cast<sf::RenderTarget&>(* m_render_window));
+    void IRenderer::add_render_system(std::unique_ptr<IRenderSystem> system, RenderLayer layer) {
+        m_logger->trace("IRenderer: Adding render system: {} at layer: {}", system->name(), layer);
+        m_render_system_manager.add_system(std::move(system), layer);
     }
-
+    void IRenderer::remove_render_system(const std::string& name) {
+        m_logger->trace("IRenderer: Removing render system: {}", name);
+        m_render_system_manager.remove_system(name);
+    }
+    void IRenderer::toggle_render_system(const std::string& name, bool enable) {
+        m_logger->trace("IRenderer: Toggling render system: {} to {}", name, enable);
+        m_render_system_manager.toggle_system(name, enable);
+    }
+    void IRenderer::render_scene() {
+        m_render_system_manager.render(*m_render_window);
+    }
     void IRenderer::render_gui() {
         m_render_window->setView(* m_gui_view);
         m_imgui_renderer->draw();
@@ -98,20 +104,13 @@ namespace bnjkit::renderer {
         m_logger->trace("IRenderer: Setting imgui renderer");
         m_imgui_renderer = imgui_renderer;
     }
-
-    void IRenderer::set_engine_renderer(IEngineRenderer* engine_renderer) {
-        m_logger->trace("IRenderer: Setting engine renderer");
-        m_engine_renderer = engine_renderer;
-    }
-
     void IRenderer::set_core(core::Core* core) {
         m_logger->trace("IRenderer: Setting core");
         m_core = core;
     }
-
-    void IRenderer::set_world(const engine::IEngine* world) {
+    void IRenderer::set_engine(const engine::IEngine* world) {
         m_logger->trace("IRenderer: Setting engine");
-        m_world = world;
+        m_engine = world;
     }
 
     void IRenderer::begin_frame() const {

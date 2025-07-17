@@ -7,11 +7,14 @@
 #ifndef BINTJEKIT_ENGINE_ENGINE_HPP
 #define BINTJEKIT_ENGINE_ENGINE_HPP
 #pragma once
+#include "gameplay_system_manager.hpp"
 #include "bintjekit/core/i_module.hpp"
 #include "bintjekit/ecs/entity_manager.hpp"
 #include "bintjekit/ecs/event/events.hpp"
 #include "bintjekit/ecs/event/event_manager.hpp"
 #include "bintjekit/event_manager/i_event_listener.hpp"
+#include "bintjekit/engine/physic_system_manager.hpp"
+#include "bintjekit/engine/gameplay_system_manager.hpp"
 
 namespace bnjkit::ecs {
     class PrefabData;
@@ -40,6 +43,8 @@ namespace bnjkit::engine {
 
     protected:
         std::unique_ptr<PlayGround> m_play_ground;
+        PhysicsSystemManager m_physics_system_manager;
+        GameplaySystemManager m_gameplay_system_manager;
 
     private:
         std::unique_ptr<ecs::EventBus> m_eventBus;

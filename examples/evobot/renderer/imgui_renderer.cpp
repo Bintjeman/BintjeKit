@@ -13,6 +13,7 @@
 #include "evobot_engine/evobot_engine.hpp"
 #include "evobot_engine/evo_world.hpp"
 #include "evobot_engine/components/base_components.hpp"
+
 namespace evo::renderer {
     ImGuiRenderer::ImGuiRenderer(): m_event_manager(nullptr), m_evobot_engine(nullptr) {
         m_logger->info("ImGuiRenderer: created");
@@ -33,20 +34,8 @@ namespace evo::renderer {
             }
             ImGui::EndMainMenuBar();
         }
-
         if (m_draw_evobot_window) {
             ImGui::Begin("Evobot", & m_draw_evobot_window);
-            if (auto world = m_evobot_engine->world()) {
-                auto evobot_view = world->registry().view<engine::comp::EvobotTag>();
-                auto glob_view = world->registry().view<engine::comp::GlobTag>();
-                std::size_t evobot_count = evobot_view.size();
-                std::size_t glob_count = glob_view.size();
-                std::size_t total_count = evobot_count + glob_count;
-                ImGui::Text("Total entities count: %zu", total_count);
-                ImGui::Text("Evobot count: %zu", evobot_count);
-                ImGui::Text("Glob count: %zu", glob_count);
-
-            }
             ImGui::End();
         }
         if (m_draw_info_window) {
@@ -126,6 +115,7 @@ namespace evo::renderer {
             ImGui::End();
         }
     }
+
     void ImGuiRenderer::configure() {
         m_logger->info("ImGuiRenderer: configuring");
         m_draw_menu = m_settings.get_or_set("/View/Draw menu", true);
@@ -142,7 +132,7 @@ namespace evo::renderer {
         m_settings.set("/View/Draw evobot window", m_draw_evobot_window);
         m_settings.set("/View/Draw controls window", m_draw_controls_window);
     }
-    void ImGuiRenderer::set_engine(bnjkit::ecs::IEngine* engine) {
+    void ImGuiRenderer::set_engine(bnjkit::engine::IEngine* engine) {
         IImGuiRenderer::set_engine(engine);
         m_evobot_engine = dynamic_cast<engine::EvobotEngine*>(engine);
     }

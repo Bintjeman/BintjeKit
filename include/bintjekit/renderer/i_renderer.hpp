@@ -35,13 +35,13 @@ namespace bnjkit::renderer {
 
         // Gestion des systèmes de rendu
         void add_render_system(std::unique_ptr<IRenderSystem> system, RenderLayer layer);
-        bool remove_render_system(const std::string& name);
-        bool toggle_render_system(const std::string& name, bool enable);
+        void remove_render_system(const std::string& name);
+        void toggle_render_system(const std::string& name, bool enable);
 
         // Configuration
         virtual void set_render_window(sf::RenderWindow* window);
         virtual void set_imgui_renderer(IImGuiRenderer* imgui_renderer);
-        virtual void set_world(const engine::IEngine* world);
+        virtual void set_engine(const engine::IEngine* world);
         virtual void set_core(core::Core* core);
 
         [[nodiscard]] std::string name() const override;
@@ -57,7 +57,7 @@ namespace bnjkit::renderer {
         sf::RenderWindow* m_render_window;
         IImGuiRenderer* m_imgui_renderer;
         core::Core* m_core;
-        const engine::IEngine* m_world;
+        const engine::IEngine* m_engine;
         // Utils
         std::shared_ptr<sf::View> m_gui_view;
         std::shared_ptr<sf::View> m_world_view;
