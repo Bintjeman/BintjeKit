@@ -34,7 +34,7 @@ namespace bnjkit::core {
         auto logger = std::make_shared<spdlog::logger>(module_name, m_s_sinks.begin(),
                                                        m_s_sinks.end());
         spdlog::register_logger(logger);
-        logger->set_level(spdlog::level::info);
+        logger->set_level(spdlog::level::trace);
         m_s_loggers[module_name] = logger;
         if (module_name == literals::logger::LOG) {
             logger->info("Logger \"LOG\" initialised");

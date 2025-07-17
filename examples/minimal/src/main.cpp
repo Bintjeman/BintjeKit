@@ -12,6 +12,8 @@ int main(){
     auto core = bnjkit::core::CoreBuilder()
 
     .build();
+    core->initialise();
+    core->configure();
     core->run();
     return 0;
 }

@@ -30,6 +30,7 @@ namespace bnjkit::renderer {
         resize_views();
     }
     void IRenderer::set_modules(core::ModuleSet* modules) {
+        m_logger->trace("IRenderer: Setting modules");
         m_modules = modules;
     }
     void IRenderer::render() {

@@ -7,14 +7,13 @@
 #include "bintjekit/logger.hpp"
 #include "bintjekit/core/modules.hpp"
 #include "bintjekit/core/default_modules.hpp"
+
 namespace bnjkit::core {
     ModuleSet::ModuleSet() {
         m_logger = Logger::get_logger(literals::logger::CORE);
         m_logger->info("Constructor of ModuleSet");
     }
-    ModuleSet::~ModuleSet() {
-        // m_logger->info("Destructor of ModuleSet");
-    }
+    ModuleSet::~ModuleSet()=default;
     window::IMainWindow& ModuleSet::window() {
         return * m_window;
     }
@@ -109,6 +108,15 @@ namespace bnjkit::core {
         }
         return result;
     }
+    bool ModuleSet::set_module() {
+        if (check_modules(false)) {
+            m_logger->trace("Setting modules");
+            if (m_renderer) m_renderer->set_modules(this);
+            if (m_imgui_renderer) m_imgui_renderer->set_modules(this);
+            return true;
+        }
+        return false;
+    }
 
     void ModuleSet::initialise() {
         m_logger->trace("Initialising modules");
@@ -122,7 +130,6 @@ namespace bnjkit::core {
     void ModuleSet::configure() {
         m_logger->trace("Configuring modules");
         m_window->configure();
-        m_engine->configure();
         m_engine->configure();
         m_event_manager->configure();
         m_renderer->configure();
@@ -142,6 +149,26 @@ namespace bnjkit::core {
         m_imgui_renderer->on_quit();
     }
 
-    ModuleSet::ModuleSet(ModuleSet&& other) noexcept = default;
-    ModuleSet& ModuleSet::operator=(ModuleSet&& other) noexcept = default;
+    ModuleSet::ModuleSet(ModuleSet&& other) noexcept : m_window(std::move(other.m_window)),
+                                                       m_event_manager(std::move(other.m_event_manager)),
+                                                       m_engine(std::move(other.m_engine)),
+                                                       m_renderer(std::move(other.m_renderer)),
+                                                       m_imgui_renderer(std::move(other.m_imgui_renderer)),
+                                                       m_logger(std::move(other.m_logger)) {
+        // Mise à jour des pointeurs vers le nouveau ModuleSet
+        set_module();
+    }
+
+    ModuleSet& ModuleSet::operator=(ModuleSet&& other) noexcept {
+        if (this != & other) {
+            m_window = std::move(other.m_window);
+            m_event_manager = std::move(other.m_event_manager);
+            m_engine = std::move(other.m_engine);
+            m_renderer = std::move(other.m_renderer);
+            m_imgui_renderer = std::move(other.m_imgui_renderer);
+            m_logger = std::move(other.m_logger);
+            set_module();
+        }
+        return * this;
+    }
 }

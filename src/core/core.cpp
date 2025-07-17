@@ -53,12 +53,15 @@ namespace bnjkit::core {
         settings->set_path(conf_file_path);
         configure(settings);
     }
-
     void Core::run() {
         m_logger->info("Running Core");
         auto& window = m_modules.window();
         window.show();
         while (window.isOpen()) {
+            if (!m_modules.check_modules(false)) {
+                m_logger->error("Core stopped due to missing modules");
+                break;
+            }
             auto& engine = m_modules.engine();
             auto& renderer = m_modules.renderer();
             auto& imgui_renderer = m_modules.imgui_renderer();
@@ -102,7 +105,14 @@ namespace bnjkit::core {
         return m_window_pulser.effective_frequency();
     }
     void Core::set_modules(ModuleSet&& modules) {
+        m_logger->trace("Setting modules");
+        if (!m_modules.check_modules(false)) {
+            m_logger->trace("Modules not set");
+        }
         m_modules = std::move(modules);
+        if (!m_modules.check_modules(false)) {
+            m_logger->error("Modules not set");
+        }
     }
     void Core::set_state(const State& state) {
         m_state = state;

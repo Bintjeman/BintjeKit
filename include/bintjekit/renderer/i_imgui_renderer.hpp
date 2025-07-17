@@ -28,7 +28,7 @@ namespace bnjkit::renderer {
     public:
         IImGuiRenderer();
         ~IImGuiRenderer() override;
-        virtual void init();
+        void initialise() override;
         void set_modules(core::ModuleSet* modules);
         virtual void update();
         virtual void process_events(sf::Event& event);

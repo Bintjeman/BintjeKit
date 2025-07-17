@@ -55,6 +55,7 @@ namespace bnjkit::core {
         void set_imgui_renderer(std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
         // Helpers
         bool check_modules(bool create_missing = true);
+        bool set_module();
         void initialise();
         void configure();
         void update();

@@ -19,33 +19,38 @@ namespace bnjkit::renderer {
     IImGuiRenderer::ImGuiContext::~ImGuiContext() {
         ImGui::SFML::Shutdown();
     }
-    IImGuiRenderer::IImGuiRenderer() {
+    IImGuiRenderer::IImGuiRenderer(): m_modules(nullptr) {
         m_logger = core::Logger::get_logger(literals::logger::RENDERER);
         m_logger->info("Constructor of IImGuiRenderer");
     }
     IImGuiRenderer::~IImGuiRenderer() {
         m_logger->info("Destructor of IImGuiRenderer");
     }
-    void IImGuiRenderer::update() {
-        static sf::Clock clock;
-        static sf::RenderWindow& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
-        ImGui::SFML::Update(window, clock.restart());
-    }
-    void IImGuiRenderer::init() {
-        m_logger->debug("IImGuiRenderer: Initialising ImGui");
-        static sf::RenderWindow& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
+    void IImGuiRenderer::initialise() {
+        m_logger->trace("IImGuiRenderer: Initialising ImGui");
+        IModule::initialise();
+        static auto& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
         m_context = std::make_unique<ImGuiContext>(& window);
     }
+    void IImGuiRenderer::update() {
+        static sf::Clock clock;
+        if (!m_modules->check_modules(false)) {
+            m_logger->error("IImGuiRenderer: Modules not initialized");
+        }
+        static auto& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
+        ImGui::SFML::Update(window, clock.restart());
+    }
     void IImGuiRenderer::set_modules(core::ModuleSet* modules) {
+        m_logger->trace("IImGuiRenderer: Setting modules");
         m_modules = modules;
     }
     void IImGuiRenderer::process_events(sf::Event& event) {
-        static sf::RenderWindow& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
+        static auto& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
         ImGui::SFML::ProcessEvent(window, event);
     }
     void IImGuiRenderer::draw() {}
     void IImGuiRenderer::render() const {
-        static sf::RenderWindow& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
+        static auto& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
         ImGui::SFML::Render(window);
     }
     void IImGuiRenderer::shutdown() {

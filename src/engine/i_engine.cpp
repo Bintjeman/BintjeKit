@@ -12,6 +12,7 @@ namespace bnjkit::engine {
     IEngine::IEngine() {
         m_logger = core::Logger::get_logger(literals::logger::ENGINE);
         m_logger->info("IEngine created");
+        m_play_ground = std::make_unique<PlayGround>();
     }
     IEngine::~IEngine() {
         m_logger->info("IEngine destroyed");
