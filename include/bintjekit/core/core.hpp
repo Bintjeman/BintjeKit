@@ -82,7 +82,6 @@ namespace bnjkit::core {
         ModuleSet m_modules;
         // Utilitaires
         std::shared_ptr<conf::Settings> m_settings;
-        std::unique_ptr<event::EventManager> m_event_manager;
         std::shared_ptr<spdlog::logger> m_logger;
 
     public:

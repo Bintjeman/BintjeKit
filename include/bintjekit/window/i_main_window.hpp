@@ -7,7 +7,6 @@
 #define BNJKIT_WINDOW_I_MAIN_WINDOW_HPP
 #pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
 
 namespace bnjkit::window {
@@ -18,11 +17,8 @@ namespace bnjkit::window {
         void initialise() override;
         void configure() override;
         virtual void show();
-        void on_sfml_event(const sf::Event& event) override;
         void close() override;
 
-    protected:
-        std::shared_ptr<spdlog::logger> m_logger;
 
     private:
         void on_quit() override;

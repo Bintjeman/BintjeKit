@@ -6,7 +6,6 @@
 #include "bintjekit/core/core.hpp"
 #include "bintjekit/logger.hpp"
 #include "bintjekit/configuration.hpp"
-#include "bintjekit/event_manager/event_manager.hpp"
 #include "bintjekit/core/modules.hpp"
 
 namespace bnjkit::core {
@@ -17,17 +16,14 @@ namespace bnjkit::core {
         m_logger->critical("Running in debug mode");
 #endif
     }
-
     Core::~Core() {
         m_logger->info("Destructor of Core");
         Logger::shutdown();
     }
-
     void Core::initialise() {
         m_logger->debug("Initialising Core");
         m_modules.initialise();
     }
-
     void Core::configure() {
         m_logger->debug("Configuring Core");
         if (!m_settings) {
@@ -35,16 +31,12 @@ namespace bnjkit::core {
             m_settings = std::make_unique<conf::Settings>();
         }
         // Settings
-        m_event_manager->set_core_event_handler_settings(
-            m_settings->create_child("/Event"_json_pointer)
-        );
         m_modules.window().set_settings(m_settings->create_child("/Window"_json_pointer));
+        m_modules.event_manager().set_settings(m_settings->create_child("/EventManager"_json_pointer));
+        m_modules.engine().set_settings(m_settings->create_child("/Engine"_json_pointer));
         m_modules.renderer().set_settings(m_settings->create_child("/Renderer"_json_pointer));
-        m_modules.engine().set_settings(m_settings->create_child("/World"_json_pointer));
-        m_modules.core_event_handler().set_settings(m_settings->create_child("/CoreEventHandler"_json_pointer));
-        // Custom settings
+        m_modules.imgui_renderer().set_settings(m_settings->create_child("/ImGuiRenderer"_json_pointer));
         // Configure modules
-        m_event_manager->configure();
         m_modules.configure();
     }
 
@@ -70,8 +62,9 @@ namespace bnjkit::core {
             auto& engine = m_modules.engine();
             auto& renderer = m_modules.renderer();
             auto& imgui_renderer = m_modules.imgui_renderer();
+            auto& event_manager = m_modules.event_manager();
             if (m_window_pulser()) {
-                m_event_manager->process_events(window);
+                event_manager.process_events(window);
                 if (m_state == State::RUNNING && m_engine_pulser()) {
                     engine.update();
                 }
@@ -82,18 +75,14 @@ namespace bnjkit::core {
             }
         }
         m_logger->info("Core stopped");
-        m_event_manager->on_quit();
         m_modules.on_quit();
     }
-
     Core::State Core::state() const {
         return m_state;
     }
-
     conf::Settings& Core::settings() const {
         return * m_settings;
     }
-
     long Core::engine_frequency() const {
         return m_engine_pulser.target_freqency();
     }

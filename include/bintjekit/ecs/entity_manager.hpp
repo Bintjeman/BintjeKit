@@ -8,7 +8,6 @@
 #define BINTJEKIT_ECS_ENTITY_MANAGER_HPP
 #pragma once
 #include <entt/entt.hpp>
-#include <spdlog/fwd.h>
 
 namespace bnjkit::ecs {
     class EntityManager {
@@ -41,7 +40,6 @@ namespace bnjkit::ecs {
 
     protected:
         entt::registry m_registry;
-        std::shared_ptr<spdlog::logger> m_logger;
     };
     // /////////////////////////////////////////////////////////////////////////
     template<typename... Components>

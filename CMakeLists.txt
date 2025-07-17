@@ -82,7 +82,7 @@ configure_target_options(random)
 configure_target_options(d2)
 ################################################################################
 # Alias pour la cible
-add_library(BintjeKit::BintjeKit ALIAS bintjekit)
+add_library(bintjekit::bintjekit ALIAS bintjekit)
 ################################################################################
 set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.local")
 ################################################################################

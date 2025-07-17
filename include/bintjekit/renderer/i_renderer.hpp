@@ -9,40 +9,25 @@
 #pragma once
 #include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <spdlog/fwd.h>
-#include "i_bnjkit_imgui.hpp"
 #include "bintjekit/core/i_module.hpp"
 #include "render_system_manager.hpp"
-
 namespace bnjkit::core {
-    class Core;
+    class ModuleSet;
 }
-
-namespace bnjkit::engine {
-    class IEngine;
-}
-
 namespace bnjkit::renderer {
     class IRenderer : public core::IModule {
     public:
         IRenderer();
         ~IRenderer() override;
-
         void configure() override;
+        void set_modules(core::ModuleSet* modules);
         void render();
         void resize_views();
-
         // Gestion des systèmes de rendu
         void add_render_system(std::unique_ptr<IRenderSystem> system, RenderLayer layer);
         void remove_render_system(const std::string& name);
         void toggle_render_system(const std::string& name, bool enable);
-
-        // Configuration
-        virtual void set_render_window(sf::RenderWindow* window);
-        virtual void set_imgui_renderer(IImGuiRenderer* imgui_renderer);
-        virtual void set_engine(const engine::IEngine* world);
-        virtual void set_core(core::Core* core);
-
+        // utils
         [[nodiscard]] std::string name() const override;
 
     protected:
@@ -53,14 +38,10 @@ namespace bnjkit::renderer {
         //
         RenderSystemManager m_render_system_manager;
         // bnjkit Modules
-        sf::RenderWindow* m_render_window;
-        IImGuiRenderer* m_imgui_renderer;
-        core::Core* m_core;
-        const engine::IEngine* m_engine;
+        core::ModuleSet* m_modules;
         // Utils
         std::shared_ptr<sf::View> m_gui_view;
         std::shared_ptr<sf::View> m_world_view;
-        std::shared_ptr<spdlog::logger> m_logger;
     };
 }
 #endif // BNJKIT_RENDERER_I_RENDERER_HPP

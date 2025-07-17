@@ -31,12 +31,6 @@ namespace bnjkit::window {
         create(sf::VideoMode({800, 600}),"SFML window");
     }
 
-    void IMainWindow::on_sfml_event(const sf::Event& event) {
-        if (event.is<sf::Event::Closed>()) {
-            close();
-        }
-    }
-
     void IMainWindow::close() {
         m_logger->info("Closing IMainWindow");
         RenderWindow::close();
