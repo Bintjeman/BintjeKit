@@ -38,10 +38,10 @@ namespace bnjkit::core {
         m_event_manager->set_core_event_handler_settings(
             m_settings->create_child("/Event"_json_pointer)
         );
-        m_modules.get_window().set_settings(m_settings->create_child("/Window"_json_pointer));
-        m_modules.get_renderer().set_settings(m_settings->create_child("/Renderer"_json_pointer));
-        m_modules.get_engine().set_settings(m_settings->create_child("/World"_json_pointer));
-        m_modules.get_core_event_handler().set_settings(m_settings->create_child("/CoreEventHandler"_json_pointer));
+        m_modules.window().set_settings(m_settings->create_child("/Window"_json_pointer));
+        m_modules.renderer().set_settings(m_settings->create_child("/Renderer"_json_pointer));
+        m_modules.engine().set_settings(m_settings->create_child("/World"_json_pointer));
+        m_modules.core_event_handler().set_settings(m_settings->create_child("/CoreEventHandler"_json_pointer));
         // Custom settings
         // Configure modules
         m_event_manager->configure();
@@ -64,11 +64,11 @@ namespace bnjkit::core {
 
     void Core::run() {
         m_logger->info("Running Core");
-        auto& window = m_modules.get_window();
+        auto& window = m_modules.window();
         window.show();
         while (window.isOpen()) {
-            auto& engine = m_modules.get_engine();
-            auto& renderer = m_modules.get_renderer();
+            auto& engine = m_modules.engine();
+            auto& renderer = m_modules.renderer();
             // auto& imgui_renderer = m_modules
             if (m_window_pulser()) {
                 m_event_manager->process_events(window);

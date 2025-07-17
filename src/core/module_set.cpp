@@ -17,43 +17,43 @@ namespace bnjkit::core {
         m_logger->info("Destructor of ModuleSet");
     }
 
-    window::IMainWindow& ModuleSet::get_window() {
+    window::IMainWindow& ModuleSet::window() {
         return *m_window;
     }
 
-    renderer::IRenderer& ModuleSet::get_renderer() {
+    renderer::IRenderer& ModuleSet::renderer() {
         return *m_renderer;
     }
 
-    event::ICoreEventHandler& ModuleSet::get_core_event_handler() {
+    event::ICoreEventHandler& ModuleSet::core_event_handler() {
         return *m_core_event_handler;
     }
 
-    engine::IEngine& ModuleSet::get_engine() {
+    engine::IEngine& ModuleSet::engine() {
         return *m_engine;
     }
 
-    renderer::IImGuiRenderer& ModuleSet::get_imgui_renderer() {
+    renderer::IImGuiRenderer& ModuleSet::imgui_renderer() {
         return *m_imgui_renderer;
     }
 
-    window::IMainWindow& ModuleSet::get_window() const {
+    window::IMainWindow& ModuleSet::window() const {
         return *m_window;
     }
 
-    renderer::IRenderer& ModuleSet::get_renderer() const {
+    renderer::IRenderer& ModuleSet::renderer() const {
         return *m_renderer;
     }
 
-    event::ICoreEventHandler& ModuleSet::get_core_event_handler() const {
+    event::ICoreEventHandler& ModuleSet::core_event_handler() const {
         return *m_core_event_handler;
     }
 
-    engine::IEngine& ModuleSet::get_engine() const {
+    engine::IEngine& ModuleSet::engine() const {
         return *m_engine;
     }
 
-    renderer::IImGuiRenderer& ModuleSet::get_imgui_renderer() const {
+    renderer::IImGuiRenderer& ModuleSet::imgui_renderer() const {
         return *m_imgui_renderer;
     }
 

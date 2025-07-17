@@ -40,16 +40,16 @@ namespace bnjkit::core {
         T& get();
         template<typename T> requires std::is_base_of_v<IModule, T>
         const T& get() const;
-        window::IMainWindow& get_window();
-        renderer::IRenderer& get_renderer();
-        event::ICoreEventHandler& get_core_event_handler();
-        engine::IEngine& get_engine();
-        renderer::IImGuiRenderer& get_imgui_renderer();
-        [[nodiscard]] window::IMainWindow& get_window() const;
-        [[nodiscard]] renderer::IRenderer& get_renderer() const;
-        [[nodiscard]] event::ICoreEventHandler& get_core_event_handler() const;
-        [[nodiscard]] engine::IEngine& get_engine() const;
-        [[nodiscard]] renderer::IImGuiRenderer& get_imgui_renderer() const;
+        window::IMainWindow& window();
+        renderer::IRenderer& renderer();
+        event::ICoreEventHandler& core_event_handler();
+        engine::IEngine& engine();
+        renderer::IImGuiRenderer& imgui_renderer();
+        [[nodiscard]] window::IMainWindow& window() const;
+        [[nodiscard]] renderer::IRenderer& renderer() const;
+        [[nodiscard]] event::ICoreEventHandler& core_event_handler() const;
+        [[nodiscard]] engine::IEngine& engine() const;
+        [[nodiscard]] renderer::IImGuiRenderer& imgui_renderer() const;
 
         // Setters modules
         template<typename T> requires std::is_base_of_v<IModule, T>
@@ -89,15 +89,15 @@ namespace bnjkit::core {
     template<typename T> requires std::is_base_of_v<IModule, T>
     T& ModuleSet::get() {
         if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
-            return *static_cast<T*>(m_window.get());
+            return * static_cast<T*>(m_window.get());
         } else if constexpr (std::is_base_of_v<renderer::IRenderer, T>) {
-            return *static_cast<T*>(m_renderer.get());
+            return * static_cast<T*>(m_renderer.get());
         } else if constexpr (std::is_base_of_v<event::ICoreEventHandler, T>) {
-            return *static_cast<T*>(m_core_event_handler.get());
+            return * static_cast<T*>(m_core_event_handler.get());
         } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
-            return *static_cast<T*>(m_engine.get());
+            return * static_cast<T*>(m_engine.get());
         } else if constexpr (std::is_base_of_v<renderer::IImGuiRenderer, T>) {
-            return *static_cast<T*>(m_imgui_renderer.get());
+            return * static_cast<T*>(m_imgui_renderer.get());
         }
         m_logger->error("Module {} not found", typeid(T).name());
         return nullptr;
@@ -106,15 +106,15 @@ namespace bnjkit::core {
     template<typename T> requires std::is_base_of_v<IModule, T>
     const T& ModuleSet::get() const {
         if constexpr (std::is_base_of_v<window::IMainWindow, T>) {
-            return get_window();
+            return window();
         } else if constexpr (std::is_base_of_v<renderer::IRenderer, T>) {
-            return get_renderer();
+            return renderer();
         } else if constexpr (std::is_base_of_v<event::ICoreEventHandler, T>) {
-            return get_core_event_handler();
+            return core_event_handler();
         } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
-            return get_engine();
+            return engine();
         } else if constexpr (std::is_base_of_v<renderer::IImGuiRenderer, T>) {
-            return get_imgui_renderer();
+            return imgui_renderer();
         }
         m_logger->error("Module {} not found", typeid(T).name());
         return nullptr;
