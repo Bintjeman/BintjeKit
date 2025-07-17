@@ -146,3 +146,4 @@ install(
 )
 ################################################################################
 # Tests, Examples et Benchmarks conditionnels
+add_subdirectory(examples)
