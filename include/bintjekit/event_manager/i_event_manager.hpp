@@ -16,7 +16,7 @@ namespace bnjkit::event {
         void initialise() override;
         void configure() override;
         void on_quit() override;
-        void process_events(const sf::Event& event);
+        void process_events();
         [[nodiscard]] std::string name() const override;
         private:
 

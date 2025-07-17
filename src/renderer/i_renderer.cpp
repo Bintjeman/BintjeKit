@@ -6,12 +6,15 @@
 
 #include "bintjekit/renderer/i_renderer.hpp"
 #include <imgui-SFML.h>
+#include "bintjekit/utils/fmt_sfml/fmt_sfml.hpp"
+#include "bintjekit/logger.hpp"
 #include "bintjekit/core/module_set.hpp"
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/engine/play_ground.hpp"
 #include "bintjekit/renderer/i_imgui_renderer.hpp"
 #include "bintjekit/renderer/i_render_system.hpp"
 #include "bintjekit/window/i_main_window.hpp"
+
 namespace bnjkit::renderer {
     IRenderer::IRenderer(): m_modules(nullptr) {
         m_logger = core::Logger::get_logger(literals::logger::RENDERER);
@@ -70,7 +73,8 @@ namespace bnjkit::renderer {
             m_world_view->getSize());
     }
     void IRenderer::add_render_system(std::unique_ptr<IRenderSystem> system, RenderLayer layer) {
-        m_logger->trace("IRenderer: Adding render system: {} at layer: {}", system->name(), layer);
+        m_logger->trace("IRenderer: Adding render system: {} at layer: {}", system->name(),
+                        std::to_string(static_cast<int>(layer)));
         m_render_system_manager.add_system(std::move(system), layer);
     }
     void IRenderer::remove_render_system(const std::string& name) {

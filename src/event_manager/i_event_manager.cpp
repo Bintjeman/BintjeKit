@@ -5,6 +5,7 @@
  */
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include "bintjekit/logger.hpp"
+
 namespace bnjkit::event {
     IEventManager::IEventManager() {
         m_logger = core::Logger::get_logger(literals::logger::EVENT);
@@ -25,9 +26,7 @@ namespace bnjkit::event {
         m_logger->info("Quitting IEventManager");
         IModule::on_quit();
     }
-    void IEventManager::process_events(const sf::Event& event[[maybe_unused]]) {
-
-    }
+    void IEventManager::process_events() {}
     std::string IEventManager::name() const {
         return "IEventManager";
     }
