@@ -8,7 +8,8 @@
 #define BINTJEKIT_CORE_I_MODULE_HPP
 #pragma once
 #include "bintjekit/configuration/node.hpp"
-
+#include <spdlog/fwd.h>
+#include <memory>
 namespace bnjkit::core {
     class IModule {
     public:
@@ -25,6 +26,7 @@ namespace bnjkit::core {
     protected:
         conf::Node m_settings;
         conf::Node m_custom_settings;
+        std::shared_ptr<spdlog::logger> m_logger;
     };
 }
 #endif // BINTJEKIT_CORE_I_MODULE_HPP

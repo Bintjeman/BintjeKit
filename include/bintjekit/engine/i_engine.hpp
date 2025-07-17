@@ -12,7 +12,6 @@
 #include "bintjekit/ecs/entity_manager.hpp"
 #include "bintjekit/ecs/event/events.hpp"
 #include "bintjekit/ecs/event/event_manager.hpp"
-#include "bintjekit/event_manager/i_event_listener.hpp"
 #include "bintjekit/engine/physic_system_manager.hpp"
 #include "bintjekit/engine/gameplay_system_manager.hpp"
 
@@ -24,7 +23,7 @@ namespace bnjkit::ecs {
 namespace bnjkit::engine {
     struct PlayGround;
 
-    class IEngine : public core::IModule, public ecs::EntityManager, public event::IEventListener {
+    class IEngine : public core::IModule, public ecs::EntityManager {
     public:
         IEngine();
         ~IEngine() override;

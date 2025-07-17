@@ -9,11 +9,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <spdlog/fwd.h>
 #include "bintjekit/core/i_module.hpp"
-#include "bintjekit/event_manager/i_event_listener.hpp"
 
 namespace bnjkit::window {
-    class IMainWindow : public core::IModule, public sf::RenderWindow,
-                        public event::IEventListener {
+    class IMainWindow : public core::IModule, public sf::RenderWindow{
     public:
         IMainWindow();
         ~IMainWindow() override;

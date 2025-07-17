@@ -12,7 +12,6 @@
 #include <spdlog/fwd.h>
 #include "i_bnjkit_imgui.hpp"
 #include "bintjekit/core/i_module.hpp"
-#include "bintjekit/event_manager/i_event_listener.hpp"
 #include "render_system_manager.hpp"
 
 namespace bnjkit::core {
@@ -24,7 +23,7 @@ namespace bnjkit::engine {
 }
 
 namespace bnjkit::renderer {
-    class IRenderer : public core::IModule, public event::IEventListener {
+    class IRenderer : public core::IModule {
     public:
         IRenderer();
         ~IRenderer() override;

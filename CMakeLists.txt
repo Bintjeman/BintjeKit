@@ -136,7 +136,6 @@ install(TARGETS
         FILE_SET HEADERS
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
         COMPONENT Development
-
 )
 ################################################################################
 install(
@@ -147,16 +146,3 @@ install(
 )
 ################################################################################
 # Tests, Examples et Benchmarks conditionnels
-if (BINTJEKIT_BUILD_TESTS)
-    include(cmake/Testing.cmake)
-    add_subdirectory(tests)
-endif ()
-
-if (BINTJEKIT_BUILD_EXAMPLES)
-    add_subdirectory(examples)
-endif ()
-
-if (BINTJEKIT_BUILD_BENCHMARKS)
-    include(cmake/Benchmarks.cmake)
-    add_subdirectory(benchmarks)
-endif ()
