@@ -78,6 +78,8 @@ namespace bnjkit::core {
         utils::time::Pulser m_window_pulser;
 
     private:
+        bool m_initialized{false};
+        bool m_configured{false};
         // Modules
         ModuleSet m_modules;
         // Utilitaires

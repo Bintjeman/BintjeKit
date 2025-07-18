@@ -23,6 +23,7 @@ namespace bnjkit::core {
     void Core::initialise() {
         m_logger->debug("Initialising Core");
         m_modules.initialise();
+        m_initialized = true;
     }
     void Core::configure() {
         m_logger->debug("Configuring Core");
@@ -38,6 +39,7 @@ namespace bnjkit::core {
         m_modules.imgui_renderer().set_settings(m_settings->create_child("/ImGuiRenderer"_json_pointer));
         // Configure modules
         m_modules.configure();
+        m_configured = true;
     }
 
     void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
@@ -55,6 +57,14 @@ namespace bnjkit::core {
     }
     void Core::run() {
         m_logger->info("Running Core");
+        if (!m_initialized) {
+            m_logger->warn("Core not initialised");
+            initialise();
+        }
+        if (!m_configured) {
+            m_logger->warn("Core not configured");
+            configure();
+        }
         auto& window = m_modules.window();
         window.show();
         while (window.is_running()) {
@@ -103,9 +113,6 @@ namespace bnjkit::core {
     }
     void Core::set_modules(ModuleSet&& modules) {
         m_logger->trace("Setting modules");
-        if (!m_modules.check_modules(false)) {
-            m_logger->error("Modules not set");
-        }
         m_modules = std::move(modules);
     }
     void Core::set_state(const State& state) {
