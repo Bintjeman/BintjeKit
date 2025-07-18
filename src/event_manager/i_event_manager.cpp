@@ -5,6 +5,8 @@
  */
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include "bintjekit/logger.hpp"
+#include "bintjekit/core/module_set.hpp"
+#include "bintjekit/renderer/i_imgui_renderer.hpp"
 
 namespace bnjkit::event {
     IEventManager::IEventManager(): m_modules(nullptr) {
@@ -30,5 +32,10 @@ namespace bnjkit::event {
         m_logger->trace("Setting modules");
         m_modules = modules;
     }
-    void IEventManager::process_events() {}
+    void IEventManager::process_events() {
+    }
+    void IEventManager::process_imgui_events(sf::Event& event) {
+        static auto& imgui_renderer = m_modules->imgui_renderer();
+        imgui_renderer.process_events(event);
+    }
 }

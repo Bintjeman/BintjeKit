@@ -44,7 +44,7 @@ namespace bnjkit::renderer {
         m_logger->trace("IImGuiRenderer: Setting modules");
         m_modules = modules;
     }
-    void IImGuiRenderer::process_events(sf::Event& event) {
+    void IImGuiRenderer::process_events(const sf::Event& event) {
         static auto& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
         ImGui::SFML::ProcessEvent(window, event);
     }

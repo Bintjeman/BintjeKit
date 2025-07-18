@@ -39,4 +39,7 @@ namespace bnjkit::renderer {
     void DefaultRenderer::render_gui() {
         IRenderer::render_gui();
     }
+    std::string DefaultRenderer::name() const {
+        return "DefaultRenderer";
+    }
 }

@@ -23,6 +23,9 @@ namespace bnjkit::renderer {
     protected:
         void render_scene() override;
         void render_gui() override;
+
+    public:
+        [[nodiscard]] std::string name() const override;
     };
 }
 #endif // BINTJEKIT_RENDERER_DEFAULT_RENDERER_HPP

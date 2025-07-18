@@ -31,7 +31,7 @@ namespace bnjkit::renderer {
         void initialise() override;
         void set_modules(core::ModuleSet* modules);
         virtual void update();
-        virtual void process_events(sf::Event& event);
+        virtual void process_events(const sf::Event& event);
         virtual void draw();
         void render() const;
         static void shutdown();
