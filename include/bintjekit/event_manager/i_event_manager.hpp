@@ -8,6 +8,7 @@
 #pragma once
 #include <SFML/Window/Event.hpp>
 #include "bintjekit/core/i_module.hpp"
+#include "input_binding_manager.hpp"
 
 namespace bnjkit::core {
     class ModuleSet;
@@ -15,7 +16,7 @@ namespace bnjkit::core {
 
 namespace bnjkit::event {
     class IEventManager : public core::IModule {
-        public:
+    public:
         IEventManager();
         ~IEventManager() override;
         void initialise() override;
@@ -23,12 +24,14 @@ namespace bnjkit::event {
         void on_quit() override;
         void set_modules(core::ModuleSet* modules);
         virtual void process_events();
-
     protected:
+        virtual void handle_key_press(sf::Keyboard::Key key) {
+            m_input_binding_manager.process_key_press(key);
+        }
+        InputBindingManager m_input_binding_manager;
         core::ModuleSet* m_modules;
-        private:
+    private:
         void process_imgui_events(sf::Event& event);
-
     };
 }
 #endif // BNJKIT_EVENT_I_EVENT_MANAGER_HPP
