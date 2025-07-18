@@ -35,7 +35,6 @@ namespace bnjkit::engine {
 
         void update();
 
-        [[nodiscard]] std::string name() const override;
         [[nodiscard]] PlayGround& play_ground();
         [[nodiscard]] const PlayGround& play_ground() const;
 

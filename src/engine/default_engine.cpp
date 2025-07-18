@@ -12,5 +12,8 @@ namespace bnjkit::engine {
     };
     DefaultEngine::~DefaultEngine() {
         m_logger->warn("DefaultEngine destroyed");
+    }
+    std::string DefaultEngine::name() const {
+        return "DefaultEngine";
     };
 }

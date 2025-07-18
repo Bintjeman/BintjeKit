@@ -29,9 +29,6 @@ namespace bnjkit::engine {
         return entt::null;
     }
     void IEngine::update() {}
-    std::string IEngine::name() const {
-        return "IEngine";
-    }
     PlayGround& IEngine::play_ground() {
         return * m_play_ground;
     }

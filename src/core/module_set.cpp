@@ -15,7 +15,9 @@ namespace bnjkit::core {
         m_logger->info("Constructor of ModuleSet");
     }
     ModuleSet::~ModuleSet() {
-        // m_logger->info("Destructor of ModuleSet");
+        if (m_logger) {
+            m_logger->info("Destructor of ModuleSet");
+        }
     }
     window::IMainWindow& ModuleSet::window() {
         return * m_window;
@@ -145,7 +147,7 @@ namespace bnjkit::core {
 
     void ModuleSet::on_quit() {
         m_logger->trace("Quitting modules");
-        // m_window->on_quit();
+        m_window->on_quit();
         m_event_manager->on_quit();
         m_engine->on_quit();
         m_renderer->on_quit();

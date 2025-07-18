@@ -74,7 +74,6 @@ namespace bnjkit::core {
             }
         }
         m_modules.on_quit();
-        window.on_quit();
         window.close();
         m_logger->info("Core stopped");
     }

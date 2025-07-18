@@ -12,22 +12,16 @@ namespace bnjkit::renderer {
     class DefaultRenderSystem : public IRenderSystem {
     public:
         DefaultRenderSystem();
-
         ~DefaultRenderSystem() override;
-
         void render(sf::RenderTarget& target) const override;
-
         [[nodiscard]] std::string name() const override;
     };
     class DefaultRenderer : public IRenderer {
     public:
         DefaultRenderer();
-
         ~DefaultRenderer() override;
-
     protected:
         void render_scene() override;
-
         void render_gui() override;
     };
 }

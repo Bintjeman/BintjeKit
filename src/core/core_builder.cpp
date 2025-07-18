@@ -15,7 +15,9 @@ namespace bnjkit::core {
         m_logger->info("Constructor of CoreBuilder");
     }
     CoreBuilder::~CoreBuilder() {
-        // m_logger->info("Destructor of CoreBuilder");
+        if (m_logger) {
+            m_logger->info("Destructor of CoreBuilder");
+        }
     };
     std::unique_ptr<Core> CoreBuilder::build() {
         m_logger->info("Building Core");

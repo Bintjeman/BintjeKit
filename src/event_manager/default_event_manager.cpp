@@ -26,4 +26,7 @@ namespace bnjkit::event {
             }
         }
     }
+    std::string DefaultEventManager::name() const {
+        return "DefaultEventManager";
+    }
 }

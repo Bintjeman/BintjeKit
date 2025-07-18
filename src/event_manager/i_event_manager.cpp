@@ -31,7 +31,4 @@ namespace bnjkit::event {
         m_modules = modules;
     }
     void IEventManager::process_events() {}
-    std::string IEventManager::name() const {
-        return "IEventManager";
-    }
 }

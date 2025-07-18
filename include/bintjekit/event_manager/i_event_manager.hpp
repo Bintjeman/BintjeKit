@@ -23,7 +23,6 @@ namespace bnjkit::event {
         void on_quit() override;
         void set_modules(core::ModuleSet* modules);
         virtual void process_events();
-        [[nodiscard]] std::string name() const override;
     protected:
         core::ModuleSet* m_modules;
         private:
