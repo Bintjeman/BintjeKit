@@ -7,13 +7,16 @@
 #include "bintjekit/logger.hpp"
 #include "bintjekit/core/modules.hpp"
 #include "bintjekit/core/default_modules.hpp"
+#include "bintjekit/event_manager/default_event_manager.hpp"
 
 namespace bnjkit::core {
     ModuleSet::ModuleSet() {
         m_logger = Logger::get_logger(literals::logger::CORE);
         m_logger->info("Constructor of ModuleSet");
     }
-    ModuleSet::~ModuleSet()=default;
+    ModuleSet::~ModuleSet() {
+        // m_logger->info("Destructor of ModuleSet");
+    }
     window::IMainWindow& ModuleSet::window() {
         return * m_window;
     }
@@ -79,7 +82,7 @@ namespace bnjkit::core {
             result = false;
             if (create_missing) {
                 m_logger->warn("Making default event manager");
-                m_event_manager = std::make_unique<event::IEventManager>();
+                m_event_manager = std::make_unique<event::DefaultEventManager>();
             }
         }
         if (m_engine == nullptr) {
@@ -108,16 +111,16 @@ namespace bnjkit::core {
         }
         return result;
     }
-    bool ModuleSet::set_module() {
+    bool ModuleSet::set_modules() {
         if (check_modules(false)) {
             m_logger->trace("Setting modules");
             if (m_renderer) m_renderer->set_modules(this);
             if (m_imgui_renderer) m_imgui_renderer->set_modules(this);
+            if (m_event_manager) m_event_manager->set_modules(this);
             return true;
         }
         return false;
     }
-
     void ModuleSet::initialise() {
         m_logger->trace("Initialising modules");
         m_window->initialise();
@@ -156,7 +159,7 @@ namespace bnjkit::core {
                                                        m_imgui_renderer(std::move(other.m_imgui_renderer)),
                                                        m_logger(std::move(other.m_logger)) {
         // Mise à jour des pointeurs vers le nouveau ModuleSet
-        set_module();
+        set_modules();
     }
 
     ModuleSet& ModuleSet::operator=(ModuleSet&& other) noexcept {
@@ -167,7 +170,7 @@ namespace bnjkit::core {
             m_renderer = std::move(other.m_renderer);
             m_imgui_renderer = std::move(other.m_imgui_renderer);
             m_logger = std::move(other.m_logger);
-            set_module();
+            set_modules();
         }
         return * this;
     }

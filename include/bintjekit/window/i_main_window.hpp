@@ -10,7 +10,7 @@
 #include "bintjekit/core/i_module.hpp"
 
 namespace bnjkit::window {
-    class IMainWindow : public core::IModule, public sf::RenderWindow{
+    class IMainWindow : public core::IModule, public sf::RenderWindow {
     public:
         IMainWindow();
         ~IMainWindow() override;
@@ -18,10 +18,11 @@ namespace bnjkit::window {
         void configure() override;
         virtual void show();
         void close() override;
-
+        bool quit(bool quit = false);
+        void on_quit() override;
 
     private:
-        void on_quit() override;
+        bool m_on_quit{false};
     };
 }
 #endif // BNJKIT_WINDOW_I_MAIN_WINDOW_HPP

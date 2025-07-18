@@ -57,11 +57,7 @@ namespace bnjkit::core {
         m_logger->info("Running Core");
         auto& window = m_modules.window();
         window.show();
-        while (window.isOpen()) {
-            if (!m_modules.check_modules(false)) {
-                m_logger->error("Core stopped due to missing modules");
-                break;
-            }
+        while (!window.quit()) {
             auto& engine = m_modules.engine();
             auto& renderer = m_modules.renderer();
             auto& imgui_renderer = m_modules.imgui_renderer();
@@ -77,6 +73,7 @@ namespace bnjkit::core {
                 }
             }
         }
+        window.on_quit();
         m_logger->info("Core stopped");
         m_modules.on_quit();
     }
@@ -107,12 +104,9 @@ namespace bnjkit::core {
     void Core::set_modules(ModuleSet&& modules) {
         m_logger->trace("Setting modules");
         if (!m_modules.check_modules(false)) {
-            m_logger->trace("Modules not set");
-        }
-        m_modules = std::move(modules);
-        if (!m_modules.check_modules(false)) {
             m_logger->error("Modules not set");
         }
+        m_modules = std::move(modules);
     }
     void Core::set_state(const State& state) {
         m_state = state;

@@ -14,7 +14,7 @@ namespace bnjkit::window {
         m_logger->info("Constructor of IMainWindow");
     }
 
-    IMainWindow::~IMainWindow()  {
+    IMainWindow::~IMainWindow() {
         m_logger->info("Destructor of IMainWindow");
     }
 
@@ -28,16 +28,22 @@ namespace bnjkit::window {
 
     void IMainWindow::show() {
         m_logger->trace("Showing IMainWindow");
-        create(sf::VideoMode({800, 600}),"SFML window");
+        create(sf::VideoMode({800, 600}), "SFML window");
     }
 
     void IMainWindow::close() {
         m_logger->info("Closing IMainWindow");
         RenderWindow::close();
     }
-
+    bool IMainWindow::quit(bool quit) {
+       if (quit) {
+            m_on_quit = true;
+        }
+        return m_on_quit;
+    }
     void IMainWindow::on_quit() {
         m_logger->info("Quitting IMainWindow");
         IModule::on_quit();
+        close();
     }
 }

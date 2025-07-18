@@ -9,14 +9,12 @@
 
 namespace bnjkit::renderer {
     DefaultRenderSystem::DefaultRenderSystem(): IRenderSystem() {
-        m_logger->info("DefaultRenderSystem created");
+        m_logger->warn("DefaultRenderSystem created");
     }
     DefaultRenderSystem::~DefaultRenderSystem() {
-        m_logger->info("DefaultRenderSystem destroyed");
+        m_logger->warn("DefaultRenderSystem destroyed");
     }
     void DefaultRenderSystem::render(sf::RenderTarget& target) const {
-        // Implémentation basique, par exemple dessiner un rectangle de test
-        m_logger->debug("DefaultRenderSystem::render called");
         sf::RectangleShape rect(sf::Vector2f(100, 100));
         rect.setFillColor(sf::Color::Red);
         target.draw(rect);
@@ -25,7 +23,7 @@ namespace bnjkit::renderer {
         return "DefaultRenderSystem";
     }
     DefaultRenderer::DefaultRenderer() {
-        m_logger->info("DefaultRenderer created");
+        m_logger->warn("DefaultRenderer created");
         // Ajouter le système de rendu par défaut
         add_render_system(
             std::make_unique<DefaultRenderSystem>(),
@@ -33,14 +31,12 @@ namespace bnjkit::renderer {
         );
     }
     DefaultRenderer::~DefaultRenderer() {
-        m_logger->info("DefaultRenderer destroyed");
+        m_logger->warn("DefaultRenderer destroyed");
     }
     void DefaultRenderer::render_scene() {
-        m_logger->debug("DefaultRenderer::render_scene");
         IRenderer::render_scene();
     }
     void DefaultRenderer::render_gui() {
-        m_logger->debug("DefaultRenderer::render_gui");
         IRenderer::render_gui();
     }
 }

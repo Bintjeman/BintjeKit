@@ -24,6 +24,9 @@ namespace bnjkit {
 }
 
 namespace bnjkit::core {
+    /*!
+     * Enemble de modules requis par la class @see @ref cnjkit::core::Core et partagés par les autres modules
+     */
     class ModuleSet {
     public:
         ModuleSet();
@@ -54,8 +57,13 @@ namespace bnjkit::core {
         void set_renderer(std::unique_ptr<renderer::IRenderer> renderer);
         void set_imgui_renderer(std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
         // Helpers
+        /*!
+         * Vérifie si tous les modules sont bien valide.
+         * @param create_missing Si true, crée les module invalide par default.
+         * @return false si au moins un module n'était pas valide
+         */
         bool check_modules(bool create_missing = true);
-        bool set_module();
+        bool set_modules();
         void initialise();
         void configure();
         void update();

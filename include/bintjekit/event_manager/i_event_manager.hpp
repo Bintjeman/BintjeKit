@@ -8,6 +8,11 @@
 #pragma once
 #include <SFML/Window/Event.hpp>
 #include "bintjekit/core/i_module.hpp"
+
+namespace bnjkit::core {
+    class ModuleSet;
+}
+
 namespace bnjkit::event {
     class IEventManager : public core::IModule {
         public:
@@ -16,8 +21,11 @@ namespace bnjkit::event {
         void initialise() override;
         void configure() override;
         void on_quit() override;
-        void process_events();
+        void set_modules(core::ModuleSet* modules);
+        virtual void process_events();
         [[nodiscard]] std::string name() const override;
+    protected:
+        core::ModuleSet* m_modules;
         private:
 
     };

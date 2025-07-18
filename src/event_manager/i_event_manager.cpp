@@ -26,6 +26,10 @@ namespace bnjkit::event {
         m_logger->info("Quitting IEventManager");
         IModule::on_quit();
     }
+    void IEventManager::set_modules(core::ModuleSet* modules) {
+        m_logger->trace("Setting modules");
+        m_modules = modules;
+    }
     void IEventManager::process_events() {}
     std::string IEventManager::name() const {
         return "IEventManager";

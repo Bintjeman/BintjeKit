@@ -7,6 +7,10 @@
 #include "bintjekit/engine/default_engine.hpp"
 
 namespace bnjkit::engine {
-    DefaultEngine::DefaultEngine() = default;
-    DefaultEngine::~DefaultEngine() = default;
+    DefaultEngine::DefaultEngine() {
+        m_logger->warn("DefaultEngine created");
+    };
+    DefaultEngine::~DefaultEngine() {
+        m_logger->warn("DefaultEngine destroyed");
+    };
 }
