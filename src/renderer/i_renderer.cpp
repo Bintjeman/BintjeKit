@@ -25,6 +25,16 @@ namespace bnjkit::renderer {
     IRenderer::~IRenderer() {
         m_logger->info("IRenderer: Destructor of IRenderer");
     }
+    void IRenderer::initialise() {
+        m_logger->trace("IRenderer: Initialising IRenderer");
+        IModule::initialise();
+        m_render_system_manager.initialise();
+        const auto& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
+        auto& default_view = window.getDefaultView();
+        m_world_view = std::make_shared<sf::View>(default_view);
+        m_gui_view = std::make_shared<sf::View>(default_view);
+        m_render_system_manager.set_default_view(m_world_view, true);
+    }
     void IRenderer::configure() {
         m_logger->trace("IRenderer: Configuring IRenderer");
         resize_views();

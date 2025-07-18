@@ -14,6 +14,7 @@ namespace bnjkit::engine {
         public:
         DefaultEngine();
         ~DefaultEngine() override;
+        void configure() override;
         [[nodiscard]] std::string name() const override;
     };
 }

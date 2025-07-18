@@ -17,6 +17,7 @@ namespace bnjkit::renderer {
     }
     void RenderSystemManager::initialise() {
         m_logger->trace("RenderSystemManager: Initializing");
+
         SystemManager<IRenderSystem, RenderPriority>::initialise();
         m_default_view = nullptr;
         set_all_views(m_default_view);
@@ -35,9 +36,10 @@ namespace bnjkit::renderer {
         m_priority_views[priority] = view;
     }
     void RenderSystemManager::render(sf::RenderTarget& target) const {
-        for (const auto& [priority, view]: m_priority_views) {
+        for ( const auto& [priority, system]: m_systems ) {
+            const auto& view = m_priority_views.at(priority);
             target.setView(* view);
-            for (const auto& system_entry: m_systems.at(priority)) {
+            for (const auto& system_entry: system) {
                 if (system_entry.enabled) {
                     system_entry.system->render(target);
                 }

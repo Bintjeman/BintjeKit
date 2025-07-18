@@ -15,7 +15,8 @@ namespace bnjkit::renderer {
         m_logger->warn("DefaultRenderSystem destroyed");
     }
     void DefaultRenderSystem::render(sf::RenderTarget& target) const {
-        sf::RectangleShape rect(sf::Vector2f(100, 100));
+        sf::RectangleShape rect(sf::Vector2f(1000, 1000));
+        rect.setPosition({-500.f, -500.f});
         rect.setFillColor(sf::Color::Red);
         target.draw(rect);
     }
