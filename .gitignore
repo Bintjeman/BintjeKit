@@ -20,5 +20,8 @@ doc/
 
 # Users
 ## Bintjeman
-/workdir
-examples/toto/
+workdir/
+
+# Bintjekit
+bnjkit.log
+imgui.ini
