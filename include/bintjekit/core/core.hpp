@@ -68,7 +68,7 @@ namespace bnjkit::core {
         void set_renderer_frequency(long frequency);
         void set_window_frequency(long frequency);
         void set_settings(const std::shared_ptr<conf::Settings>& settings);
-        void save_settings();
+        void save_settings() const;
 
     protected:
         // Gestion des états et du temps

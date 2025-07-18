@@ -123,7 +123,7 @@ namespace bnjkit::core {
     void Core::set_settings(const std::shared_ptr<conf::Settings>& settings) {
         m_settings = settings;
     }
-    void Core::save_settings() {
+    void Core::save_settings() const {
         m_settings->save_to_file();
     }
     std::string Core::state_to_string(const State state) {
