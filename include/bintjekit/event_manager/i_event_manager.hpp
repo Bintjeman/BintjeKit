@@ -8,7 +8,6 @@
 #pragma once
 #include <SFML/Window/Event.hpp>
 #include "bintjekit/core/i_module.hpp"
-#include "input_binding_manager.hpp"
 
 namespace bnjkit::core {
     class ModuleSet;
@@ -25,7 +24,6 @@ namespace bnjkit::event {
         void set_modules(core::ModuleSet* modules);
         virtual void process_events();
     protected:
-        InputBindingManager m_input_binding_manager;
         core::ModuleSet* m_modules;
     private:
         void process_imgui_events(sf::Event& event);

@@ -8,6 +8,7 @@
 #include <spdlog/spdlog.h>
 
 #include "bintjekit/core/module_set.hpp"
+#include "bintjekit/event_manager/event_helper.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 
@@ -17,6 +18,10 @@ namespace bnjkit::event {
     }
     DefaultEventManager::~DefaultEventManager() {
         m_logger->warn("DefaultEventManager destroyed");
+    }
+    void DefaultEventManager::configure() {
+        m_logger->warn("Configuring DefaultEventManager");
+        IEventManager::configure();
     }
     void DefaultEventManager::process_events() {
         IEventManager::process_events();
@@ -28,6 +33,19 @@ namespace bnjkit::event {
             }
             if (event->is<sf::Event::Resized>()) {
                 renderer.resize_views();
+            }
+            if (const auto& key_pressed = event->getIf<sf::Event::KeyPressed>()) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wswitch-enum"
+                switch (key_pressed->code) {
+                    case sf::Keyboard::Key::Q:
+                        if (ctrl()) {
+                            window.request_close();
+                        }
+                        break;
+                    default: ;
+                }
+#pragma clang diagnostic pop
             }
         }
     }

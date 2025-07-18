@@ -14,6 +14,7 @@ namespace bnjkit::event {
     public:
         DefaultEventManager();
         ~DefaultEventManager() override;
+        void configure() override;
         void process_events() override;
         [[nodiscard]] std::string name() const override;
     };
