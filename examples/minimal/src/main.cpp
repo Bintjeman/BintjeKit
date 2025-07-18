@@ -11,8 +11,6 @@ int main() {
     bnjkit::core::Logger::get_logger(bnjkit::literals::logger::CORE);
     auto core = bnjkit::core::CoreBuilder()
             .build();
-    // core->initialise();
-    // core->configure();
     core->run();
     return 0;
 }
