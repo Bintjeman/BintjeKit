@@ -13,37 +13,37 @@ namespace bnjkit::window {
         m_logger = core::Logger::get_logger(literals::logger::WINDOW);
         m_logger->info("Constructor of IMainWindow");
     }
-
     IMainWindow::~IMainWindow() {
         m_logger->info("Destructor of IMainWindow");
     }
-
     void IMainWindow::initialise() {
         m_logger->trace("Initialising IMainWindow");
     }
-
     void IMainWindow::configure() {
         m_logger->trace("Configure IMainWindow");
     }
-
     void IMainWindow::show() {
         m_logger->trace("Showing IMainWindow");
         create(sf::VideoMode({800, 600}), "SFML window");
+        m_state = WindowState::RUNNING;
     }
-
     void IMainWindow::close() {
         m_logger->info("Closing IMainWindow");
+        m_state = WindowState::CLOSED;
         RenderWindow::close();
-    }
-    bool IMainWindow::quit(bool quit) {
-       if (quit) {
-            m_on_quit = true;
-        }
-        return m_on_quit;
     }
     void IMainWindow::on_quit() {
         m_logger->info("Quitting IMainWindow");
         IModule::on_quit();
-        close();
+    }
+    IMainWindow::WindowState IMainWindow::state() const {
+        return m_state;
+    }
+    void IMainWindow::request_close() {
+        m_logger->info("Requesting close of IMainWindow");
+        m_state = WindowState::CLOSING;
+    }
+    bool IMainWindow::is_running() const {
+        return m_state == WindowState::RUNNING;
     }
 }

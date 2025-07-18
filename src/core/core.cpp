@@ -57,7 +57,7 @@ namespace bnjkit::core {
         m_logger->info("Running Core");
         auto& window = m_modules.window();
         window.show();
-        while (!window.quit()) {
+        while (window.is_running()) {
             auto& engine = m_modules.engine();
             auto& renderer = m_modules.renderer();
             auto& imgui_renderer = m_modules.imgui_renderer();
@@ -73,9 +73,10 @@ namespace bnjkit::core {
                 }
             }
         }
-        window.on_quit();
-        m_logger->info("Core stopped");
         m_modules.on_quit();
+        window.on_quit();
+        window.close();
+        m_logger->info("Core stopped");
     }
     Core::State Core::state() const {
         return m_state;

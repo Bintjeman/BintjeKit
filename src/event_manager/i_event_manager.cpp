@@ -7,7 +7,7 @@
 #include "bintjekit/logger.hpp"
 
 namespace bnjkit::event {
-    IEventManager::IEventManager() {
+    IEventManager::IEventManager(): m_modules(nullptr) {
         m_logger = core::Logger::get_logger(literals::logger::EVENT);
         m_logger->info("Constructor of IEventManager");
     }

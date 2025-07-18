@@ -12,17 +12,23 @@
 namespace bnjkit::window {
     class IMainWindow : public core::IModule, public sf::RenderWindow {
     public:
+        enum class WindowState {
+            RUNNING,
+            CLOSING,
+            CLOSED
+        };
         IMainWindow();
         ~IMainWindow() override;
         void initialise() override;
         void configure() override;
         virtual void show();
-        void close() override;
-        bool quit(bool quit = false);
+        void close() override ;
         void on_quit() override;
-
+        [[nodiscard]] WindowState state() const;
+        void request_close();
+        bool is_running() const;
     private:
-        bool m_on_quit{false};
+        WindowState m_state{WindowState::CLOSED};
     };
 }
 #endif // BNJKIT_WINDOW_I_MAIN_WINDOW_HPP

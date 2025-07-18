@@ -12,8 +12,6 @@
 #pragma clang diagnostic ignored "-Wunused-parameter"
 #endif
 #include <spdlog/spdlog.h>
-// #include <spdlog/sinks/stdout_color_sinks.h>
-// #include <spdlog/sinks/basic_file_sink.h>
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
