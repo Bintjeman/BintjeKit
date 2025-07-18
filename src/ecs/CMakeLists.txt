@@ -13,7 +13,5 @@ target_sources(bintjekit
         FILE_SET HEADERS
         BASE_DIRS ${CMAKE_SOURCE_DIR}/include
         FILES
-        ${CMAKE_SOURCE_DIR}/include/bintjekit/ecs/entity_manager.hpp
         ${CMAKE_SOURCE_DIR}/include/bintjekit/ecs/i_system_manager.hpp
-        ${CMAKE_SOURCE_DIR}/include/bintjekit/ecs/system/i_system.hpp
 )

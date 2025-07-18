@@ -18,20 +18,36 @@ namespace sf::Keyboard {
     enum class Key;
 }
 
+struct KeyBinding {
+    sf::Keyboard::Key key;
+    bool shift{false};
+    bool ctrl{false};
+    bool alt{false};
+
+    // Pour utiliser la structure comme clé dans unordered_map
+    bool operator==(const KeyBinding& other) const;
+};
+
+// Fonction de hachage pour KeyBinding
+struct KeyBindingHash {
+    std::size_t operator()(const KeyBinding& kb) const;
+};
+
 namespace bnjkit::event {
     class InputBindingManager {
     public:
-        void register_action(const std::string& action_name, const Action::Callback& callback);
-        void bind_key_to_action(sf::Keyboard::Key key, const std::string& action_name);
-        void process_key_press(sf::Keyboard::Key key);
-        // Méthode pour sauvegarder/charger les bindings
-        void save_bindings(const std::string& filename);
-        void load_bindings(const std::string& filename);
+        template<typename... Args>
+        void register_action(const std::string& action_name, const typename Action<Args...>::Callback& callback);
+        template<typename... Args>
+        void process_key_press(const KeyBinding& binding, Args&&... args);
+        void bind_key_to_action(const KeyBinding& binding, const std::string& action_name);
 
     private:
-        std::unordered_map<std::string, std::shared_ptr<Action> > m_actions;
-        std::unordered_map<sf::Keyboard::Key, std::string> m_keyBindings;
+        std::unordered_map<std::string, std::shared_ptr<void> > m_actions;
+        std::unordered_map<KeyBinding, std::string, KeyBindingHash> m_keyBindings;
     };
-    ;
+    // /////////////////////////////////////////////////////////////////////////
 }
+
+#include "input_binding_manager.inl"
 #endif

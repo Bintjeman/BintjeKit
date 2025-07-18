@@ -7,27 +7,21 @@
  */
 #include "bintjekit/event_manager/input_binding_manager.hpp"
 namespace bnjkit::event {
-    void InputBindingManager::register_action(const std::string& action_name, const Action::Callback& callback) {
-        m_actions[action_name] = std::make_shared<Action>(action_name, callback);
-
-    }
-    void InputBindingManager::bindKeyToAction(sf::Keyboard::Key key, const std::string& action_name) {
-        m_keyBindings[key] = action_name;
-    }
-
-    void InputBindingManager::process_key_press(sf::Keyboard::Key key) {
-        auto it = m_keyBindings.find(key);
-        if (it != m_keyBindings.end()) {
-            auto actionIt = m_actions.find(it->second);
-            if (actionIt != m_actions.end()) {
-                actionIt->second->execute();
-            }
-        }
-    }
-
-    void InputBindingManager::save_bindings(const std::string& filename) {
-    }
-
-    void InputBindingManager::loadBindings(const std::string& filename) {
-    }
+}
+bool KeyBinding::operator==(const KeyBinding& other) const {
+    return key == other.key &&
+           ctrl == other.ctrl &&
+           shift == other.shift &&
+           alt == other.alt;
+}
+std::size_t KeyBindingHash::operator()(const KeyBinding& kb) const {
+    std::size_t h = std::hash<int>{}(static_cast<int>(kb.key));
+    h ^= std::hash<bool>{}(kb.ctrl) << 1;
+    h ^= std::hash<bool>{}(kb.shift) << 2;
+    h ^= std::hash<bool>{}(kb.alt) << 3;
+    return h;
+}
+void bnjkit::event::InputBindingManager::
+bind_key_to_action(const KeyBinding& binding, const std::string& action_name) {
+    m_keyBindings[binding] = action_name;
 }

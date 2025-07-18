@@ -25,9 +25,6 @@ namespace bnjkit::event {
         void set_modules(core::ModuleSet* modules);
         virtual void process_events();
     protected:
-        virtual void handle_key_press(sf::Keyboard::Key key) {
-            m_input_binding_manager.process_key_press(key);
-        }
         InputBindingManager m_input_binding_manager;
         core::ModuleSet* m_modules;
     private:

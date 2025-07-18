@@ -10,12 +10,14 @@
 #pragma once
 #include <functional>
 #include <string>
+#include <utility>
 namespace bnjkit::event {
+    template<typename... Args>
     class Action {
     public:
-        using Callback = std::function<void()>;
-        Action(const std::string& name, const Callback& callback);
-        void execute() const;
+        using Callback = std::function<void(Args...)>;
+        Action(std::string  name, const Callback& callback);
+        void execute(Args... args) const;
         [[nodiscard]] const std::string& get_name() const;
 
     private:
@@ -23,6 +25,5 @@ namespace bnjkit::event {
         Callback m_callback;
     };
 };
-
-}
+#include "action.inl"
 #endif
