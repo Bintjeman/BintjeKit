@@ -12,7 +12,6 @@
 namespace bnjkit::core {
     class Core;
 }
-
 namespace bil {
     class Application {
     public:

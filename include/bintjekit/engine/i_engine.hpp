@@ -39,13 +39,12 @@ namespace bnjkit::engine {
         [[nodiscard]] const PlayGround& play_ground() const;
 
     protected:
-        std::unique_ptr<PlayGround> m_play_ground;
         PhysicsSystemManager m_physics_system_manager;
         GameplaySystemManager m_gameplay_system_manager;
-
+        std::unique_ptr<PlayGround> m_play_ground;
     private:
-        std::unique_ptr<ecs::EventBus> m_eventBus;
         std::unordered_map<std::string, ecs::PrefabData> m_prefabs;
+        std::unique_ptr<ecs::EventBus> m_eventBus;
     };
     // /////////////////////////////////////////////////////////////////////////
     template<typename... Components>

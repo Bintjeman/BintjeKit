@@ -14,11 +14,16 @@
 namespace sf {
     class RenderTarget;
 }
+
 namespace bnjkit::engine {
     class IEngine;
 }
+
 namespace bnjkit::renderer {
     class IRenderSystem : public ecs::ISystem {
+    protected:
+        static unsigned int m_counter;
+
     public:
         IRenderSystem();
         ~IRenderSystem() override;
@@ -32,7 +37,6 @@ namespace bnjkit::renderer {
 
     protected:
         std::shared_ptr<spdlog::logger> m_logger;
-        static unsigned int m_counter;
     };
 }
 #endif

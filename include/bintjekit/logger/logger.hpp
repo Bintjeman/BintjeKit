@@ -12,6 +12,7 @@
 
 namespace bnjkit::logger {
     class Logger {
+
     public:
         static void initialize(const spdlog::level::level_enum& level = spdlog::level::info);
         static void shutdown();

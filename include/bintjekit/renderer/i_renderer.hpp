@@ -11,9 +11,11 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "bintjekit/core/i_module.hpp"
 #include "render_system_manager.hpp"
+
 namespace bnjkit::core {
     class ModuleSet;
 }
+
 namespace bnjkit::renderer {
     class IRenderer : public core::IModule {
     public:
@@ -38,11 +40,11 @@ namespace bnjkit::renderer {
         virtual void render_gui();
         //
         RenderSystemManager m_render_system_manager;
-        // bnjkit Modules
-        core::ModuleSet* m_modules;
         // Utils
         std::shared_ptr<sf::View> m_gui_view;
         std::shared_ptr<sf::View> m_world_view;
+        // bnjkit Modules
+        core::ModuleSet* m_modules;
     };
 }
 #endif // BNJKIT_RENDERER_I_RENDERER_HPP

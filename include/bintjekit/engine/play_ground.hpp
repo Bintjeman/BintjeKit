@@ -23,6 +23,7 @@ namespace bnjkit::engine {
         void update();
         [[nodiscard]] long int ticks() const;
         [[nodiscard]] sf::Rect<float> bounds() const;
+        // Data members
         sf::Vector2f size = {0.f, 0.f};
         sf::Vector2f position = {0.f, 0.f};
 

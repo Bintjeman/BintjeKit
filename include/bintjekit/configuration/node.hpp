@@ -88,10 +88,10 @@ namespace bnjkit::conf {
         [[nodiscard]] long node_count() const;
 
     protected:
+        nlohmann::json::json_pointer m_branch; //< Le pointeur sur la branche
         std::shared_ptr<spdlog::logger> m_logger; //< Le logger "CONFIGURATION"
         std::shared_ptr<nlohmann::json> m_json; //< Les données json
         std::shared_ptr<nlohmann::json> m_default_values; //< Les valeurs par default
-        nlohmann::json::json_pointer m_branch; //< Le pointeur sur la branche
     };
 }
 #include "node.inl"
