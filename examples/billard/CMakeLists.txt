@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.31)
 message("Actual CMakeLists.txt: ${CMAKE_CURRENT_SOURCE_DIR}")
 ################################################################################
-set(EXEC_NAME minimal)
+set(EXEC_NAME billard)
 add_executable(${EXEC_NAME})
 target_sources(${EXEC_NAME} PRIVATE
         src/main.cpp
+        src/application.cpp
 )
 target_link_libraries(${EXEC_NAME} PRIVATE
         bintjekit::bintjekit

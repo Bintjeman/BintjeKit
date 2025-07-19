@@ -161,7 +161,7 @@ namespace bnjkit::core {
                                                        m_imgui_renderer(std::move(other.m_imgui_renderer)),
                                                        m_logger(std::move(other.m_logger)) {
         // Mise à jour des pointeurs vers le nouveau ModuleSet
-        set_modules();
+        // set_modules();
     }
 
     ModuleSet& ModuleSet::operator=(ModuleSet&& other) noexcept {
@@ -172,7 +172,7 @@ namespace bnjkit::core {
             m_renderer = std::move(other.m_renderer);
             m_imgui_renderer = std::move(other.m_imgui_renderer);
             m_logger = std::move(other.m_logger);
-            set_modules();
+            // set_modules();
         }
         return * this;
     }

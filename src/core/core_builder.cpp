@@ -21,7 +21,6 @@ namespace bnjkit::core {
         m_logger->info("Building Core");
         auto core = std::make_unique<Core>();
         m_modules_tmp.check_modules(true);
-        m_modules_tmp.set_modules();
         core->set_modules(std::move(m_modules_tmp));
         return core;
     }

@@ -7,35 +7,35 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include "bintjekit/core/common.hpp"
-
 namespace bnjkit::core {
-    bool Logger::m_initialized = false;
-    std::vector<spdlog::sink_ptr> Logger::m_s_sinks;
-    std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > Logger::m_s_loggers;
-    void Logger::initialize() {
+    std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > Logger::s_loggers;
+    std::vector<spdlog::sink_ptr> Logger::s_sinks;
+    spdlog::level::level_enum Logger::s_default_level = spdlog::level::info;
+    bool Logger::s_initialized = false;
+    void Logger::initialize(const spdlog::level::level_enum& level) {
+        s_default_level = level;
         spdlog::enable_backtrace(32);
         const auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
         console_sink->set_pattern("%^[%T] [%-8l] [%-8n] : %v%$");
-        m_s_sinks.push_back(console_sink);
+        s_sinks.push_back(console_sink);
         const auto file_sink = std::make_shared<
             spdlog::sinks::basic_file_sink_mt>("bnjkit.log", true);
         file_sink->set_pattern("[%T] [%-8l] [%-8n] : %v");
-        m_s_sinks.push_back(file_sink);
+        s_sinks.push_back(file_sink);
     }
-
     std::shared_ptr<spdlog::logger> Logger::get_logger(const std::string& module_name) {
-        if (!m_initialized) {
-            m_initialized = true;
+        if (!s_initialized) {
+            s_initialized = true;
             initialize();
         }
-        if (const auto it = m_s_loggers.find(module_name); it != m_s_loggers.end()) {
+        if (const auto it = s_loggers.find(module_name); it != s_loggers.end()) {
             return it->second;
         }
-        auto logger = std::make_shared<spdlog::logger>(module_name, m_s_sinks.begin(),
-                                                       m_s_sinks.end());
+        auto logger = std::make_shared<spdlog::logger>(module_name, s_sinks.begin(),
+                                                       s_sinks.end());
         spdlog::register_logger(logger);
-        logger->set_level(spdlog::level::trace);
-        m_s_loggers[module_name] = logger;
+        logger->set_level(s_default_level);
+        s_loggers[module_name] = logger;
         if (module_name == literals::logger::LOG) {
             logger->info("Logger \"LOG\" initialised");
         } else {
@@ -44,16 +44,17 @@ namespace bnjkit::core {
 
         return logger;
     }
-
     void Logger::set_module_level(const std::string& module_name,
                                   const spdlog::level::level_enum level) {
         get_logger(module_name)->set_level(level);
     }
-
+    void Logger::set_default_level(const spdlog::level::level_enum& level) {
+        s_default_level = level;
+    }
     void Logger::shutdown() {
         get_logger(literals::logger::LOG)->info("Shutting down logger");
-        m_s_loggers.clear();
-        m_s_sinks.clear();
+        s_loggers.clear();
+        s_sinks.clear();
         spdlog::shutdown();
     }
 }

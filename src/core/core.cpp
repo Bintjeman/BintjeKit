@@ -114,6 +114,7 @@ namespace bnjkit::core {
     void Core::set_modules(ModuleSet&& modules) {
         m_logger->trace("Setting modules");
         m_modules = std::move(modules);
+        m_modules.set_modules();
     }
     void Core::set_state(const State& state) {
         m_state = state;

@@ -13,16 +13,19 @@
 namespace bnjkit::core {
     class Logger {
     public:
-        static void initialize();
+        static void initialize(const spdlog::level::level_enum& level = spdlog::level::info);
         static void shutdown();
         static std::shared_ptr<spdlog::logger> get_logger(const std::string& module_name);
         static void set_module_level(const std::string& module_name,
                                      spdlog::level::level_enum level);
+        static void set_default_level(const spdlog::level::level_enum& level);
 
     private:
-        static bool m_initialized;
-        static std::vector<spdlog::sink_ptr> m_s_sinks;
-        static std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > m_s_loggers;
+        static std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > s_loggers;
+        static std::vector<spdlog::sink_ptr> s_sinks;
+        static spdlog::level::level_enum s_default_level;
+        static bool s_initialized;
+
     };
 }
 #endif // BNJKIT_CORE_LOGGER_HPP

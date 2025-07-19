@@ -9,7 +9,7 @@
 #include "bintjekit/window/i_main_window.hpp"
 
 namespace bnjkit::window {
-    class DefaultMainWindow final : public IMainWindow {
+    class DefaultMainWindow : public IMainWindow {
     public:
         DefaultMainWindow();
         ~DefaultMainWindow() override;
