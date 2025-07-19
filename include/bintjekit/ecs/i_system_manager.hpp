@@ -23,7 +23,6 @@ namespace bnjkit::ecs {
     class SystemManager {
     public:
         using Entry = SystemEntry<SystemType>;
-
         SystemManager();
         virtual ~SystemManager();
         virtual void initialise();
@@ -34,6 +33,8 @@ namespace bnjkit::ecs {
         virtual bool remove_system(const std::string& name);
         virtual void clear();
         virtual void toggle_system(const std::string& name, bool enable);
+        virtual SystemType& system(const std::string& name);
+        virtual const SystemType& system(const std::string name) const;
         // Mise à jour
         virtual void update();
 

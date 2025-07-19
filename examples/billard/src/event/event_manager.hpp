@@ -13,7 +13,7 @@ namespace bil {
     class EventManager : public bnjkit::event::DefaultEventManager {
     public:
         EventManager();
-        ~EventManager();
+        ~EventManager() override;
         void configure() override;
         void process_events() override;
         [[nodiscard]] std::string name() const override;

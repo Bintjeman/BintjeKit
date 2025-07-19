@@ -17,7 +17,6 @@ namespace bnjkit::renderer {
     }
     void RenderSystemManager::initialise() {
         m_logger->trace("RenderSystemManager: Initializing");
-
         SystemManager<IRenderSystem, RenderPriority>::initialise();
         m_default_view = nullptr;
         set_all_views(m_default_view);
