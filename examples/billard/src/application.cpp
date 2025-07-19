@@ -19,14 +19,14 @@ namespace bil {
         bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::CONFIGURATION, spdlog::level::info);
         bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::WINDOW, spdlog::level::info);
         bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::EVENT, spdlog::level::info);
-        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::RENDERER, spdlog::level::trace);
-
+        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::RENDERER, spdlog::level::info);
         m_logger = bnjkit::logger::Logger::get_logger(bnjkit::literals::logger::APP);
         m_logger->info("Application initialised");
         m_core = bnjkit::core::CoreBuilder()
                 .set<Window>()
                 .set<Billard>()
                 .set<Renderer>()
+                .set<EventManager>()
                 .build();
         m_core->initialise();
         configuration();
