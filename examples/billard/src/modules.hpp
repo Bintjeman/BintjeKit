@@ -11,4 +11,5 @@
 #include "engine/billard.hpp"
 #include "renderer/renderer.hpp"
 #include "event/event_manager.hpp"
+#include "renderer/imgui_renderer.hpp"
 #endif //MODULES_HPP

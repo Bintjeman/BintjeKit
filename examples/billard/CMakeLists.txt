@@ -10,6 +10,7 @@ target_sources(${EXEC_NAME} PRIVATE
         src/event/event_manager.cpp
         src/window/window.cpp
         src/engine/billard.cpp
+        src/renderer/imgui_renderer.cpp
         src/renderer/renderer.cpp
         # Renders Systems
         src/renderer/background_renderer.cpp

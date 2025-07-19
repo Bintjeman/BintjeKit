@@ -11,6 +11,8 @@
 #include <bintjekit/utils/d2/d2.hpp>
 #include <bintjekit/utils/time/time.hpp>
 #include <bintjekit/window/i_main_window.hpp>
+
+#include "bintjekit/renderer/i_imgui_renderer.hpp"
 #include "engine/billard.hpp"
 
 namespace bil {
@@ -35,6 +37,7 @@ namespace bil {
         static auto& window = m_modules->window();
         static auto& renderer = m_modules->renderer();
         static auto& billard = dynamic_cast<Billard&>(m_modules->engine());
+        static auto& imguirenderer = m_modules->imgui_renderer();
         while (const auto& event = window.pollEvent()) {
             auto camera_speed = [this]() {
                 if (m_camera_relative) {
@@ -55,6 +58,7 @@ namespace bil {
                            ? m_zoom_factor_multiplier * m_zoom_factor
                            : m_zoom_factor;
             };
+            imguirenderer.process_events(*event);
             // Windows events
             if (event->is<sf::Event::Closed>()) {
                 window.request_close();

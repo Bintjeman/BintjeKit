@@ -27,6 +27,7 @@ namespace bil {
                 .set<Billard>()
                 .set<Renderer>()
                 .set<EventManager>()
+                .set<ImGuiRenderer>()
                 .build();
         m_core->initialise();
         configuration();

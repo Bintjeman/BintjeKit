@@ -16,7 +16,7 @@
 namespace bil {
     void BallPrefab::initialise() {
         spawn = [](bnjkit::engine::IEngine& engine) -> entt::entity {
-            auto billard = dynamic_cast<Billard*>(& engine);
+            const auto billard = dynamic_cast<Billard*>(& engine);
             const auto entity = billard->registry().create();
             constexpr float radius = 10.0f;
             const auto billard_bounds = billard->play_ground().bounds();
