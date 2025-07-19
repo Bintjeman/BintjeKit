@@ -3,7 +3,7 @@ avoir à réécrire la base à chaque fois.
 
 Le but est d'être à la fois complet et à la fois simple... Et finalement n'est utilse que dans des cas très spécifiques...
 
-Elle est à un stade très précoce et évulue beaucoup selon mes projets.
+Elle est à un stade très précoce et évolue beaucoup selon mes projets.
 
 Elle utilise comme lib :
 
