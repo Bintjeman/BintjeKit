@@ -10,7 +10,7 @@
 
 namespace bnjkit::event {
     IEventManager::IEventManager(): m_modules(nullptr) {
-        m_logger = core::Logger::get_logger(literals::logger::EVENT);
+        m_logger = logger::Logger::get_logger(literals::logger::EVENT);
         m_logger->info("Constructor of IEventManager");
     }
     IEventManager::~IEventManager() {

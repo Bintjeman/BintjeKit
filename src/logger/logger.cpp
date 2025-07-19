@@ -8,7 +8,7 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include "bintjekit/core/common.hpp"
 
-namespace bnjkit::core {
+namespace bnjkit::logger {
     std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > Logger::s_loggers;
     std::vector<spdlog::sink_ptr> Logger::s_sinks;
     spdlog::level::level_enum Logger::s_default_level = spdlog::level::info;
@@ -30,7 +30,7 @@ namespace bnjkit::core {
         add_logger(bnjkit::literals::logger::LOG, s_default_level);
         s_initialized = true;
     }
-    std::shared_ptr<spdlog::logger> Logger::get_logger(const std::string& module_name) {
+    std::shared_ptr<spdlog::logger> logger::Logger::get_logger(const std::string& module_name) {
         if (!s_initialized) {
             initialize();
         }

@@ -16,7 +16,7 @@ namespace bnjkit::ecs {
         name(std::move(n)), enabled(e) {}
     template<typename SystemType, typename PriorityType>
     SystemManager<SystemType, PriorityType>::SystemManager() {
-        m_logger = bnjkit::core::Logger::get_logger(literals::logger::ECS);
+        m_logger = logger::Logger::get_logger(literals::logger::ECS);
         m_logger->info("SystemManager <{}, {}> created", typeid(SystemType).name(), typeid(PriorityType).name());
     }
     template<typename SystemType, typename PriorityType>

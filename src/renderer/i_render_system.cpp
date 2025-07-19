@@ -9,7 +9,7 @@
 
 namespace bnjkit::renderer {
     IRenderSystem::IRenderSystem() {
-        m_logger = core::Logger::get_logger(literals::logger::RENDERER);
+        m_logger = logger::Logger::get_logger(literals::logger::RENDERER);
         m_logger->info("IRenderSystem created");
     }
     IRenderSystem::~IRenderSystem() {

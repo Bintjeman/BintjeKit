@@ -10,7 +10,7 @@
 
 namespace bnjkit::window {
     IMainWindow::IMainWindow() {
-        m_logger = core::Logger::get_logger(literals::logger::WINDOW);
+        m_logger = logger::Logger::get_logger(literals::logger::WINDOW);
         m_logger->info("Constructor of IMainWindow");
     }
     IMainWindow::~IMainWindow() {

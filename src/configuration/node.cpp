@@ -4,7 +4,7 @@
  * @name configuration_node.cpp
  */
 #include "bintjekit/configuration/node.hpp"
-#include "bintjekit/logger.hpp" // pour core::Logger::get_logger
+#include "bintjekit/logger.hpp" // pour logger::logger::Logger::get_logger
 #include "bintjekit/configuration/utils.hpp"
 
 namespace bnjkit::conf {
@@ -12,7 +12,7 @@ namespace bnjkit::conf {
                const nlohmann::json::json_pointer& branch,
                const std::shared_ptr<nlohmann::json>& default_values
     ) {
-        m_logger = core::Logger::get_logger(literals::logger::CONFIGURATION);
+        m_logger = logger::Logger::get_logger(literals::logger::CONFIGURATION);
         m_logger->trace("Constructor of Node");
         if (json == nullptr) {
             m_json = std::make_shared<nlohmann::json>();

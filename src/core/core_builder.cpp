@@ -9,7 +9,7 @@
 
 namespace bnjkit::core {
     CoreBuilder::CoreBuilder() {
-        m_logger = Logger::get_logger(literals::logger::CORE);
+        m_logger = logger::Logger::get_logger(literals::logger::CORE);
         m_logger->info("Constructor of CoreBuilder");
         m_modules_tmp = std::make_unique<ModuleSet>();
     }

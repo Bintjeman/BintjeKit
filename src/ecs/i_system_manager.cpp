@@ -7,7 +7,7 @@
 
 namespace bnjkit::ecs {
     SystemManager::SystemManager() {
-        m_logger = bnjkit::core::Logger::get_logger(bnjkit::core::module_names::RENDERER);
+        m_logger = bnjkit::logger::logger::Logger::get_logger(bnjkit::core::module_names::RENDERER);
         m_logger->info("RenderSystemManager created");
     }
     SystemManager::~SystemManager() {

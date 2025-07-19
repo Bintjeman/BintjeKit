@@ -11,7 +11,7 @@
 
 namespace bnjkit::engine {
     PlayGround::PlayGround() {
-        m_logger = core::Logger::get_logger(literals::logger::ENGINE);
+        m_logger = logger::Logger::get_logger(literals::logger::ENGINE);
         m_logger->info("Constructor of PlayGround");
     }
 

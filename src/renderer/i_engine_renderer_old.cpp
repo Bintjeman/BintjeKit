@@ -13,7 +13,7 @@
 //
 // namespace bnjkit::renderer {
 //     IEngineRenderer::IEngineRenderer(): m_engine(nullptr) {
-//         m_logger = core::Logger::get_logger(core::module_names::RENDERER);
+//         m_logger = logger::logger::Logger::get_logger(core::module_names::RENDERER);
 //         m_logger->info("Constructor of IEngineRenderer");
 //         m_default_view = std::make_shared<sf::View>();
 //     }

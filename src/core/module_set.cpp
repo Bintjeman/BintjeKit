@@ -11,7 +11,7 @@
 
 namespace bnjkit::core {
     ModuleSet::ModuleSet() {
-        m_logger = Logger::get_logger(literals::logger::CORE);
+        m_logger = logger::Logger::get_logger(literals::logger::CORE);
         m_logger->info("Constructor of ModuleSet");
     }
     ModuleSet::~ModuleSet() {

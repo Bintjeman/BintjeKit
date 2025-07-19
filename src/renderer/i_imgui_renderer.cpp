@@ -20,7 +20,7 @@ namespace bnjkit::renderer {
         ImGui::SFML::Shutdown();
     }
     IImGuiRenderer::IImGuiRenderer(): m_modules(nullptr) {
-        m_logger = core::Logger::get_logger(literals::logger::RENDERER);
+        m_logger = logger::Logger::get_logger(literals::logger::RENDERER);
         m_logger->info("Constructor of IImGuiRenderer");
     }
     IImGuiRenderer::~IImGuiRenderer() {

@@ -17,7 +17,7 @@
 
 namespace bnjkit::renderer {
     IRenderer::IRenderer(): m_modules(nullptr) {
-        m_logger = core::Logger::get_logger(literals::logger::RENDERER);
+        m_logger = logger::Logger::get_logger(literals::logger::RENDERER);
         m_logger->info("IRenderer: Constructor of IRenderer");
         m_world_view = std::make_shared<sf::View>();
         m_gui_view = std::make_shared<sf::View>();
