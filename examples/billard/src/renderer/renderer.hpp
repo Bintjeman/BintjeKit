@@ -14,6 +14,7 @@ namespace bil {
     public:
         Renderer();
         ~Renderer() override;
+        void initialise() override;
         void configure() override;
         [[nodiscard]] std::string name() const override;
     };

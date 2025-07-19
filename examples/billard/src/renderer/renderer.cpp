@@ -15,9 +15,11 @@ namespace bil {
     Renderer::~Renderer() {
         m_logger->info("BillardRenderer destroyed");
     }
+    void Renderer::initialise() {
+        bnjkit::renderer::DefaultRenderer::initialise();
+    }
     void Renderer::configure() {
-        DefaultRenderer::configure();
-        std::unique_ptr<BackgroundRenderer> background_renderer = std::make_unique<BackgroundRenderer>();
+        auto background_renderer = std::make_unique<BackgroundRenderer>();
         background_renderer->initialize(m_modules->engine());
         add_render_system(std::move(background_renderer), bnjkit::renderer::RenderPriority::BACKGROUND);
     }
