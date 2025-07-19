@@ -10,10 +10,14 @@ target_sources(${EXEC_NAME} PRIVATE
         src/window/window.cpp
         src/engine/billard.cpp
         src/renderer/renderer.cpp
+        src/renderer/background_renderer.cpp
 )
 target_link_libraries(${EXEC_NAME} PRIVATE
         bintjekit::bintjekit
         EnTT::EnTT
         spdlog::spdlog
+)
+target_include_directories(${EXEC_NAME} PRIVATE
+    ${CMAKE_SOURCE_DIR}/examples/billard/src
 )
 configure_target_options(${EXEC_NAME})

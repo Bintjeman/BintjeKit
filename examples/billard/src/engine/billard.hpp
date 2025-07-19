@@ -13,7 +13,7 @@ namespace bil {
     class Billard : public bnjkit::engine::DefaultEngine {
     public:
         Billard();
-        ~Billard();
+        ~Billard() override;
         void configure() override;
         [[nodiscard]] std::string name() const override;
 

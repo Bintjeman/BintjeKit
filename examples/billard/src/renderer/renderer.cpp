@@ -5,6 +5,8 @@
  */
 
 #include "renderer.hpp"
+#include "background_renderer.hpp"
+#include "bintjekit/core/module_set.hpp"
 
 namespace bil {
     Renderer::Renderer() :DefaultRenderer(){
@@ -15,7 +17,9 @@ namespace bil {
     }
     void Renderer::configure() {
         DefaultRenderer::configure();
-        resize_views();
+        std::unique_ptr<BackgroundRenderer> background_renderer = std::make_unique<BackgroundRenderer>();
+        background_renderer->initialize(m_modules->engine());
+        add_render_system(std::move(background_renderer), bnjkit::renderer::RenderPriority::BACKGROUND);
     }
     std::string Renderer::name() const {
         return "BillardRenderer";

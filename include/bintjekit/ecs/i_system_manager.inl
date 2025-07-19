@@ -85,11 +85,12 @@ namespace bnjkit::ecs {
     template<typename SystemType, typename PriorityType>
     SystemType& SystemManager<SystemType, PriorityType>::system(const std::string& name) {
         auto index = m_system_registry[name];
-        return m_systems[index.first][index.second].system;
+        return *m_systems[index.first][index.second].system;
     }
     template<typename SystemType, typename PriorityType>
     const SystemType& SystemManager<SystemType, PriorityType>::system(const std::string name) const {
-        return system(name);
+        auto index = m_system_registry.at(name);
+        return *m_systems.at(index.first).at(index.second).system;
     }
     template<typename SystemType, typename PriorityType>
     void SystemManager<SystemType, PriorityType>::update() {}
