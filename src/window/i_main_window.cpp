@@ -24,8 +24,9 @@ namespace bnjkit::window {
     }
     void IMainWindow::show() {
         m_logger->trace("Showing IMainWindow");
-        create(sf::VideoMode({800, 600}), "SFML window");
-        m_state = WindowState::RUNNING;
+        std::string title = name();
+        create(sf::VideoMode({800, 600}), title);
+        on_show();
     }
     void IMainWindow::close() {
         m_logger->info("Closing IMainWindow");
@@ -45,5 +46,8 @@ namespace bnjkit::window {
     }
     bool IMainWindow::is_running() const {
         return m_state == WindowState::RUNNING;
+    }
+    void IMainWindow::on_show() {
+        m_state = WindowState::RUNNING;
     }
 }

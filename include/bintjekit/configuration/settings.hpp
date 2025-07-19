@@ -24,6 +24,11 @@ namespace bnjkit::conf {
      */
     class Settings final : public Node {
     public:
+        static std::shared_ptr<Settings> create(const std::filesystem::path& path,
+                                                const nlohmann::json& default_values = {},
+                                                const std::filesystem::path& default_path = "");
+        static std::shared_ptr<Settings> create(const nlohmann::json& json, const nlohmann::json& default_values = {},
+                                                const std::filesystem::path& default_path = "");
         explicit Settings();
         ~Settings() override;
         /*!

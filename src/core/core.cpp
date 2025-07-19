@@ -42,13 +42,11 @@ namespace bnjkit::core {
         m_modules->configure();
         m_configured = true;
     }
-
     void Core::configure(const std::shared_ptr<conf::Settings>& settings) {
         m_logger->trace("Configuring Core from settings");
         set_settings(settings);
         configure();
     }
-
     void Core::configure(const std::filesystem::path& conf_file_path) {
         m_logger->trace("Configuring Core from file: {}", conf_file_path.string());
         const auto settings = std::make_shared<conf::Settings>();

@@ -18,6 +18,7 @@ namespace bil {
         Application();
         ~Application();
         void initialisation();
+        void configuration();
         void run();
         std::shared_ptr<spdlog::logger> logger();
     private:

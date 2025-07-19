@@ -22,11 +22,15 @@ namespace bnjkit::window {
         void initialise() override;
         void configure() override;
         virtual void show();
-        void close() override ;
+        void close() override;
         void on_quit() override;
         [[nodiscard]] WindowState state() const;
         void request_close();
         bool is_running() const;
+
+    protected:
+        void on_show();
+
     private:
         WindowState m_state{WindowState::CLOSED};
     };

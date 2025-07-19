@@ -6,6 +6,7 @@ add_executable(${EXEC_NAME})
 target_sources(${EXEC_NAME} PRIVATE
         src/main.cpp
         src/application.cpp
+        src/window/window.cpp
 )
 target_link_libraries(${EXEC_NAME} PRIVATE
         bintjekit::bintjekit
