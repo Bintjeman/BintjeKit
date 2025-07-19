@@ -22,7 +22,7 @@ namespace bnjkit::core {
     window::IMainWindow& ModuleSet::window() {
         return * m_window;
     }
-    engine::IEngine& ModuleSet::engine() {
+    bnjkit::engine::IEngine& ModuleSet::engine() {
         return * m_engine;
     }
     event::IEventManager& ModuleSet::event_manager() {

@@ -5,12 +5,13 @@
  */
 
 #include "event_manager.hpp"
-
-#include "bintjekit/core/module_set.hpp"
-#include "bintjekit/event_manager/event_helper.hpp"
-#include "bintjekit/renderer/i_renderer.hpp"
-#include "bintjekit/utils/d2/d2.hpp"
-#include "bintjekit/window/i_main_window.hpp"
+#include <bintjekit/core/module_set.hpp>
+#include <bintjekit/event_manager/event_helper.hpp>
+#include <bintjekit/renderer/i_renderer.hpp>
+#include <bintjekit/utils/d2/d2.hpp>
+#include <bintjekit/utils/time/time.hpp>
+#include <bintjekit/window/i_main_window.hpp>
+#include "engine/billard.hpp"
 
 namespace bil {
     EventManager::EventManager() {
@@ -33,6 +34,7 @@ namespace bil {
     void EventManager::process_events() {
         static auto& window = m_modules->window();
         static auto& renderer = m_modules->renderer();
+        static auto& billard = dynamic_cast<Billard&>(m_modules->engine());
         while (const auto& event = window.pollEvent()) {
             auto camera_speed = [this]() {
                 if (m_camera_relative) {
@@ -53,12 +55,34 @@ namespace bil {
                            ? m_zoom_factor_multiplier * m_zoom_factor
                            : m_zoom_factor;
             };
+            // Windows events
             if (event->is<sf::Event::Closed>()) {
                 window.request_close();
             }
             if (event->is<sf::Event::Resized>()) {
                 m_logger->trace("Resized");
                 renderer.resize_views();
+            }
+            // Mouses events
+            if (const auto mouse_clicked = event->getIf<sf::Event::MouseButtonPressed>()) {
+                static bnjkit::utils::time::Clock clock;
+                static bool first_click = true;
+                if (mouse_clicked->button == sf::Mouse::Button::Left) {
+                    if (first_click) {
+                        clock.start();
+                        first_click = false;
+                    } else {
+                        const auto elapsed = clock.get();
+                        constexpr long int double_click_threshold = 500000;
+                        if (elapsed <= double_click_threshold) {
+                            m_logger->trace("Double click");
+                            billard.add_ball();
+                            first_click = true;
+                        } else {
+                            clock.start();
+                        }
+                    }
+                }
             }
             if (const auto mouse_srolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
                 float ratio = zoom_factor();

@@ -42,9 +42,10 @@ namespace bil {
         m_play_ground->size = size;
         BallPrefab prefab_ball;
         prefab_ball.initialise();
-        register_prefab(prefab_ball.name, prefab_ball);
+        register_prefab("aleaball", prefab_ball);
     }
     void Billard::add_ball() {
+        spawn_prefab("aleaball");
     }
     std::string Billard::name() const {
         return "BillardEngine";
