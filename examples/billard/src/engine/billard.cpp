@@ -45,7 +45,9 @@ namespace bil {
         register_prefab("aleaball", prefab_ball);
     }
     void Billard::add_ball() {
-        spawn_prefab("aleaball");
+        for (unsigned int i = 0; i < 1000; i++) {
+            spawn_prefab("aleaball");
+        }
     }
     std::string Billard::name() const {
         return "BillardEngine";

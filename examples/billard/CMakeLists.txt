@@ -13,6 +13,7 @@ target_sources(${EXEC_NAME} PRIVATE
         src/renderer/imgui_renderer.cpp
         src/renderer/renderer.cpp
         # Renders Systems
+        src/renderer/ball_renderer.cpp
         src/renderer/background_renderer.cpp
         # Prefab
         src/engine/entity/ball_prefab.cpp

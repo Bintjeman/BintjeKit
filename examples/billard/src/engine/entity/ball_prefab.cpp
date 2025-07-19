@@ -26,8 +26,8 @@ namespace bil {
                     billard_bounds.position.y + radius
                 },
                 {
-                    billard_bounds.position.x + billard_bounds.size.x - radius,
-                    billard_bounds.position.y + billard_bounds.size.y - radius
+                    billard_bounds.size.x - radius * 2.f,
+                    billard_bounds.size.y - radius * 2.f
                 }
             };
             auto randomposition = [](const sf::Rect<float>& bounds) {
