@@ -16,13 +16,13 @@ namespace bnjkit::conf {
         m_logger->trace("Constructor of Node");
         if (json == nullptr) {
             m_json = std::make_shared<nlohmann::json>();
-            *m_json = nlohmann::json::parse("{}");
+            * m_json = nlohmann::json::parse("{}");
         } else {
             m_json = json;
         }
         if (default_values == nullptr) {
             m_default_values = std::make_shared<nlohmann::json>();
-            *m_default_values = nlohmann::json::parse("{}");
+            * m_default_values = nlohmann::json::parse("{}");
         } else {
             m_default_values = default_values;
         }
@@ -43,7 +43,7 @@ namespace bnjkit::conf {
 
     void Node::merge_with_json(const nlohmann::json& json) {
         m_logger->trace("Merging settings with json");
-        merge_json(*m_json, json);
+        merge_json(* m_json, json);
     }
 
     Node Node::create_child(const nlohmann::json::json_pointer& key) const {
@@ -51,10 +51,13 @@ namespace bnjkit::conf {
         m_logger->trace("Nodes count: {}", node_count());
         const auto child_branch = m_branch / key;
         if (!m_json->contains(child_branch)) {
-            (*m_json)[child_branch] = nlohmann::json::object();
+            (* m_json)[child_branch] = nlohmann::json::object();
         }
         m_logger->trace("Child branch: {}", child_branch.to_string());
         return Node(m_json, child_branch);
+    }
+    Node Node::root() const {
+        return Node(m_json, nlohmann::json::json_pointer());
     }
     long Node::node_count() const {
         return m_json.use_count();

@@ -8,4 +8,6 @@
 #define MODULES_HPP
 #pragma once
 #include "window/window.hpp"
+#include "engine/billard.hpp"
+#include "renderer/renderer.hpp"
 #endif //MODULES_HPP

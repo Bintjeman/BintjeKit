@@ -81,11 +81,13 @@ namespace bnjkit::conf {
          * @return Un node fille avec les mêmes données
          */
         [[nodiscard]] Node create_child(const nlohmann::json::json_pointer& key) const;
+        [[nodiscard]] Node root() const;
         /*!
          *
          * @return Le nombre de node partageant les données
          */
         [[nodiscard]] long node_count() const;
+
 
     protected:
         nlohmann::json::json_pointer m_branch; //< Le pointeur sur la branche

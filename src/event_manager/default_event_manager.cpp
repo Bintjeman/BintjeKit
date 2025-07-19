@@ -24,7 +24,6 @@ namespace bnjkit::event {
         IEventManager::configure();
     }
     void DefaultEventManager::process_events() {
-        IEventManager::process_events();
         static auto& window = m_modules->window();
         static auto& renderer = m_modules->renderer();
         while (const auto& event = window.pollEvent()) {
@@ -32,6 +31,7 @@ namespace bnjkit::event {
                 window.request_close();
             }
             if (event->is<sf::Event::Resized>()) {
+                m_logger->trace("Resized");
                 renderer.resize_views();
             }
             if (const auto& key_pressed = event->getIf<sf::Event::KeyPressed>()) {

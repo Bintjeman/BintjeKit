@@ -7,6 +7,8 @@ target_sources(${EXEC_NAME} PRIVATE
         src/main.cpp
         src/application.cpp
         src/window/window.cpp
+        src/engine/billard.cpp
+        src/renderer/renderer.cpp
 )
 target_link_libraries(${EXEC_NAME} PRIVATE
         bintjekit::bintjekit

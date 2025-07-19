@@ -7,19 +7,26 @@
 #include <bintjekit/logger.hpp>
 #include <bintjekit/core.hpp>
 #include <bintjekit/configuration/settings.hpp>
-#include "window/window.hpp"
+#include "modules.hpp"
+#include "renderer/renderer.hpp"
 
 namespace bil {
     Application::Application() = default;
     Application::~Application() = default;
     void Application::initialisation() {
         bnjkit::logger::Logger::initialize(spdlog::level::info);
-        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::LOG, spdlog::level::trace);
-        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::CONFIGURATION, spdlog::level::trace);
+        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::LOG, spdlog::level::info);
+        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::CONFIGURATION, spdlog::level::info);
+        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::WINDOW, spdlog::level::info);
+        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::EVENT, spdlog::level::info);
+        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::RENDERER, spdlog::level::trace);
+
         m_logger = bnjkit::logger::Logger::get_logger(bnjkit::literals::logger::APP);
         m_logger->info("Application initialised");
         m_core = bnjkit::core::CoreBuilder()
                 .set<Window>()
+                .set<Billard>()
+                .set<Renderer>()
                 .build();
         m_core->initialise();
         configuration();

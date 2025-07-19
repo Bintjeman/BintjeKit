@@ -8,6 +8,7 @@
 #pragma once
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/renderer/i_render_system.hpp"
+
 namespace bnjkit::renderer {
     class DefaultRenderSystem : public IRenderSystem {
     public:
@@ -15,16 +16,14 @@ namespace bnjkit::renderer {
         ~DefaultRenderSystem() override;
         void render(sf::RenderTarget& target) const override;
         [[nodiscard]] std::string name() const override;
+    private:
+        mutable std::atomic<uint64_t> m_render_calls{0};
     };
     class DefaultRenderer : public IRenderer {
     public:
         DefaultRenderer();
         ~DefaultRenderer() override;
-    protected:
-        void render_scene() override;
-        void render_gui() override;
-
-    public:
+        void initialise() override;
         [[nodiscard]] std::string name() const override;
     };
 }

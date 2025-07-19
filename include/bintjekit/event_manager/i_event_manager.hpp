@@ -22,9 +22,11 @@ namespace bnjkit::event {
         void configure() override;
         void on_quit() override;
         void set_modules(core::ModuleSet* modules);
-        virtual void process_events();
+        virtual void process_events() =0;
+
     protected:
         core::ModuleSet* m_modules;
+
     private:
         void process_imgui_events(sf::Event& event);
     };

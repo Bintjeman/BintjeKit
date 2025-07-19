@@ -32,8 +32,6 @@ namespace bnjkit::event {
         m_logger->trace("Setting modules");
         m_modules = modules;
     }
-    void IEventManager::process_events() {
-    }
     void IEventManager::process_imgui_events(sf::Event& event) {
         static auto& imgui_renderer = m_modules->imgui_renderer();
         imgui_renderer.process_events(event);
