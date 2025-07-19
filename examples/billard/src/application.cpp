@@ -15,7 +15,6 @@ namespace bil {
         m_logger->info("Application initialised");
         m_core = bnjkit::core::CoreBuilder()
         .build();
-        m_core->initialise();
     }
     void Application::run() {
         m_logger->info("Application started");

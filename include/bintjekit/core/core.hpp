@@ -9,15 +9,18 @@
 #include <filesystem>
 #include <memory>
 #include <spdlog/fwd.h>
-#include "module_set.hpp"
 #include "bintjekit/utils/time/time.hpp"
+
 namespace bnjkit::conf {
     class Settings;
 }
+
 namespace bnjkit::event {
     class EventManager;
 }
+
 namespace bnjkit::core {
+    class ModuleSet;
     class Core {
     public:
         enum class State {
@@ -62,7 +65,7 @@ namespace bnjkit::core {
         [[nodiscard]] long renderer_effective_frequency() const;
         [[nodiscard]] long window_effective_frequency() const;
         // Setters
-        void set_modules(ModuleSet&& modules);
+        void set_modules(std::unique_ptr<ModuleSet> modules);
         void set_state(const State& state);
         void set_engine_frequency(long frequency);
         void set_renderer_frequency(long frequency);
@@ -81,7 +84,7 @@ namespace bnjkit::core {
         bool m_initialized{false};
         bool m_configured{false};
         // Modules
-        ModuleSet m_modules;
+        std::unique_ptr<ModuleSet> m_modules;
         // Utilitaires
         std::shared_ptr<conf::Settings> m_settings;
         std::shared_ptr<spdlog::logger> m_logger;

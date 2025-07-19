@@ -6,6 +6,7 @@
 #ifndef BNJKIT_CORE_CORE_BUILDER_HPP
 #define BNJKIT_CORE_CORE_BUILDER_HPP
 #pragma once
+#include <memory>
 #include <spdlog/fwd.h>
 #include "module_set.hpp"
 namespace bnjkit::core {
@@ -23,7 +24,7 @@ namespace bnjkit::core {
          */
         template<typename T>
         CoreBuilder& set() {
-            m_modules_tmp.set_module<T>();
+            m_modules_tmp->set_module<T>();
             return * this;
         }
         /*!
@@ -33,7 +34,7 @@ namespace bnjkit::core {
          */
         std::unique_ptr<Core> build();
     private:
-        ModuleSet m_modules_tmp;
+        std::unique_ptr<ModuleSet> m_modules_tmp;
         std::shared_ptr<spdlog::logger> m_logger;
     };
 }

@@ -7,7 +7,6 @@
 int main() {
     bil::Application app;
     app.initialisation();
-
     app.run();
     return 0;
 }
