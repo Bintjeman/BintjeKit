@@ -21,6 +21,7 @@ namespace bnjkit::core {
         static void set_default_level(const spdlog::level::level_enum& level);
 
     private:
+        static std::shared_ptr<spdlog::logger> add_logger(const std::string& module_name,const spdlog::level::level_enum& level);
         static std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > s_loggers;
         static std::vector<spdlog::sink_ptr> s_sinks;
         static spdlog::level::level_enum s_default_level;
