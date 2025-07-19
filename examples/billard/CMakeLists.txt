@@ -32,3 +32,10 @@ target_include_directories(${EXEC_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/examples/billard/src
 )
 configure_target_options(${EXEC_NAME})
+set_target_properties(${EXEC_NAME} PROPERTIES
+        DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX}
+)
+install(TARGETS
+        ${EXEC_NAME}
+        RUNTIME DESTINATION bin
+)
