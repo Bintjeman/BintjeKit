@@ -18,7 +18,7 @@ namespace bil {
         bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::LOG, spdlog::level::info);
         bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::CONFIGURATION, spdlog::level::info);
         bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::WINDOW, spdlog::level::info);
-        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::EVENT, spdlog::level::info);
+        bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::EVENT, spdlog::level::trace);
         bnjkit::logger::Logger::set_module_level(bnjkit::literals::logger::RENDERER, spdlog::level::info);
         m_logger = bnjkit::logger::Logger::get_logger(bnjkit::literals::logger::APP);
         m_logger->info("Application initialised");

@@ -32,7 +32,9 @@ namespace bnjkit::renderer {
         void toggle_render_system(const std::string& name, bool enable);
         // utils
         [[nodiscard]] std::string name() const override;
-
+        // Views
+        [[nodiscard]] sf::View& engine_view();
+        [[nodiscard]] const sf::View& engine_view() const;
     protected:
         void begin_frame() const;
         void end_frame() const;

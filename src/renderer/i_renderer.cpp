@@ -117,4 +117,10 @@ namespace bnjkit::renderer {
     std::string IRenderer::name() const {
         return "IRenderer";
     }
+    sf::View& IRenderer::engine_view() {
+        return * m_world_view;
+    }
+    const sf::View& IRenderer::engine_view() const {
+        return * m_world_view;
+    }
 }
