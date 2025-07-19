@@ -15,6 +15,7 @@ namespace bil {
         Billard();
         ~Billard() override;
         void configure() override;
+        void add_ball();
         [[nodiscard]] std::string name() const override;
 
     private:

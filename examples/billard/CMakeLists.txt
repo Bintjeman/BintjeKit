@@ -6,11 +6,21 @@ add_executable(${EXEC_NAME})
 target_sources(${EXEC_NAME} PRIVATE
         src/main.cpp
         src/application.cpp
+        # Modules
         src/event/event_manager.cpp
         src/window/window.cpp
         src/engine/billard.cpp
         src/renderer/renderer.cpp
+        # Renders Systems
         src/renderer/background_renderer.cpp
+        # Prefab
+        src/engine/entity/ball_prefab.cpp
+        # Components
+        src/engine/components/radius_component.cpp
+        src/engine/components/velocity_compponent.cpp
+        src/engine/components/position_component.cpp
+        # Components entities
+        src/engine/components/entity.hpp
 )
 target_link_libraries(${EXEC_NAME} PRIVATE
         bintjekit::bintjekit
@@ -18,6 +28,6 @@ target_link_libraries(${EXEC_NAME} PRIVATE
         spdlog::spdlog
 )
 target_include_directories(${EXEC_NAME} PRIVATE
-    ${CMAKE_SOURCE_DIR}/examples/billard/src
+        ${CMAKE_SOURCE_DIR}/examples/billard/src
 )
 configure_target_options(${EXEC_NAME})

@@ -9,6 +9,8 @@
 #include <bintjekit/configuration/json_adapter.hpp>
 
 #include "bintjekit/engine/play_ground.hpp"
+#include "components/position_component.hpp"
+#include "entity/ball_prefab.hpp"
 
 namespace bil {
     Billard::Billard() {
@@ -38,6 +40,11 @@ namespace bil {
         const auto position = size / 2.0f;
         m_play_ground->position = position;
         m_play_ground->size = size;
+        BallPrefab prefab_ball;
+        prefab_ball.initialise();
+        register_prefab(prefab_ball.name, prefab_ball);
+    }
+    void Billard::add_ball() {
     }
     std::string Billard::name() const {
         return "BillardEngine";
