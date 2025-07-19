@@ -12,8 +12,6 @@
 #include "bintjekit/core/module_set.hpp"
 #include "engine/billard.hpp"
 #include "engine/components/entity.hpp"
-#include "engine/components/position_component.hpp"
-#include "engine/components/velocity_compponent.hpp"
 
 namespace bil {
     ImGuiRenderer::ImGuiRenderer() {
