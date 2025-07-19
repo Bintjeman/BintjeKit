@@ -10,4 +10,5 @@
 #include "window/window.hpp"
 #include "engine/billard.hpp"
 #include "renderer/renderer.hpp"
+#include "event/event_manager.hpp"
 #endif //MODULES_HPP

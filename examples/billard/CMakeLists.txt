@@ -6,6 +6,7 @@ add_executable(${EXEC_NAME})
 target_sources(${EXEC_NAME} PRIVATE
         src/main.cpp
         src/application.cpp
+        src/event/event_manager.cpp
         src/window/window.cpp
         src/engine/billard.cpp
         src/renderer/renderer.cpp
