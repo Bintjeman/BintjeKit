@@ -1,6 +1,8 @@
 Bintjekit est une petite bibliothèque pour m'aider à démarrer des petits projets en 2d (petites simulation, etc...) sans
 avoir à réécrire la base à chaque fois.
 
+Le but est d'être à la fois complet et à la fois simple... Et finalement n'est utilse que dans des cas très spécifiques...
+
 Elle est à un stade très précoce et évulue beaucoup selon mes projets.
 
 Elle utilise comme lib :
