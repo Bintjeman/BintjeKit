@@ -9,6 +9,7 @@
 #include <bintjekit/configuration/json_adapter.hpp>
 
 #include "bintjekit/engine/play_ground.hpp"
+#include "components/entity.hpp"
 #include "components/position_component.hpp"
 #include "entity/ball_prefab.hpp"
 
@@ -16,15 +17,22 @@ namespace bil {
     Billard::Billard() {
         m_logger->info("BillardEngine created");
     }
+
     Billard::~Billard() {
         m_logger->info("BillardEngine destroyed");
     }
+
     void Billard::configure() {
         m_logger->trace("BillardEngine configuration");
         const auto node = m_settings.root().create_child("/Billard"_json_pointer);
         set_custom(node);
         const auto orientation = m_custom_settings.get_or_set("/Orientation", std::string("Vertical"));
-        auto size = m_custom_settings.get_or_set("/Size", sf::Vector2f{2090, 1190});
+        auto size = m_custom_settings.get_or_set("/Size",
+                                                 sf::Vector2f{2090, 1190}
+        );
+        m_max_ball = m_custom_settings.get_or_set("/Rules/Maximum balls", 25ul);
+        m_min_ball = m_custom_settings.get_or_set("/Rules/Minimum balls", 5ul);
+        // Configure
         auto x = size.x;
         auto y = size.y;
         if (orientation == "Vertical") {
@@ -44,11 +52,23 @@ namespace bil {
         prefab_ball.initialise();
         register_prefab("aleaball", prefab_ball);
     }
+
     void Billard::add_ball() {
-        for (unsigned int i = 0; i < 1000; i++) {
+        auto balls_view = registry().view<components::BallFlag>();
+        if (balls_view.size() < m_max_ball) {
             spawn_prefab("aleaball");
         }
     }
+
+    void Billard::update() {
+        auto balls_view = registry().view<components::BallFlag>();
+        if (balls_view.size() < m_min_ball) {
+            add_ball();
+        }
+        if (balls_view.size() > m_max_ball) {
+        }
+    }
+
     std::string Billard::name() const {
         return "BillardEngine";
     }

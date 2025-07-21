@@ -33,7 +33,7 @@ namespace bnjkit::engine {
         template<typename... Components>
         entt::entity spawn(Components&&... components);
 
-        void update();
+        virtual void update();
 
         [[nodiscard]] PlayGround& play_ground();
         [[nodiscard]] const PlayGround& play_ground() const;
