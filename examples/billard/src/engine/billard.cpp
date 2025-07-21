@@ -6,6 +6,7 @@
 
 #include "billard.hpp"
 #include <SFML/System/Vector2.hpp>
+#include <bintjekit/configuration/node.hpp>
 #include <bintjekit/configuration/json_adapter.hpp>
 
 #include "bintjekit/engine/play_ground.hpp"
@@ -49,8 +50,8 @@ namespace bil {
         m_play_ground->position = position;
         m_play_ground->size = size;
         BallPrefab prefab_ball;
-        prefab_ball.initialise();
-        register_prefab("aleaball", prefab_ball);
+        prefab_ball.initialise(*this, m_custom_settings.create_child("/Prefab ball"_json_pointer));
+        register_prefab("aleaball", static_cast<bnjkit::ecs::PrefabData>(prefab_ball));
     }
 
     void Billard::add_ball() {

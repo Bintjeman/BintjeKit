@@ -10,16 +10,26 @@
 
 #include <bintjekit/ecs/prefab/prefab.hpp>
 
+#include <SFML/Graphics/Rect.hpp>
+
+namespace bnjkit::conf {
+    class Node;
+}
+
 namespace bil {
     class Billard;
 }
 
 namespace bil {
     class BallPrefab : public bnjkit::ecs::PrefabData {
-        public:
+    public:
         void initialise();
+        void initialise(const bnjkit::engine::IEngine& engine, bnjkit::conf::Node node);
 
     public:
+        sf::Rect<float> m_bounds{{0.f, 0.f}, {200.f, 200.f}};
+        float m_speed_max{0.f};
+        float m_radius{10.f};
     };
 } // bil
 
