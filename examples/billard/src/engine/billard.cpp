@@ -31,8 +31,6 @@ namespace bil {
         auto size = m_custom_settings.get_or_set("/Size",
                                                  sf::Vector2f{2090, 1190}
         );
-        m_max_ball = m_custom_settings.get_or_set("/Rules/Maximum balls", 25ul);
-        m_min_ball = m_custom_settings.get_or_set("/Rules/Minimum balls", 5ul);
         // Configure
         auto x = size.x;
         auto y = size.y;
@@ -47,11 +45,13 @@ namespace bil {
         }
         size = sf::Vector2f{x, y};
         const auto position = size / 2.0f;
-        m_play_ground->position = position;
-        m_play_ground->size = size;
+        m_play_ground->set_bounds(position, size);
+        m_max_ball = m_custom_settings.get_or_set("/Rules/Maximum balls", 25ul);
+        m_min_ball = m_custom_settings.get_or_set("/Rules/Minimum balls", 5ul);
         BallPrefab prefab_ball;
-        prefab_ball.initialise(*this, m_custom_settings.create_child("/Prefab ball"_json_pointer));
+        prefab_ball.initialise(* this, m_custom_settings.create_child("/Prefab ball"_json_pointer));
         register_prefab("aleaball", static_cast<bnjkit::ecs::PrefabData>(prefab_ball));
+        m_logger->debug("PlayGround configured with size: ({}, {})", size.x, size.y);
     }
 
     void Billard::add_ball() {
@@ -66,8 +66,7 @@ namespace bil {
         if (balls_view.size() < m_min_ball) {
             add_ball();
         }
-        if (balls_view.size() > m_max_ball) {
-        }
+        if (balls_view.size() > m_max_ball) {}
     }
 
     std::string Billard::name() const {

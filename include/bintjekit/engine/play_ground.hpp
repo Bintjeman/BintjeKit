@@ -17,21 +17,26 @@
 namespace bnjkit::engine {
     struct PlayGround {
         PlayGround();
+        PlayGround(const sf::Rect<float>& bounds);
+        PlayGround(const sf::Vector2f& position, const sf::Vector2f& size);
         ~PlayGround();
         void initialise() const;
         void configure() const;
         void update();
         [[nodiscard]] long int ticks() const;
+        void set_bounds(const sf::Rect<float>& bounds);
+        void set_bounds(const sf::Vector2f& position, const sf::Vector2f& size);
+        void set_position(const sf::Vector2f& position);
+        void set_size(const sf::Vector2f& size);
         [[nodiscard]] sf::Rect<float> bounds() const;
+        [[nodiscard]] sf::Vector2f size() const;
+        [[nodiscard]] sf::Vector2f position() const;
         // Data members
-        sf::Vector2f size = {0.f, 0.f};
-        sf::Vector2f position = {0.f, 0.f};
-
-    protected:
-        std::shared_ptr<spdlog::logger> m_logger;
 
     private:
         long int m_ticks_counter = 0;
+        sf::Rect<float> m_bounds{{0.f, 0.f}, {0.f, 0.f}};
+        std::shared_ptr<spdlog::logger> m_logger;
     };
 }
 

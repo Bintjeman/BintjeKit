@@ -6,8 +6,11 @@
 #include "ball_prefab.hpp"
 #include <entt/entt.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <bintjekit/utils/fmt_sfml/fmt_sfml.hpp>
 #include <bintjekit/utils/random/random_engine.hpp>
 #include <bintjekit/configuration/node.hpp>
+
+#include "bintjekit/core/core.hpp"
 #include "bintjekit/engine/play_ground.hpp"
 #include "bintjekit/utils/d2/d2.hpp"
 #include "engine/billard.hpp"
@@ -19,7 +22,8 @@
 namespace bil {
     void BallPrefab::initialise() {
         spawn = [this](bnjkit::engine::IEngine& engine) -> entt::entity {
-            const auto billard = dynamic_cast<Billard*>(&engine);
+            auto logger = bnjkit::logger::Logger::get_logger(bnjkit::literals::logger::ENTITY);
+            const auto billard = dynamic_cast<Billard*>(& engine);
             const auto entity = billard->registry().create();
             auto randomposition = [](const sf::Rect<float>& bounds) {
                 const float x = bnjkit::utils::random::RandomEngine::get_float(bounds.position.x,
@@ -30,6 +34,10 @@ namespace bil {
                 );
                 return sf::Vector2f(x, y);
             };
+            if (m_bounds.size.x < 0.0f || m_bounds.size.y < 0.0f) {
+                logger->error("Bounds size is negative");
+                return entt::null;
+            }
             sf::Vector2f position = randomposition(m_bounds);
             billard->registry().emplace<components::PositionComponent>(entity, position);
             billard->registry().emplace<components::RadiusComponent>(entity, m_radius);
@@ -50,12 +58,15 @@ namespace bil {
                 };
                 billard->registry().emplace<components::VelocityComponent>(entity, velocity());
             }
+            logger->trace("Entity position: ({}, {})", position.x, position.y);
+            logger->trace("Entity radius: {}", m_radius);
+            logger->trace("Entity speed: {}", m_speed_max);
             return entity;
         };
     }
 
     void BallPrefab::initialise(const bnjkit::engine::IEngine& engine, bnjkit::conf::Node node) {
-        const auto billard = dynamic_cast<const Billard*>(&engine);
+        const auto billard = dynamic_cast<const Billard*>(& engine);
         m_radius = node.get_or_set("/Radius", 10.0f);
         m_speed_max = node.get_or_set("/SpeedMax", 2.0f);
         const auto billard_bounds = billard->play_ground().bounds();
