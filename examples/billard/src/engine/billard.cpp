@@ -44,7 +44,7 @@ namespace bil {
             }
         }
         size = sf::Vector2f{x, y};
-        const auto position = size / 2.0f;
+        const auto position = - 1.f * size / 2.0f;
         m_play_ground->set_bounds(position, size);
         m_max_ball = m_custom_settings.get_or_set("/Rules/Maximum balls", 25ul);
         m_min_ball = m_custom_settings.get_or_set("/Rules/Minimum balls", 5ul);
@@ -53,14 +53,12 @@ namespace bil {
         register_prefab("aleaball", static_cast<bnjkit::ecs::PrefabData>(prefab_ball));
         m_logger->debug("PlayGround configured with size: ({}, {})", size.x, size.y);
     }
-
     void Billard::add_ball() {
         auto balls_view = registry().view<components::BallFlag>();
         if (balls_view.size() < m_max_ball) {
             spawn_prefab("aleaball");
         }
     }
-
     void Billard::update() {
         auto balls_view = registry().view<components::BallFlag>();
         if (balls_view.size() < m_min_ball) {
