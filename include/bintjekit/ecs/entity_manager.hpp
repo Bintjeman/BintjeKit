@@ -11,27 +11,28 @@
 namespace bnjkit::ecs {
     class EntityManager {
     public:
+        /*!
+         * Class helper pour la gestion des entity avec entt.
+         */
         EntityManager();
         virtual ~EntityManager();
-        // Accès au registry EnTT sous-jacent
+        /*!
+         * @return Le registre entt des entités
+         */
         entt::registry& registry();
         [[nodiscard]] const entt::registry& registry() const;
 
-        // Méthodes utilitaires de base
         template<typename... Components>
         entt::entity create(Components&&... components);
 
         void destroy(entt::entity entity);
 
-        // Helper pour obtenir un composant
         template<typename T>
         T& get(entt::entity entity);
 
-        // Helper pour ajouter un composant
         template<typename T, typename... Args>
         T& add(entt::entity entity, Args&&... args);
 
-        // Helper pour les vues
         template<typename... Components>
         auto view();
 

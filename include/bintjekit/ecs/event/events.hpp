@@ -12,6 +12,11 @@
 #pragma once
 #include <entt/entity/entity.hpp>
 namespace bnjkit::ecs {
+    /*!
+     * @todo implémenter cette class
+     *
+     * Pour l'instant cette class n'est pas du tout utilisée.
+     */
     struct EntitySpawnedEvent {
         entt::entity entity;
     };

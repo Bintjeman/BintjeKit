@@ -14,6 +14,15 @@ namespace bnjkit::engine {
 }
 
 namespace bnjkit::ecs {
+    /*!
+     * Class interface et générique pour tout les systems
+     *
+     * Utilisée par plusieurs types de system (@ref bnjkit::renderer::IRenderSystem) typiquement dnas des gestionnaires de systems
+     * par exemple @ref bnjkit::renderer::RenderSystemManager.
+     *
+     * @see bnjkit::Renderer
+     * @see bnjkit::Engine
+     */
     class ISystem {
     public:
         ISystem();

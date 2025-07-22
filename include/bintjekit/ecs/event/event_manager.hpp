@@ -11,6 +11,11 @@
 #include <memory>
 
 namespace bnjkit::ecs {
+    /*!
+     * @todo Implémenter cette class
+     *
+     * Pour l'instant cette class n'est pas du tout utilisée.
+     */
     class IEventDispatcher {
     public:
         virtual ~IEventDispatcher();

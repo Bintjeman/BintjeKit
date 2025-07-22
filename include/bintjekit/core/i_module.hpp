@@ -23,7 +23,9 @@ namespace bnjkit::core {
          */
         virtual void initialise();
         /*!
-         * Configure les données et les membres avec le @see @ref bnjkit::conf::Node
+         * Configure les données et les membres avec le @ref bnjkit::conf::Node
+         *
+         * @see bnjkit::conf
          */
         virtual void configure();
         /*!
@@ -37,6 +39,11 @@ namespace bnjkit::core {
          */
         void configure(const conf::Node& settings, const conf::Node& custom_settings = conf::Node());
         void set_settings(const conf::Node& settings);
+        /*!
+         * Permet d'avoir un deuxième jeu de donnée avec un autre pointeur.
+         *
+         * @param settings Configure custom_settings avec les données en paramètres
+         */
         void set_custom(const conf::Node& settings);
         [[nodiscard]] virtual std::string name() const =0;
 

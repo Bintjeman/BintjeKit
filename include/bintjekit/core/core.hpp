@@ -71,6 +71,12 @@ namespace bnjkit::core {
         void set_renderer_frequency(long frequency);
         void set_window_frequency(long frequency);
         void set_settings(const std::shared_ptr<conf::Settings>& settings);
+        /*!
+         * Écris les settings @ref bnjkit::conf::Settings dans le fichier par default.
+         *
+         * @see bnjkit::conf
+         * @see nlohmann::json
+         */
         void save_settings() const;
 
     protected:

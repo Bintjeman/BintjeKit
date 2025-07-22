@@ -17,7 +17,7 @@
 namespace bnjkit::engine {
     struct PlayGround {
         PlayGround();
-        PlayGround(const sf::Rect<float>& bounds);
+        explicit PlayGround(const sf::Rect<float>& bounds);
         PlayGround(const sf::Vector2f& position, const sf::Vector2f& size);
         ~PlayGround();
         void initialise() const;

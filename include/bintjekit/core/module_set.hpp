@@ -25,7 +25,7 @@ namespace bnjkit {
 
 namespace bnjkit::core {
     /*!
-     * Enemble de modules requis par la class @see @ref cnjkit::core::Core et partagés par les autres modules
+     * Ensemble de modules requis par la class @see @ref cnjkit::core::Core et partagés par les autres modules
      */
     class ModuleSet {
     public:
@@ -60,14 +60,34 @@ namespace bnjkit::core {
         /*!
          * Vérifie si tous les modules sont bien valide.
          * @param create_missing Si true, crée les module invalide par default.
-         * @return false si au moins un module n'était pas valide
+         * @return False si au moins un module n'était pas valide
          */
         bool check_modules(bool create_missing = true);
+        /*!
+         * Lie les modules entre eux.
+         *
+         * @return True si tout les module sont valides
+         */
         bool set_modules();
+        /*!
+         * Appel la fonction initialise de chaque module
+         */
         void initialise();
+        /*!
+         * Appel la fonction configure de chaque module
+         */
         void configure();
+        /*!
+         * @todo Implémenter cette methode Ou la supprimer.
+         */
         void update();
+        /*!
+         * @todo Implémenter cette méthode. Ou la supprimer.
+         */
         void cleanup();
+        /*!
+         * Appel la fonction on_quit de chaque module
+         */
         void on_quit();
 
     private:

@@ -12,6 +12,11 @@
 #include <vector>
 #include <spdlog/fwd.h>
 namespace bnjkit::ecs {
+    /*!
+     * Structure aidant la gestion des @ref bnjkit::ecs::ISystem avec des métadonnées utiles.
+     *
+     * @tparam SystemType Le type de sous-system (par exemple @ref bnjkit::renderer::RenderSystemManager)
+     */
     template<typename SystemType>
     struct SystemEntry {
         SystemEntry(std::unique_ptr<SystemType> sys, std::string n = {}, bool e = true);
@@ -19,6 +24,12 @@ namespace bnjkit::ecs {
         std::string name;
         bool enabled;
     };
+    /*!
+     * Class permettant de gérer l'enregistrement de systèmes utiles pour la manipulation des composants et entité ECS (entt).
+     *
+     * @tparam SystemType Donne la possibilité de redéfinir la façon dont le gestionnaire de systèmes gère les priorités.
+     * @tparam PriorityType Le type de sous-system (par exemple @ref bnjkit::renderer::RenderSystemManager)
+     */
     template<typename SystemType, typename PriorityType>
     class SystemManager {
     public:

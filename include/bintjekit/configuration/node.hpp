@@ -66,14 +66,6 @@ namespace bnjkit::conf {
          */
         void reset_to_defaults() const;
         /*!
-         * @return Le pointeur sur la branche courante du node
-         */
-        [[nodiscard]] std::shared_ptr<spdlog::logger>& logger();
-        /*!
-         * @return Le pointeur sur la branche courante du node
-         */
-        [[nodiscard]] std::shared_ptr<spdlog::logger> const& logger() const;
-        /*!
          * Retourne un node fille de this. Les données sont identiques et
          * partagées
          *

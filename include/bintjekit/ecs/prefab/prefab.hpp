@@ -35,10 +35,15 @@ namespace bnjkit::ecs {
      */
     class PrefabData {
         public:
-        // Fonction générique de spawn qui retourne une entité
+        /*!
+         * La fonction à définir dans les class héritant de PrefabData pour pouvoir l'appeler depuis une
+         * class héritant de @ref bnjkit::engine::IEngine
+         *
+         * @see bnjkit::engine::DefaultEngine
+         * @see bil::BallPrefab
+         */
         std::function<entt::entity(engine::IEngine &)> spawn;
-        // Métadonnées optionnelles (utile pour le debugging/logging)
-        std::string name;
+        std::string name; //< Métadonnée utile pour le deboggage.
     };
 }
 
