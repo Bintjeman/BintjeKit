@@ -7,11 +7,11 @@ Elle est à un stade très précoce et évolue beaucoup selon mes projets.
 
 Elle utilise comme lib :
 
-- SFML
-- ImGui
-- SFML-ImGui
-- Nlohmann/Json
-- spdlog (fmt)
-- EnTT
+- [SFML](https://github.com/SFML/SFML)
+- [Dear ImGui](https://github.com/ocornut/imgui)
+- [imgui-sfml](https://github.com/SFML/imgui-sfml)
+- [json](https://github.com/nlohmann/json)
+- [spdlog](https://github.com/gabime/spdlog)
+- [entt](https://github.com/skypjack/entt)
 
 J'essaie d'être cohérent, mais comme j'apprends en faisant... Parfois des meilleures techniques sont utilisables...
