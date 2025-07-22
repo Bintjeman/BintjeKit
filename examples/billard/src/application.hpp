@@ -12,6 +12,9 @@
 namespace bnjkit::core {
     class Core;
 }
+namespace bnjkit::conf {
+    class Node;
+}
 namespace bil {
     class Application {
     public:
@@ -22,6 +25,8 @@ namespace bil {
         void run();
         std::shared_ptr<spdlog::logger> logger();
     private:
+        void update_setting();
+        void init_logger(bnjkit::conf::Node& node);
         std::unique_ptr<bnjkit::core::Core> m_core;
         std::shared_ptr<spdlog::logger> m_logger;
     };

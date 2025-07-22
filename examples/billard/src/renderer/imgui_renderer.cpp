@@ -8,8 +8,9 @@
 
 #include <spdlog/spdlog.h>
 #include <imgui.h>
-
-#include "bintjekit/core/module_set.hpp"
+#include <bintjekit/logger/logger.hpp>
+#include <bintjekit/configuration/settings.hpp>
+#include <bintjekit/core/module_set.hpp>
 #include "engine/billard.hpp"
 #include "engine/components/entity.hpp"
 
@@ -60,7 +61,7 @@ namespace bil {
 #endif
         if (m_show_billard_window) {
             ImGui::Begin("Billard", & m_show_billard_window);
-            auto ball_view = billard.registry().view<components::BallFlag>();
+            const auto ball_view = billard.registry().view<components::BallFlag>();
             std::size_t ball_count = ball_view.size();
             ImGui::Text("Balls: %lu", ball_count);
             ImGui::End();
@@ -68,30 +69,11 @@ namespace bil {
         if (m_show_controls_window) {
             ImGui::Begin("Controls", & m_show_controls_window);
             if (ImGui::CollapsingHeader("Loggers")) {
-                static const char* level_enum[] = {
-                    spdlog::level::to_string_view(spdlog::level::trace).data(),
-                    spdlog::level::to_string_view(spdlog::level::debug).data(),
-                    spdlog::level::to_string_view(spdlog::level::info).data(),
-                    spdlog::level::to_string_view(spdlog::level::warn).data(),
-                    spdlog::level::to_string_view(spdlog::level::err).data(),
-                    spdlog::level::to_string_view(spdlog::level::critical).data()
-                };
-                static constexpr auto logger_enum = std::array<std::string, 10>{
-                    bnjkit::literals::logger::APP,
-                    bnjkit::literals::logger::ENGINE,
-                    bnjkit::literals::logger::RENDERER,
-                    bnjkit::literals::logger::WINDOW,
-                    bnjkit::literals::logger::EVENT,
-                    bnjkit::literals::logger::ENTITY,
-                    bnjkit::literals::logger::CONFIGURATION,
-                    bnjkit::literals::logger::CONFIGURATION,
-                    bnjkit::literals::logger::ECS,
-                    bnjkit::literals::logger::LOG
-                };
-                for (auto& logger_name: logger_enum) {
-                    auto logger = bnjkit::logger::Logger::get_logger(logger_name);
+                for (auto& logger_name: bnjkit::literals::logger_enum) {
+                    const auto logger = bnjkit::logger::Logger::get_logger(logger_name);
                     int level = logger->level();
-                    if (ImGui::Combo(logger_name.c_str(), &level, level_enum, IM_ARRAYSIZE(level_enum))) {
+                    if (ImGui::Combo(logger_name.c_str(), &level, bnjkit::logger::level_enum, IM_ARRAYSIZE(bnjkit::logger::level_enum))) {
+                        m_logger->info("Setting level of {} to {}", logger_name, level);
                         logger->set_level(static_cast<spdlog::level::level_enum>(level));
                     }
                 }

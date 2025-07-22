@@ -29,5 +29,13 @@ namespace bnjkit::logger {
         static bool s_initialized;
 
     };
+    static const char* level_enum[] = {
+        spdlog::level::to_string_view(spdlog::level::trace).data(),
+        spdlog::level::to_string_view(spdlog::level::debug).data(),
+        spdlog::level::to_string_view(spdlog::level::info).data(),
+        spdlog::level::to_string_view(spdlog::level::warn).data(),
+        spdlog::level::to_string_view(spdlog::level::err).data(),
+        spdlog::level::to_string_view(spdlog::level::critical).data()
+    };
 }
 #endif // BNJKIT_CORE_LOGGER_HPP
