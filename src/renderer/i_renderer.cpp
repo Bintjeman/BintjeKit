@@ -29,11 +29,15 @@ namespace bnjkit::renderer {
         m_logger->trace("IRenderer: Initialising IRenderer");
         IModule::initialise();
         m_render_system_manager.initialise();
+    }
+    void IRenderer::initialise_views() {
+        m_logger->trace("IRenderer: Initialising views");
         const auto& window = dynamic_cast<sf::RenderWindow&>(m_modules->window());
         auto& default_view = window.getDefaultView();
         m_world_view = std::make_shared<sf::View>(default_view);
         m_gui_view = std::make_shared<sf::View>(default_view);
         m_render_system_manager.set_default_view(m_world_view, true);
+        resize_views();
     }
     void IRenderer::configure() {
         m_logger->trace("IRenderer: Configuring IRenderer");

@@ -22,6 +22,7 @@ namespace bnjkit::renderer {
         IRenderer();
         ~IRenderer() override;
         void initialise() override;
+        void initialise_views();
         void configure() override;
         void set_modules(core::ModuleSet* modules);
         void render();

@@ -130,6 +130,8 @@ namespace bnjkit::core {
         m_engine->initialise();
         m_renderer->initialise();
         m_imgui_renderer->initialise();
+        // Special initializer
+        m_renderer->initialise_views();
     }
 
     void ModuleSet::configure() {
