@@ -24,8 +24,6 @@ namespace bnjkit::window {
     }
     void IMainWindow::show() {
         m_logger->trace("Showing IMainWindow");
-        std::string title = name();
-        create(sf::VideoMode({800, 600}), title);
         on_show();
     }
     void IMainWindow::close() {
