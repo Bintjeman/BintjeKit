@@ -73,6 +73,7 @@ namespace bnjkit::conf {
          * @return Un node fille avec les mêmes données
          */
         [[nodiscard]] Node create_child(const nlohmann::json::json_pointer& key) const;
+        [[nodiscard]] Node create_child(const std::string& key) const;
         [[nodiscard]] Node root() const;
         /*!
          *

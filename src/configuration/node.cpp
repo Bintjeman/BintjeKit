@@ -56,6 +56,9 @@ namespace bnjkit::conf {
         m_logger->trace("Child branch: {}", child_branch.to_string());
         return Node(m_json, child_branch);
     }
+    Node Node::create_child(const std::string& key) const {
+        return create_child(nlohmann::json::json_pointer(key));
+    }
     Node Node::root() const {
         return Node(m_json, nlohmann::json::json_pointer());
     }
