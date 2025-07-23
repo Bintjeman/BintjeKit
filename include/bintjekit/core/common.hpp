@@ -6,6 +6,8 @@
 #ifndef BNJKIT_CORE_COMMON_HPP
 #define BNJKIT_CORE_COMMON_HPP
 #pragma once
+#include <array>
+#include <string>
 namespace bnjkit::literals::logger {
     // constexpr auto NONE = "";
     constexpr auto APP = "APP";
