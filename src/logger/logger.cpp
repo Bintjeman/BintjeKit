@@ -9,24 +9,23 @@
 #include "bintjekit/core/common.hpp"
 
 namespace bnjkit::logger {
+    std::filesystem::path Logger::s_log_path{"bnjlog.log"};
     std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > Logger::s_loggers;
     std::vector<spdlog::sink_ptr> Logger::s_sinks;
     spdlog::level::level_enum Logger::s_default_level = spdlog::level::info;
     bool Logger::s_initialized = false;
-    void Logger::initialize(const spdlog::level::level_enum& level) {
+    void Logger::initialize(const std::filesystem::path& default_path, const spdlog::level::level_enum& default_level) {
+        set_log_path(default_path);
+        set_default_level(default_level);
         if (s_initialized) {
             s_loggers.at(literals::logger::LOG)->info("Logger already initialised");
             return;
         }
-        s_default_level = level;
         spdlog::enable_backtrace(32);
         const auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
         console_sink->set_pattern("%^[%T] [%-8l] [%-8n] : %v%$");
         s_sinks.push_back(console_sink);
-        const auto file_sink = std::make_shared<
-            spdlog::sinks::basic_file_sink_mt>("bnjkit.log", true);
-        file_sink->set_pattern("[%T] [%-8l] [%-8n] : %v");
-        s_sinks.push_back(file_sink);
+        s_sinks.push_back(file_sink());
         add_logger(bnjkit::literals::logger::LOG, s_default_level);
         s_initialized = true;
     }
@@ -46,6 +45,18 @@ namespace bnjkit::logger {
     void Logger::set_default_level(const spdlog::level::level_enum& level) {
         s_default_level = level;
     }
+    void Logger::set_log_path(const std::filesystem::path& path) {
+        s_log_path = path;
+        for (auto& sink: s_sinks) {
+            auto file_sink = std::dynamic_pointer_cast<spdlog::sinks::basic_file_sink_mt>(sink);
+            if (file_sink) {
+                sink = Logger::file_sink();
+            }
+        }
+    }
+    std::filesystem::path Logger::get_log_path() {
+        return s_log_path;
+    }
     std::shared_ptr<spdlog::logger> Logger::add_logger(const std::string& module_name,
                                                        const spdlog::level::level_enum& level) {
         auto logger = std::make_shared<spdlog::logger>(module_name, s_sinks.begin(),
@@ -58,6 +69,11 @@ namespace bnjkit::logger {
             s_loggers.at(literals::logger::LOG)->info("Logger \"{}\" initialised", module_name.c_str());
         }
         return logger;
+    }
+    spdlog::sink_ptr Logger::file_sink() {
+        auto new_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(s_log_path, true);
+        new_sink->set_pattern("[%T] [%-8l] [%-8n] : %v");
+        return new_sink;
     }
     void Logger::shutdown() {
         get_logger(literals::logger::LOG)->info("Shutting down logger");

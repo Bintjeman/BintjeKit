@@ -72,7 +72,7 @@ namespace bil {
                 for (auto& logger_name: bnjkit::literals::logger_enum) {
                     const auto logger = bnjkit::logger::Logger::get_logger(logger_name);
                     int level = logger->level();
-                    if (ImGui::Combo(logger_name.c_str(), &level, bnjkit::logger::level_enum, IM_ARRAYSIZE(bnjkit::logger::level_enum))) {
+                    if (ImGui::Combo(logger_name.c_str(), &level, bnjkit::logger::LEVEL_ENUM, IM_ARRAYSIZE(bnjkit::logger::LEVEL_ENUM))) {
                         m_logger->info("Setting level of {} to {}", logger_name, level);
                         logger->set_level(static_cast<spdlog::level::level_enum>(level));
                     }
