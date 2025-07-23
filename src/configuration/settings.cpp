@@ -52,6 +52,11 @@ namespace bnjkit::conf {
         if (path.empty()) {
             p = m_path;
         } else { p = path; }
+        if (p.empty()) {
+            m_logger->error("Empty save path");
+            m_logger->warn("Use \"settings.json\"");
+            p = "settings.json";
+        }
         std::string str = m_json->dump();
         m_logger->trace("Saving settings to file: {}", p.string());
         m_logger->trace("Settings: {}", str);
