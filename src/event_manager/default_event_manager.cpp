@@ -9,6 +9,7 @@
 
 #include "bintjekit/core/module_set.hpp"
 #include "bintjekit/event_manager/event_helper.hpp"
+#include "bintjekit/renderer/i_imgui_renderer.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 
@@ -26,7 +27,9 @@ namespace bnjkit::event {
     void DefaultEventManager::process_events() {
         static auto& window = m_modules->window();
         static auto& renderer = m_modules->renderer();
+        static auto& imgui_renderer = m_modules->imgui_renderer();
         while (const auto& event = window.pollEvent()) {
+            imgui_renderer.process_events(*event);
             if (event->is<sf::Event::Closed>()) {
                 window.request_close();
             }
