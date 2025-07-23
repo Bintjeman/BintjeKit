@@ -14,6 +14,7 @@ namespace bnjkit::window {
         DefaultMainWindow();
         ~DefaultMainWindow() override;
         [[nodiscard]] std::string name() const override;
+        void show() override;
     };
 }
 #endif //BINTJEKIT_WINDOW_DEFAULT_MAIN_WINDOW_HPP

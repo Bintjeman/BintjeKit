@@ -15,4 +15,9 @@ namespace bnjkit::window {
     std::string DefaultMainWindow::name() const {
         return "DefaultMainWindow";
     }
+    void DefaultMainWindow::show() {
+        m_logger->warn("DefaultMainWindow show");
+        create(sf::VideoMode{{200,200}}, "DefaultMainWindow");
+        IMainWindow::show();
+    }
 }
