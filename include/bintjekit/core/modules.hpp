@@ -10,7 +10,7 @@
  *     - bnjkit::event::IEventManager
  *     - bnjkit::engine::IEngine
  *     - bnjkit::renderer::IRenderer
- *     - bnjkit::renderer::IImGuiRenderer
+ *     - bnjkit::imgui::IImGuiRenderer
  * @}
  */
 #ifndef BINTJEKIT_CORE_MODULES_HPP
@@ -20,5 +20,5 @@
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
-#include "bintjekit/renderer/i_imgui_renderer.hpp"
+#include "../imgui/i_imgui_renderer.hpp"
 #endif // BINTJEKIT_CORE_MODULES_HPP

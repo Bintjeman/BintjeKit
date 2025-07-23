@@ -9,7 +9,7 @@
 
 #include "bintjekit/core/module_set.hpp"
 #include "bintjekit/event_manager/event_helper.hpp"
-#include "bintjekit/renderer/i_imgui_renderer.hpp"
+#include "../../include/bintjekit/imgui/i_imgui_renderer.hpp"
 #include "bintjekit/renderer/i_renderer.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 

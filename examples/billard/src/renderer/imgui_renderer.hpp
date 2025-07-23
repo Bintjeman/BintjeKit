@@ -6,9 +6,9 @@
 #ifndef IM_GUI_RENDERER_HPP
 #define IM_GUI_RENDERER_HPP
 #pragma once
-#include <bintjekit/renderer/i_imgui_renderer.hpp>
+#include <../../../../include/bintjekit/imgui/i_imgui_renderer.hpp>
 namespace bil {
-    class ImGuiRenderer final : public bnjkit::renderer::IImGuiRenderer {
+    class ImGuiRenderer final : public bnjkit::imgui::IImGuiRenderer {
     public:
         ImGuiRenderer();
         ~ImGuiRenderer() override;

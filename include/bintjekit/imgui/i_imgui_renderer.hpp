@@ -8,7 +8,6 @@
 #pragma once
 #include <memory>
 #include "bintjekit/core/i_module.hpp"
-
 namespace sf {
     class RenderWindow;
     class Event;
@@ -18,6 +17,8 @@ namespace bnjkit::core {
 }
 namespace bnjkit::renderer {
     class IRenderer;
+}
+namespace bnjkit::imgui {
     class IImGuiRenderer : public core::IModule {
         class ImGuiContext {
         public:

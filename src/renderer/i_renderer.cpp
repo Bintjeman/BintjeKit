@@ -11,7 +11,7 @@
 #include "bintjekit/core/module_set.hpp"
 #include "bintjekit/engine/i_engine.hpp"
 #include "bintjekit/engine/play_ground.hpp"
-#include "bintjekit/renderer/i_imgui_renderer.hpp"
+#include "../../include/bintjekit/imgui/i_imgui_renderer.hpp"
 #include "bintjekit/renderer/i_render_system.hpp"
 #include "bintjekit/window/i_main_window.hpp"
 

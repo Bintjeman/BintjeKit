@@ -31,7 +31,7 @@ namespace bnjkit::core {
     renderer::IRenderer& ModuleSet::renderer() {
         return * m_renderer;
     }
-    renderer::IImGuiRenderer& ModuleSet::imgui_renderer() {
+    imgui::IImGuiRenderer& ModuleSet::imgui_renderer() {
         return * m_imgui_renderer;
     }
     window::IMainWindow& ModuleSet::window() const {
@@ -46,7 +46,7 @@ namespace bnjkit::core {
     renderer::IRenderer& ModuleSet::renderer() const {
         return * m_renderer;
     }
-    renderer::IImGuiRenderer& ModuleSet::imgui_renderer() const {
+    imgui::IImGuiRenderer& ModuleSet::imgui_renderer() const {
         return * m_imgui_renderer;
     }
     void ModuleSet::set_window(std::unique_ptr<window::IMainWindow> window) {
@@ -65,7 +65,7 @@ namespace bnjkit::core {
         m_logger->trace("Setting renderer");
         m_renderer = std::move(renderer);
     }
-    void ModuleSet::set_imgui_renderer(std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer) {
+    void ModuleSet::set_imgui_renderer(std::unique_ptr<imgui::IImGuiRenderer> imgui_renderer) {
         m_logger->trace("Setting imgui renderer");
         m_imgui_renderer = std::move(imgui_renderer);
     }
@@ -108,7 +108,7 @@ namespace bnjkit::core {
             result = false;
             if (create_missing) {
                 m_logger->warn("Making default imgui renderer");
-                m_imgui_renderer = std::make_unique<renderer::IImGuiRenderer>();
+                m_imgui_renderer = std::make_unique<imgui::IImGuiRenderer>();
             }
         }
         return result;

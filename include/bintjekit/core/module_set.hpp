@@ -19,6 +19,8 @@ namespace bnjkit {
     }
     namespace renderer {
         class IRenderer;
+    }
+    namespace imgui {
         class IImGuiRenderer;
     }
 }
@@ -41,13 +43,13 @@ namespace bnjkit::core {
         event::IEventManager& event_manager();
         engine::IEngine& engine();
         renderer::IRenderer& renderer();
-        renderer::IImGuiRenderer& imgui_renderer();
+        imgui::IImGuiRenderer& imgui_renderer();
         // Getter modules const
         [[nodiscard]] window::IMainWindow& window() const;
         [[nodiscard]] event::IEventManager& event_manager() const;
         [[nodiscard]] engine::IEngine& engine() const;
         [[nodiscard]] renderer::IRenderer& renderer() const;
-        [[nodiscard]] renderer::IImGuiRenderer& imgui_renderer() const;
+        [[nodiscard]] imgui::IImGuiRenderer& imgui_renderer() const;
         // Setters modules
         template<typename T> requires std::is_base_of_v<IModule, T>
         void set_module(std::unique_ptr<T> module = std::make_unique<T>());
@@ -55,7 +57,7 @@ namespace bnjkit::core {
         void set_event_manager(std::unique_ptr<event::IEventManager> event_manager);
         void set_engine(std::unique_ptr<engine::IEngine> engine);
         void set_renderer(std::unique_ptr<renderer::IRenderer> renderer);
-        void set_imgui_renderer(std::unique_ptr<renderer::IImGuiRenderer> imgui_renderer);
+        void set_imgui_renderer(std::unique_ptr<imgui::IImGuiRenderer> imgui_renderer);
         // Helpers
         /*!
          * Vérifie si tous les modules sont bien valide.
@@ -96,7 +98,7 @@ namespace bnjkit::core {
         std::unique_ptr<event::IEventManager> m_event_manager;
         std::unique_ptr<engine::IEngine> m_engine;
         std::unique_ptr<renderer::IRenderer> m_renderer;
-        std::unique_ptr<renderer::IImGuiRenderer> m_imgui_renderer;
+        std::unique_ptr<imgui::IImGuiRenderer> m_imgui_renderer;
         // Utils
         std::shared_ptr<spdlog::logger> m_logger;
     public:

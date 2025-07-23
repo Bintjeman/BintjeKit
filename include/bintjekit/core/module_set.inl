@@ -16,7 +16,7 @@ namespace bnjkit::core {
             return * static_cast<T*>(m_renderer.get());
         } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
             return * static_cast<T*>(m_engine.get());
-        } else if constexpr (std::is_base_of_v<renderer::IImGuiRenderer, T>) {
+        } else if constexpr (std::is_base_of_v<imgui::IImGuiRenderer, T>) {
             return * static_cast<T*>(m_imgui_renderer.get());
         }else if constexpr (std::is_base_of_v<event::IEventManager, T>) {
             return * static_cast<T*>(m_event_manager.get());
@@ -33,7 +33,7 @@ namespace bnjkit::core {
             return renderer();
         } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
             return engine();
-        } else if constexpr (std::is_base_of_v<renderer::IImGuiRenderer, T>) {
+        } else if constexpr (std::is_base_of_v<imgui::IImGuiRenderer, T>) {
             return imgui_renderer();
         }else if constexpr (std::is_base_of_v<event::IEventManager, T>) {
             return event_manager();
@@ -50,7 +50,7 @@ namespace bnjkit::core {
             set_renderer(std::move(module));
         } else if constexpr (std::is_base_of_v<engine::IEngine, T>) {
             set_engine(std::move(module));
-        } else if constexpr (std::is_base_of_v<renderer::IImGuiRenderer, T>) {
+        } else if constexpr (std::is_base_of_v<imgui::IImGuiRenderer, T>) {
             set_imgui_renderer(std::move(module));
         }else if constexpr (std::is_base_of_v<event::IEventManager, T>) {
             set_event_manager(std::move(module));

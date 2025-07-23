@@ -3,14 +3,14 @@
  * @date 15.06.25
  * @name bnjkit_imgui.cpp
  */
-#include "bintjekit/renderer/i_imgui_renderer.hpp"
+#include "bintjekit/imgui/i_imgui_renderer.hpp"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <imgui.h>
 #include <imgui-SFML.h>
 #include "bintjekit/logger.hpp"
 #include "bintjekit/core/module_set.hpp"
 #include "bintjekit/window/i_main_window.hpp"
-namespace bnjkit::renderer {
+namespace bnjkit::imgui {
     IImGuiRenderer::ImGuiContext::ImGuiContext(sf::RenderWindow* window) {
         if (!ImGui::SFML::Init(* window)) {
             throw std::runtime_error("IImGuiRenderer: Failed to initialise ImGui");

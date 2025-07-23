@@ -6,7 +6,7 @@
 #include "bintjekit/event_manager/i_event_manager.hpp"
 #include "bintjekit/logger.hpp"
 #include "bintjekit/core/module_set.hpp"
-#include "bintjekit/renderer/i_imgui_renderer.hpp"
+#include "bintjekit/imgui/i_imgui_renderer.hpp"
 
 namespace bnjkit::event {
     IEventManager::IEventManager(): m_modules(nullptr) {

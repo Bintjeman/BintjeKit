@@ -12,7 +12,7 @@
 #include <bintjekit/utils/time/time.hpp>
 #include <bintjekit/window/i_main_window.hpp>
 
-#include "bintjekit/renderer/i_imgui_renderer.hpp"
+#include "../../../../include/bintjekit/imgui/i_imgui_renderer.hpp"
 #include "engine/billard.hpp"
 
 namespace bil {
