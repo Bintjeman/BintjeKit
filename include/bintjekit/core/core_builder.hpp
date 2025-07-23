@@ -17,7 +17,7 @@ namespace bnjkit::core {
         ~CoreBuilder();
         /*!
          *
-         * @tparam T Le type hérité d'un des @see @ref requiered_modules "Liste des module requis"
+         * @tparam T Le type hérité d'un des @see @ref required_modules "Liste des module requis"
          * par bnjkit::core::Core
          *
          * @return Une référence vers CoreBuilder
