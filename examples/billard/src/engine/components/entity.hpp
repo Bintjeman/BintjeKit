@@ -10,5 +10,6 @@
 namespace bil::components {
     struct BallFlag {
     };
+    struct NeedsInitMark{};
 }
 #endif //ENTITY_HPP

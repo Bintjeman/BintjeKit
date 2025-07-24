@@ -23,7 +23,7 @@ namespace bil {
         bool m_show_controls_window = true;
         bool m_show_menu = true;
 #ifndef NDEBUG
-        bool m_show_demo_window = true;
+        bool m_show_demo_window = false;
 #endif
     };
 } // bil

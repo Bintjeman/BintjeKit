@@ -12,6 +12,7 @@
 #include "bintjekit/engine/play_ground.hpp"
 #include "components/entity.hpp"
 #include "components/position_component.hpp"
+#include "entity/ball_init_system.hpp"
 #include "entity/ball_prefab.hpp"
 
 namespace bil {
@@ -49,8 +50,11 @@ namespace bil {
         m_max_ball = m_custom_settings.get_or_set("/Rules/Maximum balls", 25ul);
         m_min_ball = m_custom_settings.get_or_set("/Rules/Minimum balls", 5ul);
         BallPrefab prefab_ball;
-        prefab_ball.initialise(* this, m_custom_settings.create_child("/Prefab ball"_json_pointer));
+        prefab_ball.initialise();
         register_prefab("aleaball", static_cast<bnjkit::ecs::PrefabData>(prefab_ball));
+        auto ball_init_system = std::make_unique<BallInitSystem>();
+        ball_init_system->configuration(* this, m_settings.create_child("/Ball init"));
+        m_gameplay_system_manager.add_system(std::move(ball_init_system), bnjkit::engine::GameplayPriority::INPUT);
         m_logger->debug("PlayGround configured with size: ({}, {})", size.x, size.y);
     }
     void Billard::add_ball() {
@@ -65,6 +69,7 @@ namespace bil {
             add_ball();
         }
         if (balls_view.size() > m_max_ball) {}
+        m_gameplay_system_manager.update(*this);
     }
 
     std::string Billard::name() const {

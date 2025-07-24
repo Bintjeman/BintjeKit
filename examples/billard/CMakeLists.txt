@@ -15,6 +15,8 @@ target_sources(${EXEC_NAME} PRIVATE
         # Renders Systems
         src/renderer/ball_renderer.cpp
         src/renderer/background_renderer.cpp
+        # Engine
+        src/engine/entity/ball_init_system.cpp
         # Prefab
         src/engine/entity/ball_prefab.cpp
         # Components
