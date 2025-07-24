@@ -29,10 +29,16 @@ namespace bnjkit::engine {
         return entt::null;
     }
     void IEngine::update() {}
+    IEngine::State IEngine::state() const {
+        return m_state;
+    }
     PlayGround& IEngine::play_ground() {
         return * m_play_ground;
     }
     const PlayGround& IEngine::play_ground() const {
         return * m_play_ground;
+    }
+    void IEngine::set_state(const State state) {
+        m_state = state;
     }
 }

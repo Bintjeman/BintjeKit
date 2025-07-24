@@ -19,11 +19,18 @@ namespace bnjkit::ecs {
     class PrefabData;
     class ISystem;
 }
+
 namespace bnjkit::engine {
     struct PlayGround;
 
     class IEngine : public core::IModule, public ecs::EntityManager {
     public:
+        enum class State {
+            READY,
+            RUNNING,
+            PAUSED,
+            CLOSED
+        };
         IEngine();
         ~IEngine() override;
 
@@ -34,14 +41,18 @@ namespace bnjkit::engine {
         entt::entity spawn(Components&&... components);
 
         virtual void update();
-
+        State state() const;
         [[nodiscard]] PlayGround& play_ground();
         [[nodiscard]] const PlayGround& play_ground() const;
 
+
     protected:
+        void set_state(State state);
+        State m_state{State::CLOSED};
         PhysicsSystemManager m_physics_system_manager;
         GameplaySystemManager m_gameplay_system_manager;
         std::unique_ptr<PlayGround> m_play_ground;
+
     private:
         std::unordered_map<std::string, ecs::PrefabData> m_prefabs;
         std::unique_ptr<ecs::EventBus> m_eventBus;
