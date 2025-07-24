@@ -7,4 +7,6 @@
 #include "bintjekit/engine/gameplay_system_manager.hpp"
 
 namespace bnjkit::engine {
+
+    GameplaySystemManager::~GameplaySystemManager() =default;
 }

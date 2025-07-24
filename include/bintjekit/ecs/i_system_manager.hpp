@@ -11,6 +11,9 @@
 #include <unordered_map>
 #include <vector>
 #include <spdlog/fwd.h>
+namespace bnjkit::engine {
+    class IEngine;
+}
 namespace bnjkit::ecs {
     /*!
      * Structure aidant la gestion des @ref bnjkit::ecs::ISystem avec des métadonnées utiles.
@@ -45,9 +48,9 @@ namespace bnjkit::ecs {
         virtual void clear();
         virtual void toggle_system(const std::string& name, bool enable);
         virtual SystemType& system(const std::string& name);
-        virtual const SystemType& system(const std::string name) const;
+        virtual const SystemType& system(std::string name) const;
         // Mise à jour
-        virtual void update();
+        virtual void update(engine::IEngine& engine);
 
     protected:
         std::map<PriorityType, std::vector<Entry> > m_systems;

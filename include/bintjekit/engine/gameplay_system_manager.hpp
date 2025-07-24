@@ -18,7 +18,7 @@ namespace bnjkit::engine {
     };
     class GameplaySystemManager : public ecs::SystemManager<ecs::ISystem, GameplayPriority> {
     public:
-        void process_game_logic(float deltaTime);
+        ~GameplaySystemManager() override;
     };
 }
 
