@@ -37,30 +37,23 @@ namespace nlohmann {
      * Convertit un sf::Color en object nlohmann::json et inversement.
      */
     template<>
-    struct adl_serializer<sf::Color> {
-        static void from_json(const json& j, sf::Color& c) {
-            c = sf::Color(
-                j.at("r").get<uint8_t>(),
-                j.at("g").get<uint8_t>(),
-                j.at("b").get<uint8_t>(),
-                j.contains("a") ? j.at("a").get<uint8_t>() : 255
-            );
-        }
-        static void to_json(json& j, const sf::Color& color) {
-            if (color.a != 255) {
-                j = {
-                    {"r", color.r},
-                    {"g", color.g},
-                    {"b", color.b},
-                    {"a", color.a}
-                };
+    struct nlohmann::adl_serializer<sf::Color> {
+        static void to_json(nlohmann::json& j, const sf::Color& c) {
+            if (c.a == 255) {
+                j = nlohmann::json::array({c.r, c.g, c.b});
             } else {
-                j = {
-                    {"r", color.r},
-                    {"g", color.g},
-                    {"b", color.b}
-                };
+                j = nlohmann::json::array({c.r, c.g, c.b, c.a});
             }
+        }
+
+        static void from_json(const nlohmann::json& j, sf::Color& c) {
+            if (!j.is_array() || (j.size() != 3 && j.size() != 4)) {
+                throw std::invalid_argument("Invalid color format");
+            }
+            c.r = j.at(0).get<uint8_t>();
+            c.g = j.at(1).get<uint8_t>();
+            c.b = j.at(2).get<uint8_t>();
+            c.a = (j.size() == 4) ? j.at(3).get<uint8_t>() : 255;
         }
     };
     /*!
@@ -86,6 +79,7 @@ namespace nlohmann {
         }
     };
 }
+
 /*!
  * Convertit un spdlog::level en object nlohmann::json et inversement.
  */

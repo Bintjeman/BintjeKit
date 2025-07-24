@@ -57,7 +57,7 @@ namespace bnjkit::conf {
             m_logger->warn("Use \"settings.json\"");
             p = "settings.json";
         }
-        std::string str = m_json->dump();
+        std::string str = m_json->dump(4);
         m_logger->trace("Saving settings to file: {}", p.string());
         m_logger->trace("Settings: {}", str);
         to_file(p, * m_json);
