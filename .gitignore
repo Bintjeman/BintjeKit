@@ -24,4 +24,7 @@ workdir/
 # Bintjekit
 bnjkit.log
 imgui.ini
-/examples/**/*.json
+examples/**/*.json
+examples/**/*.txt
+examples/**/*.ini
+examples/**/*.log
