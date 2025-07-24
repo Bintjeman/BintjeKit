@@ -32,6 +32,12 @@ namespace bnjkit::engine {
     void PlayGround::update() {
         m_ticks_counter++;
     }
+
+    void PlayGround::cleanup() {
+        m_logger->trace("Cleaning up PlayGround");
+        m_ticks_counter=0;
+    }
+
     long int PlayGround::ticks() const {
         return m_ticks_counter;
     }

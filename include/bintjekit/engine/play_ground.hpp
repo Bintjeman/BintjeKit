@@ -23,6 +23,7 @@ namespace bnjkit::engine {
         void initialise() const;
         void configure() const;
         void update();
+        void cleanup();
         [[nodiscard]] long int ticks() const;
         void set_bounds(const sf::Rect<float>& bounds);
         void set_bounds(const sf::Vector2f& position, const sf::Vector2f& size);
