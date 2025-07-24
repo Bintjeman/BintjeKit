@@ -17,6 +17,7 @@ namespace bil {
         m_logger->info("Application destroyed");
     }
     void Application::initialisation() {
+        bnjkit::logger::Logger::initialize();
         const auto settings = bnjkit::conf::Settings::create(std::filesystem::path("billard.json"));
         auto log_node = settings->create_child("/Log"_json_pointer);
         init_logger(log_node);

@@ -72,7 +72,6 @@ namespace bnjkit::core {
             auto& imgui_renderer = m_modules->imgui_renderer();
             auto& event_manager = m_modules->event_manager();
             if (m_window_pulser()) {
-                event_manager.process_events();
                 if (m_state == State::RUNNING && m_engine_pulser()) {
                     engine.update();
                 }
@@ -80,6 +79,7 @@ namespace bnjkit::core {
                     imgui_renderer.update();
                     renderer.render();
                 }
+                event_manager.process_events();
             }
         }
         m_modules->on_quit();

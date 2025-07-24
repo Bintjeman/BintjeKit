@@ -9,13 +9,17 @@
 #include "bintjekit/core/common.hpp"
 
 namespace bnjkit::logger {
-    std::filesystem::path Logger::s_log_path{"bnjlog.log"};
+    std::filesystem::path Logger::s_log_path{};
     std::unordered_map<std::string, std::shared_ptr<spdlog::logger> > Logger::s_loggers;
     std::vector<spdlog::sink_ptr> Logger::s_sinks;
     spdlog::level::level_enum Logger::s_default_level = spdlog::level::info;
     bool Logger::s_initialized = false;
     void Logger::initialize(const std::filesystem::path& default_path, const spdlog::level::level_enum& default_level) {
-        set_log_path(default_path);
+        if (default_path.empty()) {
+            set_log_path("bnjlog.log");
+        } else {
+            set_log_path(default_path);
+        }
         set_default_level(default_level);
         if (s_initialized) {
             s_loggers.at(literals::logger::LOG)->info("Logger already initialised");
