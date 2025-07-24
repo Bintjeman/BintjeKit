@@ -151,9 +151,9 @@ namespace bnjkit::core {
         m_logger->trace("Quitting modules");
         m_window->on_quit();
         m_event_manager->on_quit();
-        m_engine->on_quit();
         m_renderer->on_quit();
         m_imgui_renderer->on_quit();
+        m_engine->on_quit();
     }
 
     ModuleSet::ModuleSet(ModuleSet&& other) noexcept : m_window(std::move(other.m_window)),

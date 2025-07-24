@@ -100,7 +100,6 @@ namespace bnjkit::core {
         Core& operator=(const Core&) = delete;
 
         // Public static
-        static std::string state_to_string(State state);
     };
 }
 #endif //BNJKIT_CORE_CORE_HPP

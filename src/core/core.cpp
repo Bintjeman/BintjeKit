@@ -72,7 +72,7 @@ namespace bnjkit::core {
             auto& imgui_renderer = m_modules->imgui_renderer();
             auto& event_manager = m_modules->event_manager();
             if (m_window_pulser()) {
-                if (m_state == State::RUNNING && m_engine_pulser()) {
+                if (m_engine_pulser()) {
                     engine.update();
                 }
                 if (m_renderer_pulser()) {
@@ -132,13 +132,5 @@ namespace bnjkit::core {
     }
     void Core::save_settings() const {
         m_settings->save_to_file();
-    }
-    std::string Core::state_to_string(const State state) {
-        switch (state) {
-            case State::RUNNING: return "RUNNING";
-            case State::PAUSED: return "PAUSED";
-            case State::STOPPED: return "STOPPED";
-            default: return "UNKNOWN";
-        }
     }
 } // bnjkit
