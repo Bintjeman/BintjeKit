@@ -16,7 +16,7 @@ namespace bnjkit::engine {
         AI = 200,
         POST_UPDATE = 300
     };
-    class GameplaySystemManager : public ecs::SystemManager<ecs::ISystem, GameplayPriority> {
+    class GameplaySystemManager final : public ecs::SystemManager<ecs::ISystem, GameplayPriority> {
     public:
         ~GameplaySystemManager() override;
     };
